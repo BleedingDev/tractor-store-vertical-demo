@@ -1,0 +1,29 @@
+{
+  "decide": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "rozhodování",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Rozhodovací remote",
+    "product": {
+      "availability": "Dostupnost",
+      "eyebrow": "Detail stroje",
+      "inStock": "Skladem",
+      "lede": "Traktor připravený pro nakladač na krmivo, seno, štěrk a zimní údržbu cest.",
+      "power": "Výkon",
+      "price": "Cena"
+    }
+  }
+}

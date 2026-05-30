@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "environment": "development",
+  "preset": "presetUltramodern",
+  "ports": {
+    "shell-super-app": 3020,
+    "explore": 3021,
+    "decide": 3022,
+    "checkout": 3023
+  },
+  "manifests": {
+    "explore": "http://localhost:3021/mf-manifest.json",
+    "decide": "http://localhost:3022/mf-manifest.json",
+    "checkout": "http://localhost:3023/mf-manifest.json"
+  },
+  "apis": {
+    "explore": "http://localhost:3021/explore-api",
+    "decide": "http://localhost:3022/decide-api",
+    "checkout": "http://localhost:3023/checkout-api"
+  }
+}

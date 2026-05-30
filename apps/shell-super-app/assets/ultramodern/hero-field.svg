@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Tractor crossing cultivated fields">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#9fd6e8"/>
+      <stop offset="1" stop-color="#fff8dc"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#84ad58"/>
+      <stop offset="1" stop-color="#d6b85d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#sky)"/>
+  <path d="M0 566c172-78 330-102 474-72 125 26 219 91 340 106 170 21 339-74 626-43v343H0z" fill="url(#field)"/>
+  <path d="M0 686c205-70 451-66 738 12 287 77 521 66 702-33v235H0z" fill="#4f7f38" opacity=".55"/>
+  <g fill="none" stroke="#fff6b7" stroke-linecap="round" stroke-width="10" opacity=".55">
+    <path d="M108 820c205-138 382-202 530-192"/>
+    <path d="M322 862c176-134 338-198 486-193"/>
+    <path d="M583 886c119-121 260-190 422-207"/>
+    <path d="M868 878c95-94 207-153 336-176"/>
+  </g>
+  <g transform="translate(430 430)">
+    <circle cx="170" cy="210" r="92" fill="#161616"/>
+    <circle cx="170" cy="210" r="54" fill="#d7c46d"/>
+    <circle cx="514" cy="214" r="108" fill="#161616"/>
+    <circle cx="514" cy="214" r="63" fill="#d7c46d"/>
+    <path d="M194 142h194l72-100h114c49 0 89 39 89 88v57H625l-51-90H452l-78 114H209z" fill="#005f73"/>
+    <path d="M283 67h134l-54 73H249z" fill="#c9ecff" opacity=".72"/>
+    <path d="M120 184h430v54H120z" fill="#005f73"/>
+    <path d="M578 52l60-35M618 37l34 72" stroke="#171717" stroke-linecap="round" stroke-width="14"/>
+    <path d="M90 236h578" stroke="#171717" stroke-linecap="round" stroke-width="18"/>
+  </g>
+</svg>

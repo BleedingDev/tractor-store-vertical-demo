@@ -1,0 +1,34 @@
+{
+  "shell": {
+    "hero": {
+      "eyebrow": "Federated tractor commerce",
+      "lede": "A full-stack Micro Vertical reference where Explore, Decide, and Checkout ship independently but compose into one storefront.",
+      "primary": "View Field Loader",
+      "secondary": "Compare machines"
+    },
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "remotes": {
+      "checkout": "Checkout Vertical",
+      "decide": "Decide Vertical",
+      "explore": "Explore Vertical"
+    },
+    "boundaries": {
+      "checkout": "checkout",
+      "decide": "decide",
+      "explore": "explore",
+      "toggle": "show team boundaries"
+    },
+    "routes": {
+      "cart": "Cart",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Stores"
+    },
+    "title": "Acre & Iron"
+  }
+}

@@ -1,0 +1,49 @@
+# tractor-store-vertical-demo
+
+Generated UltraModern SuperApp workspace.
+
+This workspace keeps `presetUltramodern(...)` as the single public
+UltraModern.js 3.0 SuperApp surface and scaffolds the canonical Micro Vertical
+starter topology:
+
+- `apps/shell-super-app` owns shell route assembly and federated manifest wiring.
+- `verticals/commerce` owns the commerce vertical, its
+  browser-safe Module Federation exposes, and its Effect BFF/API surface.
+- `verticals/identity` owns the identity vertical, its
+  browser-safe Module Federation exposes, and its Effect BFF/API surface.
+- `verticals/design-system` owns the design-system vertical.
+- `packages/shared-*` provide placeholders for cross-workspace contracts.
+
+Default vertical APIs are owned by the vertical package.
+Each full-stack vertical keeps its `api/effect/index.ts` handlers next to its
+`shared/effect/api.ts` contract and `src/effect/*-client.ts` typed client
+surface. The Module Federation config exposes only browser-safe Route and
+Widget modules; server handlers and Effect client/contract modules stay out of
+browser verticals.
+
+Run the scaffold validator before adding business code:
+
+```bash
+mise install
+pnpm ultramodern:check
+```
+
+By default, `pnpm install` also prepares read-only agent reference repositories
+under `repos/` for Effect and UltraModern.js source lookup using squashed git
+subtrees. Disable this setup with
+`ULTRAMODERN_SKIP_AGENT_REPOS=1 pnpm install`, or rerun it
+explicitly with `pnpm agents:refs:install`.
+
+The topology and ownership metadata are generated under `topology/`. The
+workspace also ships `.github/workflows/ultramodern-workspace-gates.yml` and
+`.github/renovate.json` with read-only workflow permissions, commit-pinned
+actions, frozen installs, StepSecurity audit-mode runner hardening, dependency
+dashboard review, one-day release age, grouped updates, and manual approval for
+major upgrades.
+
+Package source metadata is generated at
+`.modernjs/ultramodern-package-source.json`. The default strategy keeps
+UltraModern.js runtime and tooling packages on `workspace:*` for monorepo
+development. To create a workspace that can install those packages outside the
+monorepo, generate with `--ultramodern-package-source install`; generated shared
+packages still use `workspace:*` because they are part of this workspace.

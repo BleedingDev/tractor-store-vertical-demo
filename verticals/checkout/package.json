@@ -1,0 +1,63 @@
+{
+  "private": true,
+  "name": "@tractor-store-vertical-demo/checkout",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "modern dev",
+    "build": "modern build && node ../../scripts/assert-mf-types.mjs",
+    "cloudflare:build": "MODERNJS_DEPLOY=cloudflare modern build && MODERNJS_DEPLOY=cloudflare modern deploy",
+    "cloudflare:deploy": "MODERNJS_DEPLOY=cloudflare modern deploy",
+    "cloudflare:preview": "MODERNJS_DEPLOY=cloudflare modern build && MODERNJS_DEPLOY=cloudflare modern deploy && wrangler dev --config .output/wrangler.json",
+    "cloudflare:proof": "node ../../scripts/proof-cloudflare-version.mjs --app checkout",
+    "serve": "modern serve",
+    "typecheck": "node -e \"const fs = require('node:fs'); const { execFileSync, spawnSync } = require('node:child_process'); const bin = execFileSync('effect-tsgo', ['get-exe-path'], { encoding: 'utf8' }).trim(); if (process.platform !== 'win32') fs.chmodSync(bin, 0o755); const result = spawnSync(bin, ['--noEmit', '-p', 'tsconfig.json'], { stdio: 'inherit' }); process.exit(result.status ?? 1);\""
+  },
+  "modernjs": {
+    "preset": "presetUltramodern",
+    "role": "module-federation-remote",
+    "appId": "checkout",
+    "topology": "../../topology/reference-topology.json",
+    "apiRuntime": "effect-bff"
+  },
+  "zephyr:dependencies": {},
+  "dependencies": {
+    "@modern-js/plugin-tanstack": "npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.58",
+    "@modern-js/plugin-i18n": "npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.58",
+    "@modern-js/runtime": "npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.58",
+    "@module-federation/modern-js-v3": "2.5.0",
+    "@module-federation/runtime": "2.5.0",
+    "@tanstack/react-router": "1.170.8",
+    "i18next": "26.2.0",
+    "node-fetch": "^3.3.2",
+    "@tractor-store-vertical-demo/shared-contracts": "workspace:*",
+    "@tractor-store-vertical-demo/shared-design-tokens": "workspace:*",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "7.16.0",
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.58"
+  },
+  "devDependencies": {
+    "@modern-js/app-tools": "npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.58",
+    "@effect/tsgo": "0.13.0",
+    "@tailwindcss/postcss": "^4.3.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.3.0",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "@types/node": "^20",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "typescript": "6.0.3",
+    "zephyr-rspack-plugin": "1.1.1",
+    "wrangler": "4.95.0"
+  },
+  "exports": {
+    "./AddToCart": "./src/components/add-to-cart.tsx",
+    "./CartPage": "./src/components/cart-page.tsx",
+    "./CheckoutPage": "./src/components/checkout-page.tsx",
+    "./MiniCart": "./src/components/mini-cart.tsx",
+    "./Route": "./src/federation-entry.tsx",
+    "./ThanksPage": "./src/components/thanks-page.tsx",
+    "./effect/client": "./src/effect/checkout-client.ts",
+    "./shared/effect/api": "./shared/effect/api.ts"
+  }
+}

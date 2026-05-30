@@ -1,0 +1,38 @@
+{
+  "explore": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "procházení",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Průzkumný remote",
+    "header": {
+      "machines": "Stroje",
+      "navigation": "Hlavní navigace",
+      "stores": "Prodejci"
+    },
+    "recommendations": {
+      "aiFirst": "AI varianta",
+      "bestRows": "Nejlepší do úzkých řádků",
+      "loaderReady": "Připraveno pro nakladač",
+      "title": "Porovnat alternativy",
+      "vineyard": "Profil pro vinice"
+    },
+    "stores": {
+      "northRegion": "Severní region",
+      "southRegion": "Jižní region",
+      "title": "Prodejci"
+    }
+  }
+}

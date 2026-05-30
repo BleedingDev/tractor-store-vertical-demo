@@ -1,0 +1,31 @@
+{
+  "checkout": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "pokladna",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Pokladní remote",
+    "actions": {
+      "addToCart": "Přidat do košíku",
+      "remove": "Odebrat",
+      "viewCart": "Zobrazit košík"
+    },
+    "cart": {
+      "empty": "Košík je prázdný.",
+      "title": "Váš košík",
+      "total": "Celkem"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "private": true,
+  "name": "tractor-store-vertical-demo",
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@11.5.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @tractor-store-vertical-demo/shell-super-app --filter @tractor-store-vertical-demo/explore --filter @tractor-store-vertical-demo/decide --filter @tractor-store-vertical-demo/checkout dev",
+    "dev:shell": "pnpm --filter @tractor-store-vertical-demo/shell-super-app dev",
+    "dev:explore": "pnpm --filter @tractor-store-vertical-demo/explore dev",
+    "dev:decide": "pnpm --filter @tractor-store-vertical-demo/decide dev",
+    "dev:checkout": "pnpm --filter @tractor-store-vertical-demo/checkout dev",
+    "build": "pnpm -r --filter \"./verticals/*\" run build && pnpm --filter \"./apps/shell-super-app\" run build && pnpm ultramodern:assert-mf-types",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "typecheck": "pnpm -r --filter \"@tractor-store-vertical-demo/*\" typecheck",
+    "cloudflare:build": "pnpm -r --filter \"./verticals/*\" run cloudflare:build && pnpm --filter \"./apps/shell-super-app\" run cloudflare:build && pnpm ultramodern:assert-mf-types",
+    "cloudflare:deploy": "pnpm -r --filter \"./verticals/*\" run cloudflare:deploy && pnpm --filter \"./apps/shell-super-app\" run cloudflare:deploy",
+    "cloudflare:proof": "node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json",
+    "skills:install": "node ./scripts/bootstrap-agent-skills.mjs",
+    "skills:check": "node ./scripts/bootstrap-agent-skills.mjs --check",
+    "agents:refs:install": "node ./scripts/setup-agent-reference-repos.mjs",
+    "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mjs --check",
+    "ultramodern:assert-mf-types": "node ./scripts/assert-mf-types.mjs",
+    "ultramodern:check": "node ./scripts/validate-ultramodern-workspace.mjs",
+    "postinstall": "node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm ultramodern:check"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=11.5.0 <11.6.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "verticals/*",
+    "packages/*"
+  ],
+  "modernjs": {
+    "preset": "presetUltramodern",
+    "workspace": "ultramodern-superapp",
+    "topology": "./topology/reference-topology.json",
+    "ownership": "./topology/ownership.json",
+    "packageSource": {
+      "strategy": "install",
+      "config": "./.modernjs/ultramodern-package-source.json"
+    }
+  },
+  "devDependencies": {
+    "@effect/tsgo": "0.13.0",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "lefthook": "^2.1.9",
+    "oxlint": "1.66.0",
+    "oxfmt": "0.51.0",
+    "ultracite": "7.7.0",
+    "wrangler": "4.95.0",
+    "zephyr-agent": "1.1.1"
+  }
+}
