@@ -1,0 +1,29 @@
+---
+title: 国际化
+---
+
+# 国际化
+
+import I18nPluginIntroduce from '@site-docs/components/international/introduce';
+
+<I18nPluginIntroduce />
+
+## 从哪里开始？
+
+| 想做的事 | 文档 |
+| --- | --- |
+| 首次接入，跑通示例 | [快速开始](./international/quick-start.md) |
+| 了解完整的配置选项 | [配置说明](./international/configuration.md) |
+| 根据 URL / Cookie / Header 自动判断语言 | [语言检测](./international/locale-detection.md) |
+| 实现 `/en/about` 这类带语言前缀的路径 | [路由集成](./international/routing.md) |
+| 从远程服务或平台加载翻译资源 | [资源加载 → 自定义后端](./international/resource-loading.md#sdk-后端) |
+| SSR 场景、多入口、自定义实例 | [高级用法](./international/advanced.md) |
+| 查询 Hook / 组件 / 类型定义 | [API 参考](./international/api.md) |
+
+## 核心能力
+
+- **语言检测**：支持 URL 路径、Cookie、LocalStorage、请求头、浏览器设置等多种检测方式，可自由组合优先级
+- **资源加载**：支持 HTTP 静态文件、文件系统（SSR）、SDK 自定义函数三种后端，以及链式后端渐进加载
+- **路由集成**：自动添加语言路径前缀（`/en/about`），提供 `I18nLink` 组件处理语言感知导航
+- **SSR 支持**：服务端检测语言并注入到页面，客户端直接使用，避免语言闪烁
+- **TypeScript 支持**：完整类型定义，支持翻译键类型安全检查

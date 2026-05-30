@@ -1,0 +1,80 @@
+{
+  "name": "@modern-js/plugin-data-loader",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/cli/plugin-data-loader"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "types": "./src/runtime/index.ts",
+  "main": "./dist/cjs/runtime/index.js",
+  "exports": {
+    "./loader": {
+      "types": "./dist/types/cli/loader.d.ts",
+      "default": "./dist/cjs/cli/loader.js"
+    },
+    "./runtime": {
+      "types": "./dist/types/runtime/index.d.ts",
+      "default": "./dist/esm/runtime/index.mjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "loader": [
+        "./dist/types/cli/loader.d.ts"
+      ],
+      "runtime": [
+        "./dist/types/runtime/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "prepublishOnly": "only-allow-pnpm",
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "test": "rstest --passWithNoTests"
+  },
+  "dependencies": {
+    "@modern-js/runtime-utils": "workspace:*",
+    "@modern-js/utils": "workspace:*",
+    "@swc/helpers": "^0.5.21",
+    "path-to-regexp": "^8.4.2"
+  },
+  "devDependencies": {
+    "@modern-js/rslib": "workspace:*",
+    "@modern-js/server-core": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "@rsbuild/core": "2.0.7",
+    "@rslib/core": "0.21.5",
+    "@scripts/rstest-config": "workspace:*",
+    "@types/node": "^25.9.1",
+    "@types/supertest": "^7.2.0",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "memfs": "^4.57.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "supertest": "^7.2.2"
+  },
+  "peerDependencies": {
+    "react": "^19.2.6"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/runtime/index.d.ts"
+  }
+}

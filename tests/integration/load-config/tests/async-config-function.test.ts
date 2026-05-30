@@ -1,0 +1,16 @@
+import { existsSync } from 'fs';
+import path from 'path';
+import { modernBuild } from '../../../utils/modernTestUtils';
+
+const fixtures = path.resolve(__dirname, '../fixtures');
+
+describe('local config', () => {
+  test(`should allow config file to export an async function`, async () => {
+    const appDir = path.resolve(fixtures, 'async-config-function');
+    await modernBuild(appDir);
+
+    expect(
+      existsSync(path.join(appDir, 'dist/foo/html/index/index.html')),
+    ).toBeTruthy();
+  });
+});

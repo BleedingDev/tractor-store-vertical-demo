@@ -1,0 +1,117 @@
+Modern.js 提供了 `@modern-js/create` 工具来创建项目，不需要全局安装，直接使用 `npx` 按需运行即可。
+
+你可以在已有的空目录来创建项目：
+
+```bash
+mkdir myapp && cd myapp
+npx @modern-js/create@latest
+```
+
+也可以直接用新目录创建项目：
+
+```bash
+npx @modern-js/create@latest myapp
+```
+
+初始化 TanStack Router 模板：
+
+```bash
+npx @modern-js/create@latest myapp --router tanstack
+```
+
+默认会初始化 Tailwind CSS v4 模板。如需关闭：
+
+```bash
+npx @modern-js/create@latest myapp --no-tailwind
+```
+
+初始化 TanStack Router，并使用默认 Tailwind CSS v4 模板：
+
+```bash
+npx @modern-js/create@latest myapp --router tanstack
+```
+
+初始化当前默认运行时的 BFF 模板：
+
+```bash
+npx @modern-js/create@latest myapp --bff
+```
+
+初始化带 Effect HttpApi 运行时的 BFF 模板：
+
+```bash
+npx @modern-js/create@latest myapp --bff-runtime effect
+```
+
+初始化带 Hono 运行时的 BFF 模板：
+
+```bash
+npx @modern-js/create@latest myapp --bff-runtime hono
+```
+
+使用 workspace 协议依赖初始化（用于在本地 monorepo 中联调未发布的 Modern.js 包）：
+
+```bash
+npx @modern-js/create@latest myapp --router tanstack --bff-runtime effect --workspace
+```
+
+`@modern-js/create` 会直接创建应用，不再提供问答界面：
+
+```bash
+🚀 欢迎使用 Modern.js
+
+📦 正在创建项目 "myapp"...
+
+✨ 项目创建成功！🎉
+
+📋 接下来你可以执行以下命令：
+
+📁 进入项目目录：
+
+  cd myapp
+
+🔧 初始化 Git 仓库：
+
+  git init
+
+📥 安装项目依赖：
+
+  pnpm install
+
+⚡ 启动开发服务器：
+
+  pnpm start
+```
+
+现在，项目结构如下：
+
+```
+.
+├── biome.json
+├── modern.config.ts
+├── package.json
+├── README.md
+├── src
+│   ├── modern-app-env.d.ts
+│   ├── modern.runtime.ts
+│   └── routes
+│       ├── index.css
+│       ├── layout.tsx
+│       └── page.tsx
+└── tsconfig.json
+```
+
+默认会生成 Tailwind CSS v4；传入 `--no-tailwind` 时会省略 `postcss.config.mjs`、`tailwind.config.ts` 和 Tailwind 导入。
+
+当启用 `--bff` 或 `--bff-runtime effect` 时，会在 `modern.config.ts` 中启用 `@modern-js/plugin-bff`，生成 `api/effect/index.ts` 与 `shared/effect/api.ts`，并将 `bff.runtimeFramework` 设置为 `effect`。
+当启用 `--bff-runtime hono` 时，会在 `modern.config.ts` 中启用 `@modern-js/plugin-bff`，生成 `api/lambda/hello.ts`，并将 `bff.runtimeFramework` 设置为 `hono`。
+当启用 `--workspace` 时，`@modern-js/*` 依赖会使用 `workspace:*` 版本，便于本地 monorepo 联调。
+
+如果你需要公开的 UltraModern.js SuperApp 路径，请使用 BleedingDev create 包。
+它默认生成规范的 Effect + TanStack + SSR + Micro Verticals workspace，并使用已发布的 BleedingDev 包别名：
+
+```bash
+pnpm dlx @bleedingdev/modern-js-create myapp
+```
+
+底层 `--ultramodern-*` 参数只保留给发布工程和本地包源测试使用。

@@ -1,0 +1,16 @@
+{
+  "extends": "@modern-js/tsconfig/base",
+  "compilerOptions": {
+    "declaration": false,
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "rootDir": "../../../../",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"],
+      "@api/*": ["./api/*"]
+    },
+    "types": ["@rstest/core/globals"]
+  },
+  "include": ["src", "shared", "server", "config", "api", "modern.config.ts"]
+}

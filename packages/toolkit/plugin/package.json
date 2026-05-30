@@ -1,0 +1,112 @@
+{
+  "name": "@modern-js/plugin",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/toolkit/plugin"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "types": "./src/index.ts",
+  "main": "./dist/cjs/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "modern:source": "./src/index.ts",
+      "node": {
+        "module": "./dist/esm/index.mjs",
+        "import": "./dist/esm-node/index.mjs",
+        "require": "./dist/cjs/index.js"
+      },
+      "default": "./dist/esm/index.mjs"
+    },
+    "./run": {
+      "types": "./dist/types/cli/run/index.d.ts",
+      "modern:source": "./src/cli/run/index.ts",
+      "node": {
+        "import": "./dist/esm-node/cli/run/index.mjs",
+        "require": "./dist/cjs/cli/run/index.js"
+      },
+      "default": "./dist/cjs/cli/run/index.js"
+    },
+    "./cli": {
+      "types": "./dist/types/cli/index.d.ts",
+      "modern:source": "./src/cli/index.ts",
+      "node": {
+        "import": "./dist/esm-node/cli/index.mjs",
+        "require": "./dist/cjs/cli/index.js"
+      },
+      "default": "./dist/cjs/cli/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/types/runtime/index.d.ts",
+      "modern:source": "./src/runtime/index.tsx",
+      "default": "./dist/esm/runtime/index.mjs"
+    },
+    "./server": {
+      "types": "./dist/types/server/index.d.ts",
+      "modern:source": "./src/server/index.ts",
+      "node": {
+        "import": "./dist/esm-node/server/index.mjs",
+        "require": "./dist/cjs/server/index.js"
+      },
+      "default": "./dist/cjs/server/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.ts"
+      ],
+      "run": [
+        "./dist/types/cli/run/index.d.ts"
+      ],
+      "cli": [
+        "./dist/types/cli/index.d.ts"
+      ],
+      "runtime": [
+        "./dist/types/runtime/index.d.ts"
+      ],
+      "server": [
+        "./dist/types/server/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "prepublishOnly": "only-allow-pnpm",
+    "dev": "rslib build --watch",
+    "build": "rslib build",
+    "test": "rstest"
+  },
+  "dependencies": {
+    "@modern-js/runtime-utils": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "@modern-js/utils": "workspace:*",
+    "@rsbuild/core": "2.0.7",
+    "@swc/helpers": "^0.5.21",
+    "jiti": "^2.7.0"
+  },
+  "devDependencies": {
+    "@modern-js/builder": "workspace:*",
+    "@modern-js/rslib": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/index.d.ts"
+  }
+}

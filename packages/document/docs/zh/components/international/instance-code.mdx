@@ -1,0 +1,16 @@
+创建 `src/modern.runtime.ts`：
+
+```ts
+import { defineRuntimeConfig } from '@modern-js/runtime';
+import i18next from 'i18next';
+
+// i18next 默认导出一个全局单例，多个应用共用会互相影响。
+// createInstance() 创建独立实例，确保每个应用有独立的语言状态。
+const i18nInstance = i18next.createInstance();
+
+export default defineRuntimeConfig({
+  i18n: {
+    i18nInstance,
+  },
+});
+```

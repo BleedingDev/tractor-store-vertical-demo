@@ -1,0 +1,175 @@
+{
+  "name": "@modern-js/utils",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/toolkit/utils"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "types": "./src/index.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.mjs",
+  "_comment": "Provide ESM and CJS exports, ESM is used by runtime package, for treeshaking",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "node": {
+        "import": "./dist/esm-node/index.mjs",
+        "require": "./dist/cjs/index.js"
+      },
+      "default": "./dist/cjs/index.js"
+    },
+    "./universal": {
+      "types": "./dist/types/universal/index.d.ts",
+      "node": {
+        "module": "./dist/esm/universal/index.mjs",
+        "import": "./dist/esm-node/universal/index.mjs",
+        "require": "./dist/cjs/universal/index.js"
+      },
+      "default": "./dist/esm/universal/index.mjs"
+    },
+    "./universal/constants": {
+      "types": "./dist/types/universal/constants.d.ts",
+      "node": {
+        "module": "./dist/esm/universal/constants.mjs",
+        "import": "./dist/esm-node/universal/constants.mjs",
+        "require": "./dist/cjs/universal/constants.js"
+      },
+      "default": "./dist/esm/universal/constants.mjs"
+    },
+    "./commander": {
+      "import": "./dist/compiled/commander/index.mjs",
+      "default": "./dist/compiled/commander/index.js"
+    },
+    "./ora": "./dist/compiled/ora/index.js",
+    "./glob": "./dist/compiled/glob/index.js",
+    "./chalk": "./dist/compiled/chalk/index.js",
+    "./execa": "./dist/compiled/execa/index.js",
+    "./json5": "./dist/compiled/json5/index.js",
+    "./semver": "./dist/compiled/semver/index.js",
+    "./lodash": {
+      "import": "./dist/compiled/lodash/index.mjs",
+      "default": "./dist/compiled/lodash/index.js"
+    },
+    "./globby": "./dist/compiled/globby/index.js",
+    "./fs-extra": "./dist/compiled/fs-extra/index.js",
+    "./fast-glob": "./dist/compiled/fast-glob/index.js",
+    "./gzip-size": "./dist/compiled/gzip-size/index.js",
+    "./mime-types": "./dist/compiled/mime-types/index.js",
+    "./strip-ansi": "./dist/compiled/strip-ansi/index.js",
+    "./browserslist": "./dist/compiled/browserslist/index.js",
+    "./tsconfig-paths": {
+      "import": "./dist/compiled/tsconfig-paths/index.mjs",
+      "default": "./dist/compiled/tsconfig-paths/index.js"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/index.d.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "universal": [
+        "./dist/types/universal/index.d.ts"
+      ],
+      "universal/constants": [
+        "./dist/types/universal/constants.d.ts"
+      ],
+      "execa": [
+        "./dist/compiled/execa/index.d.ts"
+      ],
+      "glob": [
+        "./dist/compiled/glob/index.d.ts"
+      ],
+      "chalk": [
+        "./dist/compiled/chalk/index.d.ts"
+      ],
+      "json5": [
+        "./dist/compiled/json5/index.d.ts"
+      ],
+      "semver": [
+        "./dist/compiled/semver/index.d.ts"
+      ],
+      "lodash": [
+        "./dist/compiled/lodash/index.d.ts"
+      ],
+      "globby": [
+        "./dist/compiled/globby/index.d.ts"
+      ],
+      "fs-extra": [
+        "./dist/compiled/fs-extra/index.d.ts"
+      ],
+      "fast-glob": [
+        "./dist/compiled/fast-glob/index.d.ts"
+      ],
+      "gzip-size": [
+        "./dist/compiled/gzip-size/index.d.ts"
+      ],
+      "mime-types": [
+        "./dist/compiled/mime-types/index.d.ts"
+      ],
+      "strip-ansi": [
+        "./dist/compiled/strip-ansi/index.d.ts"
+      ],
+      "browserslist": [
+        "./dist/compiled/browserslist/index.d.ts"
+      ],
+      "tsconfig-paths": [
+        "./dist/compiled/tsconfig-paths/lib/index.d.ts"
+      ],
+      "commander": [
+        "./dist/compiled/commander/typings/index.d.ts"
+      ],
+      "ora": [
+        "./dist/compiled/ora/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "prepublishOnly": "only-allow-pnpm",
+    "dev": "rslib build --watch",
+    "build": "rslib build",
+    "test": "rstest --passWithNoTests"
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.5.21",
+    "caniuse-lite": "^1.0.30001793",
+    "import-meta-resolve": "^4.2.0",
+    "lodash": "^4.18.1",
+    "lodash-es": "^4.18.1",
+    "rslog": "^2.1.1"
+  },
+  "devDependencies": {
+    "@modern-js/rslib": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@scripts/rstest-config": "workspace:*",
+    "@types/node": "^25.9.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "happy-dom": "^20.9.0"
+  },
+  "peerDependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "sideEffects": false
+}

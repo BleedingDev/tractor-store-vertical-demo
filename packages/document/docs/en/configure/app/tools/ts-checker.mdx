@@ -1,0 +1,56 @@
+---
+title: tsChecker
+---
+
+# tools.tsChecker
+
+- **Type:** `Object | Function`
+- **Default:**
+
+```js
+const defaultOptions = {
+  typescript: {
+    // avoid OOM issue
+    memoryLimit: 8192,
+    // use tsconfig of user project
+    configFile: tsconfigPath,
+    // use TS-Go native preview of user project
+    typescriptPath: require.resolve('@typescript/native-preview/package.json'),
+  },
+  issue: {
+    exclude: [
+      { file: '**/*.(spec|test).ts' },
+      { file: '**/node_modules/**/*' },
+    ],
+  },
+  logger: {
+    log() {
+      // do nothing
+      // we only want to display error messages
+    },
+    error(message: string) {
+      console.error(message.replace(/ERROR/g, 'Type Error'));
+    },
+  },
+},
+```
+
+By default, Modern.js type checking is aligned with the TS-Go native preview used by this fork. You can use `output.disableTsChecker` config to disable build-time checking.
+
+## Example
+
+When the value of `tsChecker` is of type Object, it will be deeply merged with the default configuration.
+
+```ts
+export default {
+  tools: {
+    tsChecker: {
+      issue: {
+        exclude: [({ file = '' }) => /[\\/]some-folder[\\/]/.test(file)],
+      },
+    },
+  },
+};
+```
+
+> This fork keeps the TypeScript toolchain on `@typescript/native-preview` / `tsgo`; do not install the classic `typescript` compiler for application type checking.

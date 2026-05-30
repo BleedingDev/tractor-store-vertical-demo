@@ -1,0 +1,89 @@
+import path, { join } from 'path';
+import puppeteer, { type Browser, type Page } from 'puppeteer';
+import {
+  getPort,
+  killApp,
+  launchApp,
+  launchOptions,
+} from '../../../utils/modernTestUtils';
+import { expectPageToMatchTextContent } from '../../../utils/rstestPuppeteer';
+
+const fixtureDir = path.resolve(__dirname, '../fixtures');
+
+async function basicUsage(page: Page, appPort: number) {
+  await page.goto(`http://localhost:${appPort}/user/1`, {
+    waitUntil: ['networkidle0'],
+  });
+  await expectPageToMatchTextContent(page, 'user1-18');
+}
+
+async function errorThrown(page: Page, appPort: number) {
+  await page.goto(`http://localhost:${appPort}/error`, {
+    waitUntil: ['networkidle0'],
+  });
+
+  await expectPageToMatchTextContent(page, /error occurs/);
+}
+
+async function errorThrownInClientNavigation(page: Page, appPort: number) {
+  await page.goto(`http://localhost:${appPort}`, {
+    waitUntil: ['networkidle0'],
+  });
+
+  await page.click('#error-btn');
+  await page.waitForSelector('.error');
+  const element = await page.$('.error');
+  const elementContent = await page.evaluate(el => el?.textContent, element);
+  expect(elementContent).toMatchSnapshot();
+}
+
+async function redirectInLoader(page: Page, appPort: number) {
+  const res = await page.goto(`http://localhost:${appPort}/redirect`, {
+    waitUntil: ['networkidle0'],
+  });
+
+  const body = await res!.text();
+  expect(body).toMatch(/Root layout/);
+  expect(body).not.toMatch(/Redirect page/);
+}
+
+describe('Traditional SSR in json data', () => {
+  let app: any;
+  let appPort: number;
+  let page: Page;
+  let browser: Browser;
+
+  beforeAll(async () => {
+    const appDir = join(fixtureDir, 'base-json');
+    appPort = await getPort();
+    app = await launchApp(appDir, appPort, {});
+
+    browser = await puppeteer.launch(launchOptions as any);
+    page = await browser.newPage();
+  });
+
+  afterAll(async () => {
+    if (browser) {
+      await browser.close();
+    }
+    if (app) {
+      await killApp(app);
+    }
+  });
+
+  test(`basic usage`, async () => {
+    await basicUsage(page, appPort);
+  });
+
+  test('error thrown in loader', async () => {
+    await errorThrown(page, appPort);
+  });
+
+  test('error thrown in client navigation', async () => {
+    await errorThrownInClientNavigation(page, appPort);
+  });
+
+  test('redirect in loader', async () => {
+    await redirectInLoader(page, appPort);
+  });
+});

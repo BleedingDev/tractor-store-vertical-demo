@@ -1,0 +1,23 @@
+{
+  "name": "@modern-js/rslib",
+  "private": true,
+  "version": "2.68.10",
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "dev": "rslib build --watch",
+    "build": "rslib build && pnpm -w tsgo:dts \"$PWD\""
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/cjs/index.js"
+    }
+  },
+  "devDependencies": {
+    "@rsbuild/plugin-react": "2.0.0",
+    "@rslib/core": "0.21.5",
+    "@types/node": "^25.9.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "extends": "@modern-js/tsconfig/base",
+  "compilerOptions": {
+    "declaration": false,
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["./shared/*"]
+    },
+    "rootDir": "./src"
+  },
+  "include": ["src", "shared", "config"]
+}

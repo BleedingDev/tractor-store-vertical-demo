@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "access": "restricted",
+  "baseBranch": "main",
+  "fixed": [["@modern-js/*"]],
+  "updateInternalDependencies": "patch",
+  "snapshot": {
+    "prereleaseTemplate": "{tag}-{datetime}"
+  },
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  },
+  "ignore": []
+}

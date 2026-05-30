@@ -1,0 +1,210 @@
+import { Helmet } from '@modern-js/runtime/head';
+import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import { useLocation } from '{{routerRuntimeImport}}';
+{{#if useEffectBff}}import effectBff from '@api/effect/index';
+import { Effect } from '@modern-js/plugin-bff/effect-client';
+import { useEffect, useState } from 'react';
+{{/if}}
+import { useTranslation } from 'react-i18next';
+
+const fallbackLanguage = 'en';
+const supportedLanguages = ['en', 'cs'] as const;
+type SupportedLanguage = (typeof supportedLanguages)[number];
+
+const isSupportedLanguage = (value: string): value is SupportedLanguage =>
+  supportedLanguages.includes(value as SupportedLanguage);
+
+const stripLanguagePrefix = (pathname: string) => {
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length > 0 && isSupportedLanguage(segments[0] ?? '')) {
+    segments.shift();
+  }
+  return `/${segments.join('/')}`;
+};
+
+const localizedPath = (pathname: string, language: SupportedLanguage) => {
+  const pathWithoutLanguage = stripLanguagePrefix(pathname);
+  return pathWithoutLanguage === '/' ? `/${language}` : `/${language}${pathWithoutLanguage}`;
+};
+
+const absoluteUrl = (pathname: string) => {
+  const origin = ULTRAMODERN_SITE_URL.replace(/\/+$/u, '');
+  return `${origin}${pathname}`;
+};
+
+const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?: unknown }) => {
+  const { hash, search, searchStr } = location;
+  let locationSearch = '';
+  if (typeof searchStr === 'string') {
+    locationSearch = searchStr;
+  } else if (typeof search === 'string') {
+    locationSearch = search;
+  }
+  const locationHash = typeof hash === 'string' ? hash : '';
+  return `${locationSearch}${locationHash}`;
+};
+
+const Index = () => {
+  const { t } = useTranslation();
+  const { language } = useModernI18n();
+  const location = useLocation();
+  const currentLanguage = isSupportedLanguage(language) ? language : fallbackLanguage;
+  const canonicalPath = localizedPath(location.pathname, currentLanguage);
+  const suffix = locationSuffix(location);
+  const languageOptions = supportedLanguages.map((code) => ({
+    code,
+    href: `${localizedPath(location.pathname, code)}${suffix}`,
+    label: t(`home.language.${code}`),
+  }));
+{{#if useEffectBff}}  const [effectMessage, setEffectMessage] = useState('loading...');
+
+  useEffect(() => {
+    let mounted = true;
+    Effect.runFork(
+      Effect.promise(() => effectBff.client.greetings.hello({})).pipe(
+        Effect.tap((data) =>
+          Effect.sync(() => {
+            if (mounted) {
+              setEffectMessage(data.message);
+            }
+          }),
+        ),
+      ),
+    );
+    return () => {
+      mounted = false;
+    };
+  }, []);
+{{/if}}
+  return (
+    <div className="container-box">
+      <Helmet>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="https://lf3-static.bytednsdoc.com/obj/eden-cn/uhbfnupenuhf/favicon.ico"
+        />
+        <link rel="canonical" href={absoluteUrl(canonicalPath)} />
+        {supportedLanguages.map((code) => (
+          <link
+            href={absoluteUrl(localizedPath(location.pathname, code))}
+            hrefLang={code}
+            key={code}
+            rel="alternate"
+          />
+        ))}
+        <link
+          href={absoluteUrl(localizedPath(location.pathname, fallbackLanguage))}
+          hrefLang="x-default"
+          rel="alternate"
+        />
+      </Helmet>
+      <main>
+        <nav className="language-switcher" aria-label={t('home.language.switcher')}>
+          {languageOptions.map((option) => (
+            <a
+              aria-current={currentLanguage === option.code ? 'page' : undefined}
+              href={option.href}
+              key={option.code}
+            >
+              {option.label}
+            </a>
+          ))}
+        </nav>
+        <div className="title">
+          {t('home.title')}
+          <img
+            alt={t('home.logoAlt')}
+            className="logo"
+            src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/modern-js-logo.svg"
+          />
+          <p className="name">{t('home.name')}</p>
+        </div>
+        <p className="description{{#if enableTailwind}} text-emerald-700 font-semibold{{/if}}">
+          {t('home.description.intro')} <code className="code">presetUltramodern(...)</code>{' '}
+          {/* i18n-ignore technical token */}
+          {t('home.description.afterPreset')}
+          <code className="code">modern.config.ts</code>
+          {/* i18n-ignore technical token */}
+          {t('home.description.afterConfig')}
+          <code className="code">pnpm run ultramodern:check</code>
+          {/* i18n-ignore technical token */}
+          {t('home.description.end')}
+        </p>
+{{#if useEffectBff}}
+        <p className="description effect-message{{#if enableTailwind}} text-emerald-700 font-semibold{{/if}}">
+          {t('home.bff.response')} <code className="code">{effectMessage}</code>
+        </p>
+{{/if}}
+        <div className="grid">
+          <a
+            href="https://bleedingdev.github.io/ultramodern.js/guides/get-started/ultramodern.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card"
+          >
+            <h2>
+              {t('home.cards.guide.title')}
+              <img
+                alt=""
+                className="arrow-right"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
+              />
+            </h2>
+            <p>{t('home.cards.guide.body')}</p>
+          </a>
+          <a
+            href="https://bleedingdev.github.io/ultramodern.js/configure/app/usage.html"
+            target="_blank"
+            className="card"
+            rel="noreferrer"
+          >
+            <h2>
+              {t('home.cards.config.title')}
+              <img
+                alt=""
+                className="arrow-right"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
+              />
+            </h2>
+            <p>{t('home.cards.config.body')}</p>
+          </a>
+          <a
+            href="https://github.com/BleedingDev/ultramodern.js/blob/main-ultramodern/packages/toolkit/create/template/.github/workflows/ultramodern-gates.yml.handlebars"
+            target="_blank"
+            className="card"
+            rel="noreferrer"
+          >
+            <h2>
+              {t('home.cards.gates.title')}
+              <img
+                alt=""
+                className="arrow-right"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
+              />
+            </h2>
+            <p>{t('home.cards.gates.body')}</p>
+          </a>
+          <a
+            href="https://bleedingdev.github.io/ultramodern.js/configure/app/bff/effect.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card"
+          >
+            <h2>
+              {t('home.cards.bff.title')}
+              <img
+                alt=""
+                className="arrow-right"
+                src="https://lf3-static.bytednsdoc.com/obj/eden-cn/zq-uylkvT/ljhwZthlaukjlkulzlp/arrow-right.svg"
+              />
+            </h2>
+            <p>{t('home.cards.bff.body')}</p>
+          </a>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default Index;

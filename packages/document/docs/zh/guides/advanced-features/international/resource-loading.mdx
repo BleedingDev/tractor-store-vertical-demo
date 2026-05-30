@@ -1,0 +1,155 @@
+---
+title: 资源加载
+---
+# 资源加载
+
+翻译文件的加载方式取决于你的翻译资源放在哪里：
+
+| 场景 | 加载方式 |
+| --- | --- |
+| 翻译文件放在项目本地 | 静态文件后端（本篇默认方式） |
+| 翻译来自远程 API、翻译平台 | 自定义后端 |
+| 两者都要：本地兜底 + 远程实时更新 | 链式后端 |
+
+## 静态文件后端
+
+把翻译文件放在项目里，插件直接加载。这是最常见的方式。
+
+**CSR 和 SSR 的加载机制不同，但配置完全一样：**
+- CSR：浏览器通过 HTTP 请求拉取翻译文件（如 `GET /locales/zh/translation.json`）
+- SSR：服务端直接从磁盘读取文件，不走 HTTP
+
+插件会根据运行环境自动选择，你只需要配置一次 `loadPath`。
+
+**资源文件位置：**
+
+```
+config/public/locales/    ← 默认位置，无需额外配置
+├── en/translation.json
+└── zh/translation.json
+```
+
+```ts
+// modern.config.ts
+export default defineConfig({
+  plugins: [
+    appTools(),
+    i18nPlugin({
+      backend: {
+        // `{{lng}}` 对应语言代码，`{{ns}}` 对应命名空间名称。
+        // SSR 时插件会自动将路径中的 `/` 前缀转换为相对路径后进行文件读取，无需额外处理。
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
+      },
+    }),
+  ],
+});
+```
+
+如果想放在其他目录，通过 `server.publicDir` 指定。其中，**`server.publicDir` 和 `backend.loadPath` 的关系：**
+
+- `server.publicDir`：决定哪个本地目录被暴露为静态资源，即文件放在哪里
+- `backend.loadPath`：决定 i18next 请求哪个 URL 去加载翻译文件，或者服务端从哪个路径去读取文件
+
+## 自定义后端
+
+翻译资源不在本地文件，而是来自远程 API、数据库或翻译平台时，通过一个异步函数来加载。
+
+**第一步：在 `modern.config.ts` 中声明启用**
+
+```ts
+i18nPlugin({
+  backend: {
+    sdk: true,
+  },
+});
+```
+
+**第二步：在 `modern.runtime.ts` 中实现加载函数**
+
+```ts
+import { defineRuntimeConfig } from '@modern-js/runtime';
+import type { I18nSdkLoader } from '@modern-js/plugin-i18n/runtime';
+
+const myLoader: I18nSdkLoader = async options => {
+  // 最常用：按语言 + 命名空间加载单个资源
+  if (options.lng && options.ns) {
+    const res = await fetch(`/api/i18n/${options.lng}/${options.ns}`);
+    const data = await res.json();
+    return { [options.lng]: { [options.ns]: data } };
+  }
+
+  // 一次性加载所有资源
+  if (options.all) {
+    const res = await fetch('/api/i18n/all');
+    return res.json(); // 格式：{ en: { translation: {...} }, zh: { translation: {...} } }
+  }
+
+  return {};
+};
+
+export default defineRuntimeConfig({
+  i18n: {
+    initOptions: {
+      backend: { sdk: myLoader },
+    },
+  },
+});
+```
+
+**加载函数的参数类型：**
+
+```ts
+interface I18nSdkLoadOptions {
+  lng?: string;      // 单个语言代码
+  ns?: string;       // 单个命名空间
+  lngs?: string[];   // 多个语言代码
+  nss?: string[];    // 多个命名空间
+  all?: boolean;     // 加载所有资源
+}
+```
+
+使用自定义后端时，翻译资源需要异步加载，可以用 `isResourcesReady` 在加载完成前显示 loading 状态，用法见[最佳实践 → 加载状态处理](./best-practices.md#加载状态处理)。
+
+## 链式后端
+
+同时使用本地文件和自定义后端，实现「先快速显示本地翻译，再异步更新为最新翻译」：
+
+1. 页面加载时，立即从本地文件加载翻译并显示
+2. 后台异步从自定义后端加载最新翻译，完成后自动更新页面
+
+```ts
+// modern.config.ts
+i18nPlugin({
+  backend: {
+    loadPath: '/locales/{{lng}}/{{ns}}.json', // 本地文件，快速显示
+    sdk: true,                                 // 远程加载，异步更新
+  },
+});
+```
+
+```ts
+// modern.runtime.ts
+export default defineRuntimeConfig({
+  i18n: {
+    initOptions: {
+      backend: {
+        sdk: async options => {
+          if (options.lng && options.ns) {
+            const res = await fetch(`https://api.example.com/i18n/${options.lng}/${options.ns}`);
+            return { [options.lng]: { [options.ns]: await res.json() } };
+          }
+          return {};
+        },
+      },
+    },
+  },
+});
+```
+
+**`cacheHitMode` 选项**（控制两个后端之间的协作方式）：
+
+| 值 | 行为 |
+| --- | --- |
+| `'none'` | 本地文件加载成功后直接使用，不再请求自定义后端 |
+| `'refresh'` | 继续请求自定义后端并更新缓存，但不更新当前页面 |
+| `'refreshAndUpdateStore'` | 继续请求自定义后端，更新缓存并同步刷新页面文案（默认） |

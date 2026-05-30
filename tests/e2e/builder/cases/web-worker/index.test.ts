@@ -1,0 +1,39 @@
+import { expect, test } from '@playwright/test';
+import { build } from '@scripts/shared';
+import path from 'path';
+
+test('should build web-worker target correctly', async () => {
+  const builder = await build({
+    cwd: __dirname,
+    entry: { index: path.resolve(__dirname, './src/index.js') },
+    builderConfig: {
+      output: {
+        target: 'web-worker',
+      },
+    },
+  });
+  const files = await builder.unwrapOutputJSON();
+  const filenames = Object.keys(files);
+  const jsFiles = filenames.filter(item => item.endsWith('.js'));
+
+  expect(jsFiles.length).toEqual(1);
+  expect(jsFiles[0].includes('index')).toBeTruthy();
+});
+
+test('should build web-worker target with dynamicImport correctly', async () => {
+  const builder = await build({
+    cwd: __dirname,
+    entry: { index: path.resolve(__dirname, './src/index2.js') },
+    builderConfig: {
+      output: {
+        target: 'web-worker',
+      },
+    },
+  });
+  const files = await builder.unwrapOutputJSON();
+  const filenames = Object.keys(files);
+  const jsFiles = filenames.filter(item => item.endsWith('.js'));
+
+  expect(jsFiles.length).toEqual(1);
+  expect(jsFiles[0].includes('index')).toBeTruthy();
+});

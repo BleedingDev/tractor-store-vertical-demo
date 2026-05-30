@@ -1,0 +1,456 @@
+{
+  "schemaVersion": 1,
+  "name": "release-candidate-contract-gates",
+  "evidence": {
+    "defaultDir": "docs/super-app-rfc-adr/evidence/release-candidate/current",
+    "requiredFiles": [
+      "architecture-evidence.md",
+      "validation-evidence.md",
+      "test-evidence.md",
+      "review-evidence.md"
+    ],
+    "requiredMetadataFields": [
+      "author",
+      "timestamp",
+      "ticket_id",
+      "commit_sha",
+      "workflow_run_url"
+    ],
+    "minimumReviewers": 2
+  },
+  "migrationContracts": {
+    "targets": [
+      {
+        "id": "effect-bff-operation-manifest",
+        "path": "tests/integration/bff-corss-project/bff-api-app/dist-1/client/effect/index.js",
+        "includes": [
+          "const operationManifest =",
+          "\"version\":1",
+          "\"appNamespace\":\"bff-api-app\"",
+          "export { client, createEffectRequestContext, operationManifest };"
+        ]
+      },
+      {
+        "id": "effect-service-boundary-propagation-contract",
+        "path": "packages/cli/plugin-bff/tests/regression.test.ts",
+        "includes": [
+          "propagates auth, tenant, locale, and trace metadata into Effect services",
+          "useEffectContext()",
+          "authorization: 'Bearer shell-user-token'",
+          "'x-tenant-id': 'tenant-acme'",
+          "'x-correlation-id': 'corr-shell-remote-001'",
+          "enableHandleWeb"
+        ]
+      },
+      {
+        "id": "bff-cross-project-policy-contract",
+        "path": "packages/server/bff-core/src/security/crossProjectPolicy.ts",
+        "includes": [
+          "x-modernjs-bff-envelope",
+          "BFF_CROSS_PROJECT_POLICY_DENIED",
+          "namespace_not_allowed",
+          "evaluateCrossProjectPolicy"
+        ]
+      },
+      {
+        "id": "bff-generate-client-manifest-contract",
+        "path": "packages/server/bff-core/src/client/generateClient.ts",
+        "includes": [
+          "operationManifest",
+          "operationSchemaHash",
+          "requestId || 'default'",
+          "initProducerClient"
+        ]
+      },
+      {
+        "id": "tanstack-loader-string-router-contract",
+        "path": "tests/integration/routes-tanstack/src/modern-tanstack/string/router.gen.ts",
+        "includes": [
+          "function modernLoaderToTanstack",
+          "ctx?.abortController?.signal",
+          "throwTanstackRedirect(location)",
+          "throw notFound()"
+        ]
+      },
+      {
+        "id": "tanstack-loader-stream-router-contract",
+        "path": "tests/integration/routes-tanstack/src/modern-tanstack/stream/router.gen.ts",
+        "includes": [
+          "function modernLoaderToTanstack",
+          "mapParamsForModernLoader",
+          "throwTanstackRedirect(location)",
+          "throw notFound()"
+        ]
+      },
+      {
+        "id": "tanstack-create-routes-register-contract",
+        "path": "tests/integration/routes-tanstack-create-routes/src/modern-tanstack/register.gen.d.ts",
+        "includes": [
+          "declare module '@modern-js/plugin-tanstack/runtime'",
+          "interface Register",
+          "router: typeof router0;"
+        ]
+      },
+      {
+        "id": "tanstack-create-routes-manifest-contract",
+        "path": "tests/integration/routes-tanstack-create-routes/dist/route.json",
+        "includes": [
+          "\"urlPath\": \"/\"",
+          "\"isSPA\": true",
+          "\"isSSR\": true",
+          "\"bundle\": \"bundles/index.js\""
+        ]
+      },
+      {
+        "id": "plugin-runtime-ssr-stream-sanitization-contract",
+        "path": "packages/runtime/plugin-runtime/src/ssr/serverRender/renderToStream/buildTemplate.after.ts",
+        "includes": [
+          "sanitizeSSRPayload",
+          "unsafeHeaders",
+          "window._SSR_DATA",
+          "enableUnsafeCtx"
+        ]
+      },
+      {
+        "id": "plugin-runtime-ssr-string-sanitization-contract",
+        "path": "packages/runtime/plugin-runtime/src/ssr/serverRender/renderToString/entry.ts",
+        "includes": [
+          "sanitizeSSRPayload",
+          "unsafeHeaders: this.pluginConfig.unsafeHeaders",
+          "window._SSR_DATA",
+          "window._ROUTER_DATA"
+        ]
+      },
+      {
+        "id": "plugin-garfish-runtime-compatibility-contract",
+        "path": "packages/runtime/plugin-garfish/src/runtime/compatibility.ts",
+        "includes": [
+          "MV_RUNTIME_INCOMPATIBLE",
+          "missing_remote_digest",
+          "digest_mismatch",
+          "validateRuntimeCompatibility"
+        ]
+      },
+      {
+        "id": "plugin-garfish-remote-trust-contract",
+        "path": "packages/runtime/plugin-garfish/src/runtime/trust.ts",
+        "includes": [
+          "MV_ORIGIN_ISOLATION_VIOLATION",
+          "origin_isolation_violation",
+          "integrity_mismatch",
+          "attestation_mismatch"
+        ]
+      },
+      {
+        "id": "plugin-garfish-fallback-telemetry-contract",
+        "path": "packages/runtime/plugin-garfish/src/runtime/fallbackTelemetry.ts",
+        "includes": [
+          "modernjs:mv-runtime-parity",
+          "runtime_incompatible",
+          "inferFallbackReason",
+          "emitFallbackTelemetry"
+        ]
+      },
+      {
+        "id": "plugin-garfish-cache-policy-contract",
+        "path": "packages/runtime/plugin-garfish/src/runtime/cachePolicy.ts",
+        "includes": [
+          "CACHE_VERSION_QUERY_KEY = 'mfv'",
+          "applyMfEntryCachePolicy",
+          "runtimeDigest",
+          "manifestRuntimeDigest"
+        ]
+      },
+      {
+        "id": "tanstack-mf-host-router-contract",
+        "path": "tests/integration/routes-tanstack-mf/mf-host/src/modern-tanstack/index/router.gen.ts",
+        "includes": [
+          "function modernLoaderToTanstack",
+          "route_mf_page",
+          "path: \"mf\"",
+          "createMemoryHistory"
+        ]
+      },
+      {
+        "id": "tanstack-mf-host-manifest-contract",
+        "path": "tests/integration/routes-tanstack-mf/mf-host/dist/mf-manifest.json",
+        "includes": [
+          "\"alias\": \"remote\"",
+          "\"alias\": \"remote2\"",
+          "\"@tanstack/react-router\"",
+          "\"@modern-js/runtime\""
+        ]
+      },
+      {
+        "id": "tanstack-mf-remote-manifest-contract",
+        "path": "tests/integration/routes-tanstack-mf/mf-remote/dist/mf-manifest.json",
+        "includes": [
+          "\"name\": \"Widget\"",
+          "\"name\": \"Mutator\"",
+          "\"path\": \"./Widget\"",
+          "\"path\": \"./Mutator\""
+        ]
+      },
+      {
+        "id": "telemetry-exporter-contract",
+        "path": "packages/server/core/src/plugins/telemetry.ts",
+        "includes": [
+          "createOtlpTelemetryExporter",
+          "createVictoriaMetricsTelemetryExporter",
+          "DEFAULT_VM_ENDPOINT",
+          "telemetry.queue.dropped"
+        ]
+      },
+      {
+        "id": "ai-capability-contract",
+        "path": "docs/super-app-rfc-adr/contracts/ai-capabilities.json",
+        "includes": [
+          "\"runtime.status.read\"",
+          "\"runtime.fallback.signal.write\"",
+          "\"inputSchema\"",
+          "\"argMap\"",
+          "\"mcp\"",
+          "\"cli\""
+        ]
+      },
+      {
+        "id": "mcp-cli-bridge-contract",
+        "path": "scripts/ai-capabilities/mcp-cli-bridge.js",
+        "includes": [
+          "tools/list",
+          "tools/call",
+          "buildCliInvocation",
+          "Content-Length"
+        ]
+      },
+      {
+        "id": "mcp-adapter-generator-contract",
+        "path": "scripts/ai-capabilities/generate-mcp-adapter.js",
+        "includes": [
+          "adapter-manifest",
+          "mcporter",
+          "mcp-cli-bridge.js",
+          "createMcpAdapterManifest"
+        ]
+      },
+      {
+        "id": "runtime-cli-command-contract",
+        "path": "packages/solutions/app-tools/src/commands/runtime.ts",
+        "includes": [
+          "command('runtime')",
+          "command('status')",
+          "command('fallback-signal')",
+          "createRuntimeFallbackSignalPayload"
+        ]
+      },
+      {
+        "id": "runtime-resilience-benchmark-contract",
+        "path": "benchmark/runtime-resilience/run.js",
+        "includes": [
+          "runtime-resilience-benchmark",
+          "statusPhase",
+          "fallbackPhase",
+          "workerLanePhase",
+          "summarizeLatencies"
+        ]
+      },
+      {
+        "id": "runtime-fallback-worker-lane-contract",
+        "path": "packages/server/prod-server/src/libs/runtimeFallbackWorkerLane.ts",
+        "includes": [
+          "DEFAULT_RUNTIME_FALLBACK_WORKER_TIMEOUT_MS",
+          "worker_lane_timeout",
+          "runtime-mf-fallback-signal",
+          "persistRuntimeFallbackContractGateInWorker"
+        ]
+      },
+      {
+        "id": "mf-cache-policy-contract",
+        "path": "packages/server/core/src/plugins/mfCache.ts",
+        "includes": [
+          "resolveMfAssetCacheHeaders",
+          "isMfManifestAsset",
+          "isMfRemoteEntryAsset",
+          "immutable"
+        ]
+      },
+      {
+        "id": "audit-context-trace-propagation-contract",
+        "path": "packages/server/create-request/src/node.ts",
+        "includes": [
+          "OPERATION_CONTEXT_DETAIL_HEADER",
+          "traceparent",
+          "traceId",
+          "spanId"
+        ]
+      },
+      {
+        "id": "rsdoctor-artifact-contract",
+        "path": "packages/builder/builder/src/plugins/performance.ts",
+        "includes": [
+          "ultramodern-diagnostics.json",
+          ".rsdoctor",
+          "schemaVersion: 1"
+        ]
+      },
+      {
+        "id": "ultramodern-public-doc-contract",
+        "path": "packages/document/docs/en/guides/get-started/ultramodern.mdx",
+        "includes": [
+          "UltraModern.js 3.0 is our SuperApp framework forked from Modern.js",
+          "UltraModern.js additions are designed as the default product surface",
+          "generated starter also ships `.github/workflows/ultramodern-gates.yml`",
+          "Starter preset enforcement"
+        ]
+      },
+      {
+        "id": "ultramodern-starter-readme-contract",
+        "path": "packages/toolkit/create/template/README.md",
+        "includes": [
+          "# UltraModern.js 3.0 Starter",
+          "pnpm dev",
+          ".github/workflows/ultramodern-gates.yml",
+          "pnpm run ultramodern:check"
+        ]
+      },
+      {
+        "id": "ultramodern-template-workflow-contract",
+        "path": "packages/toolkit/create/template/.github/workflows/ultramodern-gates.yml.handlebars",
+        "includes": [
+          "Ultramodern Gates",
+          "permissions:\n  contents: read",
+          "persist-credentials: false",
+          "pnpm install --frozen-lockfile",
+          "MODERN_PUBLIC_SITE_URL: http://localhost:8080",
+          "egress-policy: audit",
+          "pnpm run ultramodern:check",
+          "pnpm run build"
+        ]
+      },
+      {
+        "id": "ultramodern-template-renovate-contract",
+        "path": "packages/toolkit/create/template/.github/renovate.json",
+        "includes": [
+          "\"dependencyDashboard\": true",
+          "\"minimumReleaseAge\": \"1 day\"",
+          "\"helpers:pinGitHubActionDigests\"",
+          "\"dependencyDashboardApproval\": true"
+        ]
+      },
+      {
+        "id": "ultramodern-workspace-template-workflow-contract",
+        "path": "packages/toolkit/create/template-workspace/.github/workflows/ultramodern-workspace-gates.yml.handlebars",
+        "includes": [
+          "Ultramodern Workspace Gates",
+          "permissions:\n  contents: read",
+          "persist-credentials: false",
+          "pnpm install --frozen-lockfile",
+          "pnpm -r --filter \"./apps/**\" run build",
+          "MODERN_PUBLIC_SITE_URL: http://localhost:8080",
+          "egress-policy: audit",
+          "pnpm run ultramodern:check"
+        ]
+      },
+      {
+        "id": "ultramodern-workspace-template-renovate-contract",
+        "path": "packages/toolkit/create/template-workspace/.github/renovate.json",
+        "includes": [
+          "\"dependencyDashboard\": true",
+          "\"minimumReleaseAge\": \"1 day\"",
+          "\"helpers:pinGitHubActionDigests\"",
+          "\"dependencyDashboardApproval\": true"
+        ]
+      },
+      {
+        "id": "ultramodern-publish-security-contract",
+        "path": "scripts/ultramodern-publish/validate-publish-security.mjs",
+        "includes": [
+          "NPM_TOKEN",
+          "NODE_AUTH_TOKEN",
+          "refs/heads/main-ultramodern",
+          "BleedingDev/ultramodern.js",
+          "https://registry.npmjs.org/"
+        ]
+      },
+      {
+        "id": "ultramodern-publish-security-runbook-contract",
+        "path": "docs/super-app-rfc-adr/PUBLISH-SECURITY-RUNBOOK.md",
+        "includes": [
+          "GitHub organization membership must require 2FA",
+          "npm trusted publishing must be configured",
+          "`NPM_TOKEN` or `NODE_AUTH_TOKEN`",
+          "Do not use `pull_request_target`",
+          "StepSecurity harden-runner in audit mode",
+          "review GitHub security alerts"
+        ]
+      },
+      {
+        "id": "ultramodern-workflow-security-contract",
+        "path": "scripts/security/validate-github-workflows.mjs",
+        "includes": [
+          "pull_request_target",
+          "helpers:pinGitHubActionDigests",
+          "id-token: write",
+          "NPM_TOKEN"
+        ]
+      },
+      {
+        "id": "ultramodern-sandpack-starter-contract",
+        "path": "packages/toolkit/sandpack-react/src/templates/mwa.ts",
+        "includes": [
+          "presetUltramodern(...)",
+          "presetUltramodern",
+          "pnpm run ultramodern:check",
+          ".github/workflows/ultramodern-gates.yml"
+        ]
+      },
+      {
+        "id": "ultramodern-create-readme-contract",
+        "path": "packages/toolkit/create/README.md",
+        "includes": [
+          "current default runtime",
+          "presetUltramodern(...)",
+          "--bff-runtime effect",
+          "--bff-runtime hono"
+        ]
+      },
+      {
+        "id": "ultramodern-init-app-doc-contract",
+        "path": "packages/document/docs/en/components/init-app.mdx",
+        "includes": [
+          "current default runtime",
+          "public UltraModern.js SuperApp path",
+          "@bleedingdev/modern-js-create",
+          "--bff-runtime effect",
+          "--bff-runtime hono"
+        ]
+      },
+      {
+        "id": "ultramodern-bff-runtime-framework-doc-contract",
+        "path": "packages/document/docs/en/configure/app/bff/runtime-framework.mdx",
+        "includes": [
+          "public UltraModern preset",
+          "api/effect/index",
+          "api/lambda/**",
+          "Choose one runtime mode per app."
+        ]
+      }
+    ]
+  },
+  "gateCommands": [
+    "pnpm --dir packages/cli/builder exec rstest run tests/rsdoctor.test.ts --passWithNoTests",
+    "pnpm --dir packages/cli/plugin-bff exec rstest run tests/regression.test.ts --passWithNoTests",
+    "pnpm --filter @modern-js/create-request test",
+    "pnpm --filter @modern-js/bff-core test",
+    "pnpm --filter @modern-js/plugin-express test",
+    "pnpm --filter @modern-js/plugin-koa test",
+    "pnpm --dir packages/solutions/app-tools exec rstest run tests/index.test.ts tests/baseline.test.ts tests/presetUltramodern.test.ts --passWithNoTests",
+    "pnpm exec rstest run -c packages/runtime/plugin-garfish/rstest.config.mts packages/runtime/plugin-garfish/tests/reliabilityMatrix.test.ts packages/runtime/plugin-garfish/tests/compatibility.test.ts packages/runtime/plugin-garfish/tests/trust.test.ts packages/runtime/plugin-garfish/tests/cachePolicy.test.ts packages/runtime/plugin-garfish/tests/fallbackTelemetry.test.ts packages/runtime/plugin-garfish/tests/runtimePlugin.test.tsx --passWithNoTests",
+    "pnpm --filter @modern-js/runtime test -- tests/ssr/serverRender/renderToString/entry.test.ts tests/ssr/serverRender/renderToStream/buildTemplate.after.test.ts",
+    "pnpm --filter @modern-js/prod-server test -- telemetry.test.ts runtimeSignals.test.ts runtimeFallbackWorkerLane.test.ts",
+    "pnpm run validate:mcp-cli-parity",
+    "pnpm run generate:mcp-adapter",
+    "pnpm run benchmark:runtime-resilience:worker-lane-gate",
+    "pnpm --dir tests run test:superapp-contracts"
+  ]
+}

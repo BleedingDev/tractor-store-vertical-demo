@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "integration-tailwindcss-v2",
+  "version": "2.66.0",
+  "scripts": {
+    "dev": "modern dev",
+    "build": "modern build",
+    "serve": "modern serve",
+    "new": "modern new"
+  },
+  "dependencies": {
+    "@modern-js/app-tools": "workspace:*",
+    "@modern-js/runtime": "workspace:*",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwindcss": "^4.3.0"
+  }
+}

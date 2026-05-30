@@ -1,0 +1,130 @@
+---
+title: 语言检测
+---
+
+# 语言检测
+
+语言检测指的是在用户没有手动选择语言的情况下，自动推断应该使用哪种语言。插件支持从 URL 路径、Cookie、请求头、浏览器设置等多个来源检测，可以组合使用。
+
+## 检测优先级
+
+无论启用了哪些检测方式，优先级固定如下（从高到低）：
+
+1. **SSR 数据**：从 `window._SSR_DATA` 读取服务端渲染时已检测到的语言，确保客户端与服务端一致，避免语言闪烁
+2. **路径检测**：从 URL 路径前缀读取（需要启用 `localePathRedirect`）
+3. **i18next 检测器**：按 `detection.order` 配置的顺序依次检测（Cookie、LocalStorage、查询参数等）
+4. **initOptions.lng**：运行时配置中强制指定的语言
+5. **fallbackLanguage**：所有检测方式均失败时的兜底语言
+
+## 检测方式
+
+### URL 路径检测
+
+设置 `localePathRedirect: true` 后，插件从 URL 路径前缀识别语言，并将无前缀的路径自动重定向到默认语言：
+
+```
+/about        → 重定向到 /en/about（fallbackLanguage 为 en）
+/zh/about     → 识别语言为 zh，不重定向
+/en/about     → 识别语言为 en，不重定向
+```
+
+```ts
+i18nPlugin({
+  localeDetection: {
+    localePathRedirect: true,
+    languages: ['zh', 'en'],
+    fallbackLanguage: 'en',
+  },
+});
+```
+
+启用路径检测后，还需要在路由中配置 `[lang]` 动态参数，详见[路由集成](./routing.md)。
+
+### i18next 检测器
+
+设置 `i18nextDetector: true` 后，启用从 Cookie、LocalStorage、查询参数、请求头等位置检测语言：
+
+```ts
+i18nPlugin({
+  localeDetection: {
+    i18nextDetector: true,
+    detection: {
+      order: ['cookie', 'querystring', 'header'],
+      lookupCookie: 'i18next',
+      lookupQuerystring: 'lng',
+      lookupHeader: 'accept-language',
+      caches: ['cookie'],
+    },
+  },
+});
+```
+
+两种方式可以同时启用：
+
+```ts
+i18nPlugin({
+  localeDetection: {
+    localePathRedirect: true,   // 路径前缀
+    i18nextDetector: true,      // Cookie / Header 等
+    languages: ['zh', 'en'],
+    fallbackLanguage: 'en',
+    detection: {
+      order: ['cookie', 'header'],
+    },
+  },
+});
+```
+
+## 检测选项（detection）
+
+| 选项 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `order` | `string[]` | 见下方 | i18next 检测器内部的检测顺序 |
+| `lookupQuerystring` | `string` | `'lng'` | 查询参数键名，例如 `?lng=en` |
+| `lookupCookie` | `string` | `'i18next'` | Cookie 键名 |
+| `lookupLocalStorage` | `string` | `'i18nextLng'` | LocalStorage 键名（仅浏览器） |
+| `lookupSession` | `string` | — | SessionStorage 键名（仅浏览器） |
+| `lookupHeader` | `string` | `'accept-language'` | HTTP 请求头键名 |
+| `lookupFromPathIndex` | `number` | `0` | 从 URL 路径的第几段开始识别语言 |
+| `caches` | `false \| string[]` | — | 检测到的语言缓存到哪里，如 `['cookie']` |
+| `cookieMinutes` | `number` | `525600`（1年） | Cookie 过期时间（分钟） |
+| `cookieExpirationDate` | `Date` | — | Cookie 过期日期，优先级高于 `cookieMinutes` |
+| `cookieDomain` | `string` | — | Cookie 域名 |
+
+**默认检测顺序（未配置 `order` 时）：**
+
+```ts
+['querystring', 'cookie', 'localStorage', 'header', 'navigator', 'htmlTag', 'path', 'subdomain']
+```
+
+**`order` 可用值：**
+
+| 值 | 检测来源 | 限制 |
+| --- | --- | --- |
+| `querystring` | URL 查询参数（`?lng=en`） | — |
+| `cookie` | Cookie | — |
+| `localStorage` | LocalStorage | 仅浏览器 |
+| `sessionStorage` | SessionStorage | 仅浏览器 |
+| `navigator` | 浏览器语言设置 | 仅浏览器 |
+| `htmlTag` | `<html lang="...">` | 仅浏览器 |
+| `header` | `Accept-Language` 请求头 | — |
+| `path` | URL 路径（需同时启用 `localePathRedirect`） | — |
+| `subdomain` | 子域名（`en.example.com`） | — |
+
+## ignoreRedirectRoutes
+
+指定哪些额外路径跳过语言路径重定向。Modern.js 会自动跳过服务端 API 路由和 BFF 前缀，包括配置的 `bff.prefix`。`ignoreRedirectRoutes` 适用于其他不需要语言前缀的非 API 业务路径。
+
+**写法一：字符串数组**（支持精确匹配和前缀匹配）
+
+```ts
+ignoreRedirectRoutes: ['/api', '/admin', '/static']
+// '/api' 会匹配 /api 和 /api/users
+```
+
+**写法二：函数**（更灵活的自定义逻辑）
+
+```ts
+ignoreRedirectRoutes: pathname =>
+  pathname.startsWith('/api') || pathname.startsWith('/admin'),
+```

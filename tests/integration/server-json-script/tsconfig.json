@@ -1,0 +1,14 @@
+{
+  "extends": "@modern-js/tsconfig/base",
+  "compilerOptions": {
+    "declaration": false,
+    "types": ["node"],
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "rootDir": "../..",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "server", "modern.config.ts"]
+}

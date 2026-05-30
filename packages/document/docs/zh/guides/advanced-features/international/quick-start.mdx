@@ -1,0 +1,112 @@
+---
+title: 快速开始
+---
+
+# 快速开始
+
+本指南将帮助你快速在 Modern.js 项目中集成国际化功能。
+
+## 安装插件
+
+import InstallCommand from '@site-docs/components/international/install-command';
+
+<InstallCommand />
+
+## 基础配置
+
+### 第一步：注册插件
+
+在 `modern.config.ts` 中注册插件：
+
+```ts
+import { appTools, defineConfig } from '@modern-js/app-tools';
+import { i18nPlugin } from '@modern-js/plugin-i18n';
+
+export default defineConfig({
+  plugins: [
+    appTools(),
+    i18nPlugin({
+      localeDetection: {
+        languages: ['zh', 'en'],
+        fallbackLanguage: 'en',
+      },
+    }),
+  ],
+});
+```
+
+### 第二步：创建翻译文件
+
+:::note 资源加载
+默认情况下，插件本地指定目录下查找翻译资源，在后续章节中我们会介绍更多资源加载方式。
+:::
+
+创建 `config/public/locales` 目录：
+
+```
+config/public/locales/
+├── en/
+│   └── translation.json
+└── zh/
+    └── translation.json
+```
+
+```json
+// locales/en/translation.json
+{
+  "welcome": "Welcome to Modern.js"
+}
+```
+
+```json
+// locales/zh/translation.json
+{
+  "welcome": "欢迎使用 Modern.js"
+}
+```
+
+### 第三步：配置运行时选项
+
+import InstanceCode from '@site-docs/components/international/instance-code';
+
+<InstanceCode />
+
+### 第四步：在组件中使用
+
+通过 `t()` 函数返回的语言文案，在调用 `changeLanguage` 后会自动更新，无需手动刷新。
+
+```tsx
+import { useTranslation } from 'react-i18next';
+import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
+function App() {
+  const { t } = useTranslation();
+  const { language, changeLanguage, supportedLanguages } = useModernI18n();
+
+  return (
+    <div>
+      <h1>{t('welcome')}</h1>
+      <p>当前语言：{language}</p>
+      {supportedLanguages.map(lang => (
+        <button
+          key={lang}
+          onClick={() => changeLanguage(lang)}
+          disabled={lang === language}
+        >
+          {lang}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+## 下一步
+
+根据你的需求选择继续阅读：
+
+- **想要 `/en/about` 这样的 URL 结构** → [路由集成](./routing.md)
+- **需要按 Cookie / Header 自动切换语言** → [语言检测](./locale-detection.md)
+- **翻译资源来自远程服务** → [资源加载 → 自定义后端](./resource-loading.md#自定义后端)
+- **SSR 场景** → [高级用法](./advanced.md)
+- **查看所有配置选项** → [配置说明](./configuration.md)

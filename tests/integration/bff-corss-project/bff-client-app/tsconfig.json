@@ -1,0 +1,18 @@
+{
+  "extends": "@modern-js/tsconfig/base",
+  "compilerOptions": {
+    "declaration": false,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "rootDir": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"],
+      "@api/*": ["./api/lambda/*"]
+    },
+    "types": ["@rstest/core/globals"]
+  },
+  "include": ["src", "shared", "config", "api", "modern.config.ts"]
+}

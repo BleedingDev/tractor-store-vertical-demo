@@ -1,0 +1,25 @@
+import {
+  type ShouldRevalidateFunction,
+  useLoaderData,
+} from '@modern-js/runtime/router';
+
+export const shouldRevalidate: ShouldRevalidateFunction = ({
+  nextUrl,
+  defaultShouldRevalidate,
+}) => {
+  const revalidate = nextUrl.searchParams.get('revalidate');
+  const flag = revalidate !== 'false';
+  if (typeof revalidate === 'string') {
+    return flag;
+  }
+  return defaultShouldRevalidate;
+};
+
+const Page = () => {
+  const params = useLoaderData() as {
+    id: string;
+  };
+  return <div className="item-page">item page, param is {params.id}</div>;
+};
+
+export default Page;

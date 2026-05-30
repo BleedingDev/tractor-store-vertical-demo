@@ -1,0 +1,57 @@
+{
+  "name": "@modern-js/create",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/toolkit/create"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "version": "3.2.1",
+  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "bin": {
+    "create": "./bin/run.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "template",
+    "template-workspace",
+    "dist",
+    "bin.js"
+  ],
+  "scripts": {
+    "build": "rslib build && pnpm -w tsgo:dts \"$PWD\"",
+    "dev": "rslib build -w",
+    "start": "node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@modern-js/i18n-utils": "workspace:*",
+    "@modern-js/rslib": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@types/node": "^25.9.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "tsx": "^4.22.3"
+  },
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/index.d.ts"
+  },
+  "modern:source": "./src/index.ts"
+}

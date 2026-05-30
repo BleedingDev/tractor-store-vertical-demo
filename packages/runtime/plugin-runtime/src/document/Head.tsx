@@ -1,0 +1,36 @@
+// @effect-diagnostics strictBooleanExpressions:off
+import React, { useContext } from 'react';
+import {
+  DOCUMENT_META_PLACEHOLDER,
+  HEAD_PARTICALS_SEPARATOR,
+  TOP_PARTICALS_SEPARATOR,
+} from './constants';
+import { DocumentStructureContext } from './DocumentStructureContext';
+import { Links } from './Links';
+import { Scripts } from './Scripts';
+import { Title } from './Title';
+
+export function Head(props: { children?: any }) {
+  const { hasSetScripts, hasSetLinks, hasSetTitle } = useContext(
+    DocumentStructureContext,
+  );
+  const { children, ...rest } = props;
+  // todo: verify the children
+  return (
+    <head {...rest}>
+      {/* configuration by config.output.meta */}
+      {TOP_PARTICALS_SEPARATOR}
+      {DOCUMENT_META_PLACEHOLDER}
+      {!hasSetTitle && <Title />}
+      {!hasSetLinks && <Links />}
+      {/* Scripts must have as default. If not, place in Head */}
+      {!hasSetScripts && <Scripts />}
+      {HEAD_PARTICALS_SEPARATOR}
+      {children}
+    </head>
+  );
+}
+
+export function DefaultHead() {
+  return <head>{DOCUMENT_META_PLACEHOLDER}</head>;
+}
