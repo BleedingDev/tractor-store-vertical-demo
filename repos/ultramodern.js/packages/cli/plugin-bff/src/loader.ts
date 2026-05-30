@@ -1,0 +1,165 @@
+// @effect-diagnostics asyncFunction:off nodeBuiltinImport:off strictBooleanExpressions:off
+import { type GenClientOptions, generateClient } from '@modern-js/bff-core';
+import type { HttpMethodDecider } from '@modern-js/types';
+import { logger } from '@modern-js/utils';
+import type { Rspack } from '@rsbuild/core';
+import path from 'path';
+import {
+  generateEffectClientCode,
+  resolveEffectEntryFile,
+} from './utils/effectClientGenerator';
+
+export type APILoaderOptions = {
+  prefix: string;
+  appDir: string;
+  apiDir: string;
+  lambdaDir: string;
+  existLambda: boolean;
+  port: number;
+  fetcher?: string;
+  requestCreator?: string;
+  target: string;
+  httpMethodDecider?: HttpMethodDecider;
+  bffRuntimeFramework?: 'hono' | 'effect';
+  effectEntry?: string;
+  effectDataPlatformBatch?: {
+    enabled?: boolean;
+    endpoint?: string;
+    flushIntervalMs?: number;
+    maxBatchSize?: number;
+    maxBatchBytes?: number;
+    requestTimeoutMs?: number;
+    allowedMethods?: string[];
+  };
+};
+
+async function transformEffectRuntimeSource(source: string, filename: string) {
+  const swc = await import('@swc/core');
+  const result = await swc.transform(source, {
+    filename,
+    sourceMaps: false,
+    jsc: {
+      parser: {
+        syntax: 'typescript',
+        tsx: filename.endsWith('.tsx') || filename.endsWith('.jsx'),
+      },
+      target: 'es2022',
+    },
+    module: {
+      type: 'es6',
+    },
+  });
+
+  return result.code;
+}
+
+async function loader(
+  this: Rspack.LoaderContext<APILoaderOptions>,
+  source: string,
+) {
+  this.cacheable();
+
+  const { resourcePath } = this;
+
+  delete require.cache[resourcePath];
+
+  const callback = this.async();
+
+  const draftOptions = this.getOptions();
+  const effectEntryFile = resolveEffectEntryFile({
+    appDir: draftOptions.appDir,
+    apiDir: draftOptions.apiDir,
+    effectEntry: draftOptions.effectEntry,
+  });
+
+  if (
+    draftOptions.bffRuntimeFramework === 'effect' &&
+    effectEntryFile &&
+    path.resolve(effectEntryFile) === path.resolve(resourcePath) &&
+    this.resourceQuery.includes('modern-bff-runtime')
+  ) {
+    const code = await transformEffectRuntimeSource(source, resourcePath);
+    callback(undefined, code);
+    return;
+  }
+
+  if (
+    draftOptions.bffRuntimeFramework === 'effect' &&
+    effectEntryFile &&
+    path.resolve(effectEntryFile) === path.resolve(resourcePath)
+  ) {
+    const code = await generateEffectClientCode({
+      appDir: draftOptions.appDir,
+      apiDir: draftOptions.apiDir,
+      resourcePath,
+      prefix: (Array.isArray(draftOptions.prefix)
+        ? draftOptions.prefix[0]
+        : draftOptions.prefix) as string,
+      port: Number(draftOptions.port),
+      target: draftOptions.target,
+      requestCreator: draftOptions.requestCreator,
+      httpMethodDecider: draftOptions.httpMethodDecider,
+      dataPlatformBatch: draftOptions.effectDataPlatformBatch,
+    });
+
+    if (code) {
+      callback(undefined, code);
+      return;
+    }
+
+    callback(
+      undefined,
+      `throw new Error('Failed to generate Effect client for ${resourcePath}')`,
+    );
+    return;
+  }
+
+  const warning = `The file ${resourcePath} is not allowed to be imported in src directory, only API definition files are allowed.`;
+
+  if (!draftOptions.existLambda) {
+    logger.warn(warning);
+    callback(null, `throw new Error('${warning}')`);
+    return;
+  }
+
+  const options: GenClientOptions = {
+    prefix: (Array.isArray(draftOptions.prefix)
+      ? draftOptions.prefix[0]
+      : draftOptions.prefix) as string,
+    appDir: draftOptions.appDir,
+    apiDir: draftOptions.apiDir,
+    lambdaDir: draftOptions.lambdaDir,
+    target: draftOptions.target,
+    port: Number(draftOptions.port),
+    source,
+    resourcePath,
+    httpMethodDecider: draftOptions.httpMethodDecider,
+  };
+
+  const { lambdaDir } = draftOptions;
+  if (!resourcePath.startsWith(lambdaDir)) {
+    logger.warn(warning);
+    callback(null, `throw new Error('${warning}')`);
+    return;
+  }
+
+  if (draftOptions.fetcher) {
+    options.fetcher = draftOptions.fetcher;
+  }
+
+  if (draftOptions.requestCreator) {
+    options.requestCreator = draftOptions.requestCreator;
+  }
+
+  options.requireResolve = require.resolve;
+
+  const result = await generateClient(options);
+
+  if (result.isOk) {
+    callback(undefined, result.value);
+  } else {
+    callback(undefined, `throw new Error('${result.value}')`);
+  }
+}
+
+export default loader;

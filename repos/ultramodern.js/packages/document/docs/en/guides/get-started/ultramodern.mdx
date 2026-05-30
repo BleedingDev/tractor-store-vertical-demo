@@ -1,0 +1,182 @@
+---
+title: UltraModern.js 3.0
+sidebar_position: 2
+---
+
+# UltraModern.js 3.0 vs Modern.js 3.0
+
+This page compares **UltraModern.js 3.0** with the Modern.js 3.x line this fork tracks. The baseline is the current merged Modern.js `release-v3.x` baseline, not a frozen patch-version snapshot.
+
+UltraModern.js 3.0 is our SuperApp framework forked from Modern.js. It keeps compatibility with the Modern.js plugin/runtime mental model where that helps adoption, but it is positioned as a separate framework for Effect-first BFFs, TanStack Router, SSR, Module Federation, and independently deployable Micro Verticals.
+
+## Design Principles
+
+- Keep deltas explicit and auditable.
+- Preserve compatibility with useful Modern.js concepts without presenting UltraModern.js as a preset-only variant.
+- Add platform-level contracts only where they improve cross-team reliability.
+- Keep opt-out switches and explicit compatibility lanes available.
+
+## Compatibility Contract
+
+UltraModern.js 3.0 keeps:
+
+- Modern.js app/config/plugin mental model.
+- Existing project structure and command flow.
+- Progressive adoption path (apps can stay mostly unchanged).
+
+UltraModern.js additions are designed as the default product surface for new SuperApps. Compatibility lanes remain available when they reduce migration risk, but the framework direction is Effect + TanStack + SSR + Micro Verticals.
+
+## Intentional Differences (v3 line)
+
+| Area | Modern.js 3.0 baseline | UltraModern.js 3.0 |
+| --- | --- | --- |
+| Build diagnostics | RsDoctor is generally opt-in | Adds `performance.rsdoctor`, default-on diagnostics in production Rspack builds, and `.rsdoctor/ultramodern-diagnostics.json` contract artifact |
+| Output and static serving | Precompression behavior is app-defined | Enables `output.precompress` by default and serves `.br` / `.gz` variants via `Accept-Encoding` negotiation |
+| BFF runtime and contracts | Standard BFF runtime/client generation | Adds `requestId`-aware producer isolation, fail-fast initialization checks, and operation/trace correlation headers |
+| BFF runtime choices | Hono runtime path only in Modern.js 3.0 baseline (no built-in Effect runtime path) | Sets Effect as default runtime, enforces strict runtime split (`effect` -> `api/effect`, `hono` -> `api/lambda`), and adds Effect-Schema-first contracts plus MF failure-injection reliability coverage |
+| Telemetry standardization | Observability wiring is often app-specific | Adds framework-level telemetry pipeline with OTLP/VictoriaMetrics exporters, redaction, batching, and backpressure controls |
+| App-level MF SSR handshake | No dedicated super-app app-level stability contract focus | Adds `server.ssr.moduleFederationAppSSR` plus integration-tested env/config handshake |
+| MF remote reliability | Retry/fallback patterns are often implemented per app | Adds deterministic timeout/network/contract-error reliability matrix and distributed OTEL continuity tests |
+| Module onboarding governance | No module-certification evidence profile in baseline | Adds module SDK contracts, boundary anti-pattern guards, and release/module certification gate workflows |
+| Router runtime | Default runtime path centers on React Router | Adds first-class TanStack Router runtime/CLI path (React Router remains supported) |
+| Scaffolding templates | Default create templates center on React Router starter path | Adds TanStack-ready and Tailwind-ready create templates |
+| Starter preset enforcement | No generated UltraModern preset gate workflow | Generated starters include `ultramodern:check`, opt-out env switches, and `.github/workflows/ultramodern-gates.yml` |
+
+## What We Intentionally Do Not Change
+
+- We do not hide the fork behind legacy Modern.js branding.
+- We do not optimize for generic Modern.js defaults when they conflict with SuperApp reliability.
+- We keep both runtime modes (`effect`, `hono`) as explicit choices and avoid implicit fallback between them.
+- We avoid incompatible API changes unless there is a hard reliability requirement.
+
+## Adoption Notes
+
+For teams already on Modern.js 3.0, the adoption path remains compatibility-aware: keep the pieces that reduce risk, move toward MV-first / TanStack-first / Effect-first defaults, and keep fallback lanes explicit while you adopt UltraModern.js 3.0 as a separate framework.
+
+1. Keep existing React Router apps running as-is. TanStack Router is the preferred path for new scaffolds and incremental route adoption, but the React Router lane remains supported while teams move on their own schedule.
+2. Prefer `bff.runtimeFramework: 'effect'` for new BFF work, with the entry implemented at `api/effect/index.ts`. If your app already uses Hono handlers under `api/lambda/**`, keep `bff.runtimeFramework: 'hono'` until you are ready to move them; Hono remains a supported compatibility lane.
+3. Treat the baseline contracts as progressive defaults, not a forced cutover. `MODERN_BASELINE_ENABLE_MF_SSR`, `MODERN_BASELINE_ENABLE_BFF_REQUEST_ID`, and `MODERN_BASELINE_ENABLE_TELEMETRY_EXPORTERS` already let each app opt out while it converges on the preferred stack.
+4. The public preset now ships with explicit release and certification gates. The generated starter also ships `.github/workflows/ultramodern-gates.yml`, so `pnpm run ultramodern:check` and `pnpm run build` stay part of the adoption contract from day one.
+
+This page is not a migration guide or codemod plan. Migration guidance for existing applications is intentionally deferred from the current Micro Verticals framework scope.
+
+## Micro Vertical Delivery Path
+
+`presetUltramodern(...)` is also the single public entrypoint for Micro Verticals. The intended adoption sequence is:
+
+1. start with one app and keep route/data ownership inside the shell,
+2. extract stable route subtrees into MF remotes once fallback and compatibility behavior are explicit,
+3. extract shared workflows into strict Effect services when request, identity, locale, and trace context must survive deployment boundaries,
+4. keep Hono only as an explicit compatibility lane for existing Modern.js-style BFF handlers.
+
+In this repo, the reference examples are:
+
+- `routes-tanstack-mf` for shell + remote composition and MF SSR contracts,
+- `bff-corss-project` for cross-project producer/consumer wiring,
+- `bff-runtime-parity` for generated-client build/serve parity,
+- `bff-hono` for the compatibility lane.
+
+## Tractor Reference Workspace
+
+The BleedingDev create entrypoint now scaffolds the real Tractor reference workspace instead of the earlier visual boundary demo:
+
+```bash
+pnpm dlx @bleedingdev/modern-js-create tractor-super-app
+cd tractor-super-app
+mise install
+mise exec -- pnpm install
+mise exec -- pnpm ultramodern:check
+```
+
+The generated workspace has one shell and three full-stack vertical remotes:
+
+| Package | Owner role | Port | Owns |
+| --- | --- | --- | --- |
+| `apps/shell-super-app` | platform shell | `3020` | route assembly, topology selection, MF host config, shell CSS overlays, global fallback policy |
+| `apps/remotes/remote-explore` | Explore vertical | `3021` | tractor discovery routes, header/footer/recommendations/store picker exposes, `/explore-api/effect/explore/*` |
+| `apps/remotes/remote-decide` | Decide vertical | `3022` | product selection and configuration routes, `ProductPage`, `/decide-api/effect/decide/*` |
+| `apps/remotes/remote-checkout` | Checkout vertical | `3023` | cart, checkout, thanks routes, cart exposes, `/checkout-api/effect/checkout/*` |
+
+The shell consumes remotes through Module Federation references in topology metadata and `zephyr:dependencies`; it should not hardcode deployed remote URLs in source. Each vertical owns its UI route subtree, browser-safe MF exposes, Effect BFF contract, generated client export, locale JSON, CSS entrypoint, Cloudflare Worker metadata, and build marker.
+
+### Route-Owned I18n
+
+Each app emits `src/routes/ultramodern-route-metadata` with `ultramodernLocalisedUrls`. The i18n plugin reads that map in `localeDetection.localisedUrls`, serves dynamic backend JSON from `/locales/{{lng}}/{{ns}}.json`, and keeps `reactI18next` disabled for the generated shell and remotes.
+
+Examples:
+
+| Vertical | Canonical route | English | Czech |
+| --- | --- | --- | --- |
+| Explore | `/tractors` | `/tractors` | `/traktory` |
+| Explore | `/stores` | `/stores` | `/prodejci` |
+| Decide | `/tractors/:slug` | `/tractors/:slug` | `/traktory/:slug` |
+| Checkout | `/cart` | `/cart` | `/kosik` |
+| Checkout | `/checkout/thank-you/:orderId?` | `/checkout/thank-you/:orderId?` | `/pokladna/dekujeme/:orderId?` |
+
+The route owner changes localized paths and locale resource JSON together. Shell-owned URL rewrites are not part of the contract.
+
+### Federated CSS Contract
+
+The generated contract writes `.modernjs/ultramodern-generated-contract.json` with a `cssFederation` section:
+
+- `packages/shared-design-tokens` owns the shared token layer and exports `./tokens.css`.
+- Shell CSS owns only shell base and overlay layers under `[data-app-id="shell-super-app"]`.
+- Remote CSS owns one vertical layer, for example `[data-app-id="remote-explore"]` with `explore-` class prefixes.
+- Tailwind CSS v4 is local to each generated app through `@tailwindcss/postcss`; shared base styles must not be duplicated by remotes.
+- SSR first paint requires shared token CSS and app-owned CSS to be emitted by Modern/Rspack assets. Remote CSS is loaded through remote manifest ownership, not copied into shell source.
+
+Version switching must select UI, Effect API, CSS, i18n JSON, and MF manifest evidence from the same vertical build marker. A shell render that only changes the UI marker is not enough.
+
+### Validation And Proof
+
+Local gates:
+
+```bash
+mise exec -- pnpm ultramodern:check
+mise exec -- pnpm build
+mise exec -- pnpm cloudflare:build
+```
+
+Local Cloudflare artifact validation can run without public credentials:
+
+```bash
+node scripts/ultramodern-cloudflare-ssr-validation/validate-cloudflare-ssr.js \
+  --root-dir apps/remotes/remote-explore \
+  --bff /explore-api/effect/explore/readiness \
+  --expect-en "Explore Remote" \
+  --match-build-marker \
+  --out .codex/reports/cloudflare-ssr/remote-explore-local.json
+```
+
+Generated workspaces also include `scripts/proof-cloudflare-version.mjs`:
+
+```bash
+ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP=https://shell-super-app.example.workers.dev \
+ULTRAMODERN_PUBLIC_URL_REMOTE_EXPLORE=https://remote-explore.example.workers.dev \
+ULTRAMODERN_PUBLIC_URL_REMOTE_DECIDE=https://remote-decide.example.workers.dev \
+ULTRAMODERN_PUBLIC_URL_REMOTE_CHECKOUT=https://remote-checkout.example.workers.dev \
+mise exec -- pnpm cloudflare:proof -- --require-public-urls
+```
+
+Live Cloudflare and Zephyr proof requires public Worker URLs and Zephyr credentials. Without those, the repo can validate generated contracts, local builds, local Cloudflare output, dry-run Zephyr evidence plans, and local evidence schemas, but it cannot prove shell-driven live version selection.
+
+## Baseline Switches (Opt-out)
+
+The generated `presetUltramodern(...)` starter enables strict platform contracts. Use these env switches to opt out per app or per environment:
+
+- `MODERN_BASELINE_ENABLE_MF_SSR` (default: `true`): Enables app-level MF SSR baseline contract (`server.ssr.mode: 'stream'` + `moduleFederationAppSSR`). Disable when the app does not use app-level MF SSR, or when you need plain SSR/CSR behavior first.
+- `MODERN_BASELINE_ENABLE_BFF_REQUEST_ID` (default: `true`): Enables default BFF producer identity contract (`bff.requestId`). Disable when the app does not need cross-project producer isolation.
+- `MODERN_BASELINE_ENABLE_TELEMETRY_EXPORTERS` (default: `true`): Enables telemetry exporters in baseline config. Disable when the environment has no telemetry backend yet.
+- `MODERN_BASELINE_APP_ID` (default: `basename(process.cwd())`): Overrides baseline `bff.requestId` identity. Set this when you need a fixed platform-wide producer ID convention.
+- `MODERN_TELEMETRY_OTLP_ENDPOINT` (default: `http://127.0.0.1:4318/v1/logs`): OTLP exporter endpoint. Override when you route telemetry through a different collector endpoint.
+- `MODERN_TELEMETRY_VICTORIA_ENDPOINT` (default: `http://127.0.0.1:8428/api/v1/import/prometheus`): VictoriaMetrics exporter endpoint. Override when you use a different VM ingress endpoint.
+- `MODERN_TELEMETRY_FAIL_LOUD_STARTUP` (default: `true`): Fails startup if configured exporters fail startup health checks. Disable in local/dev environments where temporary telemetry outage should not block boot.
+
+## Related Docs
+
+- [BFF Runtime Frameworks](/guides/advanced-features/bff/frameworks)
+- [BFF Data Platform](/guides/advanced-features/bff/data-platform)
+- [BFF Effect Runtime Config](/configure/app/bff/effect)
+- [Module Federation SSR](/guides/topic-detail/module-federation/ssr)
+- [performance.rsdoctor](/configure/app/performance/rsdoctor)
+- [server.ssr](/configure/app/server/ssr)

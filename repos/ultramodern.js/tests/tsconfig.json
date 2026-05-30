@@ -1,0 +1,8 @@
+{
+  "extends": "@modern-js/tsconfig/base",
+  "compilerOptions": {
+    "strictNullChecks": false,
+    "noEmit": true,
+    "types": ["@rstest/core/globals"]
+  }
+}

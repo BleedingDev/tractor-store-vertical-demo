@@ -1,0 +1,69 @@
+.DS_Store
+
+.pnp
+.pnp.js
+.history
+*.log*
+
+node_modules/
+.yarn-integrity
+*.tsbuildinfo
+.eslintcache
+
+dist/
+dist-ssg/
+doc_build/
+!**/compiled/**/dist
+coverage/
+release/
+
+# git ignore for local test projects
+local-test-project/*/
+local-test-project/*
+
+# IDE
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+
+**/*/typings/auto-generated
+.pnpm-store/
+
+**/*/tsconfig.temp.json
+
+.changeset/pre.json
+# Dynamically generated
+.runtime-exports/
+**/.mf/
+
+# Generated TanStack Router type files (Modern.js TanStack integration)
+modern-tanstack/
+
+# website
+.docusaurus
+website/main/build
+website/**/.temp
+
+.wireit/
+.nx-cache/
+.nx/
+playground/
+
+# Local Netlify folder
+.netlify
+
+# Rest
+.modern/
+.nx
+.tmp
+.output
+.codex-gate-logs/
+dist-1
+.vercel
+dist-ssg
+.dolt/
+*.db
+
+# Beads / Dolt files (added by bd init)
+.beads-credential-key

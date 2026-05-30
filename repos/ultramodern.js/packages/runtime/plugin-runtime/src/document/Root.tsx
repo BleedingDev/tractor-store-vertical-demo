@@ -1,0 +1,35 @@
+import { omit } from '@modern-js/utils/lodash';
+import React, { useContext } from 'react';
+import { DOCUMENT_SSR_PLACEHOLDER } from './constants';
+import { DocumentContext } from './DocumentContext';
+
+export function Root(
+  props: { rootId?: string } & React.DOMAttributes<HTMLDivElement>,
+) {
+  const { rootId, children, ...rest } = props;
+  const legalProperties = omit(rest, 'id');
+
+  const {
+    templateParams: { mountId = 'root' },
+  } = useContext(DocumentContext);
+
+  return (
+    // in case for properities order not keep
+    <div id={`${rootId || mountId}`} {...legalProperties}>
+      {`${DOCUMENT_SSR_PLACEHOLDER}`}
+      {children}
+    </div>
+  );
+}
+
+export function DefaultRoot(props: { children?: any }) {
+  const {
+    templateParams: { mountId = 'root' },
+  } = useContext(DocumentContext);
+  return (
+    <div id={`${mountId}`}>
+      {`${DOCUMENT_SSR_PLACEHOLDER}`}
+      {props.children}
+    </div>
+  );
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@source-code-build/components",
+  "private": true,
+  "version": "2.66.0",
+  "main": "./dist/index.js",
+  "source": "./src/index.tsx",
+  "exports": {
+    ".": {
+      "source": "./src/index.tsx",
+      "default": "./dist/index.js"
+    },
+    "./card": {
+      "source": "./src/card/index.tsx",
+      "default": "./dist/card/index.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "card": [
+        "./dist/types/card/index.d.ts"
+      ]
+    }
+  },
+  "dependencies": {
+    "@source-code-build/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}

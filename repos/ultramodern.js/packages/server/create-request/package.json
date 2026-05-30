@@ -1,0 +1,87 @@
+{
+  "name": "@modern-js/create-request",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/server/create-request"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "modern:source": "./src/node.ts",
+  "types": "./src/browser.ts",
+  "main": "./dist/cjs/node.js",
+  "files": [
+    "dist",
+    "hook.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/browser.d.ts",
+      "modern:source": "./src/browser.ts",
+      "node": "./dist/esm/node.mjs",
+      "default": "./dist/esm/browser.mjs"
+    },
+    "./client": {
+      "types": "./dist/types/browser.d.ts",
+      "modern:source": "./src/browser.ts",
+      "default": "./dist/esm/browser.mjs"
+    },
+    "./server": {
+      "types": "./dist/types/node.d.ts",
+      "modern:source": "./src/node.ts",
+      "default": "./dist/esm/node.mjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/browser.d.ts"
+      ],
+      "client": [
+        "./dist/types/browser.d.ts"
+      ],
+      "server": [
+        "./dist/types/node.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "prepublishOnly": "only-allow-pnpm",
+    "dev": "rslib build --watch",
+    "build": "rslib build",
+    "test": "rstest --passWithNoTests"
+  },
+  "dependencies": {
+    "@modern-js/runtime-utils": "workspace:*",
+    "@modern-js/utils": "workspace:*",
+    "@swc/helpers": "^0.5.21",
+    "encoding": "^0.1.13",
+    "path-to-regexp": "^8.4.2",
+    "qs": "^6.15.2"
+  },
+  "devDependencies": {
+    "@modern-js/rslib": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@scripts/rstest-config": "workspace:*",
+    "@types/node": "^25.9.1",
+    "@types/qs": "^6.15.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "nock": "^14.0.15"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/browser.d.ts"
+  }
+}

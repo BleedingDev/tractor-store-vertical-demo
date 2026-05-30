@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "ssg",
+  "version": "2.66.0",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.9.1"
+  }
+}

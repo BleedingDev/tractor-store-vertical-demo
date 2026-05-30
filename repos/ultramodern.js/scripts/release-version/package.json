@@ -1,0 +1,20 @@
+{
+  "name": "@scripts/release-versin",
+  "version": "2.66.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsgo --watch",
+    "build": "tsgo",
+    "start": "tsx ./src/index.ts"
+  },
+  "dependencies": {
+    "@changesets/assemble-release-plan": "^6.0.10",
+    "@changesets/config": "^3.1.4",
+    "@changesets/read": "^0.6.7",
+    "@manypkg/get-packages": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.3"
+  }
+}

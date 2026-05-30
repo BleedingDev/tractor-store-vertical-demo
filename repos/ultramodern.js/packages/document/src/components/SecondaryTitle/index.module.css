@@ -1,0 +1,14 @@
+.titleWrap {
+  display: flex;
+  justify-content: space-between;
+  background-image: url(https://lf3-static.bytednsdoc.com/obj/eden-cn/aphqeh7uhohpquloj/modern-js/text-bg.png);
+  background-size: 374px 32.7px;
+  background-repeat: no-repeat;
+}
+.title {
+  padding-top: 32px;
+  color: #fff;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 48px;
+}

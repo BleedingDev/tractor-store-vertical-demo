@@ -1,0 +1,34 @@
+{
+  "name": "@source-code-build/utils",
+  "private": true,
+  "version": "2.66.0",
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "common": [
+        "./dist/types/common/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsgo"
+  },
+  "devDependencies": {
+    "@typescript/native-preview": "7.0.0-dev.20260527.2"
+  },
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./common": {
+      "source": "./src/common/index.ts",
+      "default": "./dist/common/index.js"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "name": "@modern-js/plugin-i18n",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/runtime/plugin-i18n"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "types": "./dist/types/cli/index.d.ts",
+  "main": "./dist/cjs/cli/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/cli/index.d.ts",
+      "node": {
+        "import": "./dist/esm-node/cli/index.mjs",
+        "require": "./dist/cjs/cli/index.js"
+      },
+      "default": "./dist/cjs/cli/index.js"
+    },
+    "./package.json": "./package.json",
+    "./cli": {
+      "types": "./dist/types/cli/index.d.ts",
+      "node": {
+        "import": "./dist/esm-node/cli/index.mjs",
+        "require": "./dist/cjs/cli/index.js"
+      },
+      "default": "./dist/cjs/cli/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/types/runtime/index.d.ts",
+      "node": {
+        "module": "./dist/esm/runtime/index.mjs"
+      },
+      "default": "./dist/esm/runtime/index.mjs"
+    },
+    "./server": {
+      "types": "./dist/types/server/index.d.ts",
+      "node": {
+        "import": "./dist/esm-node/server/index.mjs",
+        "require": "./dist/cjs/server/index.js"
+      },
+      "default": "./dist/cjs/server/index.js"
+    },
+    "./i18n": {
+      "types": "./dist/types/runtime/i18n/index.d.ts",
+      "default": "./dist/esm/runtime/i18n/index.mjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/cli/index.d.ts"
+      ],
+      "cli": [
+        "./dist/types/cli/index.d.ts"
+      ],
+      "runtime": [
+        "./dist/types/runtime/index.d.ts"
+      ],
+      "server": [
+        "./dist/types/server/index.d.ts"
+      ],
+      "i18n": [
+        "./dist/types/runtime/i18n/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "rslib build --watch",
+    "prepublishOnly": "only-allow-pnpm",
+    "build": "rslib build",
+    "test": "rstest --passWithNoTests"
+  },
+  "dependencies": {
+    "@modern-js/plugin": "workspace:*",
+    "@modern-js/runtime-utils": "workspace:*",
+    "@modern-js/server-core": "workspace:*",
+    "@modern-js/server-runtime": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "@modern-js/utils": "workspace:*",
+    "@swc/helpers": "^0.5.21",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "i18next-chained-backend": "^5.0.4",
+    "i18next-fs-backend": "^2.6.6",
+    "i18next-http-backend": "^4.0.0",
+    "i18next-http-middleware": "^3.9.7"
+  },
+  "peerDependencies": {
+    "@modern-js/runtime": "workspace:^3.2.0",
+    "i18next": ">=25.7.4",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-i18next": ">=15.7.4"
+  },
+  "peerDependenciesMeta": {
+    "i18next": {
+      "optional": true
+    },
+    "react-i18next": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@modern-js/app-tools": "workspace:*",
+    "@modern-js/rslib": "workspace:*",
+    "@modern-js/runtime": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.9.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "i18next": "26.2.0",
+    "jest": "^30.4.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-i18next": "17.0.8",
+    "ts-jest": "^29.4.11"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/cli/index.d.ts"
+  }
+}

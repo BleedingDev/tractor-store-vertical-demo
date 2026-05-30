@@ -1,0 +1,197 @@
+{
+  "name": "@modern-js/runtime-utils",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/toolkit/utils"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "_comment": "Provide ESM and CJS exports, ESM is used by runtime package, for treeshaking",
+  "exports": {
+    "./router": {
+      "types": "./dist/types/router.d.ts",
+      "modern:source": "./src/router.ts",
+      "default": "./dist/esm/router.mjs"
+    },
+    "./router/rsc": {
+      "types": "./dist/types/rsc.d.ts",
+      "modern:source": "./src/rsc.ts",
+      "default": "./dist/esm/rsc.mjs"
+    },
+    "./browser": {
+      "types": "./dist/types/browser/index.d.ts",
+      "modern:source": "./src/browser/index.ts",
+      "default": "./dist/esm/browser/index.mjs"
+    },
+    "./node": {
+      "types": "./dist/types/node/index.d.ts",
+      "modern:source": "./src/node/index.ts",
+      "default": "./dist/esm/node/index.mjs"
+    },
+    "./server": {
+      "types": "./dist/types/server/index.d.ts",
+      "modern:source": "./src/server/index.ts",
+      "node": {
+        "module": "./dist/esm/server/index.mjs",
+        "import": "./dist/esm-node/server/index.mjs",
+        "require": "./dist/cjs/server/index.js"
+      },
+      "default": "./dist/esm/server/index.mjs"
+    },
+    "./time": {
+      "types": "./dist/types/time.d.ts",
+      "modern:source": "./src/time.ts",
+      "node": {
+        "module": "./dist/esm/time.mjs",
+        "import": "./dist/esm-node/time.mjs",
+        "require": "./dist/cjs/time.js"
+      },
+      "default": "./dist/esm/time.mjs"
+    },
+    "./universal/request": {
+      "types": "./dist/types/universal/request.d.ts",
+      "modern:source": "./src/universal/request.ts",
+      "default": "./dist/esm/universal/request.mjs"
+    },
+    "./parsed": {
+      "types": "./dist/types/parsed.d.ts",
+      "modern:source": "./src/parsed.ts",
+      "default": "./dist/esm/parsed.mjs"
+    },
+    "./storer": {
+      "types": "./dist/types/node/storer/index.d.ts",
+      "modern:source": "./src/node/storer/index.ts",
+      "node": {
+        "import": "./dist/esm-node/node/storer/index.mjs",
+        "require": "./dist/cjs/node/storer/index.js"
+      },
+      "default": "./dist/cjs/node/storer/index.js"
+    },
+    "./fileReader": {
+      "types": "./dist/types/node/fileReader.d.ts",
+      "modern:source": "./src/node/fileReader.ts",
+      "node": {
+        "import": "./dist/esm-node/node/fileReader.mjs",
+        "require": "./dist/cjs/node/fileReader.js"
+      },
+      "default": "./dist/cjs/node/fileReader.js"
+    },
+    "./url": {
+      "types": "./dist/types/url.d.ts",
+      "modern:source": "./src/url.ts",
+      "default": "./dist/esm/url.mjs"
+    },
+    "./merge": {
+      "types": "./dist/types/merge.d.ts",
+      "modern:source": "./src/merge.ts",
+      "default": "./dist/esm/merge.mjs"
+    },
+    "./cache": {
+      "types": "./dist/types/universal/cache.d.ts",
+      "modern:source": "./src/universal/cache.ts",
+      "node": {
+        "module": "./dist/esm/universal/cache.mjs",
+        "import": "./dist/esm-node/universal/cache.mjs",
+        "require": "./dist/cjs/universal/cache.js"
+      },
+      "default": "./dist/esm/universal/cache.mjs"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/index.d.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "router": [
+        "./dist/types/router.d.ts"
+      ],
+      "router/rsc": [
+        "./dist/types/rsc.d.ts"
+      ],
+      "browser": [
+        "./dist/types/browser/index.d.ts"
+      ],
+      "node": [
+        "./dist/types/node/index.d.ts"
+      ],
+      "server": [
+        "./dist/types/server/index.d.ts"
+      ],
+      "universal/request": [
+        "./dist/types/universal/request.d.ts"
+      ],
+      "time": [
+        "./dist/types/time.d.ts"
+      ],
+      "parsed": [
+        "./dist/types/parsed.d.ts"
+      ],
+      "storer": [
+        "./dist/types/node/storer/index.d.ts"
+      ],
+      "fileReader": [
+        "./dist/types/node/fileReader.d.ts"
+      ],
+      "url": [
+        "./dist/types/url.d.ts"
+      ],
+      "merge": [
+        "./dist/types/merge.d.ts"
+      ],
+      "cache": [
+        "./dist/types/universal/cache.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "prepublishOnly": "only-allow-pnpm",
+    "dev": "rslib build --watch",
+    "build": "rslib build",
+    "test": "rstest --passWithNoTests"
+  },
+  "dependencies": {
+    "@modern-js/types": "workspace:*",
+    "@modern-js/utils": "workspace:*",
+    "@swc/helpers": "^0.5.21",
+    "lru-cache": "^11.5.0",
+    "react-router": "7.15.1",
+    "serialize-javascript": "^7.0.5"
+  },
+  "peerDependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@modern-js/rslib": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@scripts/rstest-config": "workspace:*",
+    "@types/ioredis-mock": "^8.2.7",
+    "@types/node": "^25.9.1",
+    "@types/serialize-javascript": "^5.0.4",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "ioredis-mock": "^8.13.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "sideEffects": false
+}

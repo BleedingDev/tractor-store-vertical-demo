@@ -1,0 +1,92 @@
+---
+sidebar_position: 15
+---
+
+import { PackageManagerTabs } from '@theme'
+
+# 使用 Storybook
+
+[Storybook](https://storybook.js.org/) 是一个专门用于组件调试的工具，它围绕着组件开发提供了：
+
+- 丰富多样的调试能力
+- 可与一些测试工具结合使用
+- 可重复使用的文档内容
+- 可分享能力
+- 工作流程自动化
+
+## 原理
+
+Rsbuild 提供了 [Storybook Rsbuild](https://storybook.rsbuild.rs/index.html)，任何 Rsbuild 的项目都可以使用该工具来实现 Storybook 的构建。
+
+Modern.js 基于此工具实现了 `storybook-addon-modernjs`，该插件会加载 Modern.js 配置文件，并转换为 **Storybook Rsbuild** 可用的配置。
+
+:::info
+本文档仅提供最简单的使用方式，更多内容可参考 [Storybook Rsbuild Modern.js 集成](https://storybook.rsbuild.rs/guide/integrations/modernjs.html)。
+:::
+
+## 安装
+
+<PackageManagerTabs command="install @rsbuild/core storybook-builder-rsbuild storybook-addon-modernjs -D" />
+
+你需要在项目中安装 `@rsbuild/core`，否则该插件可能无法正常工作。
+
+## 配置 `.storybook/main.ts`
+
+```ts
+import type { StorybookConfig } from 'storybook-react-rsbuild'
+
+const config: StorybookConfig = {
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: ['storybook-addon-modernjs'],
+  framework: 'storybook-react-rsbuild',
+}
+export default config
+```
+
+## Storybook 中进行 BFF 一体化调用
+
+当你希望在 Storybook 的组件中直接调用 BFF 接口（例如请求 `/api/**`）时，需要同时启动 BFF 服务并在 Storybook 的开发服务器中设置代理，避免跨域问题。
+
+### 1. 增加 scripts
+
+在 `package.json` 中增加以下脚本，用于单独启动 BFF 服务和 Storybook，同时通过 `BFF_PROXY` 环境变量确保代理配置仅在 Storybook 构建时生效：
+
+```json
+{
+  "scripts": {
+    "dev:api": "modern dev --api-only",
+    "storybook": "BFF_PROXY=1 storybook dev -p 6006 --no-open",
+  }
+}
+```
+
+### 2. 配置代理解决跨域
+
+在 `modern.config.ts` 中增加以下配置，仅在 Storybook 构建时将请求代理到 BFF 服务：
+
+```ts
+export default applyBaseConfig({
+  dev: process.env.BFF_PROXY
+    ? {
+        server: {
+          proxy: {
+            `${bff.prefix || '/api'}`: `http://localhost:${server.port || '8080'}`,
+          },
+        },
+      }
+    : {},
+});
+```
+
+### 3. 启动方式
+
+```bash
+pnpm dev:api
+pnpm storybook
+```
+
+此时在组件中直接请求 `bff.prefix` 对应的路径即可完成 BFF 一体化调用；如果未配置，则请求 `/api/**`。
+
+## 示例
+
+你可以查看 [示例](https://github.com/rspack-contrib/storybook-rsbuild/tree/main/sandboxes/modernjs-react) 了解 Modern.js 中使用 Storybook 的方式。

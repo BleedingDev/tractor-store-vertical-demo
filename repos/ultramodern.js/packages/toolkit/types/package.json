@@ -1,0 +1,64 @@
+{
+  "name": "@modern-js/types",
+  "description": "A Progressive React Framework for modern web development.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/toolkit/types"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js"
+  ],
+  "version": "3.2.1",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.d.ts"
+    },
+    "./server": {
+      "types": "./server/index.d.ts",
+      "default": "./server/index.d.ts"
+    },
+    "./cli": {
+      "types": "./cli/index.d.ts",
+      "default": "./cli/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./index.d.ts"
+      ],
+      "server": [
+        "./server/index.d.ts"
+      ],
+      "cli": [
+        "./cli/index.d.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^25.9.1",
+    "http-proxy-middleware": "^4.0.0",
+    "type-fest": "5.6.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "main": "",
+    "types": "./index.d.ts"
+  },
+  "scripts": {
+    "test": "rstest --passWithNoTests",
+    "prepublishOnly": "only-allow-pnpm"
+  }
+}

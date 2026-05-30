@@ -1,0 +1,127 @@
+{
+  "name": "@modern-js/plugin-tanstack",
+  "description": "TanStack Router integration for Modern.js.",
+  "homepage": "https://modernjs.dev",
+  "bugs": "https://github.com/web-infra-dev/modern.js/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-infra-dev/modern.js",
+    "directory": "packages/runtime/plugin-tanstack"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "framework",
+    "modern",
+    "modern.js",
+    "tanstack-router"
+  ],
+  "version": "3.2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "types": "./dist/types/cli/index.d.ts",
+  "main": "./dist/cjs/cli/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/types/cli/index.d.ts",
+      "node": {
+        "import": "./dist/esm-node/cli/index.mjs",
+        "require": "./dist/cjs/cli/index.js"
+      },
+      "default": "./dist/cjs/cli/index.js"
+    },
+    "./package.json": "./package.json",
+    "./cli": {
+      "types": "./dist/types/cli/index.d.ts",
+      "node": {
+        "import": "./dist/esm-node/cli/index.mjs",
+        "require": "./dist/cjs/cli/index.js"
+      },
+      "default": "./dist/cjs/cli/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/types/runtime/index.d.ts",
+      "node": {
+        "module": "./dist/esm/runtime/index.mjs"
+      },
+      "default": "./dist/esm/runtime/index.mjs"
+    },
+    "./runtime/rsc": {
+      "types": "./dist/types/runtime/rsc/index.d.ts",
+      "default": "./dist/esm/runtime/rsc/index.mjs"
+    },
+    "./runtime/rsc/client": {
+      "types": "./dist/types/runtime/rsc/client.d.ts",
+      "default": "./dist/esm/runtime/rsc/client.mjs"
+    },
+    "./runtime/rsc/server": {
+      "types": "./dist/types/runtime/rsc/server.d.ts",
+      "default": "./dist/esm/runtime/rsc/server.mjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types/cli/index.d.ts"
+      ],
+      "cli": [
+        "./dist/types/cli/index.d.ts"
+      ],
+      "runtime": [
+        "./dist/types/runtime/index.d.ts"
+      ],
+      "runtime/rsc": [
+        "./dist/types/runtime/rsc/index.d.ts"
+      ],
+      "runtime/rsc/client": [
+        "./dist/types/runtime/rsc/client.d.ts"
+      ],
+      "runtime/rsc/server": [
+        "./dist/types/runtime/rsc/server.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "rslib build --watch",
+    "prepublishOnly": "only-allow-pnpm",
+    "build": "rslib build && pnpm -w tsgo:dts \"$PWD\"",
+    "test": "rstest --passWithNoTests"
+  },
+  "dependencies": {
+    "@modern-js/plugin": "workspace:*",
+    "@modern-js/runtime-utils": "workspace:*",
+    "@modern-js/types": "workspace:*",
+    "@modern-js/utils": "workspace:*",
+    "@swc/helpers": "^0.5.21",
+    "@tanstack/react-router": "1.170.8",
+    "@tanstack/router-core": "1.171.6"
+  },
+  "peerDependencies": {
+    "@modern-js/runtime": "workspace:^3.2.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@modern-js/app-tools": "workspace:*",
+    "@modern-js/rslib": "workspace:*",
+    "@modern-js/runtime": "workspace:*",
+    "@rslib/core": "0.21.5",
+    "@scripts/rstest-config": "workspace:*",
+    "@tanstack/history": "1.162.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "types": "./dist/types/cli/index.d.ts"
+  }
+}

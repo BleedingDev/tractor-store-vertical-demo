@@ -1,0 +1,181 @@
+name: Publish BleedingDev Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Package version to publish, for example 3.2.0-ultramodern.1"
+        required: true
+      dependency_version:
+        description: "Version to use for internal @bleedingdev dependencies; defaults to version"
+        required: false
+      packages:
+        description: "Comma-separated source/target packages to publish; empty publishes all"
+        required: false
+      package_mode:
+        description: "Package selection mode: changed, affected, explicit, or all"
+        required: true
+        default: all
+        type: choice
+        options:
+          - changed
+          - explicit
+          - affected
+          - all
+      affected_base:
+        description: "Base ref for package_mode=affected"
+        required: false
+        default: HEAD~1
+      affected_head:
+        description: "Head ref for package_mode=affected"
+        required: false
+        default: HEAD
+      tag:
+        description: "npm dist-tag"
+        required: true
+        default: ultramodern-canary
+      dry_run:
+        description: "Run npm publish --dry-run"
+        required: true
+        type: boolean
+        default: false
+      skip_existing:
+        description: "Skip packages whose exact version already exists on npm"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: publish-bleedingdev-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish @bleedingdev packages
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    timeout-minutes: 90
+    if: github.ref == 'refs/heads/main-ultramodern'
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: "24"
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+
+      - name: Install Dependencies
+        run: mise exec -- pnpm install --frozen-lockfile
+
+      - name: Validate publish security posture
+        env:
+          PUBLISH_VERSION: ${{ inputs.version }}
+          DEPENDENCY_VERSION: ${{ inputs.dependency_version }}
+          PACKAGE_MODE: ${{ inputs.package_mode }}
+          EXPLICIT_PACKAGES: ${{ inputs.packages }}
+          PUBLISH_TAG: ${{ inputs.tag }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          SKIP_EXISTING: ${{ inputs.skip_existing }}
+          AFFECTED_BASE: ${{ inputs.affected_base }}
+          AFFECTED_HEAD: ${{ inputs.affected_head }}
+        run: node scripts/ultramodern-publish/validate-publish-security.mjs
+
+      - name: Verify publish toolchain
+        run: |
+          node --version
+          npm --version
+          mise exec -- pnpm --version
+          node -e "const version = process.versions.node.split('.').map(Number); if (version[0] < 22 || (version[0] === 22 && version[1] < 14)) throw new Error('npm trusted publishing requires Node.js 22.14.0 or newer');"
+          node -e "const { execFileSync } = require('node:child_process'); const version = execFileSync('npm', ['--version'], { encoding: 'utf8' }).trim().split('.').map(Number); if (version[0] < 11 || (version[0] === 11 && version[1] < 5) || (version[0] === 11 && version[1] === 5 && version[2] < 1)) throw new Error('npm trusted publishing requires npm 11.5.1 or newer');"
+
+      - name: Build Packages
+        run: mise exec -- pnpm ultramodern:build-bleedingdev-publish
+
+      - name: Resolve package selection
+        id: package-selection
+        env:
+          PACKAGE_MODE: ${{ inputs.package_mode }}
+          EXPLICIT_PACKAGES: ${{ inputs.packages }}
+          AFFECTED_BASE: ${{ inputs.affected_base }}
+          AFFECTED_HEAD: ${{ inputs.affected_head }}
+        run: |
+          packages="$EXPLICIT_PACKAGES"
+
+          if [ "$PACKAGE_MODE" = "changed" ] || [ "$PACKAGE_MODE" = "affected" ]; then
+            packages="$(mise exec -- pnpm ultramodern:affected-bleedingdev-publish -- --mode "$PACKAGE_MODE" --base "$AFFECTED_BASE" --head "$AFFECTED_HEAD")"
+          elif [ "$PACKAGE_MODE" = "all" ]; then
+            packages=""
+          elif [ "$PACKAGE_MODE" != "explicit" ]; then
+            echo "Unsupported package_mode: $PACKAGE_MODE" >&2
+            exit 1
+          fi
+
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
+          if [ -n "$packages" ]; then
+            echo "Publishing package selection: $packages"
+          else
+            echo "Publishing all packages"
+          fi
+
+      - name: Publish Packages
+        env:
+          PUBLISH_VERSION: ${{ inputs.version }}
+          DEPENDENCY_VERSION: ${{ inputs.dependency_version }}
+          PUBLISH_PACKAGES: ${{ steps.package-selection.outputs.packages }}
+          PUBLISH_TAG: ${{ inputs.tag }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          SKIP_EXISTING: ${{ inputs.skip_existing }}
+        run: |
+          args=(
+            --version "$PUBLISH_VERSION"
+            --tag "$PUBLISH_TAG"
+          )
+
+          if [ -n "$DEPENDENCY_VERSION" ]; then
+            args+=(--dependency-version "$DEPENDENCY_VERSION")
+          fi
+
+          if [ -n "$PUBLISH_PACKAGES" ]; then
+            args+=(--packages "$PUBLISH_PACKAGES")
+          fi
+
+          if [ "$DRY_RUN" = "true" ]; then
+            args+=(--dry-run)
+          fi
+
+          if [ "$SKIP_EXISTING" != "true" ]; then
+            args+=(--no-skip-existing)
+          fi
+
+          mise exec -- pnpm ultramodern:publish-bleedingdev -- "${args[@]}"
+
+      - name: Upload publish manifest
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: bleedingdev-publish-manifest
+          path: .modern/bleedingdev-publish/manifest.json
+          if-no-files-found: ignore

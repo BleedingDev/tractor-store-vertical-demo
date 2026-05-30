@@ -1,0 +1,82 @@
+name: Integration Test(Windows)
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on pull request events but only for the main branch
+  push:
+    branches: [main, renovate/main-rsbuild]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  integration-test-windows:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Print runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+
+      - name: Git config
+        shell: bash
+        run: |
+          git config --system core.longpaths true
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 1
+
+      - name: Setup mise
+        uses: jdx/mise-action@v3
+        with:
+          install: true
+
+      - name: Check skip CI
+        shell: bash
+        run: echo "RESULT=$(node ./scripts/skipCI.js)" >> "$GITHUB_OUTPUT"
+        id: skip-ci
+
+      - name: Log skip CI result
+        run: echo "${{steps.skip-ci.outputs.RESULT}}"
+
+      - name: Setup Node.js 22.x
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22.x
+          cache: 'pnpm'
+
+      - name: Nx Cache
+        id: nx-cache
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ github.ref_name }}-
+            nx-
+
+      - name: Install Dependencies
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: pnpm run prepare
+
+      - name: Install Puppeteer
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: cd ./tests/node_modules/puppeteer && npm run postinstall && cd ../..
+
+      - name: Test
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: pnpm run test:framework
+
+      - name: Test - Adapter Rstest
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: cd ./tests && pnpm run test:rstest-adapter

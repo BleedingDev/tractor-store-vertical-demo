@@ -1,0 +1,132 @@
+---
+title: 高级用法
+---
+
+# 高级用法
+
+## SSR 场景
+
+SSR 场景下，插件在服务端检测语言、加载翻译资源，并将结果注入页面，客户端直接复用，避免语言闪烁。
+
+**完整配置：**
+
+```ts
+// modern.config.ts
+export default defineConfig({
+  server: {
+    ssr: true,
+  },
+  plugins: [
+    appTools(),
+    i18nPlugin({
+      localeDetection: {
+        localePathRedirect: true,
+        i18nextDetector: true,
+        languages: ['zh', 'en'],
+        fallbackLanguage: 'en',
+        detection: {
+          order: ['path', 'cookie', 'header'],
+          lookupHeader: 'accept-language',
+          caches: ['cookie'],
+        },
+      },
+      backend: {
+        loadPath: '/locales/{{lng}}/{{ns}}.json',
+      },
+    }),
+  ],
+});
+```
+
+服务端检测语言的优先级：URL 路径 → Cookie → `Accept-Language` 请求头 → `fallbackLanguage`。
+
+**路由配置（约定式路由）：**
+
+```
+routes/
+└── [lang]/
+    ├── layout.tsx
+    └── page.tsx
+```
+
+SSR 场景下，服务端检测到的语言会写入 `window._SSR_DATA`，客户端直接读取，不会再重新检测，确保两端语言一致。
+
+## 多入口配置
+
+不同入口可以使用不同的语言列表、检测方式和资源路径：
+
+```ts
+// modern.config.ts
+i18nPlugin({
+  localeDetection: {
+    // 全局默认配置
+    localePathRedirect: true,
+    languages: ['zh', 'en'],
+    fallbackLanguage: 'en',
+
+    // 按入口覆盖
+    localeDetectionByEntry: {
+      admin: {
+        localePathRedirect: false, // admin 入口不使用路径前缀
+        languages: ['en'],         // admin 只支持英文
+      },
+      mobile: {
+        languages: ['zh', 'en', 'ja'], // mobile 支持更多语言
+      },
+    },
+  },
+  backend: {
+    loadPath: '/locales/{{lng}}/{{ns}}.json', // 全局默认路径
+
+    // 按入口覆盖
+    backendOptionsByEntry: {
+      admin: {
+        loadPath: '/admin/locales/{{lng}}/{{ns}}.json',
+      },
+      mobile: {
+        loadPath: '/mobile/locales/{{lng}}/{{ns}}.json',
+      },
+    },
+  },
+});
+```
+
+## 自定义 i18next 实例
+
+默认情况下，插件会使用内部创建的 i18next 实例。如果需要对实例进行深度定制（如使用自定义插件、预配置选项），可以在运行时配置中传入自定义实例：
+
+```ts
+// src/i18n.ts
+import i18next from 'i18next';
+
+const customI18n = i18next.createInstance();
+// 可以在此 use() 自定义插件
+// customI18n.use(MyPlugin);
+
+export default customI18n;
+```
+
+```ts
+// src/modern.runtime.ts
+import { defineRuntimeConfig } from '@modern-js/runtime';
+import customI18n from './i18n';
+
+export default defineRuntimeConfig({
+  i18n: {
+    i18nInstance: customI18n,
+    initOptions: {
+      fallbackLng: 'en',
+      supportedLngs: ['zh', 'en'],
+    },
+  },
+});
+```
+
+## 语言切换行为说明
+
+调用 `changeLanguage` 切换语言时：
+
+- **翻译更新**：所有使用 `t()` 的组件自动重新渲染，无需手动刷新
+- **URL 更新**（启用 `localePathRedirect` 时）：使用 `history.pushState` 更新 URL，不触发页面刷新，不影响浏览器前进/后退历史
+- **缓存更新**：根据 `caches` 配置写入 Cookie 或 LocalStorage，下次访问自动还原语言选择
+- **未启用路径前缀时**：只更新 i18next 实例和缓存，URL 不变

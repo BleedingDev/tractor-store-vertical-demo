@@ -1,0 +1,59 @@
+name: Type Check
+
+on:
+  pull_request:
+    branches: [main]
+
+  merge_group:
+
+  workflow_dispatch:
+
+jobs:
+  type-check:
+    runs-on: ${{ fromJSON(vars.SELF_LINUX_LABELS || '"ubuntu-latest"') }}
+
+    steps:
+      - name: Print runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22
+
+      - name: Setup mise
+        uses: jdx/mise-action@5ac50f778e26fac95da98d50503682459e86d566 # v3.2.0
+
+      - name: Check skip CI
+        run: echo "RESULT=$(node ./scripts/skipCI.js)" >> "$GITHUB_OUTPUT"
+        id: skip-ci
+
+      - name: Log skip CI result
+        run: echo "${{steps.skip-ci.outputs.RESULT}}"
+
+      - name: Nx Cache
+        id: nx-cache
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ github.base_ref }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ github.base_ref }}-${{ github.ref_name }}-
+            nx-${{ github.base_ref }}-
+            nx-
+
+      - name: Install Dependencies
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: mise exec -- pnpm install --frozen-lockfile
+
+      - name: Type Check
+        if: ${{steps.skip-ci.outputs.RESULT != 'true'}}
+        run: mise exec -- pnpm run prepare

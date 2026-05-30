@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "urlPath": "/",
+      "entryName": "main",
+      "entryPath": "html/main/index.html",
+      "isSPA": true,
+      "isSSR": true,
+      "bundle": "bundles/main.js"
+    },
+    {
+      "urlPath": "/test",
+      "entryName": "test",
+      "entryPath": "html/main/index.html",
+      "isSPA": true,
+      "isSSR": true,
+      "bundle": "bundles/test.js"
+    }
+  ]
+}
