@@ -1,0 +1,57 @@
+{
+  "explore": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "procházení",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Průzkumný remote",
+    "header": {
+      "machines": "Stroje",
+      "navigation": "Hlavní navigace",
+      "stores": "Prodejci"
+    },
+    "recommendations": {
+      "aiFirst": "AI varianta",
+      "bestRows": "Nejlepší do úzkých řádků",
+      "loaderReady": "Připraveno pro nakladač",
+      "title": "Doporučení",
+      "vineyard": "Profil pro vinice"
+    },
+    "teasers": {
+      "autonomous": "Autonomní traktory",
+      "classic": "Klasické traktory"
+    },
+    "products": {
+      "all": "Vše",
+      "autonomous": "Autonomní",
+      "classics": "Klasické",
+      "count": "{{count}} produktů",
+      "filter": "Filtr",
+      "filterLabel": "Filtr strojů",
+      "title": "Všechny stroje"
+    },
+    "footer": {
+      "basedOn": "založeno na",
+      "projectPrefix": "projekt společnosti",
+      "projectSuffix": "",
+      "techstack": "technologie"
+    },
+    "stores": {
+      "northRegion": "Severní region",
+      "southRegion": "Jižní region",
+      "title": "Prodejci"
+    }
+  }
+}

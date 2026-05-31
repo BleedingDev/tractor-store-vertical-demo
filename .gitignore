@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+.output/
+.mf/
+@mf-types/
+.codex/
+.agents/
+repos/
+.modernjs/cache/
+.modernjs/agent-reference-repos-tmp/
+src/modern-tanstack/
+**/src/modern-tanstack/

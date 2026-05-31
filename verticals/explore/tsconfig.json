@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "src",
+    "modern.config.ts",
+    "module-federation.config.ts",
+    "api",
+    "shared"
+  ],
+  "exclude": [
+    "src/modern-tanstack"
+  ]
+}

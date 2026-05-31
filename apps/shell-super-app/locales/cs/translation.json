@@ -1,0 +1,34 @@
+{
+  "shell": {
+    "hero": {
+      "eyebrow": "Federovaný obchod s traktory",
+      "lede": "Full-stack Micro Vertical ukázka, kde Procházení, Rozhodování a Pokladna vycházejí samostatně, ale skládají jeden obchod.",
+      "primary": "Zobrazit Field Loader",
+      "secondary": "Porovnat stroje"
+    },
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "remotes": {
+      "checkout": "Checkout remote",
+      "decide": "Decide remote",
+      "explore": "Explore remote"
+    },
+    "boundaries": {
+      "checkout": "pokladna",
+      "decide": "rozhodování",
+      "explore": "procházení",
+      "toggle": "zobrazit hranice týmů"
+    },
+    "routes": {
+      "cart": "Košík",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Prodejci"
+    },
+    "title": "Acre & Iron"
+  }
+}

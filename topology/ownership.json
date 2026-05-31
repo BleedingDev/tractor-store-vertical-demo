@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "preset": "presetUltramodern",
+  "owners": [
+    {
+      "id": "shell-super-app",
+      "package": "@tractor-store-vertical-demo/shell-super-app",
+      "path": "apps/shell-super-app",
+      "ownership": {
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/wave2/shell-super-app.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#shell-super-app",
+        "blastRadius": {
+          "tier": "tier-0-shell",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#shell",
+            "docs/super-app-rfc-adr/wave2/rollback.md#shell-lkg"
+          ]
+        }
+      }
+    },
+    {
+      "id": "explore",
+      "package": "@tractor-store-vertical-demo/explore",
+      "path": "verticals/explore",
+      "ownership": {
+        "team": "tractor-explore",
+        "slack": "#tractor-explore",
+        "pagerDuty": "pd-tractor-explore",
+        "runbookRef": "runbooks/wave2/explore.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#explore",
+        "blastRadius": {
+          "tier": "tier-1-tractor-discovery",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#explore",
+            "docs/super-app-rfc-adr/wave2/rollback.md#explore-lkg"
+          ]
+        }
+      }
+    },
+    {
+      "id": "decide",
+      "package": "@tractor-store-vertical-demo/decide",
+      "path": "verticals/decide",
+      "ownership": {
+        "team": "tractor-decide",
+        "slack": "#tractor-decide",
+        "pagerDuty": "pd-tractor-decide",
+        "runbookRef": "runbooks/wave2/decide.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#decide",
+        "blastRadius": {
+          "tier": "tier-1-tractor-configuration",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#decide",
+            "docs/super-app-rfc-adr/wave2/rollback.md#decide-lkg"
+          ]
+        }
+      }
+    },
+    {
+      "id": "checkout",
+      "package": "@tractor-store-vertical-demo/checkout",
+      "path": "verticals/checkout",
+      "ownership": {
+        "team": "tractor-checkout",
+        "slack": "#tractor-checkout",
+        "pagerDuty": "pd-tractor-checkout",
+        "runbookRef": "runbooks/wave2/checkout.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#checkout",
+        "blastRadius": {
+          "tier": "tier-1-tractor-purchase",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#checkout",
+            "docs/super-app-rfc-adr/wave2/rollback.md#checkout-lkg"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shared-contracts",
+      "package": "@tractor-store-vertical-demo/shared-contracts",
+      "path": "packages/shared-contracts",
+      "ownership": {
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/wave2/shared-contracts.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#shared-packages",
+        "blastRadius": {
+          "tier": "tier-1-shared-contract",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#shared-packages"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shared-design-tokens",
+      "package": "@tractor-store-vertical-demo/shared-design-tokens",
+      "path": "packages/shared-design-tokens",
+      "ownership": {
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/wave2/shared-design-tokens.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#shared-packages",
+        "blastRadius": {
+          "tier": "tier-1-shared-contract",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#shared-packages"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shared-effect-api",
+      "package": "@tractor-store-vertical-demo/shared-effect-api",
+      "path": "packages/shared-effect-api",
+      "ownership": {
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/wave2/shared-effect-api.md",
+        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#shared-packages",
+        "blastRadius": {
+          "tier": "tier-1-shared-contract",
+          "references": [
+            "docs/super-app-rfc-adr/wave2/blast-radius.md#shared-packages"
+          ]
+        }
+      }
+    }
+  ]
+}

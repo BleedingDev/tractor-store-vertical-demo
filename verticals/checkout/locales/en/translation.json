@@ -1,0 +1,36 @@
+{
+  "checkout": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "checkout",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "title": "Checkout Vertical",
+    "actions": {
+      "addToCart": "Add to basket",
+      "checkout": "Checkout",
+      "continueShopping": "Continue shopping",
+      "remove": "Remove",
+      "viewCart": "View cart"
+    },
+    "cart": {
+      "empty": "Basket is empty.",
+      "title": "Basket",
+      "total": "Total"
+    },
+    "product": {
+      "stockShipping": "8 in stock, free shipping"
+    }
+  }
+}
