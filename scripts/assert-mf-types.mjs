@@ -19,11 +19,10 @@ Checks that every Module Federation remote with exposed modules emitted a non-em
 }
 
 const candidateDirs = args;
-const appDirs = candidateDirs.length
-  ? candidateDirs
-  : fs.existsSync(path.join(root, 'module-federation.config.ts'))
-    ? ['.']
-    : defaultAppDirs;
+let appDirs = candidateDirs;
+if (appDirs.length === 0) {
+  appDirs = fs.existsSync(path.join(root, 'module-federation.config.ts')) ? ['.'] : defaultAppDirs;
+}
 
 for (const appDir of appDirs) {
   const configPath = path.join(root, appDir, 'module-federation.config.ts');
@@ -32,7 +31,7 @@ for (const appDir of appDirs) {
   }
 
   const contractEntry = generatedContract?.apps?.find(
-    (app) => app.path === appDir.replaceAll(/\\/g, '/'),
+    (app) => app.path === appDir.replaceAll('\\', '/'),
   );
   if (
     contractEntry &&

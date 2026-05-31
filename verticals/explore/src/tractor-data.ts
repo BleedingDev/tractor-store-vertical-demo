@@ -9,8 +9,8 @@ export const responsiveImage = (template: string, sizes: number[]) =>
 export const productSlug = (name: string) =>
   name
     .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/g, '-')
-    .replaceAll(/^-|-$/g, '');
+    .replaceAll(/[^a-z0-9]+/gu, '-')
+    .replaceAll(/^-|-$/gu, '');
 
 export const teasers = [
   {

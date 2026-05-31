@@ -39,13 +39,17 @@ const writeCart = (lines: CartLine[]) => {
 };
 
 const updateLine = (id: string, updater: (line: CartLine) => CartLine | undefined) => {
-  const next = readCart()
-    .map((line) => (line.id === id ? updater(line) : line))
-    .filter((line): line is CartLine => Boolean(line));
+  const next = readCart().flatMap((line) => {
+    if (line.id !== id) {
+      return [line];
+    }
+    const updatedLine = updater(line);
+    return updatedLine === undefined ? [] : [updatedLine];
+  });
   writeCart(next);
 };
 
-export function useCartLines() {
+export const useCartLines = () => {
   const [lines, setLines] = useState<CartLine[]>(() => readCart());
 
   useEffect(() => {
@@ -65,23 +69,27 @@ export function useCartLines() {
       addFieldLoader: () => {
         const existing = readCart();
         const match = existing.find((line) => line.id === fieldLoader.id);
+        if (match === undefined) {
+          writeCart([...existing, fieldLoader]);
+          return;
+        }
         writeCart(
-          match !== undefined
-            ? existing.map((line) =>
-                line.id === fieldLoader.id ? { ...line, quantity: line.quantity + 1 } : line,
-              )
-            : [...existing, fieldLoader],
+          existing.map((line) =>
+            line.id === fieldLoader.id ? { ...line, quantity: line.quantity + 1 } : line,
+          ),
         );
       },
       addProduct: (product: Omit<CartLine, 'quantity'>) => {
         const existing = readCart();
         const match = existing.find((line) => line.id === product.id);
+        if (match === undefined) {
+          writeCart([...existing, { ...product, quantity: 1 }]);
+          return;
+        }
         writeCart(
-          match !== undefined
-            ? existing.map((line) =>
-                line.id === product.id ? { ...line, quantity: line.quantity + 1 } : line,
-              )
-            : [...existing, { ...product, quantity: 1 }],
+          existing.map((line) =>
+            line.id === product.id ? { ...line, quantity: line.quantity + 1 } : line,
+          ),
         );
       },
       decrement: (id: string) =>
@@ -96,4 +104,4 @@ export function useCartLines() {
     }),
     [lines],
   );
-}
+};

@@ -66,12 +66,12 @@ const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers
       ),
     )
     .handle('get', ({ params }) => {
-      const item = exploreItems.find((item) => item.id === params.id);
-      return (
-        item !== undefined
-          ? Effect.succeed(item)
-          : Effect.fail(new ExploreNotFound({ id: params.id }))
-      ).pipe(
+      const foundItem = exploreItems.find((candidate) => candidate.id === params.id);
+      const result =
+        foundItem === undefined
+          ? Effect.fail(new ExploreNotFound({ id: params.id }))
+          : Effect.succeed(foundItem);
+      return result.pipe(
         Effect.withSpan('ultramodern.effect.explore.get', {
           attributes: operationAttributes(exploreOperationContexts.get),
           kind: 'server',
@@ -83,8 +83,8 @@ const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers
         item: {
           id: `generated-explore-${payload.title
             .toLowerCase()
-            .replaceAll(/[^a-z0-9]+/g, '-')
-            .replaceAll(/^-|-$/g, '')}`,
+            .replaceAll(/[^a-z0-9]+/gu, '-')
+            .replaceAll(/^-|-$/gu, '')}`,
           marker: ultramodernApiMarker,
           title: payload.title,
         },

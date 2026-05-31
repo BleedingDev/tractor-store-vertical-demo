@@ -32,7 +32,7 @@ const boundaryIds = ['explore', 'decide', 'checkout'] as const;
 const boundaryStorageKey = 'tractor-store.show-team-boundaries';
 
 export default function BoundaryOverlay() {
-  const { i18nInstance, language } = useModernI18n();
+  const { i18nInstance } = useModernI18n();
   const [mounted, setMounted] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [boxes, setBoxes] = useState<BoundaryBox[]>([]);
@@ -50,7 +50,7 @@ export default function BoundaryOverlay() {
         },
       ]),
     ) as Record<string, BoundaryConfig>;
-  }, [i18nInstance, language]);
+  }, [i18nInstance]);
   const toggleLabel = i18nInstance['t'].bind(i18nInstance)('shell.boundaries.toggle');
 
   useEffect(() => {
@@ -65,12 +65,12 @@ export default function BoundaryOverlay() {
     }
 
     const readBoxes = () => {
-      const nextBoxes = [...document.querySelectorAll<HTMLElement>('[data-mf-boundary]')]
-        .map((element, index) => {
+      const nextBoxes = [...document.querySelectorAll<HTMLElement>('[data-mf-boundary]')].flatMap(
+        (element, index) => {
           const id = element.dataset['mfBoundary'] ?? 'unknown';
           const rect = element.getBoundingClientRect();
           if (rect.width <= 0 || rect.height <= 0) {
-            return;
+            return [];
           }
           const fallback = {
             color: 'var(--um-boundary-unknown, #7c8cff)',
@@ -78,17 +78,19 @@ export default function BoundaryOverlay() {
           };
           const config = boundaryConfig[id] ?? fallback;
 
-          return {
-            ...config,
-            height: rect.height,
-            id: `${id}-${index}`,
-            labelPlacement: rect.height < 48 ? 'above' : 'inside',
-            left: rect.left,
-            top: rect.top,
-            width: rect.width,
-          } satisfies BoundaryBox;
-        })
-        .filter((box): box is BoundaryBox => box !== undefined);
+          return [
+            {
+              ...config,
+              height: rect.height,
+              id: `${id}-${index}`,
+              labelPlacement: rect.height < 48 ? 'above' : 'inside',
+              left: rect.left,
+              top: rect.top,
+              width: rect.width,
+            } satisfies BoundaryBox,
+          ];
+        },
+      );
 
       setBoxes(nextBoxes);
     };
@@ -127,6 +129,7 @@ export default function BoundaryOverlay() {
         <input
           className="shell:size-4 shell:accent-emerald-800"
           checked={enabled}
+          aria-label={toggleLabel}
           onChange={(event) => {
             const nextEnabled = event.currentTarget.checked;
             setEnabled(nextEnabled);

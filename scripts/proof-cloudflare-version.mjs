@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 const workspaceRoot = path.resolve(import.meta.dirname, '..');
 const contractPath = path.join(workspaceRoot, '.modernjs/ultramodern-generated-contract.json');
@@ -10,11 +9,9 @@ const defaultOut = path.join(
   '.codex/reports/cloudflare-version-proof/public-url-proof.json',
 );
 
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-}
+const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-function parseArgs(argv) {
+const parseArgs = (argv) => {
   const parsed = {
     appId: undefined,
     out: defaultOut,
@@ -39,26 +36,23 @@ function parseArgs(argv) {
   }
 
   return parsed;
-}
+};
 
-function printHelp() {
+const printHelp = () => {
   process.stdout.write(`Usage:
   node scripts/proof-cloudflare-version.mjs [--app explore] [--out evidence.json] [--require-public-urls]
 
 Set each app's public URL using the contract env key, for example:
   ULTRAMODERN_PUBLIC_URL_EXPLORE=https://explore.example.workers.dev
 `);
-}
+};
 
-function joinUrl(baseUrl, routePath) {
-  return new URL(routePath, baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`);
-}
+const joinUrl = (baseUrl, routePath) =>
+  new URL(routePath, baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`);
 
-function normalizeUrlWithTrailingSlash(url) {
-  return url.endsWith('/') ? url : `${url}/`;
-}
+const normalizeUrlWithTrailingSlash = (url) => (url.endsWith('/') ? url : `${url}/`);
 
-async function fetchText(url) {
+const fetchText = async (url) => {
   const response = await fetch(url);
   return {
     accessControlAllowOrigin: response.headers.get('access-control-allow-origin'),
@@ -67,19 +61,19 @@ async function fetchText(url) {
     ok: response.ok,
     status: response.status,
   };
-}
+};
 
-function parseMaybeJson(body) {
+const parseMaybeJson = (body) => {
   try {
     return JSON.parse(body);
   } catch {
-    return;
+    return null;
   }
-}
+};
 
-function markerFromJson(value) {
+const markerFromJson = (value) => {
   if (!value || typeof value !== 'object') {
-    return;
+    return null;
   }
   if (value.marker && typeof value.marker.build === 'string') {
     return value.marker.build;
@@ -102,30 +96,18 @@ function markerFromJson(value) {
       }
     }
   }
-  return;
-}
+  return null;
+};
 
-function extractUiMarker(html) {
-  return html.match(/data-build-marker=["']([^"']+)["']/u)?.[1];
-}
+const extractUiMarker = (html) => html.match(/data-build-marker=["']([^"']+)["']/u)?.[1];
 
-function assert(condition, message) {
+const assert = (condition, message) => {
   if (!condition) {
     throw new Error(message);
   }
-}
+};
 
-async function validateApp(app, publicUrl) {
-  const cloudflare = app.deploy?.cloudflare;
-  const routes = cloudflare?.routes ?? {};
-  const evidence = {
-    appId: app.id,
-    assertions: [],
-    publicUrl,
-    publicUrlEnv: cloudflare?.publicUrlEnv,
-    workerName: cloudflare?.workerName,
-  };
-
+const validateSsr = async (app, publicUrl, routes, evidence) => {
   const ssrRoute = routes.ssr ?? '/en';
   const ssr = await fetchText(joinUrl(publicUrl, ssrRoute));
   evidence.assertions.push({
@@ -156,7 +138,9 @@ async function validateApp(app, publicUrl) {
     expectedAppId && ssr.body.includes(`data-app-id="${expectedAppId}"`),
     `${app.id} SSR response is missing CSS root marker ${cssRootSelector}`,
   );
+};
 
+const validateManifest = async (app, publicUrl, routes, evidence) => {
   const manifestRoute = routes.mfManifest ?? '/mf-manifest.json';
   const manifest = await fetchText(joinUrl(publicUrl, manifestRoute));
   const manifestJson = parseMaybeJson(manifest.body);
@@ -189,7 +173,9 @@ async function validateApp(app, publicUrl) {
     manifestPublicPath === expectedPublicPath,
     `${app.id} MF manifest publicPath must resolve remote assets from ${expectedPublicPath}`,
   );
+};
 
+const validateLocale = async (app, publicUrl, routes, evidence) => {
   const localeRoute = routes.locale ?? `/locales/en/${app.i18n?.namespace}.json`;
   const locale = await fetchText(joinUrl(publicUrl, localeRoute));
   const localeJson = parseMaybeJson(locale.body);
@@ -216,27 +202,46 @@ async function validateApp(app, publicUrl) {
     localeJson && Object.hasOwn(localeJson, app.i18n?.namespace),
     `${app.id} locale JSON is missing namespace ${app.i18n?.namespace}`,
   );
+};
 
-  if (routes.effectReadiness) {
-    const readiness = await fetchText(joinUrl(publicUrl, routes.effectReadiness));
-    const readinessJson = parseMaybeJson(readiness.body);
-    const apiMarker = markerFromJson(readinessJson);
-    evidence.assertions.push({
-      actual: apiMarker,
-      expected: app.marker?.build,
-      route: routes.effectReadiness,
-      status: readiness.ok && apiMarker === app.marker?.build ? 'pass' : 'fail',
-      statusCode: readiness.status,
-      type: 'api-marker',
-    });
-    assert(readiness.ok, `${app.id} Effect readiness returned HTTP ${readiness.status}`);
-    assert(apiMarker === app.marker?.build, `${app.id} API marker mismatch`);
+const validateReadiness = async (app, publicUrl, routes, evidence) => {
+  if (!routes.effectReadiness) {
+    return;
   }
+  const readiness = await fetchText(joinUrl(publicUrl, routes.effectReadiness));
+  const readinessJson = parseMaybeJson(readiness.body);
+  const apiMarker = markerFromJson(readinessJson);
+  evidence.assertions.push({
+    actual: apiMarker,
+    expected: app.marker?.build,
+    route: routes.effectReadiness,
+    status: readiness.ok && apiMarker === app.marker?.build ? 'pass' : 'fail',
+    statusCode: readiness.status,
+    type: 'api-marker',
+  });
+  assert(readiness.ok, `${app.id} Effect readiness returned HTTP ${readiness.status}`);
+  assert(apiMarker === app.marker?.build, `${app.id} API marker mismatch`);
+};
 
+const validateApp = async (app, publicUrl) => {
+  const cloudflare = app.deploy?.cloudflare;
+  const routes = cloudflare?.routes ?? {};
+  const evidence = {
+    appId: app.id,
+    assertions: [],
+    publicUrl,
+    publicUrlEnv: cloudflare?.publicUrlEnv,
+    workerName: cloudflare?.workerName,
+  };
+
+  await validateSsr(app, publicUrl, routes, evidence);
+  await validateManifest(app, publicUrl, routes, evidence);
+  await validateLocale(app, publicUrl, routes, evidence);
+  await validateReadiness(app, publicUrl, routes, evidence);
   return evidence;
-}
+};
 
-async function main(argv = process.argv.slice(2)) {
+const main = async (argv = process.argv.slice(2)) => {
   const args = parseArgs(argv);
   if (args.help) {
     printHelp();
@@ -281,14 +286,11 @@ async function main(argv = process.argv.slice(2)) {
   fs.writeFileSync(args.out, `${JSON.stringify(report, null, 2)}\n`);
   process.stdout.write(`[cloudflare-version-proof] ${report.status}: ${args.out}\n`);
   return 0;
-}
+};
 
-main().then(
-  (exitCode) => {
-    process.exitCode = exitCode;
-  },
-  (error) => {
-    process.stderr.write(`[cloudflare-version-proof] ${error.message}\n`);
-    process.exitCode = 1;
-  },
-);
+try {
+  process.exitCode = await main();
+} catch (error) {
+  process.stderr.write(`[cloudflare-version-proof] ${error.message}\n`);
+  process.exitCode = 1;
+}

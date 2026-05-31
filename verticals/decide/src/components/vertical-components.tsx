@@ -10,12 +10,7 @@ interface RemoteComponentModule<Props extends object = Record<string, never>> {
 }
 
 const loadRemoteComponent = <Props extends object>(specifier: string) =>
-  loadRemote<RemoteComponentModule<Props>>(specifier).then((module) => {
-    if (module === null) {
-      throw new Error(`Remote module unavailable: ${specifier}`);
-    }
-    return module;
-  });
+  loadRemote<RemoteComponentModule<Props>>(specifier) as Promise<RemoteComponentModule<Props>>;
 
 const remoteFallback = ({ error }: { error: Error }) => (
   <div

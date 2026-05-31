@@ -200,7 +200,7 @@ const sortObjectKeys = (value) => {
   if (value && typeof value === 'object') {
     return Object.fromEntries(
       Object.entries(value)
-        .sort(([left], [right]) => left.localeCompare(right))
+        .toSorted(([left], [right]) => left.localeCompare(right))
         .map(([key, entry]) => [key, sortObjectKeys(entry)]),
     );
   }
@@ -542,7 +542,7 @@ for (const vertical of fullStackVerticals) {
   );
   assert(
     contractEntry?.deploy?.cloudflare?.publicUrlEnv ===
-      `ULTRAMODERN_PUBLIC_URL_${vertical.id.replaceAll(/-/g, '_').toUpperCase()}`,
+      `ULTRAMODERN_PUBLIC_URL_${vertical.id.replaceAll('-', '_').toUpperCase()}`,
     `${vertical.id} Cloudflare public URL env is incorrect`,
   );
   assert(

@@ -66,12 +66,12 @@ const decideLayer = HttpApiBuilder.group(decideEffectApi, 'decide', (handlers) =
       ),
     )
     .handle('get', ({ params }) => {
-      const item = decideItems.find((item) => item.id === params.id);
-      return (
-        item !== undefined
-          ? Effect.succeed(item)
-          : Effect.fail(new DecideNotFound({ id: params.id }))
-      ).pipe(
+      const foundItem = decideItems.find((candidate) => candidate.id === params.id);
+      const result =
+        foundItem === undefined
+          ? Effect.fail(new DecideNotFound({ id: params.id }))
+          : Effect.succeed(foundItem);
+      return result.pipe(
         Effect.withSpan('ultramodern.effect.decide.get', {
           attributes: operationAttributes(decideOperationContexts.get),
           kind: 'server',
@@ -83,8 +83,8 @@ const decideLayer = HttpApiBuilder.group(decideEffectApi, 'decide', (handlers) =
         item: {
           id: `generated-decide-${payload.title
             .toLowerCase()
-            .replaceAll(/[^a-z0-9]+/g, '-')
-            .replaceAll(/^-|-$/g, '')}`,
+            .replaceAll(/[^a-z0-9]+/gu, '-')
+            .replaceAll(/^-|-$/gu, '')}`,
           marker: ultramodernApiMarker,
           title: payload.title,
         },

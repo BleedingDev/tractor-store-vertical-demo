@@ -45,8 +45,8 @@ jobs:
       - name: Install Dependencies
         run: mise exec -- pnpm install --frozen-lockfile
 
-      - name: Validate Ultramodern Workspace Contract
-        run: mise exec -- pnpm run ultramodern:check
+      - name: Check Workspace
+        run: mise exec -- pnpm check
 
       - name: Build Workspace Apps
         env:

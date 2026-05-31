@@ -1,4 +1,8 @@
-import { makeEffectHttpApiClient, runEffectRequest } from '@modern-js/plugin-bff/effect-client';
+import {
+  Effect,
+  makeEffectHttpApiClient,
+  runEffectRequest,
+} from '@modern-js/plugin-bff/effect-client';
 import {
   exploreApiContract,
   exploreEffectApi,
@@ -13,44 +17,39 @@ export interface ExploreClientOptions {
   traceparent?: string;
 }
 
-export function createExploreClient(options: ExploreClientOptions = {}) {
-  return makeEffectHttpApiClient(exploreEffectApi, {
+export const createExploreClient = (options: ExploreClientOptions = {}) =>
+  makeEffectHttpApiClient(exploreEffectApi, {
     baseUrl: options.baseUrl ?? exploreApiContract.servicePrefix,
   });
-}
 
-export function listExplore(options: ExploreClientOptions & { limit?: number } = {}) {
-  return runEffectRequest(
+export const listExplore = (options: ExploreClientOptions & { limit?: number } = {}) =>
+  runEffectRequest(
     createExploreClient({
       ...options,
       operationContext: options.operationContext ?? exploreOperationContexts.list,
-    }),
-  ).then((client) => runEffectRequest(client.explore.list({ query: { limit: options.limit } })));
-}
+    }).pipe(Effect.flatMap((client) => client.explore.list({ query: { limit: options.limit } }))),
+  );
 
-export function getExploreReadiness(options: ExploreClientOptions = {}) {
-  return runEffectRequest(
+export const getExploreReadiness = (options: ExploreClientOptions = {}) =>
+  runEffectRequest(
     createExploreClient({
       ...options,
       operationContext: options.operationContext ?? exploreOperationContexts.readiness,
-    }),
-  ).then((client) => runEffectRequest(client.explore.readiness({})));
-}
+    }).pipe(Effect.flatMap((client) => client.explore.readiness({}))),
+  );
 
-export function getExplore(id: string, options: ExploreClientOptions = {}) {
-  return runEffectRequest(
+export const getExplore = (id: string, options: ExploreClientOptions = {}) =>
+  runEffectRequest(
     createExploreClient({
       ...options,
       operationContext: options.operationContext ?? exploreOperationContexts.get,
-    }),
-  ).then((client) => runEffectRequest(client.explore.get({ params: { id } })));
-}
+    }).pipe(Effect.flatMap((client) => client.explore.get({ params: { id } }))),
+  );
 
-export function createExplore(title: string, options: ExploreClientOptions = {}) {
-  return runEffectRequest(
+export const createExplore = (title: string, options: ExploreClientOptions = {}) =>
+  runEffectRequest(
     createExploreClient({
       ...options,
       operationContext: options.operationContext ?? exploreOperationContexts.create,
-    }),
-  ).then((client) => runEffectRequest(client.explore.create({ payload: { title } })));
-}
+    }).pipe(Effect.flatMap((client) => client.explore.create({ payload: { title } }))),
+  );

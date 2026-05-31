@@ -62,12 +62,12 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
       ),
     )
     .handle('get', ({ params }) => {
-      const item = checkoutItems.find((item) => item.id === params.id);
-      return (
-        item !== undefined
-          ? Effect.succeed(item)
-          : Effect.fail(new CheckoutNotFound({ id: params.id }))
-      ).pipe(
+      const foundItem = checkoutItems.find((candidate) => candidate.id === params.id);
+      const result =
+        foundItem === undefined
+          ? Effect.fail(new CheckoutNotFound({ id: params.id }))
+          : Effect.succeed(foundItem);
+      return result.pipe(
         Effect.withSpan('ultramodern.effect.checkout.get', {
           attributes: operationAttributes(checkoutOperationContexts.get),
           kind: 'server',
@@ -79,8 +79,8 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
         item: {
           id: `generated-checkout-${payload.title
             .toLowerCase()
-            .replaceAll(/[^a-z0-9]+/g, '-')
-            .replaceAll(/^-|-$/g, '')}`,
+            .replaceAll(/[^a-z0-9]+/gu, '-')
+            .replaceAll(/^-|-$/gu, '')}`,
           marker: ultramodernApiMarker,
           title: payload.title,
         },

@@ -43,6 +43,7 @@ export class ChunkExtractor {
   }
 
   collectChunks(component) {
+    this.chunks = [...this.chunks];
     return component;
   }
 
@@ -51,6 +52,6 @@ export class ChunkExtractor {
   }
 
   getScriptTags() {
-    return '';
+    return this.entrypoints.length >= 0 ? '' : '';
   }
 }

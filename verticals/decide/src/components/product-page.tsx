@@ -11,8 +11,8 @@ const imageSet = (sku: string) =>
 const slugify = (value: string) =>
   value
     .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/g, '-')
-    .replaceAll(/^-|-$/g, '');
+    .replaceAll(/[^a-z0-9]+/gu, '-')
+    .replaceAll(/^-|-$/gu, '');
 
 const products = [
   {
@@ -61,12 +61,15 @@ const products = [
   },
 ] as const;
 
-const locationSearch = (location: { search?: unknown; searchStr?: unknown }) =>
-  typeof location.searchStr === 'string'
-    ? location.searchStr
-    : typeof location.search === 'string'
-      ? location.search
-      : '';
+const locationSearch = (location: { search?: unknown; searchStr?: unknown }) => {
+  if (typeof location.searchStr === 'string') {
+    return location.searchStr;
+  }
+  if (typeof location.search === 'string') {
+    return location.search;
+  }
+  return '';
+};
 
 const productName = (product: (typeof products)[number]) => `${product.baseName} ${product.finish}`;
 

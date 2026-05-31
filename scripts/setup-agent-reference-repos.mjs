@@ -8,8 +8,8 @@ const checkOnly = args.has('--check');
 const configPath = path.join(root, '.agents', 'agent-reference-repos.json');
 const manifestPath = path.join(root, '.modernjs', 'agent-reference-repos.json');
 
-const truthy = (value) => /^(1|true|yes|on)$/i.test(String(value ?? ''));
-const falsy = (value) => /^(0|false|no|off)$/i.test(String(value ?? ''));
+const truthy = (value) => /^(1|true|yes|on)$/iu.test(String(value ?? ''));
+const falsy = (value) => /^(0|false|no|off)$/iu.test(String(value ?? ''));
 
 const skipRequested =
   truthy(process.env.ULTRAMODERN_SKIP_AGENT_REPOS) || falsy(process.env.ULTRAMODERN_AGENT_REPOS);
@@ -26,18 +26,16 @@ const gitIdentityEnv = {
 const log = (message) => console.log(`[agent-reference-repos] ${message}`);
 const warn = (message) => console.warn(`[agent-reference-repos] ${message}`);
 
-function fail(message) {
+const fail = (message) => {
   if (required || checkOnly) {
     throw new Error(message);
   }
   warn(message);
-}
+};
 
-function readJson(filePath) {
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-}
+const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-function run(command, commandArgs, options = {}) {
+const run = (command, commandArgs, options = {}) => {
   const result = spawnSync(command, commandArgs, {
     cwd: options.cwd ?? root,
     encoding: 'utf-8',
@@ -58,29 +56,29 @@ function run(command, commandArgs, options = {}) {
     throw new Error(`${command} ${commandArgs.join(' ')} failed${stderr ? `: ${stderr}` : ''}`);
   }
   return result.stdout?.trim() ?? '';
-}
+};
 
-function assertSafeRepoPath(relativePath) {
+const assertSafeRepoPath = (relativePath) => {
   if (
     typeof relativePath !== 'string' ||
     relativePath.length === 0 ||
     path.isAbsolute(relativePath) ||
-    relativePath.split(/[\\/]+/).includes('..') ||
+    relativePath.split(/[\\/]+/u).includes('..') ||
     !relativePath.startsWith('repos/')
   ) {
     throw new Error(`Unsafe reference repository path: ${relativePath}`);
   }
-}
+};
 
-function hasGit() {
+const hasGit = () => {
   const result = spawnSync('git', ['--version'], {
     encoding: 'utf-8',
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   return result.status === 0;
-}
+};
 
-function hasGitSubtree() {
+const hasGitSubtree = () => {
   const result = spawnSync('git', ['subtree', '-h'], {
     encoding: 'utf-8',
     stdio: ['ignore', 'pipe', 'pipe'],
@@ -88,31 +86,29 @@ function hasGitSubtree() {
   return (
     (result.status === 0 || result.status === 129) && result.stdout.includes('usage: git subtree')
   );
-}
+};
 
-function isGitWorkTree() {
+const isGitWorkTree = () => {
   const result = spawnSync('git', ['rev-parse', '--is-inside-work-tree'], {
     cwd: root,
     encoding: 'utf-8',
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   return result.status === 0 && result.stdout.trim() === 'true';
-}
+};
 
-function hasCommits() {
+const hasCommits = () => {
   const result = spawnSync('git', ['rev-parse', '--verify', 'HEAD'], {
     cwd: root,
     encoding: 'utf-8',
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   return result.status === 0;
-}
+};
 
-function porcelainStatus() {
-  return run('git', ['status', '--porcelain'], { timeout: 30_000 });
-}
+const porcelainStatus = () => run('git', ['status', '--porcelain'], { timeout: 30_000 });
 
-function ensureGitRepository() {
+const ensureGitRepository = () => {
   if (!isGitWorkTree()) {
     if (checkOnly) {
       fail('workspace is not a git repository');
@@ -144,9 +140,9 @@ function ensureGitRepository() {
   }
 
   return true;
-}
+};
 
-function remoteCommit(repo) {
+const remoteCommit = (repo) => {
   let output = run('git', ['ls-remote', repo.url, `refs/heads/${repo.ref}`], {
     timeout: 120_000,
   });
@@ -155,14 +151,14 @@ function remoteCommit(repo) {
       timeout: 120_000,
     });
   }
-  const [commit] = output.split(/\s+/);
-  if (!/^[a-f0-9]{40}$/i.test(commit ?? '')) {
+  const [commit] = output.split(/\s+/u);
+  if (!/^[a-f0-9]{40}$/iu.test(commit ?? '')) {
     throw new Error(`Could not resolve ${repo.url}#${repo.ref}`);
   }
   return commit;
-}
+};
 
-function subtreeCommitExists(repo) {
+const subtreeCommitExists = (repo) => {
   const result = spawnSync(
     'git',
     ['log', '--grep', `git-subtree-dir: ${repo.path}`, '--format=%H', '-n', '1'],
@@ -173,9 +169,9 @@ function subtreeCommitExists(repo) {
     },
   );
   return result.status === 0 && result.stdout.trim().length > 0;
-}
+};
 
-function installedManifestEntry(repo) {
+const installedManifestEntry = (repo) => {
   if (!fs.existsSync(manifestPath)) {
     return;
   }
@@ -183,16 +179,15 @@ function installedManifestEntry(repo) {
     const manifest = readJson(manifestPath);
     return manifest.repositories?.find((entry) => entry.id === repo.id);
   } catch {
-    return;
+    return null;
   }
-}
+};
 
-function assertSubtreePresent(repo) {
+const assertSubtreePresent = (repo) => {
   assertSafeRepoPath(repo.path);
   const targetPath = path.join(root, repo.path);
   if (!fs.existsSync(targetPath)) {
     fail(`${repo.path} is missing`);
-    return;
   }
   if (!subtreeCommitExists(repo)) {
     fail(`${repo.path} is present but has no git-subtree commit evidence`);
@@ -210,9 +205,9 @@ function assertSubtreePresent(repo) {
       url: repo.url,
     }
   );
-}
+};
 
-function addSubtree(repo) {
+const addSubtree = (repo) => {
   assertSafeRepoPath(repo.path);
   const targetPath = path.join(root, repo.path);
   const existing = fs.existsSync(targetPath);
@@ -223,7 +218,6 @@ function addSubtree(repo) {
 
   if (existing && refresh) {
     fail(`${repo.path} already exists; refresh for subtree references is intentionally manual`);
-    return;
   }
 
   if (checkOnly) {
@@ -264,9 +258,9 @@ function addSubtree(repo) {
     strategy: 'git-subtree-squash',
     url: repo.url,
   };
-}
+};
 
-function writeManifest(entries) {
+const writeManifest = (entries) => {
   fs.mkdirSync(path.dirname(manifestPath), { recursive: true });
   fs.writeFileSync(
     manifestPath,
@@ -282,9 +276,9 @@ function writeManifest(entries) {
       2,
     )}\n`,
   );
-}
+};
 
-function commitManifestIfChanged() {
+const commitManifestIfChanged = () => {
   const status = run('git', ['status', '--porcelain', '--', manifestPath], {
     timeout: 30_000,
   });
@@ -295,9 +289,9 @@ function commitManifestIfChanged() {
   run('git', ['commit', '-m', 'Record agent reference repo manifest'], {
     timeout: 120_000,
   });
-}
+};
 
-function main() {
+const main = () => {
   if (!fs.existsSync(configPath)) {
     fail('Missing .agents/agent-reference-repos.json');
     return;
@@ -335,7 +329,7 @@ function main() {
     writeManifest(entries);
     commitManifestIfChanged();
   }
-}
+};
 
 try {
   main();

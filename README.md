@@ -20,6 +20,17 @@ The demo is intentionally close to the original Tractor Store v2 visual design,
 but it is structured as a full-stack Micro Vertical workspace with SSR and
 Cloudflare-ready deployment.
 
+## Website
+
+Stable demo URL:
+
+```text
+https://tractor-store-vertical-demo-shell-super-app.edution.workers.dev
+```
+
+The Cloudflare worker names are fixed in `topology/reference-topology.json`, so
+the public website URL stays stable across redeploys.
+
 ## UltraModern Version
 
 This repository is pinned to BleedingDev UltraModern packages:

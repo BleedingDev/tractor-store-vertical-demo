@@ -28,7 +28,7 @@ const stripLanguagePrefix = (pathname: string) => {
   return `/${segments.join('/')}`;
 };
 
-const escapeRegExp = (value: string) => value.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escapeRegExp = (value: string) => value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
 
 const paramName = (segment: string) => segment.slice(1).replace(/\?$/u, '');
 
@@ -45,16 +45,18 @@ const matchPattern = (pathname: string, pattern: string) => {
       return `/${escapeRegExp(segment)}`;
     })
     .join('');
-  const match = new RegExp(`^${source || '/'}$`).exec(normalisePath(pathname));
+  const match = new RegExp(`^${source || '/'}$`, 'u').exec(normalisePath(pathname));
 
   if (match === null) {
     return;
   }
 
-  return names.reduce<Record<string, string>>((params, name, index) => {
+  const params: Record<string, string> = {};
+  for (const [index, name] of names.entries()) {
     params[name] = decodeURIComponent(match[index + 1] ?? '');
-    return params;
-  }, {});
+  }
+
+  return params;
 };
 
 const buildPath = (pattern: string, params: Record<string, string>) => {
@@ -85,10 +87,11 @@ const resolveLocalisedPath = (pathname: string, targetLanguage: SupportedLanguag
 
     for (const language of supportedLanguages) {
       const sourcePattern = entry[language];
-      const params =
-        sourcePattern !== undefined && sourcePattern.length > 0
-          ? matchPattern(pathWithoutLanguage, sourcePattern)
-          : undefined;
+      if (sourcePattern === undefined || sourcePattern.length === 0) {
+        continue;
+      }
+
+      const params = matchPattern(pathWithoutLanguage, sourcePattern);
       if (params !== undefined) {
         return buildPath(targetPattern, params);
       }
@@ -106,18 +109,6 @@ const localizedPath = (pathname: string, language: SupportedLanguage) => {
 const absoluteUrl = (pathname: string) => {
   const origin = ULTRAMODERN_SITE_URL.replace(/\/+$/u, '');
   return `${origin}${pathname}`;
-};
-
-const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?: unknown }) => {
-  const locationSearch =
-    typeof location.searchStr === 'string'
-      ? location.searchStr
-      : typeof location.search === 'string'
-        ? location.search
-        : '';
-  const locationHash = typeof location.hash === 'string' ? location.hash : '';
-
-  return `${locationSearch}${locationHash}`;
 };
 
 const LocalizedHead = () => {

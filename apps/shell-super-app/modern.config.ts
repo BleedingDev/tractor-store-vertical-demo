@@ -99,6 +99,9 @@ const shellStylesheetPlugin = () => ({
 export default defineConfig(
   presetUltramodern(
     {
+      html: {
+        outputStructure: 'flat',
+      },
       output: {
         assetPrefix: siteUrl,
         disableTsChecker: true,
@@ -114,9 +117,6 @@ export default defineConfig(
           disableClientServer: true,
           enabled: process.env['ULTRAMODERN_RSDOCTOR'] === 'true',
         },
-      },
-      html: {
-        outputStructure: 'flat',
       },
       plugins: [
         appTools(),
