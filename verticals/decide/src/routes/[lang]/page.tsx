@@ -166,7 +166,10 @@ export default function DecideHome() {
         ))}
       </nav>
       <h1 className="decide:mt-10 decide:text-5xl decide:font-black">{t('decide.title')}</h1>
-      <p className="decide:mt-3 decide:text-lg decide:text-stone-600" data-mf-role="vertical">
+      <p
+        className="decide:mt-3 decide:text-lg decide:text-stone-600"
+        data-modern-mf-role="vertical"
+      >
         {t('decide.role')}
       </p>
       <p

@@ -192,7 +192,8 @@
           "workerName": "tractor-store-vertical-demo-shell-super-app",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -215,7 +216,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {
@@ -547,7 +548,8 @@
           "workerName": "tractor-store-vertical-demo-explore",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -571,7 +573,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {
@@ -936,7 +938,8 @@
           "workerName": "tractor-store-vertical-demo-decide",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -960,7 +963,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {
@@ -1342,7 +1345,8 @@
           "workerName": "tractor-store-vertical-demo-checkout",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -1366,7 +1370,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {

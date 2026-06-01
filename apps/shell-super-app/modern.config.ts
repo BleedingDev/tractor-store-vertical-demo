@@ -56,46 +56,6 @@ if (
     `Cloudflare deploy for ${appId} needs ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP, MODERN_PUBLIC_SITE_URL, or ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN.`,
   );
 }
-const cloudflareAppUrl = (workerName: string) =>
-  cloudflareDeployEnabled && cloudflareWorkersDevSubdomain !== undefined
-    ? `https://${workerName}.${cloudflareWorkersDevSubdomain}.workers.dev`
-    : undefined;
-const exploreUrl =
-  process.env['ULTRAMODERN_PUBLIC_URL_EXPLORE']?.trim() ??
-  cloudflareAppUrl('tractor-store-vertical-demo-explore') ??
-  'http://localhost:3021';
-const decideUrl =
-  process.env['ULTRAMODERN_PUBLIC_URL_DECIDE']?.trim() ??
-  cloudflareAppUrl('tractor-store-vertical-demo-decide') ??
-  'http://localhost:3022';
-const checkoutUrl =
-  process.env['ULTRAMODERN_PUBLIC_URL_CHECKOUT']?.trim() ??
-  cloudflareAppUrl('tractor-store-vertical-demo-checkout') ??
-  'http://localhost:3023';
-const workerShimPath = (fileName: string) =>
-  new URL(`../../tools/cloudflare-worker-shims/${fileName}`, import.meta.url).pathname;
-const cssAsset = (baseUrl: string) =>
-  `${baseUrl.replace(/\/+$/u, '')}/static/css/async/async-index.css`;
-
-const shellStylesheetPlugin = () => ({
-  name: 'tractor-store-shell-stylesheet-plugin',
-  setup(api: {
-    modifyHtmlPartials: (
-      handler: (context: {
-        partials: {
-          head: {
-            append: (html: string) => void;
-          };
-        };
-      }) => void,
-    ) => void;
-  }) {
-    api.modifyHtmlPartials(({ partials }) => {
-      partials.head.append(`<link href="${cssAsset(siteUrl)}" rel="stylesheet" />`);
-    });
-  },
-});
-
 export default defineConfig(
   presetUltramodern(
     {
@@ -108,7 +68,6 @@ export default defineConfig(
         distPath: {
           html: './',
         },
-        filenameHash: false,
         polyfill: 'off',
         splitRouteChunks: false,
       },
@@ -124,6 +83,7 @@ export default defineConfig(
         i18nPlugin({
           backend: {
             enabled: true,
+            loadPath: '/locales/{{lng}}/{{ns}}.json',
           },
           localeDetection: {
             fallbackLanguage: 'en',
@@ -146,7 +106,6 @@ export default defineConfig(
           reactI18next: false,
         }),
         moduleFederationPlugin(),
-        shellStylesheetPlugin(),
         zephyrRspackPlugin(),
       ],
       tools: {
@@ -160,17 +119,11 @@ export default defineConfig(
               module: /modern-js-plugin-i18n/u,
             },
           ]);
-          if (cloudflareDeployEnabled) {
-            chain.resolve.alias.set('@loadable/server$', workerShimPath('loadable-server.mjs'));
-            chain.resolve.alias.set('fs/promises$', workerShimPath('fs-promises.mjs'));
-            chain.resolve.alias.set('path$', workerShimPath('path.mjs'));
-          }
         },
       },
       ...(cloudflareDeployEnabled
         ? {
             deploy: {
-              target: 'cloudflare',
               worker: {
                 name: cloudflareWorkerName,
                 ssr: true,
@@ -188,9 +141,6 @@ export default defineConfig(
       },
       source: {
         globalVars: {
-          ULTRAMODERN_CHECKOUT_URL: checkoutUrl,
-          ULTRAMODERN_DECIDE_URL: decideUrl,
-          ULTRAMODERN_EXPLORE_URL: exploreUrl,
           ULTRAMODERN_SITE_URL: siteUrl,
         },
         mainEntryName: 'index',

@@ -12,13 +12,13 @@
     "dev:decide": "pnpm --filter @tractor-store-vertical-demo/decide dev",
     "dev:checkout": "pnpm --filter @tractor-store-vertical-demo/checkout dev",
     "build": "ULTRAMODERN_ZEPHYR=false pnpm -r --filter \"./verticals/*\" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter \"./apps/shell-super-app\" run build && pnpm ultramodern:assert-mf-types",
-    "format": "oxfmt .",
-    "format:check": "oxfmt --check .",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt . '!repos/**'",
+    "format:check": "oxfmt --check . '!repos/**'",
+    "lint": "oxlint apps/*/src verticals/*/src packages/*/src",
+    "lint:fix": "oxlint apps/*/src verticals/*/src packages/*/src --fix",
     "typecheck": "pnpm -r --filter \"@tractor-store-vertical-demo/*\" typecheck",
-    "cloudflare:build": "pnpm -r --filter \"./verticals/*\" run cloudflare:build && pnpm --filter \"./apps/shell-super-app\" run cloudflare:build && pnpm ultramodern:assert-mf-types",
-    "cloudflare:deploy": "pnpm -r --filter \"./verticals/*\" run cloudflare:deploy && pnpm --filter \"./apps/shell-super-app\" run cloudflare:deploy",
+    "cloudflare:build": "ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN=edution pnpm -r --filter \"./verticals/*\" run cloudflare:build && ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN=edution pnpm --filter \"./apps/shell-super-app\" run cloudflare:build && pnpm ultramodern:assert-mf-types",
+    "cloudflare:deploy": "ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN=edution pnpm -r --filter \"./verticals/*\" run cloudflare:deploy && ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN=edution pnpm --filter \"./apps/shell-super-app\" run cloudflare:deploy",
     "cloudflare:proof": "node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json",
     "skills:install": "node ./scripts/bootstrap-agent-skills.mjs",
     "skills:check": "node ./scripts/bootstrap-agent-skills.mjs --check",
@@ -26,7 +26,7 @@
     "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mjs --check",
     "ultramodern:assert-mf-types": "node ./scripts/assert-mf-types.mjs",
     "ultramodern:check": "node ./scripts/validate-ultramodern-workspace.mjs",
-    "postinstall": "node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs",
+    "postinstall": "oxfmt . '!repos/**' && node ./scripts/bootstrap-agent-skills.mjs && node ./scripts/setup-agent-reference-repos.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true)",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm ultramodern:check"
   },
   "engines": {
@@ -52,10 +52,11 @@
     "@effect/tsgo": "0.13.0",
     "@typescript/native-preview": "7.0.0-dev.20260527.2",
     "lefthook": "^2.1.9",
-    "oxlint": "1.66.0",
     "oxfmt": "0.51.0",
+    "oxlint": "1.66.0",
     "ultracite": "7.7.0",
     "wrangler": "4.95.0",
-    "zephyr-agent": "1.1.1"
+    "zephyr-agent": "1.1.1",
+    "zephyr-rspack-plugin": "1.1.1"
   }
 }

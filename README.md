@@ -36,10 +36,10 @@ the public website URL stays stable across redeploys.
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.2.0-ultramodern.61
+3.2.0-ultramodern.67
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.2.0-ultramodern.61`
+Generated apps and verticals use `npm:@bleedingdev/...@3.2.0-ultramodern.67`
 aliases for the Modern.js packages that are part of the UltraModern canary
 line.
 

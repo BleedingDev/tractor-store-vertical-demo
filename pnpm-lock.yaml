@@ -36,21 +36,24 @@ importers:
       zephyr-agent:
         specifier: 1.1.1
         version: 1.1.1
+      zephyr-rspack-plugin:
+        specifier: 1.1.1
+        version: 1.1.1(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(webpack@5.107.2)
 
   apps/shell-super-app:
     dependencies:
       '@modern-js/plugin-bff':
-        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
+        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
       '@modern-js/plugin-i18n':
-        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/plugin-tanstack':
-        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/runtime':
-        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
       '@module-federation/modern-js-v3':
         specifier: 2.5.0
         version: 2.5.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))
@@ -95,8 +98,8 @@ importers:
         specifier: 0.13.0
         version: 0.13.0
       '@modern-js/app-tools':
-        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)'
+        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)'
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
@@ -149,8 +152,8 @@ importers:
   packages/shared-effect-api:
     dependencies:
       '@modern-js/plugin-bff':
-        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)(zod@4.4.3)'
+        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)(zod@4.4.3)'
     devDependencies:
       '@effect/tsgo':
         specifier: 0.13.0
@@ -162,17 +165,17 @@ importers:
   verticals/checkout:
     dependencies:
       '@modern-js/plugin-bff':
-        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
+        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
       '@modern-js/plugin-i18n':
-        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/plugin-tanstack':
-        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/runtime':
-        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
       '@module-federation/modern-js-v3':
         specifier: 2.5.0
         version: 2.5.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))
@@ -208,8 +211,8 @@ importers:
         specifier: 0.13.0
         version: 0.13.0
       '@modern-js/app-tools':
-        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
+        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
@@ -244,17 +247,17 @@ importers:
   verticals/decide:
     dependencies:
       '@modern-js/plugin-bff':
-        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
+        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
       '@modern-js/plugin-i18n':
-        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/plugin-tanstack':
-        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/runtime':
-        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
       '@module-federation/modern-js-v3':
         specifier: 2.5.0
         version: 2.5.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))
@@ -296,8 +299,8 @@ importers:
         specifier: 0.13.0
         version: 0.13.0
       '@modern-js/app-tools':
-        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
+        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
@@ -332,17 +335,17 @@ importers:
   verticals/explore:
     dependencies:
       '@modern-js/plugin-bff':
-        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
+        specifier: npm:@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)'
       '@modern-js/plugin-i18n':
-        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/plugin-tanstack':
-        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@modern-js/runtime':
-        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+        specifier: npm:@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
       '@module-federation/modern-js-v3':
         specifier: 2.5.0
         version: 2.5.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react-router-dom@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-router@7.16.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))
@@ -378,8 +381,8 @@ importers:
         specifier: 0.13.0
         version: 0.13.0
       '@modern-js/app-tools':
-        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61
-        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
+        specifier: npm:@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69
+        version: '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
@@ -492,8 +495,8 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-iW31KDVO8APFBDjxKiWbHflRBV9EH4aup+ypfy2HLdst0cvLTN+ztCli/mxZyuwy0/w/SuUnHOd8DQfnKzG8CQ==}
+  '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-ulqGU9YWjjDukW60Z8QnXvnt3h2lPVZ1HqyusQXdiB6fGw5HeDmx8/Kqt5dhJmRFXjsT3A9Lmpu5UyOl5OurBQ==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -502,8 +505,8 @@ packages:
       tsconfig-paths:
         optional: true
 
-  '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-sq2hzBaU+h61lv4cTJpl89vb427y8UTxJ0Ape22GG6b+Is8JBYGXdWA78BlOe55nczsYd73HJkOXgToo2hwVCA==}
+  '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-YKrJRKqX++uFNuW7v+/NwxnNrRjPYUx+EyRtrmYMHcBIf7qerGzNi+ZICCu+W3CpXfv+/gz2XLvQRxDigQ7IjQ==}
     peerDependencies:
       tsconfig-paths: ^4.2.0
       zod: ^4.4.1
@@ -511,29 +514,29 @@ packages:
       zod:
         optional: true
 
-  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-QwQkJC3z8qWvgn1xG70k+H9jJ5iAtwuZLmBCHAXUfPux+fAL/lSFQ+LOQvSen7GlNufWZ197DJQ5sKCte6FPCg==}
+  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-SOhWnvua6xlv8CPGXaRgi3MQtgv30B1VhSsOvGmbWjSLBEy9fEc76I9p9GgjIbUoKPtN2jHroslKot51ehcKCg==}
 
-  '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-nSxiT5fMt0Kmai0S3zj35p9005PQF1RmKGHB53ZGzGumJBb3mh1WQT3o6NqILeBPXGxcvny0oMM/3FMm4MhjJw==}
+  '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-rZiXieWla2IoaYKgadL0WBwKuCAa1IwFeKdQOnWDXOf1dE1ffKgi3PnSCjAVXw4aVcEpKR1br2bwNbEVmt4l3Q==}
 
-  '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-ti6KCS2QMqaNADBe87HqpnKCmId2WTtx8O5hWJEGXcbbyw1KrheUl0Q2DAH/VjghRteKEYioFR8uZzsFLXaIZw==}
+  '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-GtgeRARfWERviw7hTCI8Qbn9WlMwXGBR7cdgTrephAuEjBwdkGH2twep6Z2WiyG/DBps+jQ0nbb3g9II5xHJRQ==}
 
-  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-vJ+umjXOAex2mVX4AOgG9VWR6SIq3gogydO5qiKV8Q4pxtAzGO7V4eVZcnDJOyrLK42CtwBHPxk4nUpdrrd9Yw==}
+  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-njDCqMF4rYmuEQajf8kcN9RAc5UiwFxe8OPogwM22l7tEROGVaB0SH/p8HZNkNdTko5Zi4J+4Cp10qAbQNiVpg==}
 
-  '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-oE4LJWUiojnGlcdCqEi8xYu0N2M9QcZTN15BkFyG1Xqf1niN1Lvgvx3COLzV72baNog5TW8HDh/j22rmk0/OnA==}
+  '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-EqvP0zquiLIFqi5OWNbYbO+1IlUJHKPXpS3h4nXPVYbnmB+0++mXP8BHNGVcihxeFLZwEuENOxmQz/DqVlFJRg==}
     engines: {node: '>=20'}
     peerDependencies:
       react: ^19.2.6
 
-  '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-cZz+n76K4mHiohvnMVYVajZTRCBk9Ah/yqe2ubgtGrZu6NwcPCz4OPvujhRl4cA9jUhPRpr3VDehpw01q9wnuw==}
+  '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-EVx81ALfkA7PpID/reVqAvRoAsiZz/6yUFgqt5RXXNhMYE2riGOxJkKAqrktDUY/fO/V/O8wlpBDfIrAm38X5A==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@modern-js/runtime': 3.2.0-ultramodern.61
+      '@modern-js/runtime': 3.2.0-ultramodern.69
       i18next: '>=25.7.4'
       react: ^19.2.6
       react-dom: ^19.2.6
@@ -544,30 +547,30 @@ packages:
       react-i18next:
         optional: true
 
-  '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-SJcBFMTB9dNu8AxchGhuLTePCMDIkFk3cZ8jdnJvYv1VTgP3q1vdAgkPtfzfuKoiof5DNxO/I147raohgh7+Vg==}
+  '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-r62yN85K+pIoOY7e4HeItievTDAxOnRLwt7B2Ea8Kj9uf5YIjusWhUDQZIBIw50zx7+mtMLBHKS59hkTFCRvjQ==}
     engines: {node: '>=20'}
     peerDependencies:
-      '@modern-js/runtime': 3.2.0-ultramodern.61
+      '@modern-js/runtime': 3.2.0-ultramodern.69
       react: ^19.2.6
       react-dom: ^19.2.6
 
-  '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-GYPTR8NAwcEUFYVzOGeL9/fGy4ZMe5HWHC43Hyag+XmkXkC3squeT70VTwoNX79eDfPdvDeSozMgu7RKdIcCEA==}
+  '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-2xcCosYBIXq5lmivg6bBkIlso5m8IEmP8YavDt8T28vfsOrftijLmTmjnEcXahr8Sb6zZFg72E4PPHgl9at4EA==}
 
-  '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-xolhkGblM8BiB1etyoAKH7wkeIE9Yv+z6Pyx05fknNM12MnDL5UgPyF9pHfCFutvJrNOtZpbYeWp4Y7vFBPiLw==}
+  '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-pBISSBplfkhUFHhiL3RK+ehkgp2ooTAVfXDptBOpWExsWQG5kjvu2dF6GCvbRW1fFj/6nxt0PaQFXUpTgIhBeg==}
     engines: {node: '>=20'}
 
-  '@bleedingdev/modern-js-render@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-lCsIvDgrIUkD7ItpKm7wyPY2HISyOi3qsAE3UwSu4ZHkzYZY7+8Rx3ZxgZg+v6gbryENHItdPLPaVTDN+jh+LA==}
+  '@bleedingdev/modern-js-render@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-rJe/qvd1kzKJECqx3oXvpwQWeVmbulriSuQYqg1UnzKidL8eumhYnlMzEINAzjH1krta/pzCP88XgjT6Ufys2Q==}
     peerDependencies:
       react: ^19.2.6
       react-dom: ^19.2.6
       react-server-dom-rspack: 0.0.2
 
-  '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-H8BJXmkxPzVNrw5xp9nqFAIRfLjVv2qOoum8JdHNWuc5nGhefKbNNGqqq6/P6/bFgQRq6guUdKKdfwNuqyTKQw==}
+  '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-EGi4SMKoA88IN74fcjJGKZReVw/FeNs7eiS35UWLgwUK3Sq1wxcz8mBR5CA1uBa0+XmNP2KNndW4CtfPRfKk/A==}
     peerDependencies:
       react: ^19.2.6
       react-dom: ^19.2.6
@@ -577,25 +580,25 @@ packages:
       react-dom:
         optional: true
 
-  '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-8xbcmgfGMUma6VOPssKWfigVFqaTKU2fIpfNDf2ocURd8MLRehQvuAdMAlO6LtZK56lSK35UQpld+FuEiVu/hQ==}
+  '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-0gS3GeyyYXFv/XmVwubAcwom8m+jViRVCqoA/nxDBDQRssIwtOSw0xXUoD6laFDpUH83G+DdnBigYPY2fgxOXQ==}
     engines: {node: '>=20'}
     peerDependencies:
       react: ^19.2.6
       react-dom: ^19.2.6
 
-  '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-PKDYnRvTLqoiftt75UdOj6AlbX2jnXwCP9EkrdRVmBIxcE+YkmKaCZnIHXkYW0E5Q8imPKzQV9ZLFK1Gv3FrQA==}
+  '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-Ian7GmpDxztrVmlRcCmT1/VC8EIOHz1PQUon6Ix4EPJdz3K57ZUvkebZ+2cP7X8M9sTnYXa5derf9sFMXY0cQg==}
     engines: {node: '>=20'}
 
-  '@bleedingdev/modern-js-server-runtime@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-1Atw43VQJCuO0MkkS6BvUCt699zJ2VexfEZ1dhWz5fyBBSFb9YKUo65a5YwvrDtLPlIk2YO93tmBa6QVFrlfBg==}
+  '@bleedingdev/modern-js-server-runtime@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-piYJXJwDV/6HIVZZNG+OL963VTu2gL4Fda3gH7L0+ElMl0tQTvxoYH/rafIri5uDK7Xno+MZu7cAv42zPV0GJQ==}
 
-  '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-bKhZletVIsfiqb6ZB5VZEIB9CTGrk+w8WJLv+s+aabBmoktisx12DWXJH1j3yVytjdhV7zPrEjwkTALXyOiEHg==}
+  '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-nQNRCjsOfupDvIlW4BpnBNtevlB0Odn2INKc8B+m0psEhhsIUHoLMBGkREM74pKVXnS5bqcBgjnEuqtD0ugnYA==}
 
-  '@bleedingdev/modern-js-server@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-Ey2R0boBs2kR/JX6iIYFpFuZkF4tJN9yAsgOxNMEuVDBBnYs5JunYmHQwqlgqPb6n9hZCt5sZbmgC2cGcmm8hQ==}
+  '@bleedingdev/modern-js-server@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-c4myqSKme/2hX4roqhPxnNb2qHIz2/NoGyX4/KbC919HixN3IVr3XBoCG3Py/4xVnDJFQcEPQXqW9lJqxcEdYg==}
     peerDependencies:
       devcert: ^1.2.3
       tsconfig-paths: '>= 3.0.0 || >= 4.0.0'
@@ -605,11 +608,11 @@ packages:
       tsconfig-paths:
         optional: true
 
-  '@bleedingdev/modern-js-types@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-iSrvpSB873gccTXkKEAOnaagKsZtoYeOlh3ulWKRF2ux5VLMGVL7pbp9aXlegIrNk2MP6nEwWgZYUBHqouYOYg==}
+  '@bleedingdev/modern-js-types@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-5+fZsanaABIciXVAsr58H2m0S7IeRWBr7NKDd6OOAzVkXfl/AeB/cFzMkQRNhtql3TnYH9/yyxP4UN/B6KN3lQ==}
 
-  '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61':
-    resolution: {integrity: sha512-XjL0tjRlT+SAXtVISU8x2epFNZ2XeK85Kox5yvTh2BusbcTEOB511TJFB5IxLUul2o32N1Os0NZTz5umFfPvLw==}
+  '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69':
+    resolution: {integrity: sha512-e05EFJByWN8hNZT7Uy+ZnG+VVSRxx6LUph5Ic6D4cj8QVWOfFtIQuWPDzMwh8lRSfBdSXsDzFWZ0KI9yMe8+sA==}
     peerDependencies:
       react: ^19.2.6
       react-dom: ^19.2.6
@@ -5818,21 +5821,22 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)':
+  '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)':
     dependencies:
       '@babel/parser': 7.29.7
       '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
-      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)'
-      '@modern-js/i18n-utils': '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/plugin-data-loader': '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/prod-server': '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server': '@bleedingdev/modern-js-server@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@loadable/component': 5.16.7(react@19.2.6)
+      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)'
+      '@modern-js/i18n-utils': '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin-data-loader': '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/prod-server': '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server': '@bleedingdev/modern-js-server@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)
       '@swc/core': 1.15.40(@swc/helpers@0.5.23)
       '@swc/helpers': 0.5.23
@@ -5875,21 +5879,22 @@ snapshots:
       - webpack
       - yaml
 
-  '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)':
+  '@bleedingdev/modern-js-app-tools@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)':
     dependencies:
       '@babel/parser': 7.29.7
       '@babel/traverse': 7.29.7
       '@babel/types': 7.29.7
-      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
-      '@modern-js/i18n-utils': '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/plugin-data-loader': '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/prod-server': '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server': '@bleedingdev/modern-js-server@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@loadable/component': 5.16.7(react@19.2.6)
+      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
+      '@modern-js/i18n-utils': '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin-data-loader': '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/prod-server': '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server': '@bleedingdev/modern-js-server@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)
       '@swc/core': 1.15.40(@swc/helpers@0.5.23)
       '@swc/helpers': 0.5.23
@@ -5932,9 +5937,9 @@ snapshots:
       - webpack
       - yaml
 
-  '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)':
+  '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)':
     dependencies:
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       koa-compose: 4.1.0
       reflect-metadata: 0.2.2
@@ -5946,9 +5951,9 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)':
+  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)':
     dependencies:
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)
       '@rsbuild/plugin-assets-retry': 2.0.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))
       '@rsbuild/plugin-check-syntax': 1.6.1(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))
@@ -6006,9 +6011,9 @@ snapshots:
       - webpack
       - yaml
 
-  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)':
+  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)':
     dependencies:
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)
       '@rsbuild/plugin-assets-retry': 2.0.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))
       '@rsbuild/plugin-check-syntax': 1.6.1(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0))
@@ -6066,9 +6071,9 @@ snapshots:
       - webpack
       - yaml
 
-  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)':
+  '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)':
     dependencies:
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0)(core-js@3.49.0)
       '@rsbuild/plugin-assets-retry': 2.0.0(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0)(core-js@3.49.0))
       '@rsbuild/plugin-check-syntax': 1.6.1(@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0)(core-js@3.49.0))
@@ -6126,10 +6131,10 @@ snapshots:
       - webpack
       - yaml
 
-  '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       encoding: 0.1.13
       path-to-regexp: 8.4.2
@@ -6138,23 +6143,23 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-i18n-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)':
+  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)':
     dependencies:
       '@effect/opentelemetry': 4.0.0-beta.66(@opentelemetry/api-logs@0.218.0)(@opentelemetry/api@1.9.1)(@opentelemetry/resources@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.218.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-metrics@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-node@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-web@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/semantic-conventions@1.41.1)(effect@4.0.0-beta.66)
-      '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)'
-      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)'
-      '@modern-js/create-request': '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)'
+      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))(yaml@2.9.0)'
+      '@modern-js/create-request': '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/api-logs': 0.218.0
       '@opentelemetry/resources': 2.7.1(@opentelemetry/api@1.9.1)
@@ -6196,15 +6201,15 @@ snapshots:
       - yaml
       - zod
 
-  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)':
+  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(core-js@3.49.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)(zod@4.4.3)':
     dependencies:
       '@effect/opentelemetry': 4.0.0-beta.66(@opentelemetry/api-logs@0.218.0)(@opentelemetry/api@1.9.1)(@opentelemetry/resources@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.218.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-metrics@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-node@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-web@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/semantic-conventions@1.41.1)(effect@4.0.0-beta.66)
-      '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)'
-      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
-      '@modern-js/create-request': '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)'
+      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(esbuild@0.28.0)(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(typescript@6.0.3)(webpack@5.107.2(postcss@8.5.15))(yaml@2.9.0)'
+      '@modern-js/create-request': '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/api-logs': 0.218.0
       '@opentelemetry/resources': 2.7.1(@opentelemetry/api@1.9.1)
@@ -6246,15 +6251,15 @@ snapshots:
       - yaml
       - zod
 
-  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)(zod@4.4.3)':
+  '@bleedingdev/modern-js-plugin-bff@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)(zod@4.4.3)':
     dependencies:
       '@effect/opentelemetry': 4.0.0-beta.66(@opentelemetry/api-logs@0.218.0)(@opentelemetry/api@1.9.1)(@opentelemetry/resources@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-logs@0.218.0(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-metrics@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-node@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-web@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/semantic-conventions@1.41.1)(effect@4.0.0-beta.66)
-      '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)'
-      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.61(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)'
-      '@modern-js/create-request': '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)(zod@4.4.3)'
+      '@modern-js/builder': '@bleedingdev/modern-js-builder@3.2.0-ultramodern.69(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@module-federation/runtime-tools@2.5.0)(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(jiti@2.7.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(tslib@2.8.1)(webpack@5.107.2)(yaml@2.9.0)'
+      '@modern-js/create-request': '@bleedingdev/modern-js-create-request@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/api-logs': 0.218.0
       '@opentelemetry/resources': 2.7.1(@opentelemetry/api@1.9.1)
@@ -6296,25 +6301,25 @@ snapshots:
       - yaml
       - zod
 
-  '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       path-to-regexp: 8.4.2
       react: 19.2.6
     transitivePeerDependencies:
       - react-dom
 
-  '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-plugin-i18n@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(i18next@26.2.0(typescript@6.0.3))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime': '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-runtime': '@bleedingdev/modern-js-server-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime': '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-runtime': '@bleedingdev/modern-js-server-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       i18next-browser-languagedetector: 8.2.1
       i18next-chained-backend: 5.0.4
@@ -6329,13 +6334,13 @@ snapshots:
       - '@module-federation/runtime-tools'
       - core-js
 
-  '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.61(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-plugin-tanstack@3.2.0-ultramodern.69(@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6))(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime': '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime': '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       '@tanstack/react-router': 1.170.8(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@tanstack/router-core': 1.171.6
@@ -6345,11 +6350,11 @@ snapshots:
       - '@module-federation/runtime-tools'
       - core-js
 
-  '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)
       '@swc/helpers': 0.5.23
       jiti: 2.7.0
@@ -6359,11 +6364,11 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@rsbuild/core': 2.0.7(@module-federation/runtime-tools@2.5.0)(core-js@3.49.0)
       '@swc/helpers': 0.5.23
       jiti: 2.7.0
@@ -6373,11 +6378,11 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-prod-server@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
     transitivePeerDependencies:
       - '@module-federation/runtime-tools'
@@ -6385,19 +6390,19 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-render@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-render@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
       react-server-dom-rspack: 0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
 
-  '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       lru-cache: 11.5.1
       react-router: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -6406,16 +6411,16 @@ snapshots:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
-  '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@loadable/component': 5.16.7(react@19.2.6)
       '@loadable/server': 5.16.7(@loadable/component@5.16.7(react@19.2.6))(react@19.2.6)
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/plugin-data-loader': '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/render': '@bleedingdev/modern-js-render@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin-data-loader': '@bleedingdev/modern-js-plugin-data-loader@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/render': '@bleedingdev/modern-js-render@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/core': 1.15.40(@swc/helpers@0.5.23)
       '@swc/helpers': 0.5.23
       '@swc/plugin-loadable-components': 11.10.0
@@ -6438,11 +6443,11 @@ snapshots:
       - core-js
       - react-server-dom-rspack
 
-  '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       '@web-std/fetch': 4.2.1
       '@web-std/file': 3.0.3
@@ -6457,11 +6462,11 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/plugin': '@bleedingdev/modern-js-plugin@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       '@web-std/fetch': 4.2.1
       '@web-std/file': 3.0.3
@@ -6476,11 +6481,11 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-server-runtime@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-server-runtime@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
       '@swc/helpers': 0.5.23
     transitivePeerDependencies:
       - '@module-federation/runtime-tools'
@@ -6488,21 +6493,21 @@ snapshots:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@bleedingdev/modern-js-server@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)':
+  '@bleedingdev/modern-js-server@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(tsconfig-paths@4.2.0)':
     dependencies:
-      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.61(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
-      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.61'
-      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-core': '@bleedingdev/modern-js-server-core@3.2.0-ultramodern.69(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
+      '@modern-js/types': '@bleedingdev/modern-js-types@3.2.0-ultramodern.69'
+      '@modern-js/utils': '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)'
       '@swc/helpers': 0.5.23
       axios: 1.16.1(debug@4.4.3)
       connect-history-api-fallback: 2.0.0
@@ -6522,9 +6527,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@bleedingdev/modern-js-types@3.2.0-ultramodern.61': {}
+  '@bleedingdev/modern-js-types@3.2.0-ultramodern.69': {}
 
-  '@bleedingdev/modern-js-utils@3.2.0-ultramodern.61(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@bleedingdev/modern-js-utils@3.2.0-ultramodern.69(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@swc/helpers': 0.5.23
       caniuse-lite: 1.0.30001793
@@ -7138,6 +7143,11 @@ snapshots:
       find-package-json: 1.2.0
       webpack: 5.107.2(postcss@8.5.15)
 
+  '@module-federation/automatic-vendor-federation@1.2.1(webpack@5.107.2)':
+    dependencies:
+      find-package-json: 1.2.0
+      webpack: 5.107.2
+
   '@module-federation/bridge-react-webpack-plugin@2.5.0(node-fetch@3.3.2)':
     dependencies:
       '@module-federation/sdk': 2.5.0(node-fetch@3.3.2)
@@ -7394,7 +7404,7 @@ snapshots:
       '@module-federation/manifest': 2.5.0(node-fetch@3.3.2)(typescript@6.0.3)
       '@module-federation/runtime-tools': 2.5.0(node-fetch@3.3.2)
       '@module-federation/sdk': 2.5.0(node-fetch@3.3.2)
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
     optionalDependencies:
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -7733,7 +7743,7 @@ snapshots:
 
   '@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(core-js@3.49.0)':
     dependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       '@swc/helpers': 0.5.23
     optionalDependencies:
       core-js: 3.49.0
@@ -7742,7 +7752,7 @@ snapshots:
 
   '@rsbuild/core@2.0.7(@module-federation/runtime-tools@2.5.0)(core-js@3.49.0)':
     dependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       '@swc/helpers': 0.5.23
     optionalDependencies:
       core-js: 3.49.0
@@ -8105,7 +8115,7 @@ snapshots:
       '@rsdoctor/types': 1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))
       '@rsdoctor/utils': 1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'
@@ -8123,7 +8133,7 @@ snapshots:
       '@rsdoctor/types': 1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(postcss@8.5.15))
       '@rsdoctor/utils': 1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(postcss@8.5.15))
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'
@@ -8141,7 +8151,7 @@ snapshots:
       '@rsdoctor/types': 1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(webpack@5.107.2)
       '@rsdoctor/utils': 1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(webpack@5.107.2)
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'
@@ -8209,7 +8219,7 @@ snapshots:
       '@types/tapable': 2.3.0
       source-map: 0.7.6
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       webpack: 5.107.2(esbuild@0.28.0)(postcss@8.5.15)
 
   '@rsdoctor/types@1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(postcss@8.5.15))':
@@ -8219,7 +8229,7 @@ snapshots:
       '@types/tapable': 2.3.0
       source-map: 0.7.6
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       webpack: 5.107.2(postcss@8.5.15)
 
   '@rsdoctor/types@1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(webpack@5.107.2)':
@@ -8229,7 +8239,7 @@ snapshots:
       '@types/tapable': 2.3.0
       source-map: 0.7.6
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       webpack: 5.107.2
 
   '@rsdoctor/utils@1.5.12(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))':
@@ -8342,7 +8352,7 @@ snapshots:
       '@rspack/binding-win32-ia32-msvc': 2.0.5
       '@rspack/binding-win32-x64-msvc': 2.0.5
 
-  '@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)':
+  '@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)':
     dependencies:
       '@rspack/binding': 2.0.5
     optionalDependencies:
@@ -8355,7 +8365,7 @@ snapshots:
     dependencies:
       react-refresh: 0.18.0
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
 
   '@rspack/resolver-binding-darwin-arm64@0.2.8':
     optional: true
@@ -10107,21 +10117,21 @@ snapshots:
     dependencies:
       less: 4.6.4
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       webpack: 5.107.2(esbuild@0.28.0)(postcss@8.5.15)
 
   less-loader@12.3.3(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(less@4.6.4)(webpack@5.107.2(postcss@8.5.15)):
     dependencies:
       less: 4.6.4
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       webpack: 5.107.2(postcss@8.5.15)
 
   less-loader@12.3.3(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(less@4.6.4)(webpack@5.107.2):
     dependencies:
       less: 4.6.4
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       webpack: 5.107.2
 
   less@4.6.4:
@@ -11029,7 +11039,7 @@ snapshots:
 
   react-server-dom-rspack@0.0.2(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
@@ -11112,7 +11122,7 @@ snapshots:
     dependencies:
       '@rspack/lite-tapable': 1.1.1
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
 
   run-applescript@7.1.0: {}
 
@@ -11555,7 +11565,7 @@ snapshots:
       picocolors: 1.1.1
       typescript: 6.0.3
     optionalDependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
     transitivePeerDependencies:
       - tslib
 
@@ -11883,7 +11893,7 @@ snapshots:
 
   zephyr-rspack-plugin@1.1.1(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15)):
     dependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       tslib: 2.8.1
       zephyr-agent: 1.1.1
       zephyr-xpack-internal: 1.1.1(webpack@5.107.2(esbuild@0.28.0)(postcss@8.5.15))
@@ -11893,10 +11903,20 @@ snapshots:
 
   zephyr-rspack-plugin@1.1.1(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23))(webpack@5.107.2(postcss@8.5.15)):
     dependencies:
-      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23)
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
       tslib: 2.8.1
       zephyr-agent: 1.1.1
       zephyr-xpack-internal: 1.1.1(webpack@5.107.2(postcss@8.5.15))
+    transitivePeerDependencies:
+      - supports-color
+      - webpack
+
+  zephyr-rspack-plugin@1.1.1(@rspack/core@2.0.5(@module-federation/runtime-tools@2.5.0)(@swc/helpers@0.5.23))(webpack@5.107.2):
+    dependencies:
+      '@rspack/core': 2.0.5(@module-federation/runtime-tools@2.5.0(node-fetch@3.3.2))(@swc/helpers@0.5.23)
+      tslib: 2.8.1
+      zephyr-agent: 1.1.1
+      zephyr-xpack-internal: 1.1.1(webpack@5.107.2)
     transitivePeerDependencies:
       - supports-color
       - webpack
@@ -11914,6 +11934,16 @@ snapshots:
   zephyr-xpack-internal@1.1.1(webpack@5.107.2(postcss@8.5.15)):
     dependencies:
       '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.107.2(postcss@8.5.15))
+      tslib: 2.8.1
+      zephyr-agent: 1.1.1
+      zephyr-edge-contract: 1.1.1
+    transitivePeerDependencies:
+      - supports-color
+      - webpack
+
+  zephyr-xpack-internal@1.1.1(webpack@5.107.2):
+    dependencies:
+      '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.107.2)
       tslib: 2.8.1
       zephyr-agent: 1.1.1
       zephyr-edge-contract: 1.1.1

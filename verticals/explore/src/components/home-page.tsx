@@ -1,21 +1,17 @@
-import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import { useExploreI18n } from '../tractor-i18n';
 import { responsiveImage, sizedImage, teasers } from '../tractor-data';
 import Recommendations from './recommendations';
 
 export default function HomePage() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, routeSegment, t } = useExploreI18n();
 
   return (
-    <div data-mf-expose="./HomePage" data-mf-remote="explore">
-      <main
-        className="explore:mx-auto explore:mt-12 explore:grid explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:grid-cols-1 explore:gap-x-4 explore:gap-y-6 explore:px-[var(--outer-space)] explore:min-[500px]:grid-cols-2"
-        data-mf-boundary="explore"
-      >
+    <div data-modern-boundary-id="explore" data-modern-mf-expose="./HomePage">
+      <main className="explore:mx-auto explore:mt-12 explore:grid explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:grid-cols-1 explore:gap-x-4 explore:gap-y-6 explore:px-[var(--outer-space)] explore:min-[500px]:grid-cols-2">
         {teasers.map((teaser) => (
           <a
             className="explore:block explore:text-center explore:text-stone-900 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-            href={`/${language}/tractors`}
+            href={`/${language}/${routeSegment('tractors')}`}
             key={teaser.slug}
           >
             <img

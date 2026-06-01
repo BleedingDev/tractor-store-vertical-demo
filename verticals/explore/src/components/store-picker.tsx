@@ -1,14 +1,14 @@
-import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import { useExploreI18n } from '../tractor-i18n';
 import { responsiveImage, sizedImage, stores } from '../tractor-data';
 
 export default function StorePicker() {
-  const { i18nInstance } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { t } = useExploreI18n();
 
   return (
     <section
       className="explore:mx-auto explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:px-[var(--outer-space)] explore:py-8"
-      data-mf-boundary="explore"
+      data-modern-boundary-id="explore"
+      data-modern-mf-expose="./StorePicker"
     >
       <h1 className="explore:m-0 explore:text-[1.5rem] explore:font-normal explore:text-stone-950">
         {t('explore.stores.title')}

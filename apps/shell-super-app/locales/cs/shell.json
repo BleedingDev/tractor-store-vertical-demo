@@ -30,5 +30,130 @@
       "storePicker": "Prodejci"
     },
     "title": "Acre & Iron"
+  },
+  "checkout": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "pokladna",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Pokladní remote",
+    "actions": {
+      "addToCart": "Přidat do košíku",
+      "checkout": "Pokladna",
+      "continueShopping": "Pokračovat v nákupu",
+      "remove": "Odebrat",
+      "viewCart": "Zobrazit košík"
+    },
+    "cart": {
+      "empty": "Košík je prázdný.",
+      "title": "Košík",
+      "total": "Celkem"
+    },
+    "product": {
+      "stockShipping": "8 skladem, doprava zdarma"
+    }
+  },
+  "decide": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "rozhodování",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Rozhodovací remote",
+    "product": {
+      "availability": "Dostupnost",
+      "eyebrow": "Detail stroje",
+      "features": {
+        "comfort": "Ergonomický návrh zaměřený na pohodlí a efektivitu obsluhy",
+        "landscapes": "Optimalizovaný pro tulipánová pole a různorodou evropskou krajinu",
+        "quality": "Nizozemské zpracování pro přesnost a kvalitu"
+      },
+      "inStock": "Skladem",
+      "lede": "Traktor připravený pro nakladač na krmivo, seno, štěrk a zimní údržbu cest.",
+      "power": "Výkon",
+      "price": "Cena",
+      "variants": {
+        "polderGreen": "Polder Green",
+        "tulipMagenta": "Tulipánová magenta"
+      }
+    }
+  },
+  "explore": {
+    "language": {
+      "cs": "Čeština",
+      "en": "Angličtina",
+      "switcher": "Jazyk"
+    },
+    "role": "procházení",
+    "routes": {
+      "cart": "Košík",
+      "checkout": "Pokladna",
+      "home": "Domů",
+      "listing": "Traktory",
+      "productDetail": "Detail traktoru",
+      "storePicker": "Výběr prodejce",
+      "thankYou": "Potvrzení objednávky",
+      "unavailable": "Nedostupné"
+    },
+    "title": "Průzkumný remote",
+    "header": {
+      "machines": "Stroje",
+      "navigation": "Hlavní navigace",
+      "stores": "Prodejci"
+    },
+    "recommendations": {
+      "aiFirst": "AI varianta",
+      "bestRows": "Nejlepší do úzkých řádků",
+      "loaderReady": "Připraveno pro nakladač",
+      "title": "Doporučení",
+      "vineyard": "Profil pro vinice"
+    },
+    "teasers": {
+      "autonomous": "Autonomní traktory",
+      "classic": "Klasické traktory"
+    },
+    "products": {
+      "all": "Vše",
+      "autonomous": "Autonomní",
+      "classics": "Klasické",
+      "count": "{{count}} produktů",
+      "filter": "Filtr",
+      "filterLabel": "Filtr strojů",
+      "title": "Všechny stroje"
+    },
+    "footer": {
+      "basedOn": "založeno na",
+      "projectPrefix": "projekt společnosti",
+      "projectSuffix": "",
+      "techstack": "technologie"
+    },
+    "stores": {
+      "northRegion": "Severní region",
+      "southRegion": "Jižní region",
+      "title": "Prodejci"
+    }
   }
 }

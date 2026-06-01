@@ -1,4 +1,4 @@
-import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import { useExploreI18n } from '../tractor-i18n';
 import { autonomousProducts, classicProducts, responsiveImage, sizedImage } from '../tractor-data';
 
 const formatPrice = (price: number) =>
@@ -8,8 +8,7 @@ const formatPrice = (price: number) =>
   })} Ø`;
 
 export default function ProductGrid() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, routeSegment, t } = useExploreI18n();
   const products = [...autonomousProducts, ...classicProducts].toSorted(
     (left, right) => right.startPrice - left.startPrice,
   );
@@ -17,9 +16,8 @@ export default function ProductGrid() {
   return (
     <main
       className="explore:mx-auto explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:px-[var(--outer-space)] explore:py-4"
-      data-mf-boundary="explore"
-      data-mf-expose="./ProductGrid"
-      data-mf-remote="explore"
+      data-modern-boundary-id="explore"
+      data-modern-mf-expose="./ProductGrid"
     >
       <div className="explore:flex explore:flex-wrap explore:items-start explore:justify-between explore:gap-4">
         <div>
@@ -38,19 +36,19 @@ export default function ProductGrid() {
           <a
             aria-current="page"
             className="explore:border-b explore:border-stone-950 explore:text-stone-950 explore:no-underline"
-            href={`/${language}/tractors`}
+            href={`/${language}/${routeSegment('tractors')}`}
           >
             {t('explore.products.all')}
           </a>
           <a
             className="explore:text-stone-950 explore:no-underline"
-            href={`/${language}/tractors?category=classic`}
+            href={`/${language}/${routeSegment('tractors')}?category=classic`}
           >
             {t('explore.products.classics')}
           </a>
           <a
             className="explore:text-stone-950 explore:no-underline"
-            href={`/${language}/tractors?category=autonomous`}
+            href={`/${language}/${routeSegment('tractors')}?category=autonomous`}
           >
             {t('explore.products.autonomous')}
           </a>
@@ -61,7 +59,7 @@ export default function ProductGrid() {
           <li className="explore:text-center" key={product.id}>
             <a
               className="explore:block explore:text-stone-950 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-              href={`/${language}/tractors/${product.slug}?sku=${product.sku}`}
+              href={`/${language}/${routeSegment('tractors')}/${product.slug}?sku=${product.sku}`}
             >
               <img
                 alt=""

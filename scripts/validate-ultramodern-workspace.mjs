@@ -355,6 +355,15 @@ assert(
   'Root must expose cloudflare:deploy',
 );
 assert(
+  rootPackage.scripts?.['cloudflare:build']?.includes(
+    'ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN=edution',
+  ) &&
+    rootPackage.scripts?.['cloudflare:deploy']?.includes(
+      'ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN=edution',
+    ),
+  'Root Cloudflare scripts must target the stable edution workers.dev subdomain',
+);
+assert(
   rootPackage.scripts?.['cloudflare:proof'] ===
     'node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json',
   'Root must expose cloudflare:proof',
@@ -369,8 +378,8 @@ assert(
 );
 assert(
   rootPackage.scripts?.postinstall ===
-    'node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs',
-  'Root postinstall must bootstrap agent skills and hooks before reference repositories',
+    "oxfmt . '!repos/**' && node ./scripts/bootstrap-agent-skills.mjs && node ./scripts/setup-agent-reference-repos.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true)",
+  'Root postinstall must format, bootstrap agent skills, install reference repositories, and enable hooks last',
 );
 
 const expectedAppIds = ['shell-super-app', ...fullStackVerticals.map((vertical) => vertical.id)];

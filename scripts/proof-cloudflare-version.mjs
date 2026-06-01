@@ -10,6 +10,22 @@ const defaultOut = path.join(
 );
 
 const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+const rootPackage = readJson(path.join(workspaceRoot, 'package.json'));
+
+const inferWorkersDevSubdomain = () => {
+  const configured = process.env['ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN']?.trim();
+  if (configured) {
+    return configured;
+  }
+
+  const homepage = typeof rootPackage.homepage === 'string' ? rootPackage.homepage : '';
+  return homepage.match(/^https:\/\/[^.]+\.([^.]+)\.workers\.dev(?:\/.*)?$/u)?.[1];
+};
+
+const publicUrlFromWorkersDev = (workerName, workersDevSubdomain) =>
+  workerName && workersDevSubdomain
+    ? `https://${workerName}.${workersDevSubdomain}.workers.dev`
+    : undefined;
 
 const parseArgs = (argv) => {
   const parsed = {
@@ -250,13 +266,16 @@ const main = async (argv = process.argv.slice(2)) => {
 
   const contract = readJson(contractPath);
   const apps = args.appId ? contract.apps.filter((app) => app.id === args.appId) : contract.apps;
+  const workersDevSubdomain = inferWorkersDevSubdomain();
   assert(apps.length > 0, `No generated app matched ${args.appId}`);
 
   const results = [];
   const skipped = [];
   for (const app of apps) {
     const publicUrlEnv = app.deploy?.cloudflare?.publicUrlEnv;
-    const publicUrl = publicUrlEnv && process.env[publicUrlEnv];
+    const publicUrl =
+      (publicUrlEnv && process.env[publicUrlEnv]) ||
+      publicUrlFromWorkersDev(app.deploy?.cloudflare?.workerName, workersDevSubdomain);
     if (!publicUrl) {
       const skippedEntry = {
         appId: app.id,

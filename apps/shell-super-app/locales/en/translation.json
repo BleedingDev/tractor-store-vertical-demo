@@ -30,5 +30,130 @@
       "storePicker": "Stores"
     },
     "title": "Acre & Iron"
+  },
+  "checkout": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "checkout",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "title": "Checkout Vertical",
+    "actions": {
+      "addToCart": "Add to basket",
+      "checkout": "Checkout",
+      "continueShopping": "Continue shopping",
+      "remove": "Remove",
+      "viewCart": "View cart"
+    },
+    "cart": {
+      "empty": "Your cart is empty.",
+      "title": "Basket",
+      "total": "Total"
+    },
+    "product": {
+      "stockShipping": "8 in stock, free shipping"
+    }
+  },
+  "decide": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "decide",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "title": "Decide Vertical",
+    "product": {
+      "availability": "Availability",
+      "eyebrow": "Machine detail",
+      "features": {
+        "comfort": "Ergonomic design with a focus on operator comfort and efficiency",
+        "landscapes": "Optimized for tulip fields and versatile European landscapes",
+        "quality": "Dutch craftsmanship for precision and quality"
+      },
+      "inStock": "In stock",
+      "lede": "A loader-ready tractor for feed, hay, gravel, and winter road work.",
+      "power": "Power",
+      "price": "Price",
+      "variants": {
+        "polderGreen": "Polder Green",
+        "tulipMagenta": "Tulip Magenta"
+      }
+    }
+  },
+  "explore": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "explore",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "title": "Explore Vertical",
+    "header": {
+      "machines": "Machines",
+      "navigation": "Main navigation",
+      "stores": "Stores"
+    },
+    "recommendations": {
+      "aiFirst": "AI-first option",
+      "bestRows": "Best for tight rows",
+      "loaderReady": "Loader-ready",
+      "title": "Recommendations",
+      "vineyard": "Vineyard profile"
+    },
+    "teasers": {
+      "autonomous": "Autonomous Tractors",
+      "classic": "Classic Tractors"
+    },
+    "products": {
+      "all": "All",
+      "autonomous": "Autonomous",
+      "classics": "Classics",
+      "count": "{{count}} products",
+      "filter": "Filter",
+      "filterLabel": "Filter machines",
+      "title": "All Machines"
+    },
+    "footer": {
+      "basedOn": "based on",
+      "projectPrefix": "a",
+      "projectSuffix": "project",
+      "techstack": "techstack"
+    },
+    "stores": {
+      "northRegion": "North region",
+      "southRegion": "South region",
+      "title": "Stores"
+    }
   }
 }

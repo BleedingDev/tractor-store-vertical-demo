@@ -6,9 +6,6 @@ type RemoteComponent = ComponentType<Record<string, never>>;
 
 declare global {
   const ULTRAMODERN_SITE_URL: string;
-  const ULTRAMODERN_EXPLORE_URL: string;
-  const ULTRAMODERN_DECIDE_URL: string;
-  const ULTRAMODERN_CHECKOUT_URL: string;
 }
 
 declare module '*.svg' {

@@ -1,4 +1,4 @@
-import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import { useCheckoutI18n } from '../tractor-i18n';
 import { useCartLines } from '../cart-store';
 import type { CartLine } from '../cart-store';
 
@@ -14,8 +14,7 @@ const defaultLine: CartLine = {
 const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCartPage() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, routeSegment, t } = useCheckoutI18n();
   const cart = useCartLines();
   const lines = cart.lines.length > 0 ? cart.lines : [defaultLine];
   const total = lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
@@ -23,9 +22,8 @@ export default function CheckoutCartPage() {
   return (
     <main
       className="checkout:mx-auto checkout:max-w-[calc(1000px+var(--outer-space)*2)] checkout:px-[var(--outer-space)] checkout:py-4"
-      data-mf-boundary="checkout"
-      data-mf-remote="checkout"
-      data-mf-expose="./CartPage"
+      data-modern-boundary-id="checkout"
+      data-modern-mf-expose="./CartPage"
     >
       <h1 className="checkout:m-0 checkout:text-[1.7rem] checkout:font-normal checkout:text-stone-950">
         {t('checkout.cart.title')}
@@ -46,7 +44,7 @@ export default function CheckoutCartPage() {
             <div className="checkout:flex checkout:flex-1 checkout:flex-wrap checkout:items-center checkout:justify-end checkout:gap-4">
               <a
                 className="checkout:min-w-[300px] checkout:flex-grow checkout:pr-8 checkout:text-stone-950 checkout:no-underline checkout:max-[760px]:min-w-0 checkout:max-[760px]:basis-full checkout:max-[760px]:pr-0"
-                href={`/${language}/tractors/holland-hamster`}
+                href={`/${language}/${routeSegment('tractors')}/holland-hamster`}
               >
                 <strong className="checkout:block checkout:font-normal">{line.name}</strong>
                 <span className="checkout:block">CL-08-GR</span>
@@ -76,13 +74,13 @@ export default function CheckoutCartPage() {
       <div className="checkout:mt-12 checkout:flex checkout:flex-row-reverse checkout:flex-wrap checkout:items-center checkout:justify-between checkout:gap-8">
         <a
           className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:bg-stone-800 checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-white checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.18)]"
-          href={`/${language}/checkout`}
+          href={`/${language}/${routeSegment('checkout')}`}
         >
           {t('checkout.actions.checkout')}
         </a>
         <a
           className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
-          href={`/${language}/tractors`}
+          href={`/${language}/${routeSegment('tractors')}`}
         >
           {t('checkout.actions.continueShopping')}
         </a>

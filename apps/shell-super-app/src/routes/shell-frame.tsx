@@ -1,9 +1,8 @@
-import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { useLocation } from '@modern-js/plugin-tanstack/runtime';
 import { Helmet } from '@modern-js/runtime/head';
 import type { ReactNode } from 'react';
-import BoundaryOverlay from './boundary-overlay';
 import { Footer, Header, MiniCart } from './vertical-components';
+import { useShellI18n } from './shell-i18n';
 import { ultramodernLocalisedUrls } from './ultramodern-route-metadata';
 
 const supportedLanguages = ['en', 'cs'] as const;
@@ -123,12 +122,8 @@ const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?
   return `${locationSearch}${locationHash}`;
 };
 
-const cssAsset = (baseUrl: string) =>
-  `${baseUrl.replace(/\/+$/u, '')}/static/css/async/async-index.css`;
-
 export default function ShellFrame({ children, showCart = true }: ShellFrameProps) {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useShellI18n();
   const location = useLocation();
   const suffix = locationSuffix(location);
 
@@ -136,9 +131,6 @@ export default function ShellFrame({ children, showCart = true }: ShellFrameProp
     <main className="shell:min-h-screen shell:bg-white shell:py-4 shell:font-[Raleway,Helvetica,Arial,sans-serif] shell:text-stone-950">
       <Helmet>
         <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
-        <link href={cssAsset(ULTRAMODERN_EXPLORE_URL)} rel="stylesheet" />
-        <link href={cssAsset(ULTRAMODERN_DECIDE_URL)} rel="stylesheet" />
-        <link href={cssAsset(ULTRAMODERN_CHECKOUT_URL)} rel="stylesheet" />
       </Helmet>
       <div className="shell:mx-auto shell:max-w-[calc(1000px+var(--outer-space)*2)] shell:overflow-hidden shell:pb-[30px]">
         <div className="shell:flex shell:min-h-[135px] shell:flex-col shell:items-start shell:gap-4 shell:border-b shell:border-[#eeebe2] shell:bg-white shell:px-[var(--outer-space)] shell:py-3 shell:shadow-[0_0_20px_10px_rgba(235,91,89,0.12)] shell:mix-blend-darken shell:min-[1000px]:flex-row shell:min-[1000px]:flex-wrap shell:min-[1000px]:items-center shell:min-[1000px]:justify-between shell:min-[1000px]:max-[1099px]:px-0">
@@ -173,7 +165,6 @@ export default function ShellFrame({ children, showCart = true }: ShellFrameProp
           </div>
         </div>
       </div>
-      <BoundaryOverlay />
       {children}
       <Footer />
     </main>
