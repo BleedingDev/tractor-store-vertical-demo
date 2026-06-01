@@ -1,6 +1,6 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { Helmet } from '@modern-js/runtime/head';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
 import { ultramodernLocalisedUrls } from '../ultramodern-route-metadata';
 import { ultramodernUiMarker } from '../../ultramodern-build';
 
@@ -155,14 +155,14 @@ export default function ExploreHome() {
       <LocalizedHead />
       <nav aria-label={t('explore.language.switcher')} className="explore:flex explore:gap-3">
         {supportedLanguages.map((code) => (
-          <a
+          <Link
             aria-current={language === code ? 'page' : undefined}
             className="explore:rounded-full explore:border explore:border-stone-900/15 explore:bg-white explore:px-4 explore:py-2 explore:text-sm explore:font-bold explore:text-stone-950 explore:no-underline"
-            href={`${localizedPath(location.pathname, code)}${suffix}`}
             key={code}
+            to={`${localizedPath(location.pathname, code)}${suffix}`}
           >
             {t(`explore.language.${code}`)}
-          </a>
+          </Link>
         ))}
       </nav>
       <h1 className="explore:mt-10 explore:text-5xl explore:font-black">{t('explore.title')}</h1>

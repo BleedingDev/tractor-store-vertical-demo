@@ -1,3 +1,4 @@
+import { Link } from '@modern-js/plugin-tanstack/runtime';
 import { useExploreI18n } from '../tractor-i18n';
 import { autonomousProducts, classicProducts, responsiveImage, sizedImage } from '../tractor-data';
 
@@ -33,33 +34,33 @@ export default function ProductGrid() {
           className="explore:flex explore:flex-wrap explore:items-center explore:gap-3 explore:text-[0.85rem]"
         >
           <span>{t('explore.products.filter')}:</span>
-          <a
+          <Link
             aria-current="page"
             className="explore:border-b explore:border-stone-950 explore:text-stone-950 explore:no-underline"
-            href={`/${language}/${routeSegment('tractors')}`}
+            to={`/${language}/${routeSegment('tractors')}`}
           >
             {t('explore.products.all')}
-          </a>
-          <a
+          </Link>
+          <Link
             className="explore:text-stone-950 explore:no-underline"
-            href={`/${language}/${routeSegment('tractors')}?category=classic`}
+            to={`/${language}/${routeSegment('tractors')}?category=classic`}
           >
             {t('explore.products.classics')}
-          </a>
-          <a
+          </Link>
+          <Link
             className="explore:text-stone-950 explore:no-underline"
-            href={`/${language}/${routeSegment('tractors')}?category=autonomous`}
+            to={`/${language}/${routeSegment('tractors')}?category=autonomous`}
           >
             {t('explore.products.autonomous')}
-          </a>
+          </Link>
         </nav>
       </div>
       <ul className="explore:mt-5 explore:grid explore:list-none explore:grid-cols-1 explore:gap-10 explore:p-0 explore:min-[500px]:grid-cols-2 explore:min-[1000px]:grid-cols-3">
         {products.map((product) => (
           <li className="explore:text-center" key={product.id}>
-            <a
+            <Link
               className="explore:block explore:text-stone-950 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-              href={`/${language}/${routeSegment('tractors')}/${product.slug}?sku=${product.sku}`}
+              to={`/${language}/${routeSegment('tractors')}/${product.slug}?sku=${product.sku}`}
             >
               <img
                 alt=""
@@ -77,7 +78,7 @@ export default function ProductGrid() {
               <span className="explore:mt-2 explore:block explore:text-[0.95rem]">
                 {formatPrice(product.startPrice)}
               </span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

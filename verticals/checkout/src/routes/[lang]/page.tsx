@@ -1,6 +1,6 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { Helmet } from '@modern-js/runtime/head';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
 import { ultramodernLocalisedUrls } from '../ultramodern-route-metadata';
 import { ultramodernUiMarker } from '../../ultramodern-build';
 
@@ -155,14 +155,14 @@ export default function CheckoutHome() {
       <LocalizedHead />
       <nav aria-label={t('checkout.language.switcher')} className="checkout:flex checkout:gap-3">
         {supportedLanguages.map((code) => (
-          <a
+          <Link
             aria-current={language === code ? 'page' : undefined}
             className="checkout:rounded-full checkout:border checkout:border-stone-900/15 checkout:bg-white checkout:px-4 checkout:py-2 checkout:text-sm checkout:font-bold checkout:text-stone-950 checkout:no-underline"
-            href={`${localizedPath(location.pathname, code)}${suffix}`}
             key={code}
+            to={`${localizedPath(location.pathname, code)}${suffix}`}
           >
             {t(`checkout.language.${code}`)}
-          </a>
+          </Link>
         ))}
       </nav>
       <h1 className="checkout:mt-10 checkout:text-5xl checkout:font-black">

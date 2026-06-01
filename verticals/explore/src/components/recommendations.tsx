@@ -1,3 +1,4 @@
+import { Link } from '@modern-js/plugin-tanstack/runtime';
 import { useExploreI18n } from '../tractor-i18n';
 import {
   productRecommendations,
@@ -27,9 +28,9 @@ export default function Recommendations({ variant = 'home' }: RecommendationsPro
         <ul className="explore:relative explore:mt-9 explore:grid explore:list-none explore:grid-cols-2 explore:gap-10 explore:p-0 explore:min-[500px]:grid-cols-3 explore:min-[1000px]:grid-cols-4">
           {items.map((item) => (
             <li className="explore:min-[500px]:max-[999px]:[&:nth-child(4)]:hidden" key={item.sku}>
-              <a
+              <Link
                 className="explore:block explore:text-center explore:text-stone-900 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-                href={`/${language}/${routeSegment('tractors')}/${item.slug}?sku=${item.sku}`}
+                to={`/${language}/${routeSegment('tractors')}/${item.slug}?sku=${item.sku}`}
               >
                 <img
                   alt=""
@@ -44,7 +45,7 @@ export default function Recommendations({ variant = 'home' }: RecommendationsPro
                 <span className="explore:mt-5 explore:block explore:text-[1rem] explore:leading-tight">
                   {item.name}
                 </span>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

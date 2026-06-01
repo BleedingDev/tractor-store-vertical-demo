@@ -5,6 +5,7 @@ export interface CartLine {
   name: string;
   price: number;
   quantity: number;
+  slug: string;
 }
 
 const storageKey = 'ultramodern-tractor-cart';
@@ -14,6 +15,7 @@ const fieldLoader: CartLine = {
   name: 'Holland Hamster Polder Green',
   price: 7750,
   quantity: 1,
+  slug: 'holland-hamster',
 };
 
 const readCart = (): CartLine[] => {

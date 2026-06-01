@@ -1,6 +1,6 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { Helmet } from '@modern-js/runtime/head';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
 import { ultramodernLocalisedUrls } from '../ultramodern-route-metadata';
 import { ultramodernUiMarker } from '../../ultramodern-build';
 
@@ -155,14 +155,14 @@ export default function DecideHome() {
       <LocalizedHead />
       <nav aria-label={t('decide.language.switcher')} className="decide:flex decide:gap-3">
         {supportedLanguages.map((code) => (
-          <a
+          <Link
             aria-current={language === code ? 'page' : undefined}
             className="decide:rounded-full decide:border decide:border-stone-900/15 decide:bg-white decide:px-4 decide:py-2 decide:text-sm decide:font-bold decide:text-stone-950 decide:no-underline"
-            href={`${localizedPath(location.pathname, code)}${suffix}`}
             key={code}
+            to={`${localizedPath(location.pathname, code)}${suffix}`}
           >
             {t(`decide.language.${code}`)}
-          </a>
+          </Link>
         ))}
       </nav>
       <h1 className="decide:mt-10 decide:text-5xl decide:font-black">{t('decide.title')}</h1>

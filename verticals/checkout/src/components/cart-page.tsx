@@ -1,14 +1,17 @@
+import { Link } from '@modern-js/plugin-tanstack/runtime';
 import { useCheckoutI18n } from '../tractor-i18n';
 import { useCartLines } from '../cart-store';
 import type { CartLine } from '../cart-store';
 
-const productImage = 'https://blueprint.the-tractor.store/cdn/img/product/200/CL-08-GR.webp';
+const productImage = (sku: string) =>
+  `https://blueprint.the-tractor.store/cdn/img/product/200/${sku}.webp`;
 
 const defaultLine: CartLine = {
   id: 'CL-08-GR',
   name: 'Holland Hamster Polder Green',
   price: 7750,
   quantity: 1,
+  slug: 'holland-hamster',
 };
 
 const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
@@ -38,17 +41,17 @@ export default function CheckoutCartPage() {
               alt=""
               className="checkout:block checkout:aspect-square checkout:w-[150px] checkout:basis-[150px] checkout:object-contain checkout:pr-8 checkout:max-[760px]:w-[110px] checkout:max-[760px]:basis-[110px] checkout:max-[760px]:pr-2"
               height="150"
-              src={productImage}
+              src={productImage(line.id)}
               width="150"
             />
             <div className="checkout:flex checkout:flex-1 checkout:flex-wrap checkout:items-center checkout:justify-end checkout:gap-4">
-              <a
+              <Link
                 className="checkout:min-w-[300px] checkout:flex-grow checkout:pr-8 checkout:text-stone-950 checkout:no-underline checkout:max-[760px]:min-w-0 checkout:max-[760px]:basis-full checkout:max-[760px]:pr-0"
-                href={`/${language}/${routeSegment('tractors')}/holland-hamster`}
+                to={`/${language}/${routeSegment('tractors')}/${line.slug}?sku=${line.id}`}
               >
                 <strong className="checkout:block checkout:font-normal">{line.name}</strong>
-                <span className="checkout:block">CL-08-GR</span>
-              </a>
+                <span className="checkout:block">{line.id}</span>
+              </Link>
               <span className="checkout:flex checkout:items-center checkout:gap-4">
                 {line.quantity}
               </span>
@@ -72,18 +75,18 @@ export default function CheckoutCartPage() {
         {t('checkout.cart.total')}: {formatPrice(total)}
       </p>
       <div className="checkout:mt-12 checkout:flex checkout:flex-row-reverse checkout:flex-wrap checkout:items-center checkout:justify-between checkout:gap-8">
-        <a
+        <Link
           className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:bg-stone-800 checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-white checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.18)]"
-          href={`/${language}/${routeSegment('checkout')}`}
+          to={`/${language}/${routeSegment('checkout')}`}
         >
           {t('checkout.actions.checkout')}
-        </a>
-        <a
+        </Link>
+        <Link
           className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
-          href={`/${language}/${routeSegment('tractors')}`}
+          to={`/${language}/${routeSegment('tractors')}`}
         >
           {t('checkout.actions.continueShopping')}
-        </a>
+        </Link>
       </div>
     </main>
   );

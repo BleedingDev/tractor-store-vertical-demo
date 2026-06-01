@@ -1,4 +1,4 @@
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { useLocation, useNavigate } from '@modern-js/plugin-tanstack/runtime';
 import { Helmet } from '@modern-js/runtime/head';
 import type { ReactNode } from 'react';
 import { Footer, Header, MiniCart } from './vertical-components';
@@ -125,6 +125,7 @@ const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?
 export default function ShellFrame({ children, showCart = true }: ShellFrameProps) {
   const { language, t } = useShellI18n();
   const location = useLocation();
+  const navigate = useNavigate();
   const suffix = locationSuffix(location);
 
   return (
@@ -147,9 +148,9 @@ export default function ShellFrame({ children, showCart = true }: ShellFrameProp
               onChange={(event) => {
                 const nextLanguage = event.currentTarget.value;
                 if (isSupportedLanguage(nextLanguage)) {
-                  window.location.assign(
-                    `${localizedPath(location.pathname, nextLanguage)}${suffix}`,
-                  );
+                  void navigate({
+                    to: `${localizedPath(location.pathname, nextLanguage)}${suffix}`,
+                  });
                 }
               }}
               value={language}

@@ -1,5 +1,5 @@
 import { useDecideI18n } from '../tractor-i18n';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
 import { AddToCart, Recommendations } from './vertical-components';
 
 const image = (sku: string, size: number) =>
@@ -110,10 +110,10 @@ export default function DecideProductPage() {
             <ul className="decide:mt-10 decide:flex decide:list-none decide:flex-wrap decide:gap-6 decide:p-0">
               {variants.map((variant) => (
                 <li key={variant.sku}>
-                  <a
+                  <Link
                     aria-current={variant.sku === selected.sku ? 'true' : undefined}
                     className="decide:inline-flex decide:items-center decide:gap-2 decide:border-b decide:border-stone-950 decide:text-[1rem] decide:text-stone-950 decide:no-underline decide:focus-visible:outline decide:focus-visible:outline-2 decide:focus-visible:outline-offset-4 decide:focus-visible:outline-[#f6cf45]"
-                    href={`/${language}/${routeSegment('tractors')}/${slugify(variant.baseName)}?sku=${variant.sku}`}
+                    to={`/${language}/${routeSegment('tractors')}/${slugify(variant.baseName)}?sku=${variant.sku}`}
                   >
                     <span
                       aria-hidden="true"
@@ -121,13 +121,14 @@ export default function DecideProductPage() {
                       style={{ backgroundColor: variant.color }}
                     />
                     {'labelKey' in variant ? t(variant.labelKey) : variant.finish}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
             <AddToCart
               sku={selected.sku}
               productName={productName(selected)}
+              productSlug={slugify(selected.baseName)}
               price={selected.price}
             />
           </div>
