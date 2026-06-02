@@ -1,4 +1,5 @@
 import { Link } from '@modern-js/plugin-tanstack/runtime';
+import { tractorRouteTo, tractorRoutes } from '@tractor-store-vertical-demo/shared-contracts';
 import { useExploreI18n } from '../tractor-i18n';
 import {
   productRecommendations,
@@ -12,7 +13,7 @@ export interface RecommendationsProps {
 }
 
 export default function Recommendations({ variant = 'home' }: RecommendationsProps) {
-  const { language, routeSegment, t } = useExploreI18n();
+  const { language, t } = useExploreI18n();
   const items = variant === 'product' ? productRecommendations : recommendations;
 
   return (
@@ -30,7 +31,7 @@ export default function Recommendations({ variant = 'home' }: RecommendationsPro
             <li className="explore:min-[500px]:max-[999px]:[&:nth-child(4)]:hidden" key={item.sku}>
               <Link
                 className="explore:block explore:text-center explore:text-stone-900 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-                to={`/${language}/${routeSegment('tractors')}/${item.slug}?sku=${item.sku}`}
+                {...tractorRouteTo(tractorRoutes.product(language, item.slug, { sku: item.sku }))}
               >
                 <img
                   alt=""

@@ -6,8 +6,5 @@
     "module-federation.config.ts",
     "api",
     "shared"
-  ],
-  "exclude": [
-    "src/modern-tanstack"
   ]
 }

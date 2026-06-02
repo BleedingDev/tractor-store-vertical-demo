@@ -139,10 +139,11 @@
       "all": "All",
       "autonomous": "Autonomous",
       "classics": "Classics",
-      "count": "{{count}} products",
       "filter": "Filter",
       "filterLabel": "Filter machines",
-      "title": "All Machines"
+      "title": "All Machines",
+      "count_one": "{{count}} product",
+      "count_other": "{{count}} products"
     },
     "footer": {
       "basedOn": "based on",

@@ -1,4 +1,5 @@
 import { Link } from '@modern-js/plugin-tanstack/runtime';
+import { tractorRouteTo, tractorRoutes } from '@tractor-store-vertical-demo/shared-contracts';
 import { useCheckoutI18n } from '../tractor-i18n';
 import { useCartLines } from '../cart-store';
 import type { CartLine } from '../cart-store';
@@ -17,7 +18,7 @@ const defaultLine: CartLine = {
 const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCartPage() {
-  const { language, routeSegment, t } = useCheckoutI18n();
+  const { language, t } = useCheckoutI18n();
   const cart = useCartLines();
   const lines = cart.lines.length > 0 ? cart.lines : [defaultLine];
   const total = lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
@@ -47,7 +48,7 @@ export default function CheckoutCartPage() {
             <div className="checkout:flex checkout:flex-1 checkout:flex-wrap checkout:items-center checkout:justify-end checkout:gap-4">
               <Link
                 className="checkout:min-w-[300px] checkout:flex-grow checkout:pr-8 checkout:text-stone-950 checkout:no-underline checkout:max-[760px]:min-w-0 checkout:max-[760px]:basis-full checkout:max-[760px]:pr-0"
-                to={`/${language}/${routeSegment('tractors')}/${line.slug}?sku=${line.id}`}
+                {...tractorRouteTo(tractorRoutes.product(language, line.slug, { sku: line.id }))}
               >
                 <strong className="checkout:block checkout:font-normal">{line.name}</strong>
                 <span className="checkout:block">{line.id}</span>
@@ -77,13 +78,13 @@ export default function CheckoutCartPage() {
       <div className="checkout:mt-12 checkout:flex checkout:flex-row-reverse checkout:flex-wrap checkout:items-center checkout:justify-between checkout:gap-8">
         <Link
           className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:bg-stone-800 checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-white checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.18)]"
-          to={`/${language}/${routeSegment('checkout')}`}
+          {...tractorRouteTo(tractorRoutes.checkout(language))}
         >
           {t('checkout.actions.checkout')}
         </Link>
         <Link
           className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
-          to={`/${language}/${routeSegment('tractors')}`}
+          {...tractorRouteTo(tractorRoutes.tractors(language))}
         >
           {t('checkout.actions.continueShopping')}
         </Link>

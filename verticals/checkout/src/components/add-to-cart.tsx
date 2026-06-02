@@ -1,4 +1,5 @@
 import { Link } from '@modern-js/plugin-tanstack/runtime';
+import { tractorRouteTo, tractorRoutes } from '@tractor-store-vertical-demo/shared-contracts';
 import { useCheckoutI18n } from '../tractor-i18n';
 import { useCartLines } from '../cart-store';
 
@@ -15,7 +16,7 @@ export default function CheckoutAddToCart({
   productName = 'Holland Hamster Polder Green',
   sku = 'CL-08-GR',
 }: CheckoutAddToCartProps) {
-  const { language, routeSegment, t } = useCheckoutI18n();
+  const { language, t } = useCheckoutI18n();
   const cart = useCartLines();
 
   return (
@@ -33,7 +34,7 @@ export default function CheckoutAddToCart({
       <Link
         className="checkout:mt-8 checkout:flex checkout:min-h-12 checkout:w-full checkout:items-center checkout:justify-center checkout:rounded-full checkout:bg-stone-800 checkout:px-5 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-white checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.18)] checkout:focus-visible:outline checkout:focus-visible:outline-2 checkout:focus-visible:outline-offset-4 checkout:focus-visible:outline-[#f6cf45]"
         onClick={() => cart.addProduct({ id: sku, name: productName, price, slug: productSlug })}
-        to={`/${language}/${routeSegment('cart')}?sku=${sku}`}
+        {...tractorRouteTo(tractorRoutes.cart(language, { sku }))}
       >
         {t('checkout.actions.addToCart')}
       </Link>

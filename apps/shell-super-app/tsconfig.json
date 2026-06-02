@@ -4,8 +4,5 @@
     "src",
     "modern.config.ts",
     "module-federation.config.ts"
-  ],
-  "exclude": [
-    "src/modern-tanstack"
   ]
 }

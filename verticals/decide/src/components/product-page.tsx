@@ -1,5 +1,6 @@
 import { useDecideI18n } from '../tractor-i18n';
 import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { tractorRouteTo, tractorRoutes } from '@tractor-store-vertical-demo/shared-contracts';
 import { AddToCart, Recommendations } from './vertical-components';
 
 const image = (sku: string, size: number) =>
@@ -74,7 +75,7 @@ const locationSearch = (location: { search?: unknown; searchStr?: unknown }) => 
 const productName = (product: (typeof products)[number]) => `${product.baseName} ${product.finish}`;
 
 export default function DecideProductPage() {
-  const { language, routeSegment, t } = useDecideI18n();
+  const { language, t } = useDecideI18n();
   const location = useLocation();
   const requestedSku = new URLSearchParams(locationSearch(location)).get('sku');
   const selected = products.find((product) => product.sku === requestedSku) ?? products[0];
@@ -113,7 +114,11 @@ export default function DecideProductPage() {
                   <Link
                     aria-current={variant.sku === selected.sku ? 'true' : undefined}
                     className="decide:inline-flex decide:items-center decide:gap-2 decide:border-b decide:border-stone-950 decide:text-[1rem] decide:text-stone-950 decide:no-underline decide:focus-visible:outline decide:focus-visible:outline-2 decide:focus-visible:outline-offset-4 decide:focus-visible:outline-[#f6cf45]"
-                    to={`/${language}/${routeSegment('tractors')}/${slugify(variant.baseName)}?sku=${variant.sku}`}
+                    {...tractorRouteTo(
+                      tractorRoutes.product(language, slugify(variant.baseName), {
+                        sku: variant.sku,
+                      }),
+                    )}
                   >
                     <span
                       aria-hidden="true"

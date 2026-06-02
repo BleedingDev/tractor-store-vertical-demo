@@ -1,4 +1,5 @@
 import { Link } from '@modern-js/plugin-tanstack/runtime';
+import { tractorRouteTo, tractorRoutes } from '@tractor-store-vertical-demo/shared-contracts';
 import { useExploreI18n } from '../tractor-i18n';
 import { autonomousProducts, classicProducts, responsiveImage, sizedImage } from '../tractor-data';
 
@@ -9,7 +10,7 @@ const formatPrice = (price: number) =>
   })} Ø`;
 
 export default function ProductGrid() {
-  const { language, routeSegment, t } = useExploreI18n();
+  const { language, t } = useExploreI18n();
   const products = [...autonomousProducts, ...classicProducts].toSorted(
     (left, right) => right.startPrice - left.startPrice,
   );
@@ -37,19 +38,19 @@ export default function ProductGrid() {
           <Link
             aria-current="page"
             className="explore:border-b explore:border-stone-950 explore:text-stone-950 explore:no-underline"
-            to={`/${language}/${routeSegment('tractors')}`}
+            {...tractorRouteTo(tractorRoutes.tractors(language))}
           >
             {t('explore.products.all')}
           </Link>
           <Link
             className="explore:text-stone-950 explore:no-underline"
-            to={`/${language}/${routeSegment('tractors')}?category=classic`}
+            {...tractorRouteTo(tractorRoutes.tractors(language, { category: 'classic' }))}
           >
             {t('explore.products.classics')}
           </Link>
           <Link
             className="explore:text-stone-950 explore:no-underline"
-            to={`/${language}/${routeSegment('tractors')}?category=autonomous`}
+            {...tractorRouteTo(tractorRoutes.tractors(language, { category: 'autonomous' }))}
           >
             {t('explore.products.autonomous')}
           </Link>
@@ -60,7 +61,9 @@ export default function ProductGrid() {
           <li className="explore:text-center" key={product.id}>
             <Link
               className="explore:block explore:text-stone-950 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-              to={`/${language}/${routeSegment('tractors')}/${product.slug}?sku=${product.sku}`}
+              {...tractorRouteTo(
+                tractorRoutes.product(language, product.slug, { sku: String(product.sku) }),
+              )}
             >
               <img
                 alt=""

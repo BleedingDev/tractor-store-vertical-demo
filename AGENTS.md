@@ -54,6 +54,7 @@ Agents may read files under `repos/` to understand upstream patterns, APIs, and 
 - Keep `presetUltramodern` as the single preset.
 - Prefer Effect for BFF/service code.
 - Prefer TanStack Router for app routing.
+- Do not hide framework defects with app-level shims: no custom navigation wrappers, manual click interception, synthetic `<a>` handlers, local config suppressions, generated-file edits, hook bypasses, or one-off patches. Use native framework/router primitives directly in app code and fix broken behavior in the owning framework/runtime/tooling layer.
 - Keep design-system code as a normal Micro Frontend or shared package, not a special core path.
 - Keep generated packages explicit and publishable: stable `exports`, correct declarations, small public APIs, and clear ownership metadata.
 - Do not add migration tooling or codemods unless the project owner explicitly asks for migration work.

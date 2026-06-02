@@ -139,10 +139,13 @@
       "all": "Vše",
       "autonomous": "Autonomní",
       "classics": "Klasické",
-      "count": "{{count}} produktů",
       "filter": "Filtr",
       "filterLabel": "Filtr strojů",
-      "title": "Všechny stroje"
+      "title": "Všechny stroje",
+      "count_one": "{{count}} produkt",
+      "count_few": "{{count}} produkty",
+      "count_many": "{{count}} produktů",
+      "count_other": "{{count}} produktu"
     },
     "footer": {
       "basedOn": "založeno na",

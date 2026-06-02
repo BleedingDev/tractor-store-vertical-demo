@@ -1,9 +1,10 @@
 import { Link } from '@modern-js/plugin-tanstack/runtime';
+import { tractorRouteTo, tractorRoutes } from '@tractor-store-vertical-demo/shared-contracts';
 import { useExploreI18n } from '../tractor-i18n';
 import { logoUrl } from '../tractor-data';
 
 export default function Header() {
-  const { language, routeSegment, t } = useExploreI18n();
+  const { language, t } = useExploreI18n();
 
   return (
     <header
@@ -11,9 +12,12 @@ export default function Header() {
       data-modern-boundary-id="explore"
       data-modern-mf-expose="./Header"
     >
-      <Link className="explore:block explore:no-underline" to={`/${language}`}>
+      <Link
+        className="explore:block explore:no-underline"
+        {...tractorRouteTo(tractorRoutes.home(language))}
+      >
         <img
-          alt="Microfrontends Tractor Store"
+          alt={t('explore.header.logoAlt')}
           className="explore:block explore:h-auto explore:w-[170px] explore:min-[500px]:w-[270px]"
           height="77"
           src={logoUrl}
@@ -26,13 +30,13 @@ export default function Header() {
       >
         <Link
           className="explore:bg-stone-50/80 explore:px-5 explore:py-2 explore:text-[0.7rem] explore:font-bold explore:uppercase explore:tracking-[0.42em] explore:text-stone-800 explore:no-underline explore:hover:text-[#ff5a55] explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-          to={`/${language}/${routeSegment('tractors')}`}
+          {...tractorRouteTo(tractorRoutes.tractors(language))}
         >
           {t('explore.header.machines')}
         </Link>
         <Link
           className="explore:bg-stone-50/80 explore:px-5 explore:py-2 explore:text-[0.7rem] explore:font-bold explore:uppercase explore:tracking-[0.42em] explore:text-stone-800 explore:no-underline explore:hover:text-[#ff5a55] explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
-          to={`/${language}/${routeSegment('stores')}`}
+          {...tractorRouteTo(tractorRoutes.stores(language))}
         >
           {t('explore.header.stores')}
         </Link>
