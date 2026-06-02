@@ -95,7 +95,7 @@ export const productRecommendations = [
 }));
 
 export const stores = [
-  ['store-a', 'Fendtastic Tractors', 'Eckernforder Str. 123', 'Aachen'],
+  ['store-a', 'Aurora Flagship Store', 'Astronaut Way 1', 'Arlington'],
   ['store-b', 'Big Micro Machines', 'Broadway 2', 'Burlington'],
   ['store-c', 'Central Mall', 'Clown Street 3', 'Cryo'],
   ['store-d', 'Downtown Model Store', 'Duck Street 4', 'Davenport'],

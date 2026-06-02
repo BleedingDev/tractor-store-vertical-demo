@@ -21,13 +21,13 @@ export default function StorePicker() {
           >
             <img
               alt=""
-              className="explore:aspect-[16/9] explore:w-full explore:object-cover"
-              height="281"
+              className="explore:mx-auto explore:block explore:aspect-square explore:w-[min(100%,200px)] explore:object-cover"
+              height="200"
               loading="lazy"
-              sizes="(max-width: 499px) calc(100vw - 3rem), 500px"
-              src={sizedImage(store.image, 500)}
-              srcSet={responsiveImage(store.image, [500, 1000])}
-              width="500"
+              sizes="200px"
+              src={sizedImage(store.image, 200)}
+              srcSet={responsiveImage(store.image, [200, 400])}
+              width="200"
             />
             <h2 className="explore:mt-4 explore:text-[1.2rem] explore:font-normal">{store.name}</h2>
             <p className="explore:mt-2 explore:text-[0.95rem]">
