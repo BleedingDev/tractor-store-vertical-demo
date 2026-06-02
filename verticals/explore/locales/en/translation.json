@@ -26,8 +26,27 @@
       "aiFirst": "AI-first option",
       "bestRows": "Best for tight rows",
       "loaderReady": "Loader-ready",
-      "title": "Compare alternatives",
+      "title": "Recommendations",
       "vineyard": "Vineyard profile"
+    },
+    "teasers": {
+      "autonomous": "Autonomous Tractors",
+      "classic": "Classic Tractors"
+    },
+    "products": {
+      "all": "All",
+      "autonomous": "Autonomous",
+      "classics": "Classics",
+      "count": "{{count}} products",
+      "filter": "Filter",
+      "filterLabel": "Filter machines",
+      "title": "All Machines"
+    },
+    "footer": {
+      "basedOn": "based on",
+      "projectPrefix": "a",
+      "projectSuffix": "project",
+      "techstack": "techstack"
     },
     "stores": {
       "northRegion": "North region",

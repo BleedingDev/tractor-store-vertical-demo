@@ -20,10 +20,19 @@
     "product": {
       "availability": "Availability",
       "eyebrow": "Machine detail",
+      "features": {
+        "comfort": "Ergonomic design with a focus on operator comfort and efficiency",
+        "landscapes": "Optimized for tulip fields and versatile European landscapes",
+        "quality": "Dutch craftsmanship for precision and quality"
+      },
       "inStock": "In stock",
       "lede": "A loader-ready tractor for feed, hay, gravel, and winter road work.",
       "power": "Power",
-      "price": "Price"
+      "price": "Price",
+      "variants": {
+        "polderGreen": "Polder Green",
+        "tulipMagenta": "Tulip Magenta"
+      }
     }
   }
 }

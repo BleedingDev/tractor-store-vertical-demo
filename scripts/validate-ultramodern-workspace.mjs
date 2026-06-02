@@ -8,213 +8,213 @@ const expectedPnpmVersion = '11.5.0';
 const tailwindEnabled = true;
 const fullStackVerticals = [
   {
-    "id": "explore",
-    "domain": "explore",
-    "stem": "explore",
-    "group": "explore",
-    "path": "verticals/explore",
-    "mfName": "verticalExplore",
-    "apiPrefix": "/explore-api",
-    "tailwindPrefix": "explore",
-    "packageName": "@tractor-store-vertical-demo/explore",
-    "exposes": [
-      "./Footer",
-      "./Header",
-      "./Recommendations",
-      "./Route",
-      "./StorePicker"
+    apiPrefix: '/explore-api',
+    componentPaths: [
+      'verticals/explore/src/components/footer.tsx',
+      'verticals/explore/src/components/header.tsx',
+      'verticals/explore/src/components/recommendations.tsx',
+      'verticals/explore/src/components/store-picker.tsx',
     ],
-    "componentPaths": [
-      "verticals/explore/src/components/footer.tsx",
-      "verticals/explore/src/components/header.tsx",
-      "verticals/explore/src/components/recommendations.tsx",
-      "verticals/explore/src/components/store-picker.tsx"
-    ],
-    "namespace": "explore",
-    "routePagePaths": [
-      "verticals/explore/src/routes/[lang]/tractors/page.tsx",
-      "verticals/explore/src/routes/[lang]/stores/page.tsx",
-      "verticals/explore/src/routes/[lang]/unavailable/page.tsx"
-    ],
-    "localisedUrls": {
-      "/tractors": {
-        "cs": "/traktory",
-        "en": "/tractors"
+    domain: 'explore',
+    exposes: ['./Footer', './Header', './Recommendations', './Route', './StorePicker'],
+    group: 'explore',
+    id: 'explore',
+    localisedUrls: {
+      '/nedostupne': {
+        cs: '/nedostupne',
+        en: '/unavailable',
       },
-      "/traktory": {
-        "cs": "/traktory",
-        "en": "/tractors"
+      '/prodejci': {
+        cs: '/prodejci',
+        en: '/stores',
       },
-      "/stores": {
-        "cs": "/prodejci",
-        "en": "/stores"
+      '/stores': {
+        cs: '/prodejci',
+        en: '/stores',
       },
-      "/prodejci": {
-        "cs": "/prodejci",
-        "en": "/stores"
+      '/tractors': {
+        cs: '/traktory',
+        en: '/tractors',
       },
-      "/unavailable": {
-        "cs": "/nedostupne",
-        "en": "/unavailable"
+      '/traktory': {
+        cs: '/traktory',
+        en: '/tractors',
       },
-      "/nedostupne": {
-        "cs": "/nedostupne",
-        "en": "/unavailable"
-      }
+      '/unavailable': {
+        cs: '/nedostupne',
+        en: '/unavailable',
+      },
     },
-    "verticalRefs": []
+    mfName: 'verticalExplore',
+    namespace: 'explore',
+    packageName: '@tractor-store-vertical-demo/explore',
+    path: 'verticals/explore',
+    routePagePaths: [
+      'verticals/explore/src/routes/[lang]/tractors/page.tsx',
+      'verticals/explore/src/routes/[lang]/stores/page.tsx',
+      'verticals/explore/src/routes/[lang]/unavailable/page.tsx',
+    ],
+    stem: 'explore',
+    tailwindPrefix: 'explore',
+    verticalRefs: [],
   },
   {
-    "id": "decide",
-    "domain": "decide",
-    "stem": "decide",
-    "group": "decide",
-    "path": "verticals/decide",
-    "mfName": "verticalDecide",
-    "apiPrefix": "/decide-api",
-    "tailwindPrefix": "decide",
-    "packageName": "@tractor-store-vertical-demo/decide",
-    "exposes": [
-      "./ProductPage",
-      "./Route"
-    ],
-    "componentPaths": [
-      "verticals/decide/src/components/product-page.tsx"
-    ],
-    "namespace": "decide",
-    "routePagePaths": [
-      "verticals/decide/src/routes/[lang]/tractors/page.tsx",
-      "verticals/decide/src/routes/[lang]/tractors/[slug]/page.tsx",
-      "verticals/decide/src/routes/[lang]/unavailable/page.tsx"
-    ],
-    "localisedUrls": {
-      "/tractors": {
-        "cs": "/traktory",
-        "en": "/tractors"
+    apiPrefix: '/decide-api',
+    componentPaths: ['verticals/decide/src/components/product-page.tsx'],
+    domain: 'decide',
+    exposes: ['./ProductPage', './Route'],
+    group: 'decide',
+    id: 'decide',
+    localisedUrls: {
+      '/nedostupne': {
+        cs: '/nedostupne',
+        en: '/unavailable',
       },
-      "/traktory": {
-        "cs": "/traktory",
-        "en": "/tractors"
+      '/tractors': {
+        cs: '/traktory',
+        en: '/tractors',
       },
-      "/tractors/:slug": {
-        "cs": "/traktory/:slug",
-        "en": "/tractors/:slug"
+      '/tractors/:slug': {
+        cs: '/traktory/:slug',
+        en: '/tractors/:slug',
       },
-      "/traktory/:slug": {
-        "cs": "/traktory/:slug",
-        "en": "/tractors/:slug"
+      '/traktory': {
+        cs: '/traktory',
+        en: '/tractors',
       },
-      "/unavailable": {
-        "cs": "/nedostupne",
-        "en": "/unavailable"
+      '/traktory/:slug': {
+        cs: '/traktory/:slug',
+        en: '/tractors/:slug',
       },
-      "/nedostupne": {
-        "cs": "/nedostupne",
-        "en": "/unavailable"
-      }
+      '/unavailable': {
+        cs: '/nedostupne',
+        en: '/unavailable',
+      },
     },
-    "verticalRefs": [
-      "explore",
-      "checkout"
-    ]
+    mfName: 'verticalDecide',
+    namespace: 'decide',
+    packageName: '@tractor-store-vertical-demo/decide',
+    path: 'verticals/decide',
+    routePagePaths: [
+      'verticals/decide/src/routes/[lang]/tractors/page.tsx',
+      'verticals/decide/src/routes/[lang]/tractors/[slug]/page.tsx',
+      'verticals/decide/src/routes/[lang]/unavailable/page.tsx',
+    ],
+    stem: 'decide',
+    tailwindPrefix: 'decide',
+    verticalRefs: ['explore', 'checkout'],
   },
   {
-    "id": "checkout",
-    "domain": "checkout",
-    "stem": "checkout",
-    "group": "checkout",
-    "path": "verticals/checkout",
-    "mfName": "verticalCheckout",
-    "apiPrefix": "/checkout-api",
-    "tailwindPrefix": "checkout",
-    "packageName": "@tractor-store-vertical-demo/checkout",
-    "exposes": [
-      "./AddToCart",
-      "./CartPage",
-      "./CheckoutPage",
-      "./MiniCart",
-      "./Route",
-      "./ThanksPage"
+    apiPrefix: '/checkout-api',
+    componentPaths: [
+      'verticals/checkout/src/components/add-to-cart.tsx',
+      'verticals/checkout/src/components/cart-page.tsx',
+      'verticals/checkout/src/components/checkout-page.tsx',
+      'verticals/checkout/src/components/mini-cart.tsx',
+      'verticals/checkout/src/components/thanks-page.tsx',
     ],
-    "componentPaths": [
-      "verticals/checkout/src/components/add-to-cart.tsx",
-      "verticals/checkout/src/components/cart-page.tsx",
-      "verticals/checkout/src/components/checkout-page.tsx",
-      "verticals/checkout/src/components/mini-cart.tsx",
-      "verticals/checkout/src/components/thanks-page.tsx"
+    domain: 'checkout',
+    exposes: [
+      './AddToCart',
+      './CartPage',
+      './CheckoutPage',
+      './MiniCart',
+      './Route',
+      './ThanksPage',
     ],
-    "namespace": "checkout",
-    "routePagePaths": [
-      "verticals/checkout/src/routes/[lang]/cart/page.tsx",
-      "verticals/checkout/src/routes/[lang]/checkout/page.tsx",
-      "verticals/checkout/src/routes/[lang]/checkout/thank-you/page.tsx",
-      "verticals/checkout/src/routes/[lang]/checkout/thank-you/[orderId$]/page.tsx",
-      "verticals/checkout/src/routes/[lang]/unavailable/page.tsx"
-    ],
-    "localisedUrls": {
-      "/cart": {
-        "cs": "/kosik",
-        "en": "/cart"
+    group: 'checkout',
+    id: 'checkout',
+    localisedUrls: {
+      '/cart': {
+        cs: '/kosik',
+        en: '/cart',
       },
-      "/kosik": {
-        "cs": "/kosik",
-        "en": "/cart"
+      '/checkout': {
+        cs: '/pokladna',
+        en: '/checkout',
       },
-      "/checkout": {
-        "cs": "/pokladna",
-        "en": "/checkout"
+      '/checkout/thank-you': {
+        cs: '/pokladna/dekujeme',
+        en: '/checkout/thank-you',
       },
-      "/pokladna": {
-        "cs": "/pokladna",
-        "en": "/checkout"
+      '/checkout/thank-you/:orderId?': {
+        cs: '/pokladna/dekujeme/:orderId?',
+        en: '/checkout/thank-you/:orderId?',
       },
-      "/checkout/thank-you": {
-        "cs": "/pokladna/dekujeme",
-        "en": "/checkout/thank-you"
+      '/kosik': {
+        cs: '/kosik',
+        en: '/cart',
       },
-      "/pokladna/dekujeme": {
-        "cs": "/pokladna/dekujeme",
-        "en": "/checkout/thank-you"
+      '/nedostupne': {
+        cs: '/nedostupne',
+        en: '/unavailable',
       },
-      "/checkout/thank-you/:orderId?": {
-        "cs": "/pokladna/dekujeme/:orderId?",
-        "en": "/checkout/thank-you/:orderId?"
+      '/pokladna': {
+        cs: '/pokladna',
+        en: '/checkout',
       },
-      "/pokladna/dekujeme/:orderId?": {
-        "cs": "/pokladna/dekujeme/:orderId?",
-        "en": "/checkout/thank-you/:orderId?"
+      '/pokladna/dekujeme': {
+        cs: '/pokladna/dekujeme',
+        en: '/checkout/thank-you',
       },
-      "/unavailable": {
-        "cs": "/nedostupne",
-        "en": "/unavailable"
+      '/pokladna/dekujeme/:orderId?': {
+        cs: '/pokladna/dekujeme/:orderId?',
+        en: '/checkout/thank-you/:orderId?',
       },
-      "/nedostupne": {
-        "cs": "/nedostupne",
-        "en": "/unavailable"
-      }
+      '/unavailable': {
+        cs: '/nedostupne',
+        en: '/unavailable',
+      },
     },
-    "verticalRefs": []
-  }
+    mfName: 'verticalCheckout',
+    namespace: 'checkout',
+    packageName: '@tractor-store-vertical-demo/checkout',
+    path: 'verticals/checkout',
+    routePagePaths: [
+      'verticals/checkout/src/routes/[lang]/cart/page.tsx',
+      'verticals/checkout/src/routes/[lang]/checkout/page.tsx',
+      'verticals/checkout/src/routes/[lang]/checkout/thank-you/page.tsx',
+      'verticals/checkout/src/routes/[lang]/checkout/thank-you/[orderId$]/page.tsx',
+      'verticals/checkout/src/routes/[lang]/unavailable/page.tsx',
+    ],
+    stem: 'checkout',
+    tailwindPrefix: 'checkout',
+    verticalRefs: [],
+  },
 ];
-const shellNamespace = "shell";
-const oldRemotePaths = [
-  "apps/remotes"
-];
+const shellNamespace = 'shell';
+const oldRemotePaths = ['apps/remotes'];
 
-const readText = relativePath => fs.readFileSync(path.join(root, relativePath), 'utf-8');
-const readJson = relativePath => JSON.parse(readText(relativePath));
+const readText = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf-8');
+const readJson = (relativePath) => JSON.parse(readText(relativePath));
 const assert = (condition, message) => {
   if (!condition) {
     throw new Error(message);
   }
 };
-const assertExists = relativePath => {
+
+const sortObjectKeys = (value) => {
+  if (Array.isArray(value)) {
+    return value.map(sortObjectKeys);
+  }
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .toSorted(([left], [right]) => left.localeCompare(right))
+        .map(([key, entry]) => [key, sortObjectKeys(entry)]),
+    );
+  }
+  return value;
+};
+
+const stableJson = (value) => JSON.stringify(sortObjectKeys(value));
+const assertExists = (relativePath) => {
   assert(fs.existsSync(path.join(root, relativePath)), `Missing ${relativePath}`);
 };
-const assertNotExists = relativePath => {
+const assertNotExists = (relativePath) => {
   assert(!fs.existsSync(path.join(root, relativePath)), `Unexpected ${relativePath}`);
 };
-const expectedWorkerName = packageSuffix => `${packageScope}-${packageSuffix}`.slice(0, 63);
+const expectedWorkerName = (packageSuffix) => `${packageScope}-${packageSuffix}`.slice(0, 63);
 
 const activePnpmVersion = execFileSync('pnpm', ['--version'], {
   cwd: root,
@@ -237,9 +237,6 @@ const requiredPaths = [
   'oxfmt.config.ts',
   '.github/renovate.json',
   '.github/workflows/ultramodern-workspace-gates.yml',
-  '.agents/skills-lock.json',
-  '.agents/agent-reference-repos.json',
-  '.agents/rstackjs-agent-skills-LICENSE',
   'topology/reference-topology.json',
   'topology/ownership.json',
   'topology/local-overlays/development.json',
@@ -298,7 +295,7 @@ if (tailwindEnabled) {
   requiredPaths.push(
     'apps/shell-super-app/postcss.config.mjs',
     'apps/shell-super-app/tailwind.config.ts',
-    ...fullStackVerticals.flatMap(vertical => [
+    ...fullStackVerticals.flatMap((vertical) => [
       `${vertical.path}/postcss.config.mjs`,
       `${vertical.path}/tailwind.config.ts`,
     ]),
@@ -323,87 +320,209 @@ const overlay = readJson('topology/local-overlays/development.json');
 assert(rootPackage.private === true, 'Root package must be private');
 assert(rootPackage.packageManager === `pnpm@${expectedPnpmVersion}`, 'Root must pin pnpm');
 assert(rootPackage.modernjs?.preset === 'presetUltramodern', 'Root must declare presetUltramodern');
-assert(rootPackage.modernjs?.packageSource?.config === './.modernjs/ultramodern-package-source.json', 'Root must point at package source metadata');
-assert(rootPackage.modernjs?.packageSource?.strategy === packageSource.strategy, 'Root package source strategy must match metadata');
-assert(packageSource.strategy === 'workspace' || packageSource.strategy === 'install', 'Package source strategy must be workspace or install');
-assert(packageSource.generatedWorkspacePackages?.specifier === 'workspace:*', 'Generated workspace packages must keep workspace:* links');
+assert(
+  rootPackage.modernjs?.packageSource?.config === './.modernjs/ultramodern-package-source.json',
+  'Root must point at package source metadata',
+);
+assert(
+  rootPackage.modernjs?.packageSource?.strategy === packageSource.strategy,
+  'Root package source strategy must match metadata',
+);
+assert(
+  packageSource.strategy === 'workspace' || packageSource.strategy === 'install',
+  'Package source strategy must be workspace or install',
+);
+assert(
+  packageSource.generatedWorkspacePackages?.specifier === 'workspace:*',
+  'Generated workspace packages must keep workspace:* links',
+);
 assert(
   rootPackage.scripts?.build ===
-    'pnpm -r --filter "./verticals/*" run build && pnpm --filter "./apps/shell-super-app" run build && pnpm ultramodern:assert-mf-types',
+    'ULTRAMODERN_ZEPHYR=false pnpm -r --filter "./verticals/*" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter "./apps/shell-super-app" run build && pnpm ultramodern:assert-mf-types',
   'Root build script must build verticals before shell',
 );
-assert(rootPackage.scripts?.['ultramodern:check'] === 'node ./scripts/validate-ultramodern-workspace.mjs', 'Root must expose ultramodern:check');
-assert(rootPackage.scripts?.['ultramodern:assert-mf-types'] === 'node ./scripts/assert-mf-types.mjs', 'Root must expose ultramodern:assert-mf-types');
-assert(rootPackage.scripts?.['cloudflare:deploy']?.includes('run cloudflare:deploy'), 'Root must expose cloudflare:deploy');
-assert(rootPackage.scripts?.['cloudflare:proof'] === 'node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json', 'Root must expose cloudflare:proof');
-assert(rootPackage.scripts?.['skills:install'] === 'node ./scripts/bootstrap-agent-skills.mjs', 'Root must expose skills:install');
-assert(rootPackage.scripts?.['skills:check'] === 'node ./scripts/bootstrap-agent-skills.mjs --check', 'Root must expose skills:check');
-assert(rootPackage.scripts?.postinstall === 'node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs', 'Root postinstall must bootstrap agent skills and hooks before reference repositories');
-
-const expectedAppIds = ['shell-super-app', ...fullStackVerticals.map(vertical => vertical.id)];
 assert(
-  JSON.stringify(generatedContract.apps?.map(app => app.id)) === JSON.stringify(expectedAppIds),
+  rootPackage.scripts?.['ultramodern:check'] ===
+    'node ./scripts/validate-ultramodern-workspace.mjs',
+  'Root must expose ultramodern:check',
+);
+assert(
+  rootPackage.scripts?.['ultramodern:assert-mf-types'] === 'node ./scripts/assert-mf-types.mjs',
+  'Root must expose ultramodern:assert-mf-types',
+);
+assert(
+  rootPackage.scripts?.['cloudflare:deploy']?.includes('run cloudflare:deploy'),
+  'Root must expose cloudflare:deploy',
+);
+assert(
+  rootPackage.scripts?.['cloudflare:proof'] ===
+    'node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json',
+  'Root must expose cloudflare:proof',
+);
+assert(
+  rootPackage.scripts?.['skills:install'] === 'node ./scripts/bootstrap-agent-skills.mjs',
+  'Root must expose skills:install',
+);
+assert(
+  rootPackage.scripts?.['skills:check'] === 'node ./scripts/bootstrap-agent-skills.mjs --check',
+  'Root must expose skills:check',
+);
+assert(
+  rootPackage.scripts?.postinstall ===
+    'node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs',
+  'Root postinstall must bootstrap agent skills and hooks before reference repositories',
+);
+
+const expectedAppIds = ['shell-super-app', ...fullStackVerticals.map((vertical) => vertical.id)];
+assert(
+  JSON.stringify(generatedContract.apps?.map((app) => app.id)) === JSON.stringify(expectedAppIds),
   'Generated contract must contain shell plus the Tractor full-stack verticals',
 );
-assert(generatedContract.cssFederation?.sharedDesignTokens?.owner?.id === 'shared-design-tokens', 'CSS federation must declare shared design token ownership');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.role === 'shared-design-tokens', 'CSS federation must mark shared-design-tokens as token owner');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.rootSelector === ':root', 'Shared design tokens must declare their root selector');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.classPrefix === '--um-', 'Shared design tokens must declare their CSS custom property prefix');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.layers?.owned?.includes('ultramodern-shared-tokens'), 'Shared design tokens must own the shared token CSS layer');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.entrypoints?.css?.includes('packages/shared-design-tokens/src/tokens.css'), 'Shared design tokens must declare their CSS entrypoint');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.assets?.exports?.includes('./tokens.css'), 'Shared design tokens must export their CSS asset');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.dedupe?.duplicateBaseStylesAllowed === false, 'Shared design token CSS must be deduplicated');
-assert(generatedContract.cssFederation?.sharedDesignTokens?.ssr?.firstPaintRequired === true, 'Shared design token CSS must be required for SSR first paint');
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.owner?.id === 'shared-design-tokens',
+  'CSS federation must declare shared design token ownership',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.role === 'shared-design-tokens',
+  'CSS federation must mark shared-design-tokens as token owner',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.rootSelector === ':root',
+  'Shared design tokens must declare their root selector',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.classPrefix === '--um-',
+  'Shared design tokens must declare their CSS custom property prefix',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.layers?.owned?.includes(
+    'ultramodern-shared-tokens',
+  ),
+  'Shared design tokens must own the shared token CSS layer',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.entrypoints?.css?.includes(
+    'packages/shared-design-tokens/src/tokens.css',
+  ),
+  'Shared design tokens must declare their CSS entrypoint',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.assets?.exports?.includes('./tokens.css'),
+  'Shared design tokens must export their CSS asset',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.dedupe?.duplicateBaseStylesAllowed === false,
+  'Shared design token CSS must be deduplicated',
+);
+assert(
+  generatedContract.cssFederation?.sharedDesignTokens?.ssr?.firstPaintRequired === true,
+  'Shared design token CSS must be required for SSR first paint',
+);
 
 const shellPackage = readJson('apps/shell-super-app/package.json');
 const expectedZephyrDependencies = Object.fromEntries(
-  fullStackVerticals.map(vertical => [
-    vertical.domain,
-    `${vertical.packageName}@workspace:*`,
-  ]),
+  fullStackVerticals.map((vertical) => [vertical.domain, `${vertical.packageName}@workspace:*`]),
 );
 assert(
   JSON.stringify(shellPackage['zephyr:dependencies']) ===
     JSON.stringify(expectedZephyrDependencies),
   'Shell Zephyr dependencies must reference every Tractor vertical package',
 );
-const shellContract = generatedContract.apps?.find(app => app.id === 'shell-super-app');
-assert(shellContract?.deploy?.cloudflare?.workerName === expectedWorkerName('shell-super-app'), 'Shell Cloudflare workerName is incorrect');
-assert(shellContract?.deploy?.cloudflare?.publicUrlEnv === 'ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP', 'Shell Cloudflare public URL env is incorrect');
-assert(topology.shell?.cloudflare?.workerName === expectedWorkerName('shell-super-app'), 'Shell topology Cloudflare workerName is incorrect');
-assert(shellContract?.styling?.federation?.owner?.id === 'shell-super-app', 'Shell CSS federation owner is missing');
-assert(shellContract?.styling?.federation?.role === 'shell-base-overlay', 'Shell must own base and overlay CSS');
-assert(shellContract?.styling?.federation?.rootSelector === '[data-app-id="shell-super-app"]', 'Shell CSS root selector is incorrect');
-assert(shellContract?.styling?.federation?.classPrefix === 'shell:', 'Shell CSS class prefix is incorrect');
-assert(shellContract?.styling?.federation?.layers?.owned?.includes('ultramodern-shell-base'), 'Shell must own the base CSS layer');
-assert(shellContract?.styling?.federation?.layers?.owned?.includes('ultramodern-shell-overlay'), 'Shell must own the overlay CSS layer');
-assert(shellContract?.styling?.federation?.entrypoints?.css?.includes('src/routes/index.css'), 'Shell CSS entrypoint is missing');
-assert(shellContract?.styling?.federation?.assets?.shared?.some(asset => asset.endsWith('/shared-design-tokens/tokens.css')), 'Shell must import the shared design token CSS asset');
-assert(shellContract?.styling?.federation?.dedupe?.duplicateBaseStylesAllowed === false, 'Shell CSS contract must forbid duplicated base styles');
-assert(shellContract?.styling?.federation?.ssr?.firstPaintRequired === true, 'Shell CSS must be required for SSR first paint');
+const shellContract = generatedContract.apps?.find((app) => app.id === 'shell-super-app');
 assert(
-  topology.shell?.verticalRefs?.join(',') === fullStackVerticals.map(vertical => vertical.id).join(','),
+  shellContract?.deploy?.cloudflare?.workerName === expectedWorkerName('shell-super-app'),
+  'Shell Cloudflare workerName is incorrect',
+);
+assert(
+  shellContract?.deploy?.cloudflare?.publicUrlEnv === 'ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP',
+  'Shell Cloudflare public URL env is incorrect',
+);
+assert(
+  topology.shell?.cloudflare?.workerName === expectedWorkerName('shell-super-app'),
+  'Shell topology Cloudflare workerName is incorrect',
+);
+assert(
+  shellContract?.styling?.federation?.owner?.id === 'shell-super-app',
+  'Shell CSS federation owner is missing',
+);
+assert(
+  shellContract?.styling?.federation?.role === 'shell-base-overlay',
+  'Shell must own base and overlay CSS',
+);
+assert(
+  shellContract?.styling?.federation?.rootSelector === '[data-app-id="shell-super-app"]',
+  'Shell CSS root selector is incorrect',
+);
+assert(
+  shellContract?.styling?.federation?.classPrefix === 'shell:',
+  'Shell CSS class prefix is incorrect',
+);
+assert(
+  shellContract?.styling?.federation?.layers?.owned?.includes('ultramodern-shell-base'),
+  'Shell must own the base CSS layer',
+);
+assert(
+  shellContract?.styling?.federation?.layers?.owned?.includes('ultramodern-shell-overlay'),
+  'Shell must own the overlay CSS layer',
+);
+assert(
+  shellContract?.styling?.federation?.entrypoints?.css?.includes('src/routes/index.css'),
+  'Shell CSS entrypoint is missing',
+);
+assert(
+  shellContract?.styling?.federation?.assets?.shared?.some((asset) =>
+    asset.endsWith('/shared-design-tokens/tokens.css'),
+  ),
+  'Shell must import the shared design token CSS asset',
+);
+assert(
+  shellContract?.styling?.federation?.dedupe?.duplicateBaseStylesAllowed === false,
+  'Shell CSS contract must forbid duplicated base styles',
+);
+assert(
+  shellContract?.styling?.federation?.ssr?.firstPaintRequired === true,
+  'Shell CSS must be required for SSR first paint',
+);
+assert(
+  topology.shell?.verticalRefs?.join(',') ===
+    fullStackVerticals.map((vertical) => vertical.id).join(','),
   'Topology shell verticalRefs must match Tractor verticals',
 );
-assert(topology.verticals?.length === fullStackVerticals.length, 'Topology must contain only Tractor verticals');
+assert(
+  topology.verticals?.length === fullStackVerticals.length,
+  'Topology must contain only Tractor verticals',
+);
 assert(!('remotes' in topology), 'Topology must not expose legacy remotes; use verticals');
 assert(!('effectServices' in topology), 'Default APIs must be vertical-owned, not effectServices');
 
 for (const vertical of fullStackVerticals) {
   const packageJson = readJson(`${vertical.path}/package.json`);
   assert(packageJson.name === vertical.packageName, `${vertical.id} package name is incorrect`);
-  assert(packageJson.scripts?.['cloudflare:deploy'] === 'MODERNJS_DEPLOY=cloudflare modern deploy', `${vertical.id} must expose cloudflare:deploy`);
-  assert(packageJson.scripts?.['cloudflare:proof']?.includes(`--app ${vertical.id}`), `${vertical.id} must expose cloudflare:proof`);
-  assert(packageJson.dependencies?.['@modern-js/plugin-bff'], `${vertical.id} must depend on plugin-bff`);
-  assert(packageJson.exports?.['./effect/client'] === `./src/effect/${vertical.stem}-client.ts`, `${vertical.id} must export its Effect client`);
-  assert(packageJson.exports?.['./shared/effect/api'] === './shared/effect/api.ts', `${vertical.id} must export its Effect API contract`);
+  assert(
+    packageJson.scripts?.['cloudflare:deploy'] ===
+      'ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
+    `${vertical.id} must expose cloudflare:deploy through Wrangler`,
+  );
+  assert(
+    packageJson.scripts?.['cloudflare:proof']?.includes(`--app ${vertical.id}`),
+    `${vertical.id} must expose cloudflare:proof`,
+  );
+  assert(
+    packageJson.dependencies?.['@modern-js/plugin-bff'],
+    `${vertical.id} must depend on plugin-bff`,
+  );
+  assert(
+    packageJson.exports?.['./effect/client'] === `./src/effect/${vertical.stem}-client.ts`,
+    `${vertical.id} must export its Effect client`,
+  );
+  assert(
+    packageJson.exports?.['./shared/effect/api'] === './shared/effect/api.ts',
+    `${vertical.id} must export its Effect API contract`,
+  );
   const expectedVerticalZephyrDependencies = Object.fromEntries(
     fullStackVerticals
-      .filter(candidate => vertical.verticalRefs.includes(candidate.id))
-      .map(candidate => [
-        candidate.domain,
-        `${candidate.packageName}@workspace:*`,
-      ]),
+      .filter((candidate) => vertical.verticalRefs.includes(candidate.id))
+      .map((candidate) => [candidate.domain, `${candidate.packageName}@workspace:*`]),
   );
   assert(
     JSON.stringify(packageJson['zephyr:dependencies']) ===
@@ -411,62 +530,193 @@ for (const vertical of fullStackVerticals) {
     `${vertical.id} Zephyr dependencies must match declared vertical refs`,
   );
 
-  const contractEntry = generatedContract.apps?.find(app => app.id === vertical.id);
-  assert(contractEntry?.path === vertical.path, `${vertical.id} generated contract path is incorrect`);
-  assert(contractEntry?.kind === 'vertical', `${vertical.id} generated contract kind is incorrect`);
-  assert(contractEntry?.deploy?.cloudflare?.workerName === expectedWorkerName(vertical.id), `${vertical.id} Cloudflare workerName is incorrect`);
-  assert(contractEntry?.deploy?.cloudflare?.publicUrlEnv === `ULTRAMODERN_PUBLIC_URL_${vertical.id.replace(/-/g, '_').toUpperCase()}`, `${vertical.id} Cloudflare public URL env is incorrect`);
-  assert(contractEntry?.deploy?.cloudflare?.routes?.effectReadiness === `${vertical.apiPrefix}/effect/${vertical.stem}/readiness`, `${vertical.id} Cloudflare proof readiness route is incorrect`);
-  assert(contractEntry?.moduleFederation?.name === vertical.mfName, `${vertical.id} MF name is incorrect`);
-  assert(JSON.stringify(contractEntry?.moduleFederation?.exposes) === JSON.stringify(vertical.exposes), `${vertical.id} MF exposes are incorrect`);
-  assert(contractEntry?.moduleFederation?.dts?.compilerInstance === '--package typescript -- tsc', `${vertical.id} must keep mandatory DTS compiler`);
-  assert(JSON.stringify(contractEntry?.moduleFederation?.verticalRefs ?? []) === JSON.stringify(vertical.verticalRefs), `${vertical.id} MF verticalRefs are incorrect`);
+  const contractEntry = generatedContract.apps?.find((app) => app.id === vertical.id);
   assert(
-    JSON.stringify((contractEntry?.moduleFederation?.remotes ?? []).map(remote => remote.id)) ===
+    contractEntry?.path === vertical.path,
+    `${vertical.id} generated contract path is incorrect`,
+  );
+  assert(contractEntry?.kind === 'vertical', `${vertical.id} generated contract kind is incorrect`);
+  assert(
+    contractEntry?.deploy?.cloudflare?.workerName === expectedWorkerName(vertical.id),
+    `${vertical.id} Cloudflare workerName is incorrect`,
+  );
+  assert(
+    contractEntry?.deploy?.cloudflare?.publicUrlEnv ===
+      `ULTRAMODERN_PUBLIC_URL_${vertical.id.replaceAll('-', '_').toUpperCase()}`,
+    `${vertical.id} Cloudflare public URL env is incorrect`,
+  );
+  assert(
+    contractEntry?.deploy?.cloudflare?.routes?.effectReadiness ===
+      `${vertical.apiPrefix}/effect/${vertical.stem}/readiness`,
+    `${vertical.id} Cloudflare proof readiness route is incorrect`,
+  );
+  assert(
+    contractEntry?.moduleFederation?.name === vertical.mfName,
+    `${vertical.id} MF name is incorrect`,
+  );
+  assert(
+    JSON.stringify(contractEntry?.moduleFederation?.exposes) === JSON.stringify(vertical.exposes),
+    `${vertical.id} MF exposes are incorrect`,
+  );
+  assert(
+    contractEntry?.moduleFederation?.dts?.compilerInstance === '--package typescript -- tsc',
+    `${vertical.id} must keep mandatory DTS compiler`,
+  );
+  assert(
+    JSON.stringify(contractEntry?.moduleFederation?.verticalRefs ?? []) ===
+      JSON.stringify(vertical.verticalRefs),
+    `${vertical.id} MF verticalRefs are incorrect`,
+  );
+  assert(
+    JSON.stringify((contractEntry?.moduleFederation?.remotes ?? []).map((remote) => remote.id)) ===
       JSON.stringify(vertical.verticalRefs),
     `${vertical.id} MF consumed verticals are incorrect`,
   );
-  assert(contractEntry?.effect?.prefix === vertical.apiPrefix, `${vertical.id} Effect API prefix is incorrect`);
-  assert(contractEntry?.effect?.group === vertical.group, `${vertical.id} Effect group is incorrect`);
-  assert(contractEntry?.effect?.readiness?.endpoint === `/effect/${vertical.stem}/readiness`, `${vertical.id} readiness endpoint is incorrect`);
-  assert(contractEntry?.effect?.operations?.readiness?.path === `/effect/${vertical.stem}/readiness`, `${vertical.id} readiness operation is missing`);
-  assert(contractEntry?.effect?.requestContext?.propagatedHeaders?.includes('traceparent'), `${vertical.id} trace context propagation is missing`);
-  assert(Object.keys(contractEntry?.effect?.domainOperations ?? {}).length >= 3, `${vertical.id} domain operations are missing`);
-  assert(contractEntry?.i18n?.languages?.includes('en') && contractEntry?.i18n?.languages?.includes('cs'), `${vertical.id} must declare i18n languages`);
-  assert(contractEntry?.i18n?.namespace === vertical.namespace, `${vertical.id} i18n namespace is incorrect`);
   assert(
-    JSON.stringify(contractEntry?.i18n?.localisedUrls) === JSON.stringify(vertical.localisedUrls),
+    contractEntry?.effect?.prefix === vertical.apiPrefix,
+    `${vertical.id} Effect API prefix is incorrect`,
+  );
+  assert(
+    contractEntry?.effect?.group === vertical.group,
+    `${vertical.id} Effect group is incorrect`,
+  );
+  assert(
+    contractEntry?.effect?.readiness?.endpoint === `/effect/${vertical.stem}/readiness`,
+    `${vertical.id} readiness endpoint is incorrect`,
+  );
+  assert(
+    contractEntry?.effect?.operations?.readiness?.path === `/effect/${vertical.stem}/readiness`,
+    `${vertical.id} readiness operation is missing`,
+  );
+  assert(
+    contractEntry?.effect?.requestContext?.propagatedHeaders?.includes('traceparent'),
+    `${vertical.id} trace context propagation is missing`,
+  );
+  assert(
+    Object.keys(contractEntry?.effect?.domainOperations ?? {}).length >= 3,
+    `${vertical.id} domain operations are missing`,
+  );
+  assert(
+    contractEntry?.i18n?.languages?.includes('en') &&
+      contractEntry?.i18n?.languages?.includes('cs'),
+    `${vertical.id} must declare i18n languages`,
+  );
+  assert(
+    contractEntry?.i18n?.namespace === vertical.namespace,
+    `${vertical.id} i18n namespace is incorrect`,
+  );
+  assert(
+    stableJson(contractEntry?.i18n?.localisedUrls) === stableJson(vertical.localisedUrls),
     `${vertical.id} localisedUrls must come from route metadata`,
   );
-  assert(contractEntry?.routes?.source === 'route-owned', `${vertical.id} routes must be route-owned`);
-  assert(contractEntry?.routes?.metadataExport === './src/routes/ultramodern-route-metadata', `${vertical.id} route metadata export is incorrect`);
-  assert(contractEntry?.styling?.federation?.owner?.id === vertical.id, `${vertical.id} CSS federation owner is missing`);
-  assert(contractEntry?.styling?.federation?.role === 'vertical-css', `${vertical.id} must own only vertical CSS`);
-  assert(contractEntry?.styling?.federation?.rootSelector === `[data-app-id="${vertical.id}"]`, `${vertical.id} CSS root selector is incorrect`);
-  assert(contractEntry?.styling?.federation?.classPrefix === `${vertical.domain}:`, `${vertical.id} CSS class prefix is incorrect`);
-  assert(contractEntry?.styling?.federation?.layers?.owned?.includes(`ultramodern-vertical-${vertical.domain}`), `${vertical.id} vertical CSS layer is missing`);
-  assert(!contractEntry?.styling?.federation?.layers?.owned?.includes('ultramodern-shell-base'), `${vertical.id} must not own shell base CSS`);
-  assert(contractEntry?.styling?.federation?.entrypoints?.federationEntry === 'src/federation-entry.tsx', `${vertical.id} CSS contract must include federation entry`);
-  assert(contractEntry?.styling?.federation?.assets?.shared?.some(asset => asset.endsWith('/shared-design-tokens/tokens.css')), `${vertical.id} must import shared design token CSS`);
-  assert(contractEntry?.styling?.federation?.dedupe?.runtimeLoad === 'once-per-content-hash', `${vertical.id} CSS dedupe strategy is incorrect`);
-  assert(contractEntry?.styling?.federation?.ssr?.verticalCss === 'federated-manifest-owned-css', `${vertical.id} SSR CSS loading contract is incorrect`);
+  assert(
+    contractEntry?.routes?.source === 'route-owned',
+    `${vertical.id} routes must be route-owned`,
+  );
+  assert(
+    contractEntry?.routes?.metadataExport === './src/routes/ultramodern-route-metadata',
+    `${vertical.id} route metadata export is incorrect`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.owner?.id === vertical.id,
+    `${vertical.id} CSS federation owner is missing`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.role === 'vertical-css',
+    `${vertical.id} must own only vertical CSS`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.rootSelector === `[data-app-id="${vertical.id}"]`,
+    `${vertical.id} CSS root selector is incorrect`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.classPrefix === `${vertical.domain}:`,
+    `${vertical.id} CSS class prefix is incorrect`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.layers?.owned?.includes(
+      `ultramodern-vertical-${vertical.domain}`,
+    ),
+    `${vertical.id} vertical CSS layer is missing`,
+  );
+  assert(
+    !contractEntry?.styling?.federation?.layers?.owned?.includes('ultramodern-shell-base'),
+    `${vertical.id} must not own shell base CSS`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.entrypoints?.federationEntry === 'src/federation-entry.tsx',
+    `${vertical.id} CSS contract must include federation entry`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.assets?.shared?.some((asset) =>
+      asset.endsWith('/shared-design-tokens/tokens.css'),
+    ),
+    `${vertical.id} must import shared design token CSS`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.dedupe?.runtimeLoad === 'once-per-content-hash',
+    `${vertical.id} CSS dedupe strategy is incorrect`,
+  );
+  assert(
+    contractEntry?.styling?.federation?.ssr?.verticalCss === 'federated-manifest-owned-css',
+    `${vertical.id} SSR CSS loading contract is incorrect`,
+  );
 
-  const topologyEntry = topology.verticals?.find(verticalEntry => verticalEntry.id === vertical.id);
+  const topologyEntry = topology.verticals?.find(
+    (verticalEntry) => verticalEntry.id === vertical.id,
+  );
   assert(topologyEntry?.kind === 'vertical', `${vertical.id} topology kind is incorrect`);
-  assert(topologyEntry?.package === vertical.packageName, `${vertical.id} topology package is incorrect`);
-  assert(topologyEntry?.cloudflare?.workerName === expectedWorkerName(vertical.id), `${vertical.id} topology Cloudflare workerName is incorrect`);
-  assert(topologyEntry?.moduleFederation?.name === vertical.mfName, `${vertical.id} topology MF name is incorrect`);
-  assert(JSON.stringify(topologyEntry?.moduleFederation?.exposes) === JSON.stringify(vertical.exposes), `${vertical.id} topology exposes are incorrect`);
-  assert(JSON.stringify(topologyEntry?.moduleFederation?.verticalRefs ?? []) === JSON.stringify(vertical.verticalRefs), `${vertical.id} topology verticalRefs are incorrect`);
-  assert(topologyEntry?.api?.effect?.bff?.prefix === vertical.apiPrefix, `${vertical.id} topology API prefix is incorrect`);
-  assert(topologyEntry?.api?.effect?.serverEntry === `${vertical.path}/api/effect/index.ts`, `${vertical.id} topology server entry is incorrect`);
-  assert(topologyEntry?.api?.effect?.readiness?.endpoint === `/effect/${vertical.stem}/readiness`, `${vertical.id} topology readiness endpoint is incorrect`);
-  assert(Object.keys(topologyEntry?.api?.effect?.domainOperations ?? {}).length >= 3, `${vertical.id} topology domain operations are missing`);
+  assert(
+    topologyEntry?.package === vertical.packageName,
+    `${vertical.id} topology package is incorrect`,
+  );
+  assert(
+    topologyEntry?.cloudflare?.workerName === expectedWorkerName(vertical.id),
+    `${vertical.id} topology Cloudflare workerName is incorrect`,
+  );
+  assert(
+    topologyEntry?.moduleFederation?.name === vertical.mfName,
+    `${vertical.id} topology MF name is incorrect`,
+  );
+  assert(
+    JSON.stringify(topologyEntry?.moduleFederation?.exposes) === JSON.stringify(vertical.exposes),
+    `${vertical.id} topology exposes are incorrect`,
+  );
+  assert(
+    JSON.stringify(topologyEntry?.moduleFederation?.verticalRefs ?? []) ===
+      JSON.stringify(vertical.verticalRefs),
+    `${vertical.id} topology verticalRefs are incorrect`,
+  );
+  assert(
+    topologyEntry?.api?.effect?.bff?.prefix === vertical.apiPrefix,
+    `${vertical.id} topology API prefix is incorrect`,
+  );
+  assert(
+    topologyEntry?.api?.effect?.serverEntry === `${vertical.path}/api/effect/index.ts`,
+    `${vertical.id} topology server entry is incorrect`,
+  );
+  assert(
+    topologyEntry?.api?.effect?.readiness?.endpoint === `/effect/${vertical.stem}/readiness`,
+    `${vertical.id} topology readiness endpoint is incorrect`,
+  );
+  assert(
+    Object.keys(topologyEntry?.api?.effect?.domainOperations ?? {}).length >= 3,
+    `${vertical.id} topology domain operations are missing`,
+  );
 
-  assert(ownership.owners?.some(owner => owner.id === vertical.id && owner.path === vertical.path), `${vertical.id} ownership entry is missing`);
+  assert(
+    ownership.owners?.some((owner) => owner.id === vertical.id && owner.path === vertical.path),
+    `${vertical.id} ownership entry is missing`,
+  );
   assert(overlay.ports?.[vertical.id], `${vertical.id} development port is missing`);
-  assert(overlay.manifests?.[vertical.id]?.includes('/mf-manifest.json'), `${vertical.id} development manifest is missing`);
-  assert(overlay.apis?.[vertical.id]?.endsWith(vertical.apiPrefix), `${vertical.id} development API URL is missing`);
+  assert(
+    overlay.manifests?.[vertical.id]?.includes('/mf-manifest.json'),
+    `${vertical.id} development manifest is missing`,
+  );
+  assert(
+    overlay.apis?.[vertical.id]?.endsWith(vertical.apiPrefix),
+    `${vertical.id} development API URL is missing`,
+  );
 }
 
 console.log('UltraModern workspace scaffold validated');

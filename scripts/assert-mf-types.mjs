@@ -2,18 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const generatedContractPath = path.join(
-  root,
-  '.modernjs/ultramodern-generated-contract.json',
-);
+const generatedContractPath = path.join(root, '.modernjs/ultramodern-generated-contract.json');
 const generatedContract = fs.existsSync(generatedContractPath)
   ? JSON.parse(fs.readFileSync(generatedContractPath, 'utf-8'))
   : undefined;
-const defaultAppDirs = [
-  "verticals/explore",
-  "verticals/decide",
-  "verticals/checkout"
-];
+const defaultAppDirs = ['verticals/explore', 'verticals/decide', 'verticals/checkout'];
 
 const args = process.argv.slice(2);
 if (args.includes('--help') || args.includes('-h')) {
@@ -26,31 +19,27 @@ Checks that every Module Federation remote with exposed modules emitted a non-em
 }
 
 const candidateDirs = args;
-const appDirs = candidateDirs.length
-  ? candidateDirs
-  : fs.existsSync(path.join(root, 'module-federation.config.ts'))
-    ? ['.']
-    : defaultAppDirs;
+let appDirs = defaultAppDirs;
+if (candidateDirs.length > 0) {
+  appDirs = candidateDirs;
+} else if (fs.existsSync(path.join(root, 'module-federation.config.ts'))) {
+  appDirs = ['.'];
+}
 
 for (const appDir of appDirs) {
   const configPath = path.join(root, appDir, 'module-federation.config.ts');
   if (!fs.existsSync(configPath)) {
-    throw new Error(
-      `Missing Module Federation config: ${path.relative(root, configPath)}`,
-    );
+    throw new Error(`Missing Module Federation config: ${path.relative(root, configPath)}`);
   }
 
   const contractEntry = generatedContract?.apps?.find(
-    app => app.path === appDir.replace(/\\/g, '/'),
+    (app) => app.path === appDir.replaceAll('\\', '/'),
   );
   if (
     contractEntry &&
-    contractEntry.moduleFederation?.dts?.compilerInstance !==
-      '--package typescript -- tsc'
+    contractEntry.moduleFederation?.dts?.compilerInstance !== '--package typescript -- tsc'
   ) {
-    throw new Error(
-      `Module Federation DTS must use the workspace TypeScript compiler: ${appDir}`,
-    );
+    throw new Error(`Module Federation DTS must use the workspace TypeScript compiler: ${appDir}`);
   }
 
   if (contractEntry && contractEntry.moduleFederation?.exposes?.length === 0) {

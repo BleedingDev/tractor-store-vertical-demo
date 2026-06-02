@@ -18,14 +18,19 @@
     },
     "title": "Checkout Vertical",
     "actions": {
-      "addToCart": "Add to cart",
+      "addToCart": "Add to basket",
+      "checkout": "Checkout",
+      "continueShopping": "Continue shopping",
       "remove": "Remove",
       "viewCart": "View cart"
     },
     "cart": {
       "empty": "Your cart is empty.",
-      "title": "Your cart",
+      "title": "Basket",
       "total": "Total"
+    },
+    "product": {
+      "stockShipping": "8 in stock, free shipping"
     }
   }
 }

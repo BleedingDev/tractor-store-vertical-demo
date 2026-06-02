@@ -4,14 +4,16 @@ import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 import { dependencies } from './package.json';
 
 const require = createRequire(import.meta.url);
-const pluginI18nVersion = (require('@modern-js/plugin-i18n/package.json') as { version: string }).version;
-const pluginTanstackVersion = (require('@modern-js/plugin-tanstack/package.json') as { version: string }).version;
+const pluginI18nVersion = (require('@modern-js/plugin-i18n/package.json') as { version: string })
+  .version;
+const pluginTanstackVersion = (
+  require('@modern-js/plugin-tanstack/package.json') as { version: string }
+).version;
 const runtimeVersion = (require('@modern-js/runtime/package.json') as { version: string }).version;
 const reactVersion = (require('react/package.json') as { version: string }).version;
 const reactDomVersion = (require('react-dom/package.json') as { version: string }).version;
 
 export default createModuleFederationConfig({
-  treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
   dev: {
     disableDynamicRemoteTypeHints: true,
   },
@@ -24,6 +26,8 @@ export default createModuleFederationConfig({
   exposes: {
     './Footer': './src/components/footer.tsx',
     './Header': './src/components/header.tsx',
+    './HomePage': './src/components/home-page.tsx',
+    './ProductGrid': './src/components/product-grid.tsx',
     './Recommendations': './src/components/recommendations.tsx',
     './Route': './src/federation-entry.tsx',
     './StorePicker': './src/components/store-picker.tsx',
@@ -67,4 +71,5 @@ export default createModuleFederationConfig({
       treeShaking: false,
     },
   },
+  treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
 });

@@ -1,49 +1,68 @@
-# tractor-store-vertical-demo
+# Tractor Store UltraModern Demo
 
-Generated UltraModern SuperApp workspace.
+Standalone Tractor Store demo built on UltraModern.js, Modern.js SSR, Module
+Federation, Tailwind CSS 4, localized routes, and Effect BFF handlers inside
+each Micro Vertical.
 
-This workspace keeps `presetUltramodern(...)` as the single public
-UltraModern.js 3.0 SuperApp surface and scaffolds the canonical Micro Vertical
-starter topology:
+## Workspace
 
-- `apps/shell-super-app` owns shell route assembly and federated manifest wiring.
-- `verticals/commerce` owns the commerce vertical, its
-  browser-safe Module Federation exposes, and its Effect BFF/API surface.
-- `verticals/identity` owns the identity vertical, its
-  browser-safe Module Federation exposes, and its Effect BFF/API surface.
-- `verticals/design-system` owns the design-system vertical.
-- `packages/shared-*` provide placeholders for cross-workspace contracts.
+- `apps/shell-super-app` owns route assembly, shared shell chrome, localized
+  URLs, Cloudflare SSR wiring, and federated manifest wiring.
+- `verticals/explore` owns the storefront category, listing, recommendations,
+  store picker UI, and Explore Effect API.
+- `verticals/decide` owns product detail and decision UI plus Decide Effect API.
+- `verticals/checkout` owns cart interactions, basket UI, and Checkout Effect
+  API.
+- `packages/shared-*` contain shared contracts, design tokens, and Effect API
+  helpers.
 
-Default vertical APIs are owned by the vertical package.
-Each full-stack vertical keeps its `api/effect/index.ts` handlers next to its
-`shared/effect/api.ts` contract and `src/effect/*-client.ts` typed client
-surface. The Module Federation config exposes only browser-safe Route and
-Widget modules; server handlers and Effect client/contract modules stay out of
-browser verticals.
+The demo is intentionally close to the original Tractor Store v2 visual design,
+but it is structured as a full-stack Micro Vertical workspace with SSR and
+Cloudflare-ready deployment.
 
-Run the scaffold validator before adding business code:
+## UltraModern Version
 
-```bash
-mise install
-pnpm ultramodern:check
+This repository is pinned to BleedingDev UltraModern packages:
+
+```text
+3.2.0-ultramodern.61
 ```
 
-By default, `pnpm install` also prepares read-only agent reference repositories
-under `repos/` for Effect and UltraModern.js source lookup using squashed git
-subtrees. Disable this setup with
-`ULTRAMODERN_SKIP_AGENT_REPOS=1 pnpm install`, or rerun it
-explicitly with `pnpm agents:refs:install`.
+Generated apps and verticals use `npm:@bleedingdev/...@3.2.0-ultramodern.61`
+aliases for the Modern.js packages that are part of the UltraModern canary
+line.
 
-The topology and ownership metadata are generated under `topology/`. The
-workspace also ships `.github/workflows/ultramodern-workspace-gates.yml` and
-`.github/renovate.json` with read-only workflow permissions, commit-pinned
-actions, frozen installs, StepSecurity audit-mode runner hardening, dependency
-dashboard review, one-day release age, grouped updates, and manual approval for
-major upgrades.
+## Commands
 
-Package source metadata is generated at
-`.modernjs/ultramodern-package-source.json`. The default strategy keeps
-UltraModern.js runtime and tooling packages on `workspace:*` for monorepo
-development. To create a workspace that can install those packages outside the
-monorepo, generate with `--ultramodern-package-source install`; generated shared
-packages still use `workspace:*` because they are part of this workspace.
+```bash
+pnpm install
+pnpm ultramodern:check
+pnpm typecheck
+pnpm build
+```
+
+For a lighter install without local reference repositories:
+
+```bash
+ULTRAMODERN_SKIP_AGENT_REPOS=1 pnpm install
+```
+
+Run locally:
+
+```bash
+pnpm dev
+```
+
+Build/deploy Cloudflare workers:
+
+```bash
+pnpm cloudflare:build
+pnpm cloudflare:deploy
+```
+
+## Notes
+
+The app supports English and Czech localized routes. The team boundary overlay
+is a debug feature and persists locally. Build output, generated Module
+Federation types, `.codex` evidence, and agent reference repos are intentionally
+ignored by git.

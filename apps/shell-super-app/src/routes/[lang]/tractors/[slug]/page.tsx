@@ -8,16 +8,13 @@ const fallbackLanguage = 'en';
 const supportedLanguages = ['en', 'cs'] as const;
 type SupportedLanguage = (typeof supportedLanguages)[number];
 
-const localisedUrls = ultramodernLocalisedUrls as Record<
-  string,
-  Record<SupportedLanguage, string>
->;
+const localisedUrls = ultramodernLocalisedUrls as Record<string, Record<SupportedLanguage, string>>;
 
 const isSupportedLanguage = (value: string): value is SupportedLanguage =>
   supportedLanguages.includes(value as SupportedLanguage);
 
 const normalisePath = (pathname: string) => {
-  const normalised = pathname.replace(/\/+$/u, '').replace(/\/+/gu, '/');
+  const normalised = pathname.replace(/\/+$/u, '').replaceAll(/\/+/gu, '/');
   return normalised.length > 0 ? normalised : '/';
 };
 
@@ -29,8 +26,7 @@ const stripLanguagePrefix = (pathname: string) => {
   return `/${segments.join('/')}`;
 };
 
-const escapeRegExp = (value: string) =>
-  value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escapeRegExp = (value: string) => value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
 
 const paramName = (segment: string) => segment.slice(1).replace(/\?$/u, '');
 
@@ -39,7 +35,7 @@ const matchPattern = (pathname: string, pattern: string) => {
   const source = normalisePath(pattern)
     .split('/')
     .filter(Boolean)
-    .map(segment => {
+    .map((segment) => {
       if (segment.startsWith(':')) {
         names.push(paramName(segment));
         return segment.endsWith('?') ? '(?:/([^/]+))?' : '/([^/]+)';
@@ -47,28 +43,29 @@ const matchPattern = (pathname: string, pattern: string) => {
       return `/${escapeRegExp(segment)}`;
     })
     .join('');
-  const match = new RegExp(`^${source || '/'}$`).exec(normalisePath(pathname));
+  const match = new RegExp(`^${source || '/'}$`, 'u').exec(normalisePath(pathname));
 
-  if (!match) {
-    return undefined;
+  if (match === null) {
+    return;
   }
 
-  return names.reduce<Record<string, string>>((params, name, index) => {
+  const params: Record<string, string> = {};
+  for (const [index, name] of names.entries()) {
     params[name] = decodeURIComponent(match[index + 1] ?? '');
-    return params;
-  }, {});
+  }
+  return params;
 };
 
 const buildPath = (pattern: string, params: Record<string, string>) => {
   const path = normalisePath(pattern)
     .split('/')
     .filter(Boolean)
-    .map(segment => {
+    .map((segment) => {
       if (!segment.startsWith(':')) {
         return segment;
       }
       const value = params[paramName(segment)];
-      return value ? encodeURIComponent(value) : '';
+      return value !== undefined && value.length > 0 ? encodeURIComponent(value) : '';
     })
     .filter(Boolean)
     .join('/');
@@ -76,24 +73,22 @@ const buildPath = (pattern: string, params: Record<string, string>) => {
   return `/${path}`;
 };
 
-const resolveLocalisedPath = (
-  pathname: string,
-  targetLanguage: SupportedLanguage,
-) => {
+const resolveLocalisedPath = (pathname: string, targetLanguage: SupportedLanguage) => {
   const pathWithoutLanguage = stripLanguagePrefix(pathname);
 
   for (const entry of Object.values(localisedUrls)) {
     const targetPattern = entry[targetLanguage];
-    if (!targetPattern) {
+    if (targetPattern === undefined || targetPattern.length === 0) {
       continue;
     }
 
     for (const language of supportedLanguages) {
       const sourcePattern = entry[language];
-      const params = sourcePattern
-        ? matchPattern(pathWithoutLanguage, sourcePattern)
-        : undefined;
-      if (params) {
+      if (sourcePattern === undefined || sourcePattern.length === 0) {
+        continue;
+      }
+      const params = matchPattern(pathWithoutLanguage, sourcePattern);
+      if (params !== undefined) {
         return buildPath(targetPattern, params);
       }
     }
@@ -112,22 +107,6 @@ const absoluteUrl = (pathname: string) => {
   return `${origin}${pathname}`;
 };
 
-const locationSuffix = (location: {
-  hash?: unknown;
-  search?: unknown;
-  searchStr?: unknown;
-}) => {
-  const locationSearch =
-    typeof location.searchStr === 'string'
-      ? location.searchStr
-      : typeof location.search === 'string'
-        ? location.search
-        : '';
-  const locationHash = typeof location.hash === 'string' ? location.hash : '';
-
-  return `${locationSearch}${locationHash}`;
-};
-
 const LocalizedHead = () => {
   const location = useLocation();
   const canonicalPath = localizedPath(location.pathname, fallbackLanguage);
@@ -135,7 +114,7 @@ const LocalizedHead = () => {
   return (
     <Helmet>
       <link rel="canonical" href={absoluteUrl(canonicalPath)} />
-      {supportedLanguages.map(code => (
+      {supportedLanguages.map((code) => (
         <link
           href={absoluteUrl(localizedPath(location.pathname, code))}
           hrefLang={code}

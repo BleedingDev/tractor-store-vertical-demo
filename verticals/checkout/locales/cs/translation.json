@@ -19,13 +19,18 @@
     "title": "Pokladní remote",
     "actions": {
       "addToCart": "Přidat do košíku",
+      "checkout": "Pokladna",
+      "continueShopping": "Pokračovat v nákupu",
       "remove": "Odebrat",
       "viewCart": "Zobrazit košík"
     },
     "cart": {
       "empty": "Košík je prázdný.",
-      "title": "Váš košík",
+      "title": "Košík",
       "total": "Celkem"
+    },
+    "product": {
+      "stockShipping": "8 skladem, doprava zdarma"
     }
   }
 }

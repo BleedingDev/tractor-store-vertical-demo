@@ -1,27 +1,43 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-
-const fieldLoaderImage = '/assets/ultramodern/field-loader.svg';
-const vineyardImage = '/assets/ultramodern/vineyard.svg';
+import { responsiveImage, sizedImage, stores } from '../tractor-data';
 
 export default function StorePicker() {
   const { i18nInstance } = useModernI18n();
   const t = i18nInstance['t'].bind(i18nInstance);
 
   return (
-    <section className="explore:mx-auto explore:mt-12 explore:max-w-7xl" data-mf-boundary="explore">
-      <h2 className="explore:text-3xl explore:font-black explore:tracking-normal explore:text-stone-950">{t('explore.stores.title')}</h2>
-      <div className="explore:mt-5 explore:grid explore:gap-4 explore:md:grid-cols-2">
-        <article className="explore:rounded-2xl explore:bg-white/90 explore:p-4 explore:shadow-xl explore:shadow-stone-900/10">
-          <img alt="" className="explore:aspect-video explore:w-full explore:rounded-xl explore:bg-stone-200 explore:object-cover" src={fieldLoaderImage} />
-          <span className="explore:mt-4 explore:block explore:text-xs explore:font-black explore:uppercase explore:tracking-[0.16em] explore:text-emerald-800">{t('explore.stores.northRegion')}</span>
-          <strong className="explore:mt-2 explore:block explore:text-2xl explore:font-black">Bohemia Field Supply</strong>
-        </article>
-        <article className="explore:rounded-2xl explore:bg-white/90 explore:p-4 explore:shadow-xl explore:shadow-stone-900/10">
-          <img alt="" className="explore:aspect-video explore:w-full explore:rounded-xl explore:bg-stone-200 explore:object-cover" src={vineyardImage} />
-          <span className="explore:mt-4 explore:block explore:text-xs explore:font-black explore:uppercase explore:tracking-[0.16em] explore:text-emerald-800">{t('explore.stores.southRegion')}</span>
-          <strong className="explore:mt-2 explore:block explore:text-2xl explore:font-black">Moravia Iron Works</strong>
-        </article>
-      </div>
+    <section
+      className="explore:mx-auto explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:px-[var(--outer-space)] explore:py-8"
+      data-mf-boundary="explore"
+    >
+      <h1 className="explore:m-0 explore:text-[1.5rem] explore:font-normal explore:text-stone-950">
+        {t('explore.stores.title')}
+      </h1>
+      <ul className="explore:my-16 explore:flex explore:list-none explore:flex-wrap explore:justify-between explore:gap-8 explore:p-0">
+        {stores.map((store) => (
+          <li
+            className="explore:flex-1 explore:basis-[28rem] explore:text-stone-950"
+            key={store.id}
+          >
+            <img
+              alt=""
+              className="explore:aspect-[16/9] explore:w-full explore:object-cover"
+              height="281"
+              loading="lazy"
+              sizes="(max-width: 499px) calc(100vw - 3rem), 500px"
+              src={sizedImage(store.image, 500)}
+              srcSet={responsiveImage(store.image, [500, 1000])}
+              width="500"
+            />
+            <h2 className="explore:mt-4 explore:text-[1.2rem] explore:font-normal">{store.name}</h2>
+            <p className="explore:mt-2 explore:text-[0.95rem]">
+              {store.street}
+              <br />
+              {store.city}
+            </p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

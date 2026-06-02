@@ -8,7 +8,7 @@ const lockPath = path.join(root, '.agents/skills-lock.json');
 const checkOnly = process.argv.includes('--check');
 const force = process.argv.includes('--force');
 
-const readJson = filePath => JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
 const run = (command, args, options = {}) =>
   execFileSync(command, args, {
@@ -17,7 +17,7 @@ const run = (command, args, options = {}) =>
     stdio: options.stdio ?? ['ignore', 'pipe', 'pipe'],
   });
 
-const removeTree = dir =>
+const removeTree = (dir) =>
   fs.rmSync(dir, {
     force: true,
     maxRetries: 5,
@@ -62,9 +62,7 @@ const resolveSkillDir = (sourceRoot, skillName) => {
     path.join(sourceRoot, 'skills', 'engineering', skillName),
     path.join(sourceRoot, 'skills', 'productivity', skillName),
   ];
-  return candidates.find(candidate =>
-    fs.existsSync(path.join(candidate, 'SKILL.md')),
-  );
+  return candidates.find((candidate) => fs.existsSync(path.join(candidate, 'SKILL.md')));
 };
 
 if (!fs.existsSync(lockPath)) {
@@ -75,33 +73,24 @@ if (!fs.existsSync(lockPath)) {
 const lock = readJson(lockPath);
 const installDir = path.join(root, lock.installDir ?? '.agents/skills');
 const sources = lock.sources ?? [];
-const requiredCloneSources = sources.filter(
-  source => source.install === 'clone',
-);
-const optionalCloneSources = sources.filter(
-  source => source.install === 'clone-if-authorized',
-);
+const requiredCloneSources = sources.filter((source) => source.install === 'clone');
+const optionalCloneSources = sources.filter((source) => source.install === 'clone-if-authorized');
 const requiredSkills = [
   ...(lock.baseline ?? []),
-  ...requiredCloneSources.flatMap(source => source.baseline ?? []),
+  ...requiredCloneSources.flatMap((source) => source.baseline ?? []),
 ].filter(
   (skill, index, skills) =>
-    skills.findIndex(candidate => candidate.name === skill.name) === index,
+    skills.findIndex((candidate) => candidate.name === skill.name) === index,
 );
 
 if (checkOnly) {
   const missingRequired = requiredSkills
-    .map(skill => skill.name)
-    .filter(
-      skillName => !fs.existsSync(path.join(installDir, skillName, 'SKILL.md')),
-    );
-  const missingOptional = optionalCloneSources.flatMap(source =>
+    .map((skill) => skill.name)
+    .filter((skillName) => !fs.existsSync(path.join(installDir, skillName, 'SKILL.md')));
+  const missingOptional = optionalCloneSources.flatMap((source) =>
     (source.baseline ?? [])
-      .map(skill => skill.name)
-      .filter(
-        skillName =>
-          !fs.existsSync(path.join(installDir, skillName, 'SKILL.md')),
-      ),
+      .map((skill) => skill.name)
+      .filter((skillName) => !fs.existsSync(path.join(installDir, skillName, 'SKILL.md'))),
   );
 
   if (missingRequired.length > 0) {
@@ -132,9 +121,7 @@ for (const source of [...requiredCloneSources, ...optionalCloneSources]) {
       cloneSource(source, tempDir);
     } catch (error) {
       if (source.install === 'clone-if-authorized') {
-        console.warn(
-          `Skipping ${source.repository}; current developer may not have access.`,
-        );
+        console.warn(`Skipping ${source.repository}; current developer may not have access.`);
         continue;
       }
       throw error;
@@ -142,9 +129,7 @@ for (const source of [...requiredCloneSources, ...optionalCloneSources]) {
     for (const skill of source.baseline ?? []) {
       const sourceSkillDir = resolveSkillDir(tempDir, skill.name);
       if (!sourceSkillDir) {
-        throw new Error(
-          `Skill ${skill.name} not found in ${source.repository}`,
-        );
+        throw new Error(`Skill ${skill.name} not found in ${source.repository}`);
       }
       const targetSkillDir = path.join(installDir, skill.name);
       if (fs.existsSync(targetSkillDir)) {

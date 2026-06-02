@@ -5,3 +5,34 @@
   --color-um-link: #166b4b;
   --color-um-surface: #f6fbf7;
 }
+
+@font-face {
+  font-display: swap;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://fonts.gstatic.com/s/raleway/v37/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaooCP.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 700;
+  src: url('https://fonts.gstatic.com/s/raleway/v37/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVs9pYCP.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 900;
+  src: url('https://fonts.gstatic.com/s/raleway/v37/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVtzpYCP.ttf')
+    format('truetype');
+}
+
+:root {
+  --outer-space: 1.5rem;
+}

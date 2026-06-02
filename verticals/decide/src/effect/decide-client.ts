@@ -1,4 +1,5 @@
 import {
+  Effect,
   makeEffectHttpApiClient,
   runEffectRequest,
 } from '@modern-js/plugin-bff/effect-client';
@@ -6,82 +7,61 @@ import {
   decideApiContract,
   decideEffectApi,
   decideOperationContexts,
-  type OperationContext,
 } from '../../shared/effect/api';
+import type { OperationContext } from '../../shared/effect/api';
 
-export type DecideClientOptions = {
+export interface DecideClientOptions {
   baseUrl?: string | URL;
   locale?: string;
   operationContext?: OperationContext;
   traceparent?: string;
-};
+}
 
-export function createDecideClient(
-  options: DecideClientOptions = {},
-) {
-  return makeEffectHttpApiClient(decideEffectApi, {
+export const createDecideClient = (options: DecideClientOptions = {}) =>
+  makeEffectHttpApiClient(decideEffectApi, {
     baseUrl: options.baseUrl ?? decideApiContract.servicePrefix,
   });
-}
 
-export function listDecide(
-  options: DecideClientOptions & { limit?: number } = {},
-) {
-  return runEffectRequest(
-    createDecideClient({
-      ...options,
-      operationContext:
-        options.operationContext ?? decideOperationContexts.list,
-    }),
-  ).then(client =>
-    runEffectRequest(
-      client.decide.list({ query: { limit: options.limit } }),
+export const listDecide = (options: DecideClientOptions & { limit?: number } = {}) =>
+  runEffectRequest(
+    Effect.flatMap(
+      createDecideClient({
+        ...options,
+        operationContext: options.operationContext ?? decideOperationContexts.list,
+      }),
+      (client) => client.decide.list({ query: { limit: options.limit } }),
     ),
   );
-}
 
-export function getDecideReadiness(
-  options: DecideClientOptions = {},
-) {
-  return runEffectRequest(
-    createDecideClient({
-      ...options,
-      operationContext:
-        options.operationContext ?? decideOperationContexts.readiness,
-    }),
-  ).then(client =>
-    runEffectRequest(client.decide.readiness({})),
-  );
-}
-
-export function getDecide(
-  id: string,
-  options: DecideClientOptions = {},
-) {
-  return runEffectRequest(
-    createDecideClient({
-      ...options,
-      operationContext:
-        options.operationContext ?? decideOperationContexts.get,
-    }),
-  ).then(client =>
-    runEffectRequest(client.decide.get({ params: { id } })),
-  );
-}
-
-export function createDecide(
-  title: string,
-  options: DecideClientOptions = {},
-) {
-  return runEffectRequest(
-    createDecideClient({
-      ...options,
-      operationContext:
-        options.operationContext ?? decideOperationContexts.create,
-    }),
-  ).then(client =>
-    runEffectRequest(
-      client.decide.create({ payload: { title } }),
+export const getDecideReadiness = (options: DecideClientOptions = {}) =>
+  runEffectRequest(
+    Effect.flatMap(
+      createDecideClient({
+        ...options,
+        operationContext: options.operationContext ?? decideOperationContexts.readiness,
+      }),
+      (client) => client.decide.readiness({}),
     ),
   );
-}
+
+export const getDecide = (id: string, options: DecideClientOptions = {}) =>
+  runEffectRequest(
+    Effect.flatMap(
+      createDecideClient({
+        ...options,
+        operationContext: options.operationContext ?? decideOperationContexts.get,
+      }),
+      (client) => client.decide.get({ params: { id } }),
+    ),
+  );
+
+export const createDecide = (title: string, options: DecideClientOptions = {}) =>
+  runEffectRequest(
+    Effect.flatMap(
+      createDecideClient({
+        ...options,
+        operationContext: options.operationContext ?? decideOperationContexts.create,
+      }),
+      (client) => client.decide.create({ payload: { title } }),
+    ),
+  );

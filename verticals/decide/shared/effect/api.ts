@@ -8,11 +8,11 @@ import {
 
 export const decideMarkerSchema = Schema.Struct({
   appId: Schema.String,
-  packageName: Schema.String,
-  version: Schema.String,
   build: Schema.String,
   deployProfile: Schema.String,
+  packageName: Schema.String,
   surface: Schema.String,
+  version: Schema.String,
 });
 
 export const decideItemSchema = Schema.Struct({
@@ -37,24 +37,19 @@ export const decideCreatePayloadSchema = Schema.Struct({
   title: Schema.String,
 });
 
-export class DecideNotFound extends Schema.TaggedErrorClass<DecideNotFound>()(
-  'DecideNotFound',
-  {
-    id: Schema.String,
-  },
-) {}
+export class DecideNotFound extends Schema.TaggedErrorClass<DecideNotFound>()('DecideNotFound', {
+  id: Schema.String,
+}) {}
 
-export const decideNotFoundSchema = DecideNotFound.pipe(
-  HttpApiSchema.status(404),
-);
+export const decideNotFoundSchema = DecideNotFound.pipe(HttpApiSchema.status(404));
 
-export type OperationContext = {
+export interface OperationContext {
   operationId: string;
   routePath: string;
   method: string;
   source: string;
   traceId?: string;
-};
+}
 
 export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
   HttpApiGroup.make('decide')
@@ -75,11 +70,11 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
     )
     .add(
       HttpApiEndpoint.get('get', '/effect/decide/:id', {
+        error: decideNotFoundSchema,
         params: {
           id: Schema.String,
         },
         success: decideItemSchema,
-        error: decideNotFoundSchema,
       }),
     )
     .add(
@@ -93,28 +88,28 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
 );
 
 export const decideOperationContexts = {
-  list: {
-    operationId: 'DecideEffectApi:decide:list',
+  create: {
+    method: 'POST',
+    operationId: 'DecideEffectApi:decide:create',
     routePath: '/effect/decide',
-    method: 'GET',
-    source: 'generated-client',
-  },
-  readiness: {
-    operationId: 'DecideEffectApi:decide:readiness',
-    routePath: '/effect/decide/readiness',
-    method: 'GET',
     source: 'generated-client',
   },
   get: {
+    method: 'GET',
     operationId: 'DecideEffectApi:decide:get',
     routePath: '/effect/decide/:id',
-    method: 'GET',
     source: 'generated-client',
   },
-  create: {
-    operationId: 'DecideEffectApi:decide:create',
+  list: {
+    method: 'GET',
+    operationId: 'DecideEffectApi:decide:list',
     routePath: '/effect/decide',
-    method: 'POST',
+    source: 'generated-client',
+  },
+  readiness: {
+    method: 'GET',
+    operationId: 'DecideEffectApi:decide:readiness',
+    routePath: '/effect/decide/readiness',
     source: 'generated-client',
   },
 } satisfies Record<string, OperationContext>;
@@ -122,6 +117,6 @@ export const decideOperationContexts = {
 export const decideApiContract = {
   basePath: '/decide-api/effect/decide',
   ownerId: 'decide',
-  servicePrefix: '/decide-api',
   readinessPath: '/decide-api/effect/decide/readiness',
+  servicePrefix: '/decide-api',
 } as const;

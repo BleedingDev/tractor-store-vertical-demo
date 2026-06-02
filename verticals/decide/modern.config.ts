@@ -1,9 +1,5 @@
 // @effect-diagnostics processEnv:off
-import {
-  appTools,
-  defineConfig,
-  presetUltramodern,
-} from '@modern-js/app-tools';
+import { appTools, defineConfig, presetUltramodern } from '@modern-js/app-tools';
 import { bffPlugin } from '@modern-js/plugin-bff';
 import { i18nPlugin } from '@modern-js/plugin-i18n';
 import { tanstackRouterPlugin } from '@modern-js/plugin-tanstack';
@@ -14,108 +10,68 @@ import { ultramodernLocalisedUrls } from './src/routes/ultramodern-route-metadat
 type ZephyrRspackConfig = Parameters<ReturnType<typeof withZephyrRspack>>[0];
 
 const zephyrEnabled = process.env['ULTRAMODERN_ZEPHYR'] !== 'false';
-const cloudflareDeployEnabled =
-  process.env['MODERNJS_DEPLOY'] === 'cloudflare';
+const cloudflareDeployEnabled = process.env['MODERNJS_DEPLOY'] === 'cloudflare';
 
 const zephyrRspackPlugin = () => ({
   name: 'ultramodern-zephyr-rspack-plugin',
   pre: ['@modern-js/plugin-module-federation-config'],
   setup(api: {
     modifyRspackConfig: (
-      handler: (
-        config: ZephyrRspackConfig,
-      ) => ZephyrRspackConfig | Promise<ZephyrRspackConfig>,
+      handler: (config: ZephyrRspackConfig) => ZephyrRspackConfig | Promise<ZephyrRspackConfig>,
     ) => void;
   }) {
     if (!zephyrEnabled) {
       return;
     }
-    api.modifyRspackConfig(config => withZephyrRspack()(config));
+    api.modifyRspackConfig((config) => withZephyrRspack()(config));
   },
 });
 
 const appId = 'decide';
 const cloudflareWorkerName = 'tractor-store-vertical-demo-decide';
 const port = Number(process.env['VERTICAL_DECIDE_PORT'] ?? 3022);
-const configuredSiteUrl = process.env['MODERN_PUBLIC_SITE_URL']?.trim();
-const configuredCloudflareUrl =
-  process.env['ULTRAMODERN_PUBLIC_URL_DECIDE']?.trim();
+const envValue = (name: string) => {
+  const value = process.env[name]?.trim();
+  return value !== undefined && value.length > 0 ? value : undefined;
+};
+const configuredSiteUrl = envValue('MODERN_PUBLIC_SITE_URL');
+const configuredCloudflareUrl = envValue('ULTRAMODERN_PUBLIC_URL_DECIDE');
+const cloudflareWorkersDevSubdomain = envValue('ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN');
+const inferredCloudflareUrl =
+  cloudflareDeployEnabled && cloudflareWorkersDevSubdomain !== undefined
+    ? `https://${cloudflareWorkerName}.${cloudflareWorkersDevSubdomain}.workers.dev`
+    : undefined;
 const siteUrl =
-  configuredSiteUrl || configuredCloudflareUrl || `http://localhost:${port}`;
+  configuredCloudflareUrl ||
+  configuredSiteUrl ||
+  inferredCloudflareUrl ||
+  `http://localhost:${port}`;
+if (
+  cloudflareDeployEnabled &&
+  process.env['ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS'] === 'true' &&
+  configuredCloudflareUrl === undefined &&
+  configuredSiteUrl === undefined &&
+  inferredCloudflareUrl === undefined
+) {
+  throw new Error(
+    `Cloudflare deploy for ${appId} needs ULTRAMODERN_PUBLIC_URL_DECIDE, MODERN_PUBLIC_SITE_URL, or ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN.`,
+  );
+}
+const workerShimPath = (fileName: string) =>
+  new URL(`../../tools/cloudflare-worker-shims/${fileName}`, import.meta.url).pathname;
 
 export default defineConfig(
   presetUltramodern(
     {
       bff: {
         effect: {
+          entry: './api/effect/index',
           openapi: {
             path: '/openapi.json',
           },
         },
         prefix: '/decide-api',
         runtimeFramework: 'effect',
-      },
-      output: {
-        assetPrefix: siteUrl,
-        disableTsChecker: true,
-        distPath: {
-          html: './',
-        },
-        polyfill: 'off',
-        splitRouteChunks: false,
-      },
-      performance: {
-        rsdoctor: {
-          enabled: process.env['ULTRAMODERN_RSDOCTOR'] === 'true',
-          disableClientServer: true,
-        },
-      },
-      html: {
-        outputStructure: 'flat',
-      },
-      plugins: [
-        appTools(),
-        tanstackRouterPlugin(),
-        i18nPlugin({
-          backend: {
-            enabled: true,
-          },
-          reactI18next: false,
-          localeDetection: {
-            fallbackLanguage: 'en',
-            languages: ['en', 'cs'],
-            localePathRedirect: true,
-            localisedUrls: ultramodernLocalisedUrls as Record<string, Record<string, string>>,
-            ignoreRedirectRoutes: [
-              '/@mf-types',
-              '/assets',
-              '/bundles',
-              '/decide-api',
-              '/locales',
-              '/mf-manifest.json',
-              '/mf-stats.json',
-              '/remoteEntry.js',
-              '/static',
-              '/zephyr-manifest.json',
-            ],
-          },
-        }),
-        bffPlugin(),
-        moduleFederationPlugin(),
-        zephyrRspackPlugin(),
-      ],
-      tools: {
-        autoprefixer: {
-          overrideBrowserslist: ['defaults'],
-        },
-        bundlerChain: chain => {
-          chain.ignoreWarnings([
-            {
-              message: /the request of a dependency is an expression/u,
-              module: /modern-js-plugin-i18n/u,
-            },
-          ]);
-        },
       },
       ...(cloudflareDeployEnabled
         ? {
@@ -128,18 +84,86 @@ export default defineConfig(
             },
           }
         : {}),
+      html: {
+        outputStructure: 'flat',
+      },
+      output: {
+        assetPrefix: siteUrl,
+        disableTsChecker: true,
+        distPath: {
+          html: './',
+        },
+        filenameHash: false,
+        polyfill: 'off',
+        splitRouteChunks: false,
+      },
+      performance: {
+        rsdoctor: {
+          disableClientServer: true,
+          enabled: process.env['ULTRAMODERN_RSDOCTOR'] === 'true',
+        },
+      },
+      plugins: [
+        appTools(),
+        tanstackRouterPlugin(),
+        i18nPlugin({
+          backend: {
+            enabled: true,
+          },
+          localeDetection: {
+            fallbackLanguage: 'en',
+            ignoreRedirectRoutes: [
+              '/@mf-types',
+              '/assets',
+              '/bundles',
+              '/decide-api',
+              '/locales',
+              '/mf-manifest.json',
+              '/mf-stats.json',
+              '/remoteEntry.js',
+              '/static',
+              '/zephyr-manifest.json',
+            ],
+            languages: ['en', 'cs'],
+            localePathRedirect: true,
+            localisedUrls: ultramodernLocalisedUrls as Record<string, Record<string, string>>,
+          },
+          reactI18next: false,
+        }),
+        bffPlugin(),
+        moduleFederationPlugin(),
+        zephyrRspackPlugin(),
+      ],
       server: {
         port,
         publicDir: ['./locales', './assets'],
         ssr: {
-          mode: 'stream',
+          mode: 'string',
           moduleFederationAppSSR: true,
         },
       },
       source: {
-        mainEntryName: 'index',
         globalVars: {
           ULTRAMODERN_SITE_URL: siteUrl,
+        },
+        mainEntryName: 'index',
+      },
+      tools: {
+        autoprefixer: {
+          overrideBrowserslist: ['defaults'],
+        },
+        bundlerChain: (chain) => {
+          chain.ignoreWarnings([
+            {
+              message: /the request of a dependency is an expression/u,
+              module: /modern-js-plugin-i18n/u,
+            },
+          ]);
+          if (cloudflareDeployEnabled) {
+            chain.resolve.alias.set('@loadable/server$', workerShimPath('loadable-server.mjs'));
+            chain.resolve.alias.set('fs/promises$', workerShimPath('fs-promises.mjs'));
+            chain.resolve.alias.set('path$', workerShimPath('path.mjs'));
+          }
         },
       },
     },

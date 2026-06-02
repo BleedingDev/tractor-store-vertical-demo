@@ -2,85 +2,85 @@ export const ultramodernRouteNamespace = 'explore' as const;
 
 export const ultramodernRouteMetadata = [
   {
-    "mfBoundaryId": "verticalExplore",
-    "namespace": "explore",
-    "ownerAppId": "explore",
-    "canonicalPath": "/",
-    "id": "explore-home",
-    "localisedPaths": {
-      "cs": "/",
-      "en": "/"
+    canonicalPath: '/',
+    id: 'explore-home',
+    localisedPaths: {
+      cs: '/',
+      en: '/',
     },
-    "titleKey": "explore.title"
+    mfBoundaryId: 'verticalExplore',
+    namespace: 'explore',
+    ownerAppId: 'explore',
+    titleKey: 'explore.title',
   },
   {
-    "mfBoundaryId": "verticalExplore",
-    "namespace": "explore",
-    "ownerAppId": "explore",
-    "canonicalPath": "/tractors",
-    "id": "explore-listing",
-    "localisedPaths": {
-      "cs": "/traktory",
-      "en": "/tractors"
+    canonicalPath: '/tractors',
+    id: 'explore-listing',
+    localisedPaths: {
+      cs: '/traktory',
+      en: '/tractors',
     },
-    "titleKey": "explore.routes.listing"
+    mfBoundaryId: 'verticalExplore',
+    namespace: 'explore',
+    ownerAppId: 'explore',
+    titleKey: 'explore.routes.listing',
   },
   {
-    "mfBoundaryId": "verticalExplore",
-    "namespace": "explore",
-    "ownerAppId": "explore",
-    "canonicalPath": "/stores",
-    "id": "explore-store-picker",
-    "localisedPaths": {
-      "cs": "/prodejci",
-      "en": "/stores"
+    canonicalPath: '/stores',
+    id: 'explore-store-picker',
+    localisedPaths: {
+      cs: '/prodejci',
+      en: '/stores',
     },
-    "titleKey": "explore.routes.storePicker"
+    mfBoundaryId: 'verticalExplore',
+    namespace: 'explore',
+    ownerAppId: 'explore',
+    titleKey: 'explore.routes.storePicker',
   },
   {
-    "mfBoundaryId": "verticalExplore",
-    "namespace": "explore",
-    "ownerAppId": "explore",
-    "canonicalPath": "/unavailable",
-    "id": "explore-unavailable",
-    "localisedPaths": {
-      "cs": "/nedostupne",
-      "en": "/unavailable"
+    canonicalPath: '/unavailable',
+    id: 'explore-unavailable',
+    localisedPaths: {
+      cs: '/nedostupne',
+      en: '/unavailable',
     },
-    "titleKey": "explore.routes.unavailable"
-  }
+    mfBoundaryId: 'verticalExplore',
+    namespace: 'explore',
+    ownerAppId: 'explore',
+    titleKey: 'explore.routes.unavailable',
+  },
 ] as const;
 
 export const ultramodernLocalisedUrls = {
-  "/tractors": {
-    "cs": "/traktory",
-    "en": "/tractors"
+  '/nedostupne': {
+    cs: '/nedostupne',
+    en: '/unavailable',
   },
-  "/traktory": {
-    "cs": "/traktory",
-    "en": "/tractors"
+  '/prodejci': {
+    cs: '/prodejci',
+    en: '/stores',
   },
-  "/stores": {
-    "cs": "/prodejci",
-    "en": "/stores"
+  '/stores': {
+    cs: '/prodejci',
+    en: '/stores',
   },
-  "/prodejci": {
-    "cs": "/prodejci",
-    "en": "/stores"
+  '/tractors': {
+    cs: '/traktory',
+    en: '/tractors',
   },
-  "/unavailable": {
-    "cs": "/nedostupne",
-    "en": "/unavailable"
+  '/traktory': {
+    cs: '/traktory',
+    en: '/tractors',
   },
-  "/nedostupne": {
-    "cs": "/nedostupne",
-    "en": "/unavailable"
-  }
+  '/unavailable': {
+    cs: '/nedostupne',
+    en: '/unavailable',
+  },
 } as const;
 
 export const ultramodernRouteConfig = {
-  source: 'route-owned',
-  namespace: ultramodernRouteNamespace,
   localisedUrls: ultramodernLocalisedUrls,
+  namespace: ultramodernRouteNamespace,
   routes: ultramodernRouteMetadata,
+  source: 'route-owned',
 } as const;

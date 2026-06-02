@@ -8,11 +8,11 @@ import {
 
 export const checkoutMarkerSchema = Schema.Struct({
   appId: Schema.String,
-  packageName: Schema.String,
-  version: Schema.String,
   build: Schema.String,
   deployProfile: Schema.String,
+  packageName: Schema.String,
   surface: Schema.String,
+  version: Schema.String,
 });
 
 export const checkoutItemSchema = Schema.Struct({
@@ -44,17 +44,15 @@ export class CheckoutNotFound extends Schema.TaggedErrorClass<CheckoutNotFound>(
   },
 ) {}
 
-export const checkoutNotFoundSchema = CheckoutNotFound.pipe(
-  HttpApiSchema.status(404),
-);
+export const checkoutNotFoundSchema = CheckoutNotFound.pipe(HttpApiSchema.status(404));
 
-export type OperationContext = {
+export interface OperationContext {
   operationId: string;
   routePath: string;
   method: string;
   source: string;
   traceId?: string;
-};
+}
 
 export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
   HttpApiGroup.make('checkout')
@@ -75,11 +73,11 @@ export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
     )
     .add(
       HttpApiEndpoint.get('get', '/effect/checkout/:id', {
+        error: checkoutNotFoundSchema,
         params: {
           id: Schema.String,
         },
         success: checkoutItemSchema,
-        error: checkoutNotFoundSchema,
       }),
     )
     .add(
@@ -93,28 +91,28 @@ export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
 );
 
 export const checkoutOperationContexts = {
-  list: {
-    operationId: 'CheckoutEffectApi:checkout:list',
+  create: {
+    method: 'POST',
+    operationId: 'CheckoutEffectApi:checkout:create',
     routePath: '/effect/checkout',
-    method: 'GET',
-    source: 'generated-client',
-  },
-  readiness: {
-    operationId: 'CheckoutEffectApi:checkout:readiness',
-    routePath: '/effect/checkout/readiness',
-    method: 'GET',
     source: 'generated-client',
   },
   get: {
+    method: 'GET',
     operationId: 'CheckoutEffectApi:checkout:get',
     routePath: '/effect/checkout/:id',
-    method: 'GET',
     source: 'generated-client',
   },
-  create: {
-    operationId: 'CheckoutEffectApi:checkout:create',
+  list: {
+    method: 'GET',
+    operationId: 'CheckoutEffectApi:checkout:list',
     routePath: '/effect/checkout',
-    method: 'POST',
+    source: 'generated-client',
+  },
+  readiness: {
+    method: 'GET',
+    operationId: 'CheckoutEffectApi:checkout:readiness',
+    routePath: '/effect/checkout/readiness',
     source: 'generated-client',
   },
 } satisfies Record<string, OperationContext>;
@@ -122,6 +120,6 @@ export const checkoutOperationContexts = {
 export const checkoutApiContract = {
   basePath: '/checkout-api/effect/checkout',
   ownerId: 'checkout',
-  servicePrefix: '/checkout-api',
   readinessPath: '/checkout-api/effect/checkout/readiness',
+  servicePrefix: '/checkout-api',
 } as const;

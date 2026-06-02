@@ -10,7 +10,7 @@
     "dev:explore": "pnpm --filter @tractor-store-vertical-demo/explore dev",
     "dev:decide": "pnpm --filter @tractor-store-vertical-demo/decide dev",
     "dev:checkout": "pnpm --filter @tractor-store-vertical-demo/checkout dev",
-    "build": "pnpm -r --filter \"./verticals/*\" run build && pnpm --filter \"./apps/shell-super-app\" run build && pnpm ultramodern:assert-mf-types",
+    "build": "ULTRAMODERN_ZEPHYR=false pnpm -r --filter \"./verticals/*\" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter \"./apps/shell-super-app\" run build && pnpm ultramodern:assert-mf-types",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lint": "oxlint .",

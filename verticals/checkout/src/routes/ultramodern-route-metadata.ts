@@ -2,125 +2,125 @@ export const ultramodernRouteNamespace = 'checkout' as const;
 
 export const ultramodernRouteMetadata = [
   {
-    "mfBoundaryId": "verticalCheckout",
-    "namespace": "checkout",
-    "ownerAppId": "checkout",
-    "canonicalPath": "/",
-    "id": "checkout-home",
-    "localisedPaths": {
-      "cs": "/",
-      "en": "/"
+    canonicalPath: '/',
+    id: 'checkout-home',
+    localisedPaths: {
+      cs: '/',
+      en: '/',
     },
-    "titleKey": "checkout.title"
+    mfBoundaryId: 'verticalCheckout',
+    namespace: 'checkout',
+    ownerAppId: 'checkout',
+    titleKey: 'checkout.title',
   },
   {
-    "mfBoundaryId": "verticalCheckout",
-    "namespace": "checkout",
-    "ownerAppId": "checkout",
-    "canonicalPath": "/cart",
-    "id": "checkout-cart",
-    "localisedPaths": {
-      "cs": "/kosik",
-      "en": "/cart"
+    canonicalPath: '/cart',
+    id: 'checkout-cart',
+    localisedPaths: {
+      cs: '/kosik',
+      en: '/cart',
     },
-    "titleKey": "checkout.routes.cart"
+    mfBoundaryId: 'verticalCheckout',
+    namespace: 'checkout',
+    ownerAppId: 'checkout',
+    titleKey: 'checkout.routes.cart',
   },
   {
-    "mfBoundaryId": "verticalCheckout",
-    "namespace": "checkout",
-    "ownerAppId": "checkout",
-    "canonicalPath": "/checkout",
-    "id": "checkout-start",
-    "localisedPaths": {
-      "cs": "/pokladna",
-      "en": "/checkout"
+    canonicalPath: '/checkout',
+    id: 'checkout-start',
+    localisedPaths: {
+      cs: '/pokladna',
+      en: '/checkout',
     },
-    "titleKey": "checkout.routes.checkout"
+    mfBoundaryId: 'verticalCheckout',
+    namespace: 'checkout',
+    ownerAppId: 'checkout',
+    titleKey: 'checkout.routes.checkout',
   },
   {
-    "mfBoundaryId": "verticalCheckout",
-    "namespace": "checkout",
-    "ownerAppId": "checkout",
-    "canonicalPath": "/checkout/thank-you",
-    "id": "checkout-thank-you-parent",
-    "localisedPaths": {
-      "cs": "/pokladna/dekujeme",
-      "en": "/checkout/thank-you"
+    canonicalPath: '/checkout/thank-you',
+    id: 'checkout-thank-you-parent',
+    localisedPaths: {
+      cs: '/pokladna/dekujeme',
+      en: '/checkout/thank-you',
     },
-    "titleKey": "checkout.routes.thankYou"
+    mfBoundaryId: 'verticalCheckout',
+    namespace: 'checkout',
+    ownerAppId: 'checkout',
+    titleKey: 'checkout.routes.thankYou',
   },
   {
-    "mfBoundaryId": "verticalCheckout",
-    "namespace": "checkout",
-    "ownerAppId": "checkout",
-    "canonicalPath": "/checkout/thank-you/:orderId?",
-    "id": "checkout-thank-you",
-    "localisedPaths": {
-      "cs": "/pokladna/dekujeme/:orderId?",
-      "en": "/checkout/thank-you/:orderId?"
+    canonicalPath: '/checkout/thank-you/:orderId?',
+    id: 'checkout-thank-you',
+    localisedPaths: {
+      cs: '/pokladna/dekujeme/:orderId?',
+      en: '/checkout/thank-you/:orderId?',
     },
-    "titleKey": "checkout.routes.thankYou"
+    mfBoundaryId: 'verticalCheckout',
+    namespace: 'checkout',
+    ownerAppId: 'checkout',
+    titleKey: 'checkout.routes.thankYou',
   },
   {
-    "mfBoundaryId": "verticalCheckout",
-    "namespace": "checkout",
-    "ownerAppId": "checkout",
-    "canonicalPath": "/unavailable",
-    "id": "checkout-unavailable",
-    "localisedPaths": {
-      "cs": "/nedostupne",
-      "en": "/unavailable"
+    canonicalPath: '/unavailable',
+    id: 'checkout-unavailable',
+    localisedPaths: {
+      cs: '/nedostupne',
+      en: '/unavailable',
     },
-    "titleKey": "checkout.routes.unavailable"
-  }
+    mfBoundaryId: 'verticalCheckout',
+    namespace: 'checkout',
+    ownerAppId: 'checkout',
+    titleKey: 'checkout.routes.unavailable',
+  },
 ] as const;
 
 export const ultramodernLocalisedUrls = {
-  "/cart": {
-    "cs": "/kosik",
-    "en": "/cart"
+  '/cart': {
+    cs: '/kosik',
+    en: '/cart',
   },
-  "/kosik": {
-    "cs": "/kosik",
-    "en": "/cart"
+  '/checkout': {
+    cs: '/pokladna',
+    en: '/checkout',
   },
-  "/checkout": {
-    "cs": "/pokladna",
-    "en": "/checkout"
+  '/checkout/thank-you': {
+    cs: '/pokladna/dekujeme',
+    en: '/checkout/thank-you',
   },
-  "/pokladna": {
-    "cs": "/pokladna",
-    "en": "/checkout"
+  '/checkout/thank-you/:orderId?': {
+    cs: '/pokladna/dekujeme/:orderId?',
+    en: '/checkout/thank-you/:orderId?',
   },
-  "/checkout/thank-you": {
-    "cs": "/pokladna/dekujeme",
-    "en": "/checkout/thank-you"
+  '/kosik': {
+    cs: '/kosik',
+    en: '/cart',
   },
-  "/pokladna/dekujeme": {
-    "cs": "/pokladna/dekujeme",
-    "en": "/checkout/thank-you"
+  '/nedostupne': {
+    cs: '/nedostupne',
+    en: '/unavailable',
   },
-  "/checkout/thank-you/:orderId?": {
-    "cs": "/pokladna/dekujeme/:orderId?",
-    "en": "/checkout/thank-you/:orderId?"
+  '/pokladna': {
+    cs: '/pokladna',
+    en: '/checkout',
   },
-  "/pokladna/dekujeme/:orderId?": {
-    "cs": "/pokladna/dekujeme/:orderId?",
-    "en": "/checkout/thank-you/:orderId?"
+  '/pokladna/dekujeme': {
+    cs: '/pokladna/dekujeme',
+    en: '/checkout/thank-you',
   },
-  "/unavailable": {
-    "cs": "/nedostupne",
-    "en": "/unavailable"
+  '/pokladna/dekujeme/:orderId?': {
+    cs: '/pokladna/dekujeme/:orderId?',
+    en: '/checkout/thank-you/:orderId?',
   },
-  "/nedostupne": {
-    "cs": "/nedostupne",
-    "en": "/unavailable"
-  }
+  '/unavailable': {
+    cs: '/nedostupne',
+    en: '/unavailable',
+  },
 } as const;
 
 export const ultramodernRouteConfig = {
-  source: 'route-owned',
-  namespace: ultramodernRouteNamespace,
   localisedUrls: ultramodernLocalisedUrls,
+  namespace: ultramodernRouteNamespace,
   routes: ultramodernRouteMetadata,
+  source: 'route-owned',
 } as const;

@@ -1,16 +1,11 @@
 #!/usr/bin/env node
+/* eslint-disable complexity, func-style, sort-keys, unicorn/no-useless-undefined, unicorn/prefer-import-meta-properties, unicorn/text-encoding-identifier-case, promise/prefer-await-to-callbacks, promise/prefer-await-to-then, promise/prefer-catch */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const workspaceRoot = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  '..',
-);
-const contractPath = path.join(
-  workspaceRoot,
-  '.modernjs/ultramodern-generated-contract.json',
-);
+const workspaceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const contractPath = path.join(workspaceRoot, '.modernjs/ultramodern-generated-contract.json');
 const defaultOut = path.join(
   workspaceRoot,
   '.codex/reports/cloudflare-version-proof/public-url-proof.json',
@@ -156,10 +151,7 @@ async function validateApp(app, publicUrl) {
   evidence.assertions.push({
     type: 'css-root-marker',
     expected: cssRootSelector,
-    status:
-      expectedAppId && ssr.body.includes(`data-app-id="${expectedAppId}"`)
-        ? 'pass'
-        : 'fail',
+    status: expectedAppId && ssr.body.includes(`data-app-id="${expectedAppId}"`) ? 'pass' : 'fail',
   });
   assert(
     expectedAppId && ssr.body.includes(`data-app-id="${expectedAppId}"`),
@@ -175,10 +167,7 @@ async function validateApp(app, publicUrl) {
     status: manifest.ok ? 'pass' : 'fail',
     statusCode: manifest.status,
   });
-  assert(
-    manifest.ok,
-    `${app.id} MF manifest returned HTTP ${manifest.status}`,
-  );
+  assert(manifest.ok, `${app.id} MF manifest returned HTTP ${manifest.status}`);
   evidence.assertions.push({
     type: 'mf-manifest-cors',
     route: manifestRoute,
@@ -210,11 +199,7 @@ async function validateApp(app, publicUrl) {
     namespace: app.i18n?.namespace,
     route: localeRoute,
     status:
-      locale.ok &&
-      localeJson &&
-      Object.hasOwn(localeJson, app.i18n?.namespace)
-        ? 'pass'
-        : 'fail',
+      locale.ok && localeJson && Object.hasOwn(localeJson, app.i18n?.namespace) ? 'pass' : 'fail',
     statusCode: locale.status,
   });
   assert(locale.ok, `${app.id} locale JSON returned HTTP ${locale.status}`);
@@ -245,10 +230,7 @@ async function validateApp(app, publicUrl) {
       status: readiness.ok && apiMarker === app.marker?.build ? 'pass' : 'fail',
       statusCode: readiness.status,
     });
-    assert(
-      readiness.ok,
-      `${app.id} Effect readiness returned HTTP ${readiness.status}`,
-    );
+    assert(readiness.ok, `${app.id} Effect readiness returned HTTP ${readiness.status}`);
     assert(apiMarker === app.marker?.build, `${app.id} API marker mismatch`);
   }
 
@@ -263,9 +245,7 @@ async function main(argv = process.argv.slice(2)) {
   }
 
   const contract = readJson(contractPath);
-  const apps = args.appId
-    ? contract.apps.filter(app => app.id === args.appId)
-    : contract.apps;
+  const apps = args.appId ? contract.apps.filter((app) => app.id === args.appId) : contract.apps;
   assert(apps.length > 0, `No generated app matched ${args.appId}`);
 
   const results = [];
@@ -300,17 +280,15 @@ async function main(argv = process.argv.slice(2)) {
 
   fs.mkdirSync(path.dirname(args.out), { recursive: true });
   fs.writeFileSync(args.out, `${JSON.stringify(report, null, 2)}\n`);
-  process.stdout.write(
-    `[cloudflare-version-proof] ${report.status}: ${args.out}\n`,
-  );
+  process.stdout.write(`[cloudflare-version-proof] ${report.status}: ${args.out}\n`);
   return 0;
 }
 
 main().then(
-  exitCode => {
+  (exitCode) => {
     process.exitCode = exitCode;
   },
-  error => {
+  (error) => {
     process.stderr.write(`[cloudflare-version-proof] ${error.message}\n`);
     process.exitCode = 1;
   },

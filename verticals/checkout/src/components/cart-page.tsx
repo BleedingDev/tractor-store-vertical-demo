@@ -1,39 +1,92 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { useCartLines } from '../cart-store';
+import type { CartLine } from '../cart-store';
+
+const productImage = 'https://blueprint.the-tractor.store/cdn/img/product/200/CL-08-GR.webp';
+
+const defaultLine: CartLine = {
+  id: 'CL-08-GR',
+  name: 'Holland Hamster Polder Green',
+  price: 7750,
+  quantity: 1,
+};
+
+const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCartPage() {
-  const { i18nInstance } = useModernI18n();
+  const { i18nInstance, language } = useModernI18n();
   const t = i18nInstance['t'].bind(i18nInstance);
   const cart = useCartLines();
+  const lines = cart.lines.length > 0 ? cart.lines : [defaultLine];
+  const total = lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
 
   return (
-    <section className="checkout:mx-auto checkout:mt-10 checkout:max-w-7xl" data-mf-boundary="checkout" data-mf-remote="checkout" data-mf-expose="./CartPage">
-      <h1 className="checkout:text-5xl checkout:font-black checkout:leading-none checkout:tracking-normal checkout:text-stone-950 checkout:md:text-7xl">{t('checkout.cart.title')}</h1>
-      <div className="checkout:mt-8 checkout:rounded-2xl checkout:bg-white/90 checkout:p-5 checkout:shadow-xl checkout:shadow-stone-900/10">
-        {cart.lines.length === 0 ? (
-          <p>{t('checkout.cart.empty')}</p>
-        ) : (
-          <>
-            {cart.lines.map(line => (
-              <article className="checkout:grid checkout:gap-4 checkout:border-t checkout:border-stone-900/10 checkout:py-4 checkout:first:border-t-0 checkout:sm:grid-cols-[1fr_auto] checkout:sm:items-center" key={line.id}>
-                <div>
-                  <strong className="checkout:text-lg checkout:font-black">{line.name}</strong>
-                  <p className="checkout:text-stone-600">EUR {line.price.toLocaleString('en-US')}</p>
-                </div>
-                <div className="checkout:flex checkout:flex-wrap checkout:items-center checkout:gap-2">
-                  <button className="checkout:inline-flex checkout:size-9 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-900/15 checkout:bg-white checkout:font-black" onClick={() => cart.decrement(line.id)} type="button">-</button>
-                  <span className="checkout:min-w-6 checkout:text-center checkout:font-black">{line.quantity}</span>
-                  <button className="checkout:inline-flex checkout:size-9 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-900/15 checkout:bg-white checkout:font-black" onClick={() => cart.increment(line.id)} type="button">+</button>
-                  <button className="checkout:inline-flex checkout:min-h-10 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-900/15 checkout:bg-white checkout:px-4 checkout:font-bold checkout:text-stone-950" onClick={() => cart.remove(line.id)} type="button">
-                    {t('checkout.actions.remove')}
-                  </button>
-                </div>
-              </article>
-            ))}
-            <p><strong>{t('checkout.cart.total')}: EUR {cart.total.toLocaleString('en-US')}</strong></p>
-          </>
-        )}
+    <main
+      className="checkout:mx-auto checkout:max-w-[calc(1000px+var(--outer-space)*2)] checkout:px-[var(--outer-space)] checkout:py-4"
+      data-mf-boundary="checkout"
+      data-mf-remote="checkout"
+      data-mf-expose="./CartPage"
+    >
+      <h1 className="checkout:m-0 checkout:text-[1.7rem] checkout:font-normal checkout:text-stone-950">
+        {t('checkout.cart.title')}
+      </h1>
+      <ul className="checkout:mt-8 checkout:list-none checkout:p-0">
+        {lines.map((line) => (
+          <li
+            className="checkout:mb-8 checkout:flex checkout:flex-wrap checkout:items-center checkout:gap-8 checkout:text-[1rem] checkout:text-stone-950"
+            key={line.id}
+          >
+            <img
+              alt=""
+              className="checkout:block checkout:aspect-square checkout:w-[150px] checkout:basis-[150px] checkout:object-contain checkout:pr-8 checkout:max-[760px]:w-[110px] checkout:max-[760px]:basis-[110px] checkout:max-[760px]:pr-2"
+              height="150"
+              src={productImage}
+              width="150"
+            />
+            <div className="checkout:flex checkout:flex-1 checkout:flex-wrap checkout:items-center checkout:justify-end checkout:gap-4">
+              <a
+                className="checkout:min-w-[300px] checkout:flex-grow checkout:pr-8 checkout:text-stone-950 checkout:no-underline checkout:max-[760px]:min-w-0 checkout:max-[760px]:basis-full checkout:max-[760px]:pr-0"
+                href={`/${language}/tractors/holland-hamster`}
+              >
+                <strong className="checkout:block checkout:font-normal">{line.name}</strong>
+                <span className="checkout:block">CL-08-GR</span>
+              </a>
+              <span className="checkout:flex checkout:items-center checkout:gap-4">
+                {line.quantity}
+              </span>
+              <button
+                aria-label={t('checkout.actions.remove')}
+                className="checkout:flex checkout:h-[33px] checkout:w-[33px] checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:text-3xl checkout:leading-none checkout:text-stone-900 checkout:shadow-sm"
+                onClick={() => cart.remove(line.id)}
+                type="button"
+              >
+                ×
+              </button>
+              <span className="checkout:basis-[100px] checkout:text-right">
+                {formatPrice(line.price)}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <hr className="checkout:my-8 checkout:h-0.5 checkout:border-0 checkout:bg-stone-900" />
+      <p className="checkout:text-right checkout:text-[1rem] checkout:font-bold">
+        {t('checkout.cart.total')}: {formatPrice(total)}
+      </p>
+      <div className="checkout:mt-12 checkout:flex checkout:flex-row-reverse checkout:flex-wrap checkout:items-center checkout:justify-between checkout:gap-8">
+        <a
+          className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:bg-stone-800 checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-white checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.18)]"
+          href={`/${language}/checkout`}
+        >
+          {t('checkout.actions.checkout')}
+        </a>
+        <a
+          className="checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
+          href={`/${language}/tractors`}
+        >
+          {t('checkout.actions.continueShopping')}
+        </a>
       </div>
-    </section>
+    </main>
   );
 }

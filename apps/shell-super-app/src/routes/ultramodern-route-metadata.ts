@@ -2,105 +2,105 @@ export const ultramodernRouteNamespace = 'shell' as const;
 
 export const ultramodernRouteMetadata = [
   {
-    "mfBoundaryId": "shellSuperApp",
-    "namespace": "shell",
-    "ownerAppId": "shell-super-app",
-    "canonicalPath": "/",
-    "id": "shell-home",
-    "localisedPaths": {
-      "cs": "/",
-      "en": "/"
+    canonicalPath: '/',
+    id: 'shell-home',
+    localisedPaths: {
+      cs: '/',
+      en: '/',
     },
-    "titleKey": "shell.title"
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'shell.title',
   },
   {
-    "mfBoundaryId": "shellSuperApp",
-    "namespace": "shell",
-    "ownerAppId": "shell-super-app",
-    "canonicalPath": "/tractors",
-    "id": "shell-tractors",
-    "localisedPaths": {
-      "cs": "/traktory",
-      "en": "/tractors"
+    canonicalPath: '/tractors',
+    id: 'shell-tractors',
+    localisedPaths: {
+      cs: '/traktory',
+      en: '/tractors',
     },
-    "titleKey": "shell.routes.listing"
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'shell.routes.listing',
   },
   {
-    "mfBoundaryId": "shellSuperApp",
-    "namespace": "shell",
-    "ownerAppId": "shell-super-app",
-    "canonicalPath": "/stores",
-    "id": "shell-stores",
-    "localisedPaths": {
-      "cs": "/prodejci",
-      "en": "/stores"
+    canonicalPath: '/stores',
+    id: 'shell-stores',
+    localisedPaths: {
+      cs: '/prodejci',
+      en: '/stores',
     },
-    "titleKey": "shell.routes.storePicker"
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'shell.routes.storePicker',
   },
   {
-    "mfBoundaryId": "shellSuperApp",
-    "namespace": "shell",
-    "ownerAppId": "shell-super-app",
-    "canonicalPath": "/tractors/:slug",
-    "id": "shell-product-detail",
-    "localisedPaths": {
-      "cs": "/traktory/:slug",
-      "en": "/tractors/:slug"
+    canonicalPath: '/tractors/:slug',
+    id: 'shell-product-detail',
+    localisedPaths: {
+      cs: '/traktory/:slug',
+      en: '/tractors/:slug',
     },
-    "titleKey": "shell.routes.productDetail"
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'shell.routes.productDetail',
   },
   {
-    "mfBoundaryId": "shellSuperApp",
-    "namespace": "shell",
-    "ownerAppId": "shell-super-app",
-    "canonicalPath": "/cart",
-    "id": "shell-cart",
-    "localisedPaths": {
-      "cs": "/kosik",
-      "en": "/cart"
+    canonicalPath: '/cart',
+    id: 'shell-cart',
+    localisedPaths: {
+      cs: '/kosik',
+      en: '/cart',
     },
-    "titleKey": "shell.routes.cart"
-  }
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'shell.routes.cart',
+  },
 ] as const;
 
 export const ultramodernLocalisedUrls = {
-  "/tractors": {
-    "cs": "/traktory",
-    "en": "/tractors"
+  '/cart': {
+    cs: '/kosik',
+    en: '/cart',
   },
-  "/traktory": {
-    "cs": "/traktory",
-    "en": "/tractors"
+  '/kosik': {
+    cs: '/kosik',
+    en: '/cart',
   },
-  "/stores": {
-    "cs": "/prodejci",
-    "en": "/stores"
+  '/prodejci': {
+    cs: '/prodejci',
+    en: '/stores',
   },
-  "/prodejci": {
-    "cs": "/prodejci",
-    "en": "/stores"
+  '/stores': {
+    cs: '/prodejci',
+    en: '/stores',
   },
-  "/tractors/:slug": {
-    "cs": "/traktory/:slug",
-    "en": "/tractors/:slug"
+  '/tractors': {
+    cs: '/traktory',
+    en: '/tractors',
   },
-  "/traktory/:slug": {
-    "cs": "/traktory/:slug",
-    "en": "/tractors/:slug"
+  '/tractors/:slug': {
+    cs: '/traktory/:slug',
+    en: '/tractors/:slug',
   },
-  "/cart": {
-    "cs": "/kosik",
-    "en": "/cart"
+  '/traktory': {
+    cs: '/traktory',
+    en: '/tractors',
   },
-  "/kosik": {
-    "cs": "/kosik",
-    "en": "/cart"
-  }
+  '/traktory/:slug': {
+    cs: '/traktory/:slug',
+    en: '/tractors/:slug',
+  },
 } as const;
 
 export const ultramodernRouteConfig = {
-  source: 'route-owned',
-  namespace: ultramodernRouteNamespace,
   localisedUrls: ultramodernLocalisedUrls,
+  namespace: ultramodernRouteNamespace,
   routes: ultramodernRouteMetadata,
+  source: 'route-owned',
 } as const;
