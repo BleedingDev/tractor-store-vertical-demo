@@ -46,13 +46,13 @@ const updateLine = (id: string, updater: (line: CartLine) => CartLine | undefine
 };
 
 export const useCartLines = () => {
-  const [lines, setLines] = useState<CartLine[]>(() => readCart());
+  const [lines, setLines] = useState<CartLine[]>([]);
 
   useEffect(() => {
     const refresh = () => setLines(readCart());
+    refresh();
     window.addEventListener(cartEvent, refresh);
     window.addEventListener('storage', refresh);
-    refresh();
 
     return () => {
       window.removeEventListener(cartEvent, refresh);
