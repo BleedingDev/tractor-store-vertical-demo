@@ -91,7 +91,13 @@ const shellStylesheetPlugin = () => ({
     ) => void;
   }) {
     api.modifyHtmlPartials(({ partials }) => {
+      partials.head.append(
+        '<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />',
+      );
       partials.head.append(`<link href="${cssAsset(siteUrl)}" rel="stylesheet" />`);
+      partials.head.append(`<link href="${cssAsset(exploreUrl)}" rel="stylesheet" />`);
+      partials.head.append(`<link href="${cssAsset(decideUrl)}" rel="stylesheet" />`);
+      partials.head.append(`<link href="${cssAsset(checkoutUrl)}" rel="stylesheet" />`);
     });
   },
 });
