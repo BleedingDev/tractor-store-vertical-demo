@@ -125,7 +125,7 @@ export default function BoundaryOverlay() {
 
   return (
     <>
-      <label className="shell:fixed shell:bottom-5 shell:left-5 shell:z-[80] shell:flex shell:items-center shell:gap-2 shell:rounded-xl shell:border shell:border-stone-900/10 shell:bg-white/95 shell:px-4 shell:py-3 shell:text-sm shell:font-semibold shell:text-stone-950 shell:shadow-2xl shell:shadow-stone-900/15">
+      <label className="shell:mx-auto shell:mb-8 shell:mt-4 shell:flex shell:w-fit shell:max-w-[calc(100%-2rem)] shell:items-center shell:gap-2 shell:rounded-lg shell:border shell:border-stone-900/10 shell:bg-white/95 shell:px-3 shell:py-2 shell:text-sm shell:font-semibold shell:text-stone-950 shell:shadow-lg shell:shadow-stone-900/10">
         <input
           aria-label={toggleLabel}
           className="shell:size-4 shell:accent-emerald-800"

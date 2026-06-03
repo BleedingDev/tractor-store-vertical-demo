@@ -61,6 +61,42 @@ export const ultramodernRouteMetadata = [
     ownerAppId: 'shell-super-app',
     titleKey: 'shell.routes.cart',
   },
+  {
+    canonicalPath: '/checkout',
+    id: 'shell-checkout',
+    localisedPaths: {
+      cs: '/pokladna',
+      en: '/checkout',
+    },
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'checkout.routes.checkout',
+  },
+  {
+    canonicalPath: '/checkout/thank-you',
+    id: 'shell-checkout-thank-you-parent',
+    localisedPaths: {
+      cs: '/pokladna/dekujeme',
+      en: '/checkout/thank-you',
+    },
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'checkout.routes.thankYou',
+  },
+  {
+    canonicalPath: '/checkout/thank-you/:orderId?',
+    id: 'shell-checkout-thank-you',
+    localisedPaths: {
+      cs: '/pokladna/dekujeme/:orderId?',
+      en: '/checkout/thank-you/:orderId?',
+    },
+    mfBoundaryId: 'shellSuperApp',
+    namespace: 'shell',
+    ownerAppId: 'shell-super-app',
+    titleKey: 'checkout.routes.thankYou',
+  },
 ] as const;
 
 export const ultramodernLocalisedUrls = {
@@ -68,9 +104,33 @@ export const ultramodernLocalisedUrls = {
     cs: '/kosik',
     en: '/cart',
   },
+  '/checkout': {
+    cs: '/pokladna',
+    en: '/checkout',
+  },
+  '/checkout/thank-you': {
+    cs: '/pokladna/dekujeme',
+    en: '/checkout/thank-you',
+  },
+  '/checkout/thank-you/:orderId?': {
+    cs: '/pokladna/dekujeme/:orderId?',
+    en: '/checkout/thank-you/:orderId?',
+  },
   '/kosik': {
     cs: '/kosik',
     en: '/cart',
+  },
+  '/pokladna': {
+    cs: '/pokladna',
+    en: '/checkout',
+  },
+  '/pokladna/dekujeme': {
+    cs: '/pokladna/dekujeme',
+    en: '/checkout/thank-you',
+  },
+  '/pokladna/dekujeme/:orderId?': {
+    cs: '/pokladna/dekujeme/:orderId?',
+    en: '/checkout/thank-you/:orderId?',
   },
   '/prodejci': {
     cs: '/prodejci',

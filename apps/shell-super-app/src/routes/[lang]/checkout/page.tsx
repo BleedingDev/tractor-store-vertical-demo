@@ -1,12 +1,12 @@
 import LocalizedHead from '../../localized-head';
 import ShellFrame from '../../shell-frame';
-import { CartPage, Recommendations } from '../../vertical-components';
+import { CheckoutPage, Recommendations } from '../../vertical-components';
 
-export default function ShellCartPage() {
+export default function ShellCheckoutPage() {
   return (
     <ShellFrame boundary="checkout">
       <LocalizedHead />
-      <CartPage />
+      <CheckoutPage />
       <Recommendations variant="product" />
     </ShellFrame>
   );

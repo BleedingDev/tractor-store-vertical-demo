@@ -11,6 +11,8 @@ import RecommendationsServer from '@tractor-store-vertical-demo/explore/Recommen
 import ProductPageServer from '@tractor-store-vertical-demo/decide/ProductPage';
 import MiniCartServer from '@tractor-store-vertical-demo/checkout/MiniCart';
 import CartPageServer from '@tractor-store-vertical-demo/checkout/CartPage';
+import CheckoutPageServer from '@tractor-store-vertical-demo/checkout/CheckoutPage';
+import ThanksPageServer from '@tractor-store-vertical-demo/checkout/ThanksPage';
 
 interface RemoteComponentModule<Props extends object> {
   default: ComponentType<Props>;
@@ -85,3 +87,5 @@ export const Recommendations = createHydratedRemote(
 export const ProductPage = createHydratedRemote(ProductPageServer, 'decide/ProductPage');
 export const MiniCart = createHydratedRemote(MiniCartServer, 'checkout/MiniCart');
 export const CartPage = createHydratedRemote(CartPageServer, 'checkout/CartPage');
+export const CheckoutPage = createHydratedRemote(CheckoutPageServer, 'checkout/CheckoutPage');
+export const ThanksPage = createHydratedRemote(ThanksPageServer, 'checkout/ThanksPage');
