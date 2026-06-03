@@ -369,8 +369,8 @@ assert(
 );
 assert(
   rootPackage.scripts?.postinstall ===
-    'node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs',
-  'Root postinstall must bootstrap agent skills and hooks before reference repositories',
+    'node ./scripts/bootstrap-agent-skills.mjs && node ./scripts/setup-agent-reference-repos.mjs',
+  'Root postinstall must bootstrap agent skills, initialize git/hooks, and install reference repositories',
 );
 
 const expectedAppIds = ['shell-super-app', ...fullStackVerticals.map((vertical) => vertical.id)];

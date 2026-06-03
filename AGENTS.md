@@ -9,7 +9,7 @@ This workspace is generated as an agent-ready UltraModern.js SuperApp. Agents sh
 - `pnpm typecheck` runs effect-tsgo as the TypeScript checker.
 - `pnpm check` runs formatting, linting, effect-tsgo, private-skill availability checks, and the generated workspace contract.
 - Generated Codex stop hooks and subagent-stop hooks run `pnpm format && pnpm lint:fix && pnpm check`.
-- `postinstall` installs `lefthook` when the workspace is inside a Git worktree. Generated `lefthook.yml` runs `pnpm format`, `pnpm lint:fix`, and `pnpm check` on pre-commit; pre-push runs `pnpm check`.
+- `postinstall` initializes Git when needed, installs agent skills and reference repos, then installs `lefthook`. Generated `lefthook.yml` runs `pnpm format`, `pnpm lint:fix`, and `pnpm check` on pre-commit; pre-push runs `pnpm check`.
 
 ## Localized Routes
 

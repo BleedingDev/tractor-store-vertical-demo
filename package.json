@@ -25,7 +25,7 @@
     "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mjs --check",
     "ultramodern:assert-mf-types": "node ./scripts/assert-mf-types.mjs",
     "ultramodern:check": "node ./scripts/validate-ultramodern-workspace.mjs",
-    "postinstall": "node ./scripts/bootstrap-agent-skills.mjs && (git rev-parse --is-inside-work-tree >/dev/null 2>&1 && lefthook install || true) && node ./scripts/setup-agent-reference-repos.mjs",
+    "postinstall": "node ./scripts/bootstrap-agent-skills.mjs && node ./scripts/setup-agent-reference-repos.mjs",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm ultramodern:check"
   },
   "engines": {

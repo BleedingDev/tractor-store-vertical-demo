@@ -3,7 +3,11 @@ packages:
   - verticals/*
   - packages/*
 
-minimumReleaseAge: 0
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
+minimumReleaseAgeExclude:
+  - '@bleedingdev/modern-js-*'
 blockExoticSubdeps: true
 engineStrict: true
 pmOnFail: error
@@ -27,3 +31,11 @@ allowBuilds:
   msgpackr-extract: true
   sharp: true
   workerd: true
+onlyBuiltDependencies:
+  - '@swc/core'
+  - core-js
+  - esbuild
+  - lefthook
+  - msgpackr-extract
+  - sharp
+  - workerd
