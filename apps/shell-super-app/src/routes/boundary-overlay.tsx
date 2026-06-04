@@ -33,7 +33,6 @@ const boundaryStorageKey = 'tractor-store.show-team-boundaries';
 
 export default function BoundaryOverlay() {
   const { i18nInstance } = useModernI18n();
-  const [mounted, setMounted] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [boxes, setBoxes] = useState<BoundaryBox[]>([]);
   const boundaryConfig = useMemo(() => {
@@ -54,7 +53,6 @@ export default function BoundaryOverlay() {
   const toggleLabel = i18nInstance['t'].bind(i18nInstance)('shell.boundaries.toggle');
 
   useEffect(() => {
-    setMounted(true);
     setEnabled(window.localStorage.getItem(boundaryStorageKey) === 'true');
   }, []);
 
@@ -118,10 +116,6 @@ export default function BoundaryOverlay() {
       window.removeEventListener('scroll', readBoxes, true);
     };
   }, [boundaryConfig, enabled]);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <>
