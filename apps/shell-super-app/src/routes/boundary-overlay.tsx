@@ -166,15 +166,10 @@ export default function BoundaryOverlay() {
               }
             >
               <span
-                className={`shell:absolute shell:flex shell:max-w-[min(18rem,calc(100vw-2rem))] shell:flex-col shell:gap-0.5 shell:rounded-md shell:px-2 shell:py-1 shell:text-[0.7rem] shell:font-black shell:leading-none shell:text-stone-950 ${box.labelPlacement === 'above' ? 'shell:bottom-[calc(100%+0.25rem)] shell:right-1 shell:top-auto' : 'shell:right-1 shell:top-1'}`}
+                className={`shell:absolute shell:max-w-[min(18rem,calc(100vw-2rem))] shell:whitespace-nowrap shell:rounded-md shell:px-2 shell:py-1 shell:text-[0.7rem] shell:font-black shell:leading-none shell:text-stone-950 ${box.component === undefined ? '' : 'shell:font-mono shell:text-[0.65rem]'} ${box.labelPlacement === 'above' ? 'shell:bottom-[calc(100%+0.25rem)] shell:right-1 shell:top-auto' : 'shell:right-1 shell:top-1'}`}
                 style={{ backgroundColor: box.color }}
               >
-                <span className="shell:whitespace-nowrap">{box.label}</span>
-                {box.component === undefined ? null : (
-                  <span className="shell:whitespace-nowrap shell:font-mono shell:text-[0.62rem] shell:font-bold shell:opacity-80">
-                    {box.component}
-                  </span>
-                )}
+                {box.component ?? box.label}
               </span>
             </div>
           ))}
