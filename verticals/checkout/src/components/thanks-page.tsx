@@ -2,6 +2,7 @@ export default function CheckoutThanksPage() {
   return (
     <section
       className="checkout:rounded-2xl checkout:bg-white/90 checkout:p-5 checkout:shadow-xl checkout:shadow-stone-900/10"
+      data-mf-boundary="checkout"
       data-mf-remote="checkout"
       data-mf-expose="./ThanksPage"
     >

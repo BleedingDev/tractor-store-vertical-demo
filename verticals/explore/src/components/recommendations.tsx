@@ -19,6 +19,8 @@ export default function Recommendations({ variant = 'home' }: RecommendationsPro
     <section
       className="explore:mx-auto explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:px-[var(--outer-space)]"
       data-mf-boundary="explore"
+      data-mf-expose="./Recommendations"
+      data-mf-remote="explore"
     >
       <div className="explore:-mx-4 explore:mb-12 explore:px-4 explore:py-4">
         <h2 className="explore:m-0 explore:text-[1.65rem] explore:font-normal explore:tracking-normal explore:text-stone-950">

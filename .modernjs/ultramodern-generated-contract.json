@@ -726,6 +726,8 @@
         "exposes": [
           "./Footer",
           "./Header",
+          "./HomePage",
+          "./ProductGrid",
           "./Recommendations",
           "./Route",
           "./StorePicker"

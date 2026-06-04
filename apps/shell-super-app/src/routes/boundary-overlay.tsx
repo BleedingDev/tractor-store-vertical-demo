@@ -8,6 +8,7 @@ interface BoundaryConfig {
 }
 
 type BoundaryBox = BoundaryConfig & {
+  component: string | undefined;
   height: number;
   id: string;
   labelPlacement: 'above' | 'inside';
@@ -30,6 +31,15 @@ const defaultBoundaryColors = {
 
 const boundaryIds = ['explore', 'decide', 'checkout'] as const;
 const boundaryStorageKey = 'tractor-store.show-team-boundaries';
+const moduleLabel = (remote: string | undefined, expose: string | undefined) => {
+  if (remote === undefined || remote.length === 0) {
+    return;
+  }
+  if (expose === undefined || expose.length === 0) {
+    return remote;
+  }
+  return `${remote}/${expose.replace(/^\.\//u, '')}`;
+};
 
 export default function BoundaryOverlay() {
   const { i18nInstance } = useModernI18n();
@@ -79,6 +89,7 @@ export default function BoundaryOverlay() {
           return [
             {
               ...config,
+              component: moduleLabel(element.dataset['mfRemote'], element.dataset['mfExpose']),
               height: rect.height,
               id: `${id}-${index}`,
               labelPlacement: rect.height < 48 ? 'above' : 'inside',
@@ -155,10 +166,15 @@ export default function BoundaryOverlay() {
               }
             >
               <span
-                className={`shell:absolute shell:whitespace-nowrap shell:rounded-full shell:px-2 shell:py-1 shell:text-[0.7rem] shell:font-black shell:leading-none shell:text-stone-950 ${box.labelPlacement === 'above' ? 'shell:bottom-[calc(100%+0.25rem)] shell:right-1 shell:top-auto' : 'shell:right-1 shell:top-1'}`}
+                className={`shell:absolute shell:flex shell:max-w-[min(18rem,calc(100vw-2rem))] shell:flex-col shell:gap-0.5 shell:rounded-md shell:px-2 shell:py-1 shell:text-[0.7rem] shell:font-black shell:leading-none shell:text-stone-950 ${box.labelPlacement === 'above' ? 'shell:bottom-[calc(100%+0.25rem)] shell:right-1 shell:top-auto' : 'shell:right-1 shell:top-1'}`}
                 style={{ backgroundColor: box.color }}
               >
-                {box.label}
+                <span className="shell:whitespace-nowrap">{box.label}</span>
+                {box.component === undefined ? null : (
+                  <span className="shell:whitespace-nowrap shell:font-mono shell:text-[0.62rem] shell:font-bold shell:opacity-80">
+                    {box.component}
+                  </span>
+                )}
               </span>
             </div>
           ))}

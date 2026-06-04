@@ -17,7 +17,12 @@ export default function CheckoutAddToCart({
   const cart = useCartLines();
 
   return (
-    <div className="checkout:mt-8 checkout:px-0 checkout:py-0" data-mf-boundary="checkout">
+    <div
+      className="checkout:mt-8 checkout:px-0 checkout:py-0"
+      data-mf-boundary="checkout"
+      data-mf-expose="./AddToCart"
+      data-mf-remote="checkout"
+    >
       <div className="checkout:flex checkout:items-start checkout:justify-between checkout:gap-6 checkout:text-[1rem]">
         <span>{price.toLocaleString('de-DE', { useGrouping: false })} Ø</span>
         <span className="checkout:text-right checkout:text-[#45aa4f]">

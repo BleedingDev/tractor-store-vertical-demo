@@ -9,14 +9,32 @@ const tailwindEnabled = true;
 const fullStackVerticals = [
   {
     apiPrefix: '/explore-api',
+    boundarySurfaces: [
+      ['verticals/explore/src/components/footer.tsx', './Footer'],
+      ['verticals/explore/src/components/header.tsx', './Header'],
+      ['verticals/explore/src/components/home-page.tsx', './HomePage'],
+      ['verticals/explore/src/components/product-grid.tsx', './ProductGrid'],
+      ['verticals/explore/src/components/recommendations.tsx', './Recommendations'],
+      ['verticals/explore/src/components/store-picker.tsx', './StorePicker'],
+    ],
     componentPaths: [
       'verticals/explore/src/components/footer.tsx',
       'verticals/explore/src/components/header.tsx',
+      'verticals/explore/src/components/home-page.tsx',
+      'verticals/explore/src/components/product-grid.tsx',
       'verticals/explore/src/components/recommendations.tsx',
       'verticals/explore/src/components/store-picker.tsx',
     ],
     domain: 'explore',
-    exposes: ['./Footer', './Header', './Recommendations', './Route', './StorePicker'],
+    exposes: [
+      './Footer',
+      './Header',
+      './HomePage',
+      './ProductGrid',
+      './Recommendations',
+      './Route',
+      './StorePicker',
+    ],
     group: 'explore',
     id: 'explore',
     localisedUrls: {
@@ -60,6 +78,7 @@ const fullStackVerticals = [
   },
   {
     apiPrefix: '/decide-api',
+    boundarySurfaces: [['verticals/decide/src/components/product-page.tsx', './ProductPage']],
     componentPaths: ['verticals/decide/src/components/product-page.tsx'],
     domain: 'decide',
     exposes: ['./ProductPage', './Route'],
@@ -106,6 +125,13 @@ const fullStackVerticals = [
   },
   {
     apiPrefix: '/checkout-api',
+    boundarySurfaces: [
+      ['verticals/checkout/src/components/add-to-cart.tsx', './AddToCart'],
+      ['verticals/checkout/src/components/cart-page.tsx', './CartPage'],
+      ['verticals/checkout/src/components/checkout-page.tsx', './CheckoutPage'],
+      ['verticals/checkout/src/components/mini-cart.tsx', './MiniCart'],
+      ['verticals/checkout/src/components/thanks-page.tsx', './ThanksPage'],
+    ],
     componentPaths: [
       'verticals/checkout/src/components/add-to-cart.tsx',
       'verticals/checkout/src/components/cart-page.tsx',
@@ -511,6 +537,22 @@ assert(!('remotes' in topology), 'Topology must not expose legacy remotes; use v
 assert(!('effectServices' in topology), 'Default APIs must be vertical-owned, not effectServices');
 
 for (const vertical of fullStackVerticals) {
+  for (const [surfacePath, expose] of vertical.boundarySurfaces) {
+    const source = readText(surfacePath);
+    assert(
+      source.includes(`data-mf-boundary="${vertical.id}"`),
+      `${surfacePath} must declare its team boundary`,
+    );
+    assert(
+      source.includes(`data-mf-remote="${vertical.id}"`),
+      `${surfacePath} must declare its Module Federation remote`,
+    );
+    assert(
+      source.includes(`data-mf-expose="${expose}"`),
+      `${surfacePath} must declare its exposed Module Federation component`,
+    );
+  }
+
   const packageJson = readJson(`${vertical.path}/package.json`);
   assert(packageJson.name === vertical.packageName, `${vertical.id} package name is incorrect`);
   assert(
