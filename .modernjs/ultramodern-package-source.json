@@ -9,7 +9,7 @@
       "@modern-js/plugin-tanstack",
       "@modern-js/runtime"
     ],
-    "specifier": "3.2.0-ultramodern.101",
+    "specifier": "3.2.0-ultramodern.102",
     "aliases": {
       "@modern-js/app-tools": "@bleedingdev/modern-js-app-tools",
       "@modern-js/plugin-bff": "@bleedingdev/modern-js-plugin-bff",

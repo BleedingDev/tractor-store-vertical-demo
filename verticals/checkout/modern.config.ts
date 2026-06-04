@@ -153,6 +153,9 @@ export default defineConfig(
           overrideBrowserslist: ['defaults'],
         },
         bundlerChain: (chain) => {
+          chain.output
+            .uniqueName('verticalCheckout')
+            .chunkLoadingGlobal('__ULTRAMODERN_VERTICAL_CHECKOUT_LOADED_CHUNKS__');
           chain.ignoreWarnings([
             {
               message: /the request of a dependency is an expression/u,

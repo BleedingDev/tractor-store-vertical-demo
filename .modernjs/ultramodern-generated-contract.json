@@ -121,6 +121,12 @@
         "source": {
           "mainEntryName": "index",
           "siteUrlGlobal": "ULTRAMODERN_SITE_URL"
+        },
+        "rspack": {
+          "output": {
+            "uniqueName": "shellSuperApp",
+            "chunkLoadingGlobal": "__ULTRAMODERN_SHELL_SUPER_APP_LOADED_CHUNKS__"
+          }
         }
       },
       "styling": {
@@ -476,6 +482,12 @@
           "runtimeFramework": "effect",
           "prefix": "/explore-api",
           "openapi": "/openapi.json"
+        },
+        "rspack": {
+          "output": {
+            "uniqueName": "verticalExplore",
+            "chunkLoadingGlobal": "__ULTRAMODERN_VERTICAL_EXPLORE_LOADED_CHUNKS__"
+          }
         }
       },
       "styling": {
@@ -865,6 +877,12 @@
           "runtimeFramework": "effect",
           "prefix": "/decide-api",
           "openapi": "/openapi.json"
+        },
+        "rspack": {
+          "output": {
+            "uniqueName": "verticalDecide",
+            "chunkLoadingGlobal": "__ULTRAMODERN_VERTICAL_DECIDE_LOADED_CHUNKS__"
+          }
         }
       },
       "styling": {
@@ -1271,6 +1289,12 @@
           "runtimeFramework": "effect",
           "prefix": "/checkout-api",
           "openapi": "/openapi.json"
+        },
+        "rspack": {
+          "output": {
+            "uniqueName": "verticalCheckout",
+            "chunkLoadingGlobal": "__ULTRAMODERN_VERTICAL_CHECKOUT_LOADED_CHUNKS__"
+          }
         }
       },
       "styling": {

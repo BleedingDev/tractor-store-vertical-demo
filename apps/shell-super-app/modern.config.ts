@@ -188,6 +188,9 @@ export default defineConfig(
           overrideBrowserslist: ['defaults'],
         },
         bundlerChain: (chain) => {
+          chain.output
+            .uniqueName('shellSuperApp')
+            .chunkLoadingGlobal('__ULTRAMODERN_SHELL_SUPER_APP_LOADED_CHUNKS__');
           chain.ignoreWarnings([
             {
               message: /the request of a dependency is an expression/u,

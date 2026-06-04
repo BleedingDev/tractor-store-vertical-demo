@@ -215,6 +215,12 @@ const assertNotExists = (relativePath) => {
   assert(!fs.existsSync(path.join(root, relativePath)), `Unexpected ${relativePath}`);
 };
 const expectedWorkerName = (packageSuffix) => `${packageScope}-${packageSuffix}`.slice(0, 63);
+const expectedChunkLoadingGlobal = (mfName) =>
+  `__ULTRAMODERN_${mfName
+    .replaceAll(/([a-z0-9])([A-Z])/gu, '$1_$2')
+    .replaceAll(/[^A-Za-z0-9]+/gu, '_')
+    .replaceAll(/^_+|_+$/gu, '')
+    .toUpperCase()}_LOADED_CHUNKS__`;
 
 const activePnpmVersion = execFileSync('pnpm', ['--version'], {
   cwd: root,
@@ -438,6 +444,15 @@ assert(
   'Shell Cloudflare public URL env is incorrect',
 );
 assert(
+  shellContract?.config?.rspack?.output?.uniqueName === 'shellSuperApp',
+  'Shell Rspack uniqueName must isolate runtime chunks',
+);
+assert(
+  shellContract?.config?.rspack?.output?.chunkLoadingGlobal ===
+    expectedChunkLoadingGlobal('shellSuperApp'),
+  'Shell Rspack chunkLoadingGlobal must isolate split chunks',
+);
+assert(
   topology.shell?.cloudflare?.workerName === expectedWorkerName('shell-super-app'),
   'Shell topology Cloudflare workerName is incorrect',
 );
@@ -553,6 +568,15 @@ for (const vertical of fullStackVerticals) {
   assert(
     contractEntry?.moduleFederation?.name === vertical.mfName,
     `${vertical.id} MF name is incorrect`,
+  );
+  assert(
+    contractEntry?.config?.rspack?.output?.uniqueName === vertical.mfName,
+    `${vertical.id} Rspack uniqueName must match its MF name`,
+  );
+  assert(
+    contractEntry?.config?.rspack?.output?.chunkLoadingGlobal ===
+      expectedChunkLoadingGlobal(vertical.mfName),
+    `${vertical.id} Rspack chunkLoadingGlobal must isolate split chunks`,
   );
   assert(
     JSON.stringify(contractEntry?.moduleFederation?.exposes) === JSON.stringify(vertical.exposes),
