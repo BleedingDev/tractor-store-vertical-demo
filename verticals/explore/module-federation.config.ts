@@ -14,6 +14,9 @@ const reactVersion = (require('react/package.json') as { version: string }).vers
 const reactDomVersion = (require('react-dom/package.json') as { version: string }).version;
 
 export default createModuleFederationConfig({
+  bridge: {
+    enableBridgeRouter: false,
+  },
   dev: {
     disableDynamicRemoteTypeHints: true,
   },

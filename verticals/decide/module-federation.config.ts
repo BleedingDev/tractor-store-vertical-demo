@@ -54,6 +54,9 @@ const remoteManifest = (
 };
 
 export default createModuleFederationConfig({
+  bridge: {
+    enableBridgeRouter: false,
+  },
   dev: {
     disableDynamicRemoteTypeHints: true,
   },

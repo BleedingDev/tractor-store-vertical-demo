@@ -127,7 +127,7 @@ export default defineConfig(
         },
         filenameHash: false,
         polyfill: 'off',
-        splitRouteChunks: false,
+        splitRouteChunks: true,
       },
       performance: {
         rsdoctor: {
