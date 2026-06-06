@@ -4,7 +4,7 @@
   "packageManager": {
     "source": "package.json",
     "manager": "pnpm",
-    "version": "11.5.0",
+    "version": "11.5.2",
     "toolchain": "mise"
   },
   "versions": {

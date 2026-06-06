@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const packageScope = 'tractor-store-vertical-demo';
-const expectedPnpmVersion = '11.5.0';
+const expectedPnpmVersion = '11.5.2';
 const tailwindEnabled = true;
 const fullStackVerticals = [
   {
@@ -392,6 +392,11 @@ assert(
     expectedModernPackageSpecifier('@modern-js/create'),
   'Root must depend on @modern-js/create through package source metadata',
 );
+assert(
+  rootPackage.devDependencies?.['@modern-js/code-tools'] ===
+    expectedModernPackageSpecifier('@modern-js/code-tools'),
+  'Root must depend on @modern-js/code-tools through package source metadata',
+);
 if (packageSource.strategy === 'install') {
   const installSpecifier = packageSource.modernPackages?.specifier;
   assert(
@@ -403,6 +408,7 @@ if (packageSource.strategy === 'install') {
   const modernAliases = packageSource.modernPackages?.aliases ?? {};
   for (const modernPackageName of [
     '@modern-js/create',
+    '@modern-js/code-tools',
     '@modern-js/app-tools',
     '@modern-js/plugin-bff',
     '@modern-js/plugin-i18n',
@@ -432,9 +438,9 @@ assert(
 );
 const i18nBoundaryScript = readText('scripts/check-ultramodern-i18n-boundaries.mjs');
 assert(
-  i18nBoundaryScript.includes("from '@modern-js/create/ultramodern-checks'") &&
+  i18nBoundaryScript.includes("from '@modern-js/code-tools'") &&
     i18nBoundaryScript.includes('runWorkspaceSourceCheck'),
-  'Root i18n boundary script must call @modern-js/create/ultramodern-checks',
+  'Root i18n boundary script must call @modern-js/code-tools',
 );
 assert(
   rootPackage.scripts?.['ultramodern:assert-mf-types'] === 'node ./scripts/assert-mf-types.mjs',
