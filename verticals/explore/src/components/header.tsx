@@ -13,7 +13,7 @@ export default function Header() {
     >
       <a className="explore:block explore:no-underline" href={`/${language}`}>
         <img
-          alt="Microfrontends Tractor Store"
+          alt={t('explore.header.logoAlt')}
           className="explore:block explore:h-auto explore:w-[170px] explore:min-[500px]:w-[270px]"
           height="77"
           src={logoUrl}

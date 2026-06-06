@@ -18,6 +18,7 @@
     },
     "title": "Explore Vertical",
     "header": {
+      "logoAlt": "Microfrontends Tractor Store",
       "machines": "Machines",
       "navigation": "Main navigation",
       "stores": "Stores"
@@ -37,7 +38,8 @@
       "all": "All",
       "autonomous": "Autonomous",
       "classics": "Classics",
-      "count": "{{count}} products",
+      "count_one": "{{count}} product",
+      "count_other": "{{count}} products",
       "filter": "Filter",
       "filterLabel": "Filter machines",
       "title": "All Machines"

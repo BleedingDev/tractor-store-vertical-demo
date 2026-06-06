@@ -11,10 +11,10 @@
     "dev:decide": "pnpm --filter @tractor-store-vertical-demo/decide dev",
     "dev:checkout": "pnpm --filter @tractor-store-vertical-demo/checkout dev",
     "build": "ULTRAMODERN_ZEPHYR=false pnpm -r --filter \"./verticals/*\" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter \"./apps/shell-super-app\" run build && pnpm ultramodern:assert-mf-types",
-    "format": "oxfmt .",
-    "format:check": "oxfmt --check .",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt . '!repos/**'",
+    "format:check": "oxfmt --check . '!repos/**'",
+    "lint": "oxlint apps verticals packages",
+    "lint:fix": "oxlint apps verticals packages --fix",
     "typecheck": "pnpm -r --filter \"@tractor-store-vertical-demo/*\" typecheck",
     "cloudflare:build": "pnpm -r --filter \"./verticals/*\" run cloudflare:build && pnpm --filter \"./apps/shell-super-app\" run cloudflare:build && pnpm ultramodern:assert-mf-types",
     "cloudflare:deploy": "pnpm -r --filter \"./verticals/*\" run cloudflare:deploy && pnpm --filter \"./apps/shell-super-app\" run cloudflare:deploy",
@@ -25,8 +25,9 @@
     "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mjs --check",
     "ultramodern:assert-mf-types": "node ./scripts/assert-mf-types.mjs",
     "ultramodern:check": "node ./scripts/validate-ultramodern-workspace.mjs",
+    "ultramodern:i18n-boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mjs",
     "postinstall": "node ./scripts/bootstrap-agent-skills.mjs && node ./scripts/setup-agent-reference-repos.mjs",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm ultramodern:check"
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm ultramodern:i18n-boundaries && pnpm ultramodern:check"
   },
   "engines": {
     "node": ">=20",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@effect/tsgo": "0.14.0",
+    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.2.0-ultramodern.110",
     "@typescript/native-preview": "7.0.0-dev.20260606.1",
     "lefthook": "^2.1.9",
     "oxlint": "1.68.0",

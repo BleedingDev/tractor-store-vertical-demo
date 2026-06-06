@@ -247,7 +247,6 @@ const expectedChunkLoadingGlobal = (mfName) =>
     .replaceAll(/[^A-Za-z0-9]+/gu, '_')
     .replaceAll(/^_+|_+$/gu, '')
     .toUpperCase()}_LOADED_CHUNKS__`;
-const expectedModernPackageSourceSpecifier = '3.2.0-ultramodern.108';
 const expectedCloudflareCompatibilityDate = '2026-06-02';
 const expectedCloudflareCompatibilityFlags = ['nodejs_compat', 'global_fetch_strictly_public'];
 const expectedCloudflareSecurityHeaders = {
@@ -293,6 +292,7 @@ const requiredPaths = [
   '.modernjs/ultramodern-generated-contract.json',
   'scripts/assert-mf-types.mjs',
   'scripts/bootstrap-agent-skills.mjs',
+  'scripts/check-ultramodern-i18n-boundaries.mjs',
   'scripts/proof-cloudflare-version.mjs',
   'scripts/setup-agent-reference-repos.mjs',
   'apps/shell-super-app/package.json',
@@ -388,9 +388,33 @@ assert(
   'Generated workspace packages must keep workspace:* links',
 );
 assert(
-  packageSource.modernPackages?.specifier === expectedModernPackageSourceSpecifier,
-  'Install package source must match the proven BleedingDev cohort',
+  rootPackage.devDependencies?.['@modern-js/create'] ===
+    expectedModernPackageSpecifier('@modern-js/create'),
+  'Root must depend on @modern-js/create through package source metadata',
 );
+if (packageSource.strategy === 'install') {
+  const installSpecifier = packageSource.modernPackages?.specifier;
+  assert(
+    typeof installSpecifier === 'string' &&
+      /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/u.test(installSpecifier) &&
+      installSpecifier.includes('ultramodern'),
+    'Install package source must use a semver UltraModern published cohort',
+  );
+  const modernAliases = packageSource.modernPackages?.aliases ?? {};
+  for (const modernPackageName of [
+    '@modern-js/create',
+    '@modern-js/app-tools',
+    '@modern-js/plugin-bff',
+    '@modern-js/plugin-i18n',
+    '@modern-js/plugin-tanstack',
+    '@modern-js/runtime',
+  ]) {
+    assert(
+      /^@[^/]+\/.+/u.test(modernAliases[modernPackageName] ?? ''),
+      `Install package source alias for ${modernPackageName} must be a scoped npm package`,
+    );
+  }
+}
 assert(
   rootPackage.scripts?.build ===
     'ULTRAMODERN_ZEPHYR=false pnpm -r --filter "./verticals/*" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter "./apps/shell-super-app" run build && pnpm ultramodern:assert-mf-types',
@@ -400,6 +424,17 @@ assert(
   rootPackage.scripts?.['ultramodern:check'] ===
     'node ./scripts/validate-ultramodern-workspace.mjs',
   'Root must expose ultramodern:check',
+);
+assert(
+  rootPackage.scripts?.['ultramodern:i18n-boundaries'] ===
+    'node ./scripts/check-ultramodern-i18n-boundaries.mjs',
+  'Root must expose ultramodern:i18n-boundaries',
+);
+const i18nBoundaryScript = readText('scripts/check-ultramodern-i18n-boundaries.mjs');
+assert(
+  i18nBoundaryScript.includes("from '@modern-js/create/ultramodern-checks'") &&
+    i18nBoundaryScript.includes('runWorkspaceSourceCheck'),
+  'Root i18n boundary script must call @modern-js/create/ultramodern-checks',
 );
 assert(
   rootPackage.scripts?.['ultramodern:assert-mf-types'] === 'node ./scripts/assert-mf-types.mjs',

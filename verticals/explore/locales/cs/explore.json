@@ -18,6 +18,7 @@
     },
     "title": "Průzkumný remote",
     "header": {
+      "logoAlt": "Microfrontends Tractor Store",
       "machines": "Stroje",
       "navigation": "Hlavní navigace",
       "stores": "Prodejci"
@@ -37,7 +38,10 @@
       "all": "Vše",
       "autonomous": "Autonomní",
       "classics": "Klasické",
-      "count": "{{count}} produktů",
+      "count_few": "{{count}} produkty",
+      "count_many": "{{count}} produktu",
+      "count_one": "{{count}} produkt",
+      "count_other": "{{count}} produktů",
       "filter": "Filtr",
       "filterLabel": "Filtr strojů",
       "title": "Všechny stroje"
