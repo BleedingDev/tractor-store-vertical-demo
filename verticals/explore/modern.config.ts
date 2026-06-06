@@ -57,9 +57,6 @@ if (
     `Cloudflare deploy for ${appId} needs ULTRAMODERN_PUBLIC_URL_EXPLORE, MODERN_PUBLIC_SITE_URL, or ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN.`,
   );
 }
-const workerShimPath = (fileName: string) =>
-  new URL(`../../tools/cloudflare-worker-shims/${fileName}`, import.meta.url).pathname;
-
 export default defineConfig(
   presetUltramodern(
     {
@@ -76,8 +73,8 @@ export default defineConfig(
       ...(cloudflareDeployEnabled
         ? {
             deploy: {
-              target: 'cloudflare',
               worker: {
+                compatibilityDate: '2026-06-02',
                 name: cloudflareWorkerName,
                 ssr: true,
               },
@@ -93,7 +90,6 @@ export default defineConfig(
         distPath: {
           html: './',
         },
-        filenameHash: false,
         polyfill: 'off',
         splitRouteChunks: true,
       },
@@ -162,11 +158,6 @@ export default defineConfig(
               module: /modern-js-plugin-i18n/u,
             },
           ]);
-          if (cloudflareDeployEnabled) {
-            chain.resolve.alias.set('@loadable/server$', workerShimPath('loadable-server.mjs'));
-            chain.resolve.alias.set('fs/promises$', workerShimPath('fs-promises.mjs'));
-            chain.resolve.alias.set('path$', workerShimPath('path.mjs'));
-          }
         },
       },
     },

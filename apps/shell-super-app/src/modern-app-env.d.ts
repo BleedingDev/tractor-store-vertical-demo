@@ -5,15 +5,6 @@ import type { ComponentType } from 'react';
 declare global {
   const ULTRAMODERN_SITE_URL: string;
 }
-declare global {
-  const ULTRAMODERN_EXPLORE_URL: string;
-}
-declare global {
-  const ULTRAMODERN_DECIDE_URL: string;
-}
-declare global {
-  const ULTRAMODERN_CHECKOUT_URL: string;
-}
 declare module '*.svg' {
   const url: string;
   export default url;

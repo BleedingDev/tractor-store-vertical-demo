@@ -56,7 +56,7 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
     .add(
       HttpApiEndpoint.get('list', '/effect/decide', {
         query: {
-          limit: Schema.optional(Schema.NumberFromString),
+          limit: Schema.optional(Schema.FiniteFromString),
         },
         success: Schema.Struct({
           items: Schema.Array(decideItemSchema),

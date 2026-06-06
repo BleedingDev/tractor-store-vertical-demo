@@ -23,9 +23,8 @@ export default function CheckoutCartPage() {
   return (
     <main
       className="checkout:mx-auto checkout:max-w-[calc(1000px+var(--outer-space)*2)] checkout:px-[var(--outer-space)] checkout:py-4"
-      data-mf-boundary="checkout"
-      data-mf-remote="checkout"
-      data-mf-expose="./CartPage"
+      data-modern-boundary-id="checkout"
+      data-modern-mf-expose="./CartPage"
     >
       <h1 className="checkout:m-0 checkout:text-[1.7rem] checkout:font-normal checkout:text-stone-950">
         {t('checkout.cart.title')}

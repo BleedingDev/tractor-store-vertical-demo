@@ -164,7 +164,10 @@ export default function ExploreHome() {
         ))}
       </nav>
       <h1 className="explore:mt-10 explore:text-5xl explore:font-black">{t('explore.title')}</h1>
-      <p className="explore:mt-3 explore:text-lg explore:text-stone-600" data-mf-role="vertical">
+      <p
+        className="explore:mt-3 explore:text-lg explore:text-stone-600"
+        data-modern-role="vertical"
+      >
         {t('explore.role')}
       </p>
       <p

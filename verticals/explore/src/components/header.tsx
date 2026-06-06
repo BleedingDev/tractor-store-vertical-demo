@@ -8,9 +8,8 @@ export default function Header() {
   return (
     <header
       className="explore:grid explore:min-w-0 explore:flex-1 explore:grid-cols-[1fr_auto] explore:items-center explore:gap-x-6 explore:gap-y-4 explore:min-[1000px]:grid-cols-[auto_1fr]"
-      data-mf-boundary="explore"
-      data-mf-expose="./Header"
-      data-mf-remote="explore"
+      data-modern-boundary-id="explore"
+      data-modern-mf-expose="./Header"
     >
       <a className="explore:block explore:no-underline" href={`/${language}`}>
         <img

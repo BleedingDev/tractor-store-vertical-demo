@@ -8,9 +8,8 @@ export default function StorePicker() {
   return (
     <section
       className="explore:mx-auto explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:px-[var(--outer-space)] explore:py-8"
-      data-mf-boundary="explore"
-      data-mf-expose="./StorePicker"
-      data-mf-remote="explore"
+      data-modern-boundary-id="explore"
+      data-modern-mf-expose="./StorePicker"
     >
       <h1 className="explore:m-0 explore:text-[1.5rem] explore:font-normal explore:text-stone-950">
         {t('explore.stores.title')}

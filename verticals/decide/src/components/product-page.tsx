@@ -82,9 +82,8 @@ export default function DecideProductPage() {
     <>
       <main
         className="decide:mx-auto decide:max-w-[calc(1000px+var(--outer-space)*2)] decide:px-[var(--outer-space)]"
-        data-mf-boundary="decide"
-        data-mf-remote="decide"
-        data-mf-expose="./ProductPage"
+        data-modern-boundary-id="decide"
+        data-modern-mf-expose="./ProductPage"
       >
         <section className="decide:mb-4 decide:grid decide:items-center decide:justify-between decide:gap-10 decide:max-[499px]:[grid-template-areas:'image'_'information'] decide:min-[500px]:max-[999px]:grid-cols-[1fr_3fr_1fr] decide:min-[500px]:max-[999px]:[grid-template-areas:'._image_.'_'._information_.'] decide:min-[1000px]:min-h-[clamp(400px,calc(70vh-400px),650px)] decide:min-[1000px]:grid-cols-[4fr_5fr] decide:min-[1000px]:[grid-template-areas:'image_information'] decide:min-[1000px]:gap-[10%]">
           <img

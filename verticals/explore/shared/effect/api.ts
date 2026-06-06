@@ -56,7 +56,7 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
     .add(
       HttpApiEndpoint.get('list', '/effect/explore', {
         query: {
-          limit: Schema.optional(Schema.NumberFromString),
+          limit: Schema.optional(Schema.FiniteFromString),
         },
         success: Schema.Struct({
           items: Schema.Array(exploreItemSchema),

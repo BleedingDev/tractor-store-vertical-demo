@@ -247,6 +247,22 @@ const expectedChunkLoadingGlobal = (mfName) =>
     .replaceAll(/[^A-Za-z0-9]+/gu, '_')
     .replaceAll(/^_+|_+$/gu, '')
     .toUpperCase()}_LOADED_CHUNKS__`;
+const expectedModernPackageSourceSpecifier = '3.2.0-ultramodern.108';
+const expectedCloudflareCompatibilityDate = '2026-06-02';
+const expectedCloudflareCompatibilityFlags = ['nodejs_compat', 'global_fetch_strictly_public'];
+const expectedCloudflareSecurityHeaders = {
+  contentTypeOptions: 'nosniff',
+  permissionsPolicy: 'camera=(), geolocation=(), microphone=(), payment=(), usb=()',
+  referrerPolicy: 'strict-origin-when-cross-origin',
+};
+const expectedModernPackageSpecifier = (packageName) => {
+  if (packageSource.strategy !== 'install') {
+    return 'workspace:*';
+  }
+  const alias = packageSource.modernPackages?.aliases?.[packageName];
+  const specifier = packageSource.modernPackages?.specifier;
+  return alias ? `npm:${alias}@${specifier}` : specifier;
+};
 
 const activePnpmVersion = execFileSync('pnpm', ['--version'], {
   cwd: root,
@@ -341,6 +357,9 @@ for (const oldRemotePath of oldRemotePaths) {
   assertNotExists(oldRemotePath);
 }
 assertNotExists('services/service-recommendations-effect');
+assertNotExists('tools/cloudflare-worker-shims/fs-promises.mjs');
+assertNotExists('tools/cloudflare-worker-shims/loadable-server.mjs');
+assertNotExists('tools/cloudflare-worker-shims/path.mjs');
 
 const rootPackage = readJson('package.json');
 const packageSource = readJson('.modernjs/ultramodern-package-source.json');
@@ -367,6 +386,10 @@ assert(
 assert(
   packageSource.generatedWorkspacePackages?.specifier === 'workspace:*',
   'Generated workspace packages must keep workspace:* links',
+);
+assert(
+  packageSource.modernPackages?.specifier === expectedModernPackageSourceSpecifier,
+  'Install package source must match the proven BleedingDev cohort',
 );
 assert(
   rootPackage.scripts?.build ===
@@ -452,6 +475,7 @@ assert(
 );
 
 const shellPackage = readJson('apps/shell-super-app/package.json');
+const shellModernConfig = readText('apps/shell-super-app/modern.config.ts');
 const expectedZephyrDependencies = Object.fromEntries(
   fullStackVerticals.map((vertical) => [vertical.domain, `${vertical.packageName}@workspace:*`]),
 );
@@ -459,6 +483,45 @@ assert(
   JSON.stringify(shellPackage['zephyr:dependencies']) ===
     JSON.stringify(expectedZephyrDependencies),
   'Shell Zephyr dependencies must reference every Tractor vertical package',
+);
+assert(
+  shellPackage.devDependencies?.['@modern-js/app-tools'] ===
+    expectedModernPackageSpecifier('@modern-js/app-tools'),
+  'Shell app-tools dependency must match package source metadata',
+);
+assert(
+  shellPackage.dependencies?.['@modern-js/plugin-bff'] ===
+    expectedModernPackageSpecifier('@modern-js/plugin-bff'),
+  'Shell plugin-bff dependency must match package source metadata',
+);
+assert(
+  shellPackage.dependencies?.['@modern-js/plugin-i18n'] ===
+    expectedModernPackageSpecifier('@modern-js/plugin-i18n'),
+  'Shell plugin-i18n dependency must match package source metadata',
+);
+assert(
+  shellPackage.dependencies?.['@modern-js/plugin-tanstack'] ===
+    expectedModernPackageSpecifier('@modern-js/plugin-tanstack'),
+  'Shell plugin-tanstack dependency must match package source metadata',
+);
+assert(
+  shellPackage.dependencies?.['@modern-js/runtime'] ===
+    expectedModernPackageSpecifier('@modern-js/runtime'),
+  'Shell runtime dependency must match package source metadata',
+);
+assert(!shellModernConfig.includes('filenameHash'), 'Shell must not disable filename hashing');
+assert(
+  !shellModernConfig.includes('shellStylesheetPlugin'),
+  'Shell must not inject remote CSS through a local stylesheet plugin',
+);
+assert(
+  !shellModernConfig.includes('cloudflare-worker-shims') &&
+    !shellModernConfig.includes('resolve.alias.set'),
+  'Shell must not use app-local Cloudflare Worker aliases',
+);
+assert(
+  shellModernConfig.includes(`compatibilityDate: '${expectedCloudflareCompatibilityDate}'`),
+  'Shell modern.config.ts must pin the generated Cloudflare compatibility date',
 );
 const shellContract = generatedContract.apps?.find((app) => app.id === 'shell-super-app');
 assert(
@@ -468,6 +531,24 @@ assert(
 assert(
   shellContract?.deploy?.cloudflare?.publicUrlEnv === 'ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP',
   'Shell Cloudflare public URL env is incorrect',
+);
+assert(
+  shellContract?.deploy?.cloudflare?.compatibilityDate === expectedCloudflareCompatibilityDate,
+  'Shell Cloudflare compatibilityDate is incorrect',
+);
+assert(
+  stableJson(shellContract?.deploy?.cloudflare?.compatibilityFlags) ===
+    stableJson(expectedCloudflareCompatibilityFlags),
+  'Shell Cloudflare compatibility flags are incorrect',
+);
+assert(
+  stableJson(shellContract?.deploy?.cloudflare?.security?.headers) ===
+    stableJson(expectedCloudflareSecurityHeaders),
+  'Shell Cloudflare security headers are incorrect',
+);
+assert(
+  shellContract?.deploy?.worker?.compatibilityDate === expectedCloudflareCompatibilityDate,
+  'Shell worker compatibilityDate is incorrect',
 );
 assert(
   shellContract?.config?.rspack?.output?.uniqueName === 'shellSuperApp',
@@ -481,6 +562,15 @@ assert(
 assert(
   topology.shell?.cloudflare?.workerName === expectedWorkerName('shell-super-app'),
   'Shell topology Cloudflare workerName is incorrect',
+);
+assert(
+  topology.shell?.cloudflare?.compatibilityDate === expectedCloudflareCompatibilityDate,
+  'Shell topology Cloudflare compatibilityDate is incorrect',
+);
+assert(
+  stableJson(topology.shell?.cloudflare?.compatibilityFlags) ===
+    stableJson(expectedCloudflareCompatibilityFlags),
+  'Shell topology Cloudflare compatibility flags are incorrect',
 );
 assert(
   shellContract?.styling?.federation?.owner?.id === 'shell-super-app',
@@ -540,21 +630,62 @@ for (const vertical of fullStackVerticals) {
   for (const [surfacePath, expose] of vertical.boundarySurfaces) {
     const source = readText(surfacePath);
     assert(
-      source.includes(`data-mf-boundary="${vertical.id}"`),
+      source.includes(`data-modern-boundary-id="${vertical.id}"`),
       `${surfacePath} must declare its team boundary`,
     );
     assert(
-      source.includes(`data-mf-remote="${vertical.id}"`),
-      `${surfacePath} must declare its Module Federation remote`,
+      source.includes(`data-modern-mf-expose="${expose}"`),
+      `${surfacePath} must declare its exposed Module Federation component`,
     );
     assert(
-      source.includes(`data-mf-expose="${expose}"`),
-      `${surfacePath} must declare its exposed Module Federation component`,
+      !source.includes('data-mf-boundary') &&
+        !source.includes('data-mf-remote') &&
+        !source.includes('data-mf-expose'),
+      `${surfacePath} must use the modern Module Federation CSS marker contract`,
     );
   }
 
   const packageJson = readJson(`${vertical.path}/package.json`);
+  const modernConfig = readText(`${vertical.path}/modern.config.ts`);
   assert(packageJson.name === vertical.packageName, `${vertical.id} package name is incorrect`);
+  assert(
+    packageJson.devDependencies?.['@modern-js/app-tools'] ===
+      expectedModernPackageSpecifier('@modern-js/app-tools'),
+    `${vertical.id} app-tools dependency must match package source metadata`,
+  );
+  assert(
+    packageJson.dependencies?.['@modern-js/plugin-bff'] ===
+      expectedModernPackageSpecifier('@modern-js/plugin-bff'),
+    `${vertical.id} plugin-bff dependency must match package source metadata`,
+  );
+  assert(
+    packageJson.dependencies?.['@modern-js/plugin-i18n'] ===
+      expectedModernPackageSpecifier('@modern-js/plugin-i18n'),
+    `${vertical.id} plugin-i18n dependency must match package source metadata`,
+  );
+  assert(
+    packageJson.dependencies?.['@modern-js/plugin-tanstack'] ===
+      expectedModernPackageSpecifier('@modern-js/plugin-tanstack'),
+    `${vertical.id} plugin-tanstack dependency must match package source metadata`,
+  );
+  assert(
+    packageJson.dependencies?.['@modern-js/runtime'] ===
+      expectedModernPackageSpecifier('@modern-js/runtime'),
+    `${vertical.id} runtime dependency must match package source metadata`,
+  );
+  assert(
+    !modernConfig.includes('filenameHash'),
+    `${vertical.id} must not disable filename hashing`,
+  );
+  assert(
+    !modernConfig.includes('cloudflare-worker-shims') &&
+      !modernConfig.includes('resolve.alias.set'),
+    `${vertical.id} must not use app-local Cloudflare Worker aliases`,
+  );
+  assert(
+    modernConfig.includes(`compatibilityDate: '${expectedCloudflareCompatibilityDate}'`),
+    `${vertical.id} modern.config.ts must pin the generated Cloudflare compatibility date`,
+  );
   assert(
     packageJson.scripts?.['cloudflare:deploy'] ===
       'ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
@@ -601,6 +732,24 @@ for (const vertical of fullStackVerticals) {
     contractEntry?.deploy?.cloudflare?.publicUrlEnv ===
       `ULTRAMODERN_PUBLIC_URL_${vertical.id.replaceAll('-', '_').toUpperCase()}`,
     `${vertical.id} Cloudflare public URL env is incorrect`,
+  );
+  assert(
+    contractEntry?.deploy?.cloudflare?.compatibilityDate === expectedCloudflareCompatibilityDate,
+    `${vertical.id} Cloudflare compatibilityDate is incorrect`,
+  );
+  assert(
+    stableJson(contractEntry?.deploy?.cloudflare?.compatibilityFlags) ===
+      stableJson(expectedCloudflareCompatibilityFlags),
+    `${vertical.id} Cloudflare compatibility flags are incorrect`,
+  );
+  assert(
+    stableJson(contractEntry?.deploy?.cloudflare?.security?.headers) ===
+      stableJson(expectedCloudflareSecurityHeaders),
+    `${vertical.id} Cloudflare security headers are incorrect`,
+  );
+  assert(
+    contractEntry?.deploy?.worker?.compatibilityDate === expectedCloudflareCompatibilityDate,
+    `${vertical.id} worker compatibilityDate is incorrect`,
   );
   assert(
     contractEntry?.deploy?.cloudflare?.routes?.effectReadiness ===
@@ -739,6 +888,15 @@ for (const vertical of fullStackVerticals) {
   assert(
     topologyEntry?.cloudflare?.workerName === expectedWorkerName(vertical.id),
     `${vertical.id} topology Cloudflare workerName is incorrect`,
+  );
+  assert(
+    topologyEntry?.cloudflare?.compatibilityDate === expectedCloudflareCompatibilityDate,
+    `${vertical.id} topology Cloudflare compatibilityDate is incorrect`,
+  );
+  assert(
+    stableJson(topologyEntry?.cloudflare?.compatibilityFlags) ===
+      stableJson(expectedCloudflareCompatibilityFlags),
+    `${vertical.id} topology Cloudflare compatibility flags are incorrect`,
   );
   assert(
     topologyEntry?.moduleFederation?.name === vertical.mfName,

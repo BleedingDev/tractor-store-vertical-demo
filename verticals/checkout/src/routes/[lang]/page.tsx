@@ -166,7 +166,10 @@ export default function CheckoutHome() {
       <h1 className="checkout:mt-10 checkout:text-5xl checkout:font-black">
         {t('checkout.title')}
       </h1>
-      <p className="checkout:mt-3 checkout:text-lg checkout:text-stone-600" data-mf-role="vertical">
+      <p
+        className="checkout:mt-3 checkout:text-lg checkout:text-stone-600"
+        data-modern-role="vertical"
+      >
         {t('checkout.role')}
       </p>
       <p

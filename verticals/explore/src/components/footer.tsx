@@ -7,9 +7,8 @@ export default function Footer() {
   return (
     <footer
       className="explore:mx-auto explore:mb-8 explore:mt-4 explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:overflow-hidden explore:pt-[30px]"
-      data-mf-boundary="explore"
-      data-mf-expose="./Footer"
-      data-mf-remote="explore"
+      data-modern-boundary-id="explore"
+      data-modern-mf-expose="./Footer"
     >
       <div className="explore:min-h-[135px] explore:border-t explore:border-[#eeebe2] explore:px-[var(--outer-space)] explore:py-12 explore:shadow-[0_10px_20px_10px_rgba(235,91,89,0.12)] explore:mix-blend-darken explore:min-[1000px]:flex explore:min-[1000px]:items-start explore:min-[1000px]:px-[calc(var(--outer-space)*2)] explore:min-[1000px]:max-[1099px]:px-[var(--outer-space)]">
         <div className="explore:flex explore:flex-1 explore:gap-5">

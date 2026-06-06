@@ -7,12 +7,11 @@ export default function HomePage() {
   const t = i18nInstance['t'].bind(i18nInstance);
 
   return (
-    <div data-mf-expose="./HomePage" data-mf-remote="explore">
+    <div>
       <main
         className="explore:mx-auto explore:mt-12 explore:grid explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:grid-cols-1 explore:gap-x-4 explore:gap-y-6 explore:px-[var(--outer-space)] explore:min-[500px]:grid-cols-2"
-        data-mf-boundary="explore"
-        data-mf-expose="./HomePage"
-        data-mf-remote="explore"
+        data-modern-boundary-id="explore"
+        data-modern-mf-expose="./HomePage"
       >
         {teasers.map((teaser) => (
           <a

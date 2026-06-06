@@ -17,9 +17,8 @@ export default function ProductGrid() {
   return (
     <main
       className="explore:mx-auto explore:max-w-[calc(1000px+var(--outer-space)*2)] explore:px-[var(--outer-space)] explore:py-4"
-      data-mf-boundary="explore"
-      data-mf-expose="./ProductGrid"
-      data-mf-remote="explore"
+      data-modern-boundary-id="explore"
+      data-modern-mf-expose="./ProductGrid"
     >
       <div className="explore:flex explore:flex-wrap explore:items-start explore:justify-between explore:gap-4">
         <div>

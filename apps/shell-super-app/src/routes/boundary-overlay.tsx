@@ -31,14 +31,14 @@ const defaultBoundaryColors = {
 
 const boundaryIds = ['explore', 'decide', 'checkout'] as const;
 const boundaryStorageKey = 'tractor-store.show-team-boundaries';
-const moduleLabel = (remote: string | undefined, expose: string | undefined) => {
-  if (remote === undefined || remote.length === 0) {
+const moduleLabel = (boundaryId: string | undefined, expose: string | undefined) => {
+  if (boundaryId === undefined || boundaryId.length === 0) {
     return;
   }
   if (expose === undefined || expose.length === 0) {
-    return remote;
+    return boundaryId;
   }
-  return `${remote}/${expose.replace(/^\.\//u, '')}`;
+  return `${boundaryId}/${expose.replace(/^\.\//u, '')}`;
 };
 
 export default function BoundaryOverlay() {
@@ -73,33 +73,33 @@ export default function BoundaryOverlay() {
     }
 
     const readBoxes = () => {
-      const nextBoxes = [...document.querySelectorAll<HTMLElement>('[data-mf-boundary]')].flatMap(
-        (element, index) => {
-          const id = element.dataset['mfBoundary'] ?? 'unknown';
-          const rect = element.getBoundingClientRect();
-          if (rect.width <= 0 || rect.height <= 0) {
-            return [];
-          }
-          const fallback = {
-            color: 'var(--um-boundary-unknown, #7c8cff)',
-            label: id,
-          };
-          const config = boundaryConfig[id] ?? fallback;
+      const nextBoxes = [
+        ...document.querySelectorAll<HTMLElement>('[data-modern-boundary-id]'),
+      ].flatMap((element, index) => {
+        const id = element.dataset['modernBoundaryId'] ?? 'unknown';
+        const rect = element.getBoundingClientRect();
+        if (rect.width <= 0 || rect.height <= 0) {
+          return [];
+        }
+        const fallback = {
+          color: 'var(--um-boundary-unknown, #7c8cff)',
+          label: id,
+        };
+        const config = boundaryConfig[id] ?? fallback;
 
-          return [
-            {
-              ...config,
-              component: moduleLabel(element.dataset['mfRemote'], element.dataset['mfExpose']),
-              height: rect.height,
-              id: `${id}-${index}`,
-              labelPlacement: rect.height < 48 ? 'above' : 'inside',
-              left: rect.left,
-              top: rect.top,
-              width: rect.width,
-            } satisfies BoundaryBox,
-          ];
-        },
-      );
+        return [
+          {
+            ...config,
+            component: moduleLabel(id, element.dataset['modernMfExpose']),
+            height: rect.height,
+            id: `${id}-${index}`,
+            labelPlacement: rect.height < 48 ? 'above' : 'inside',
+            left: rect.left,
+            top: rect.top,
+            width: rect.width,
+          } satisfies BoundaryBox,
+        ];
+      });
 
       setBoxes(nextBoxes);
     };
@@ -107,7 +107,7 @@ export default function BoundaryOverlay() {
     readBoxes();
 
     const resizeObserver = new ResizeObserver(readBoxes);
-    for (const element of document.querySelectorAll<HTMLElement>('[data-mf-boundary]')) {
+    for (const element of document.querySelectorAll<HTMLElement>('[data-modern-boundary-id]')) {
       resizeObserver.observe(element);
     }
 

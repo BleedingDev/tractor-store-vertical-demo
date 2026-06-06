@@ -48,13 +48,13 @@
     }
   },
   "devDependencies": {
-    "@effect/tsgo": "0.13.0",
-    "@typescript/native-preview": "7.0.0-dev.20260527.2",
+    "@effect/tsgo": "0.14.0",
+    "@typescript/native-preview": "7.0.0-dev.20260606.1",
     "lefthook": "^2.1.9",
-    "oxlint": "1.66.0",
-    "oxfmt": "0.51.0",
-    "ultracite": "7.7.0",
-    "wrangler": "4.95.0",
+    "oxlint": "1.68.0",
+    "oxfmt": "0.53.0",
+    "ultracite": "7.8.1",
+    "wrangler": "4.98.0",
     "zephyr-agent": "1.1.1"
   }
 }

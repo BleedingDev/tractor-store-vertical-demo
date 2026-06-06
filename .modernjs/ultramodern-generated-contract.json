@@ -9,13 +9,13 @@
   },
   "versions": {
     "typescript": "6.0.3",
-    "typescriptNativePreview": "7.0.0-dev.20260527.2",
-    "moduleFederation": "2.5.0",
-    "tanstackRouter": "1.170.8",
-    "i18next": "26.2.0",
+    "typescriptNativePreview": "7.0.0-dev.20260606.1",
+    "moduleFederation": "2.5.1",
+    "tanstackRouter": "1.170.15",
+    "i18next": "26.3.1",
     "zephyrRspackPlugin": "1.1.1",
     "zephyrAgent": "1.1.1",
-    "wrangler": "4.95.0"
+    "wrangler": "4.98.0"
   },
   "cssFederation": {
     "schemaVersion": 1,
@@ -198,7 +198,8 @@
           "workerName": "tractor-store-vertical-demo-shell-super-app",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -209,11 +210,94 @@
           "evidence": {
             "proofScript": "scripts/proof-cloudflare-version.mjs",
             "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+          },
+          "compatibilityDate": "2026-06-02",
+          "security": {
+            "contentSecurityPolicy": {
+              "directives": {
+                "base-uri": [
+                  "'self'"
+                ],
+                "connect-src": [
+                  "'self'",
+                  "https:",
+                  "http:",
+                  "wss:",
+                  "ws:"
+                ],
+                "default-src": [
+                  "'self'"
+                ],
+                "font-src": [
+                  "'self'",
+                  "data:",
+                  "https:",
+                  "http:"
+                ],
+                "form-action": [
+                  "'self'"
+                ],
+                "frame-ancestors": [
+                  "'self'"
+                ],
+                "img-src": [
+                  "'self'",
+                  "data:",
+                  "blob:",
+                  "https:",
+                  "http:"
+                ],
+                "manifest-src": [
+                  "'self'",
+                  "https:",
+                  "http:"
+                ],
+                "object-src": [
+                  "'none'"
+                ],
+                "script-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "'unsafe-eval'",
+                  "https:",
+                  "http:",
+                  "blob:"
+                ],
+                "style-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "https:",
+                  "http:"
+                ],
+                "worker-src": [
+                  "'self'",
+                  "blob:"
+                ]
+              },
+              "mode": "report-only",
+              "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+            },
+            "cookies": {
+              "mutateSetCookie": false,
+              "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
+            },
+            "enabled": true,
+            "headers": {
+              "contentTypeOptions": "nosniff",
+              "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+              "referrerPolicy": "strict-origin-when-cross-origin"
+            },
+            "noindex": {
+              "localhost": true,
+              "previewHostnames": [],
+              "workersDev": true
+            }
           }
         },
         "worker": {
           "name": "tractor-store-vertical-demo-shell-super-app",
-          "ssr": true
+          "ssr": true,
+          "compatibilityDate": "2026-06-02"
         },
         "output": {
           "flat": true,
@@ -559,7 +643,8 @@
           "workerName": "tractor-store-vertical-demo-explore",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -571,11 +656,94 @@
           "evidence": {
             "proofScript": "scripts/proof-cloudflare-version.mjs",
             "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+          },
+          "compatibilityDate": "2026-06-02",
+          "security": {
+            "contentSecurityPolicy": {
+              "directives": {
+                "base-uri": [
+                  "'self'"
+                ],
+                "connect-src": [
+                  "'self'",
+                  "https:",
+                  "http:",
+                  "wss:",
+                  "ws:"
+                ],
+                "default-src": [
+                  "'self'"
+                ],
+                "font-src": [
+                  "'self'",
+                  "data:",
+                  "https:",
+                  "http:"
+                ],
+                "form-action": [
+                  "'self'"
+                ],
+                "frame-ancestors": [
+                  "'self'"
+                ],
+                "img-src": [
+                  "'self'",
+                  "data:",
+                  "blob:",
+                  "https:",
+                  "http:"
+                ],
+                "manifest-src": [
+                  "'self'",
+                  "https:",
+                  "http:"
+                ],
+                "object-src": [
+                  "'none'"
+                ],
+                "script-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "'unsafe-eval'",
+                  "https:",
+                  "http:",
+                  "blob:"
+                ],
+                "style-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "https:",
+                  "http:"
+                ],
+                "worker-src": [
+                  "'self'",
+                  "blob:"
+                ]
+              },
+              "mode": "report-only",
+              "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+            },
+            "cookies": {
+              "mutateSetCookie": false,
+              "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
+            },
+            "enabled": true,
+            "headers": {
+              "contentTypeOptions": "nosniff",
+              "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+              "referrerPolicy": "strict-origin-when-cross-origin"
+            },
+            "noindex": {
+              "localhost": true,
+              "previewHostnames": [],
+              "workersDev": true
+            }
           }
         },
         "worker": {
           "name": "tractor-store-vertical-demo-explore",
-          "ssr": true
+          "ssr": true,
+          "compatibilityDate": "2026-06-02"
         },
         "output": {
           "flat": true,
@@ -956,7 +1124,8 @@
           "workerName": "tractor-store-vertical-demo-decide",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -968,11 +1137,94 @@
           "evidence": {
             "proofScript": "scripts/proof-cloudflare-version.mjs",
             "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+          },
+          "compatibilityDate": "2026-06-02",
+          "security": {
+            "contentSecurityPolicy": {
+              "directives": {
+                "base-uri": [
+                  "'self'"
+                ],
+                "connect-src": [
+                  "'self'",
+                  "https:",
+                  "http:",
+                  "wss:",
+                  "ws:"
+                ],
+                "default-src": [
+                  "'self'"
+                ],
+                "font-src": [
+                  "'self'",
+                  "data:",
+                  "https:",
+                  "http:"
+                ],
+                "form-action": [
+                  "'self'"
+                ],
+                "frame-ancestors": [
+                  "'self'"
+                ],
+                "img-src": [
+                  "'self'",
+                  "data:",
+                  "blob:",
+                  "https:",
+                  "http:"
+                ],
+                "manifest-src": [
+                  "'self'",
+                  "https:",
+                  "http:"
+                ],
+                "object-src": [
+                  "'none'"
+                ],
+                "script-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "'unsafe-eval'",
+                  "https:",
+                  "http:",
+                  "blob:"
+                ],
+                "style-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "https:",
+                  "http:"
+                ],
+                "worker-src": [
+                  "'self'",
+                  "blob:"
+                ]
+              },
+              "mode": "report-only",
+              "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+            },
+            "cookies": {
+              "mutateSetCookie": false,
+              "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
+            },
+            "enabled": true,
+            "headers": {
+              "contentTypeOptions": "nosniff",
+              "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+              "referrerPolicy": "strict-origin-when-cross-origin"
+            },
+            "noindex": {
+              "localhost": true,
+              "previewHostnames": [],
+              "workersDev": true
+            }
           }
         },
         "worker": {
           "name": "tractor-store-vertical-demo-decide",
-          "ssr": true
+          "ssr": true,
+          "compatibilityDate": "2026-06-02"
         },
         "output": {
           "flat": true,
@@ -1368,7 +1620,8 @@
           "workerName": "tractor-store-vertical-demo-checkout",
           "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
           "compatibilityFlags": [
-            "nodejs_compat"
+            "nodejs_compat",
+            "global_fetch_strictly_public"
           ],
           "assetsBinding": "ASSETS",
           "routes": {
@@ -1380,11 +1633,94 @@
           "evidence": {
             "proofScript": "scripts/proof-cloudflare-version.mjs",
             "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+          },
+          "compatibilityDate": "2026-06-02",
+          "security": {
+            "contentSecurityPolicy": {
+              "directives": {
+                "base-uri": [
+                  "'self'"
+                ],
+                "connect-src": [
+                  "'self'",
+                  "https:",
+                  "http:",
+                  "wss:",
+                  "ws:"
+                ],
+                "default-src": [
+                  "'self'"
+                ],
+                "font-src": [
+                  "'self'",
+                  "data:",
+                  "https:",
+                  "http:"
+                ],
+                "form-action": [
+                  "'self'"
+                ],
+                "frame-ancestors": [
+                  "'self'"
+                ],
+                "img-src": [
+                  "'self'",
+                  "data:",
+                  "blob:",
+                  "https:",
+                  "http:"
+                ],
+                "manifest-src": [
+                  "'self'",
+                  "https:",
+                  "http:"
+                ],
+                "object-src": [
+                  "'none'"
+                ],
+                "script-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "'unsafe-eval'",
+                  "https:",
+                  "http:",
+                  "blob:"
+                ],
+                "style-src": [
+                  "'self'",
+                  "'unsafe-inline'",
+                  "https:",
+                  "http:"
+                ],
+                "worker-src": [
+                  "'self'",
+                  "blob:"
+                ]
+              },
+              "mode": "report-only",
+              "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+            },
+            "cookies": {
+              "mutateSetCookie": false,
+              "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
+            },
+            "enabled": true,
+            "headers": {
+              "contentTypeOptions": "nosniff",
+              "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+              "referrerPolicy": "strict-origin-when-cross-origin"
+            },
+            "noindex": {
+              "localhost": true,
+              "previewHostnames": [],
+              "workersDev": true
+            }
           }
         },
         "worker": {
           "name": "tractor-store-vertical-demo-checkout",
-          "ssr": true
+          "ssr": true,
+          "compatibilityDate": "2026-06-02"
         },
         "output": {
           "flat": true,
