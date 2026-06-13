@@ -21,6 +21,7 @@
       "addToCart": "Add to basket",
       "checkout": "Checkout",
       "continueShopping": "Continue shopping",
+      "placeOrder": "Place order",
       "remove": "Remove",
       "viewCart": "View cart"
     },
@@ -29,8 +30,21 @@
       "title": "Basket",
       "total": "Total"
     },
+    "form": {
+      "address": "Delivery address",
+      "email": "Email",
+      "name": "Name"
+    },
     "product": {
       "stockShipping": "8 in stock, free shipping"
+    },
+    "summary": {
+      "title": "Order summary"
+    },
+    "thanks": {
+      "empty": "No recent order was found in this browser.",
+      "orderNumber": "Order number",
+      "title": "Thank you for your order"
     }
   }
 }

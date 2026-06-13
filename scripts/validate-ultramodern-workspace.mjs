@@ -452,7 +452,7 @@ assert(
 );
 assert(
   rootPackage.scripts?.['cloudflare:proof'] ===
-    'node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json',
+    'node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json && pnpm proof:workflow',
   'Root must expose cloudflare:proof',
 );
 assert(

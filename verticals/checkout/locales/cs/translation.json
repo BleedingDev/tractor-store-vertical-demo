@@ -21,6 +21,7 @@
       "addToCart": "Přidat do košíku",
       "checkout": "Pokladna",
       "continueShopping": "Pokračovat v nákupu",
+      "placeOrder": "Objednat",
       "remove": "Odebrat",
       "viewCart": "Zobrazit košík"
     },
@@ -29,8 +30,21 @@
       "title": "Košík",
       "total": "Celkem"
     },
+    "form": {
+      "address": "Doručovací adresa",
+      "email": "E-mail",
+      "name": "Jméno"
+    },
     "product": {
       "stockShipping": "8 skladem, doprava zdarma"
+    },
+    "summary": {
+      "title": "Souhrn objednávky"
+    },
+    "thanks": {
+      "empty": "V tomto prohlížeči nebyla nalezena žádná poslední objednávka.",
+      "orderNumber": "Číslo objednávky",
+      "title": "Děkujeme za objednávku"
     }
   }
 }

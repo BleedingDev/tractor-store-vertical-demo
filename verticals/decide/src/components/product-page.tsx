@@ -124,9 +124,11 @@ export default function DecideProductPage() {
               ))}
             </ul>
             <AddToCart
-              sku={selected.sku}
-              productName={productName(selected)}
+              image={image(selected.sku, 200)}
               price={selected.price}
+              productName={productName(selected)}
+              sku={selected.sku}
+              slug={slugify(selected.baseName)}
             />
           </div>
         </section>
