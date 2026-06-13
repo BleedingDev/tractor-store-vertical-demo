@@ -13,13 +13,13 @@ const defaultOut = path.join(
 const cartStorageKey = 'ultramodern-tractor-cart';
 const orderStorageKey = 'ultramodern-tractor-last-order';
 const product = {
-  detailName: 'Global Gallant Sahara Dawn',
-  gridName: 'Global Gallant',
-  image: 'https://blueprint.the-tractor.store/cdn/img/product/200/CL-10-SD.webp',
-  price: 2600,
-  sku: 'CL-10-SD',
-  slug: 'global-gallant',
-  variant: 'Sahara Dawn',
+  detailName: 'Sapphire Sunworker 460R',
+  gridName: 'Sapphire Sunworker 460R',
+  image: 'https://blueprint.the-tractor.store/cdn/img/product/200/AU-04-RD.webp',
+  price: 8500,
+  sku: 'AU-04-RD',
+  slug: 'sapphire-sunworker-460r',
+  variant: 'Sapphire Sunworker 460R',
 };
 
 function parseArgs(argv) {

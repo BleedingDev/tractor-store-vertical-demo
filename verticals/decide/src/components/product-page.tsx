@@ -1,65 +1,13 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import {
+  findListedTractorBySlug,
+  findTractorVariant,
+  responsiveImage,
+  sizedImage,
+  tractorProductVariants,
+} from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 import { AddToCart, Recommendations } from './vertical-components';
-
-const image = (sku: string, size: number) =>
-  `https://blueprint.the-tractor.store/cdn/img/product/${size}/${sku}.webp`;
-
-const imageSet = (sku: string) =>
-  [400, 800].map((size) => `${image(sku, size)} ${size}w`).join(', ');
-
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/gu, '-')
-    .replaceAll(/^-|-$/gu, '');
-
-const products = [
-  {
-    baseName: 'Holland Hamster',
-    color: '#c2b280',
-    finish: 'Polder Green',
-    labelKey: 'decide.product.variants.polderGreen',
-    price: 7750,
-    sku: 'CL-08-GR',
-  },
-  {
-    baseName: 'Holland Hamster',
-    color: '#d65282',
-    finish: 'Tulip Magenta',
-    labelKey: 'decide.product.variants.tulipMagenta',
-    price: 7900,
-    sku: 'CL-08-PI',
-  },
-  {
-    baseName: 'Global Gallant',
-    color: '#d96c2c',
-    finish: 'Sahara Dawn',
-    price: 2600,
-    sku: 'CL-10-SD',
-  },
-  {
-    baseName: 'Fieldmaster Classic',
-    color: '#d2bd81',
-    finish: 'Sahara Dust',
-    price: 6200,
-    sku: 'CL-15-SD',
-  },
-  {
-    baseName: 'Fieldmaster Classic',
-    color: '#d99aaa',
-    finish: 'Vintage Pink',
-    price: 6200,
-    sku: 'CL-15-PI',
-  },
-  {
-    baseName: 'EcoGrow Crop Commander',
-    color: '#f4c624',
-    finish: 'Zestful Horizon',
-    price: 3400,
-    sku: 'AU-05-ZH',
-  },
-] as const;
 
 const locationSearch = (location: { search?: unknown; searchStr?: unknown }) => {
   if (typeof location.searchStr === 'string') {
@@ -68,15 +16,29 @@ const locationSearch = (location: { search?: unknown; searchStr?: unknown }) => 
   return typeof location.search === 'string' ? location.search : '';
 };
 
-const productName = (product: (typeof products)[number]) => `${product.baseName} ${product.finish}`;
+const locationPathname = (location: { pathname?: unknown }) =>
+  typeof location.pathname === 'string' ? location.pathname : '';
+
+const slugFromPathname = (pathname: string) => {
+  const segments = pathname.split('/').filter(Boolean);
+  const tractorsIndex = segments.indexOf('tractors');
+  return tractorsIndex === -1 ? undefined : segments[tractorsIndex + 1];
+};
 
 export default function DecideProductPage() {
   const { i18nInstance, language } = useModernI18n();
   const location = useLocation();
   const t = i18nInstance['t'].bind(i18nInstance);
   const requestedSku = new URLSearchParams(locationSearch(location)).get('sku');
-  const selected = products.find((product) => product.sku === requestedSku) ?? products[0];
-  const variants = products.filter((product) => product.baseName === selected.baseName);
+  const requestedSlug = slugFromPathname(locationPathname(location));
+  const selected =
+    findTractorVariant(requestedSku) ??
+    findTractorVariant(findListedTractorBySlug(requestedSlug)?.sku) ??
+    tractorProductVariants[0];
+  if (selected === undefined) {
+    return null;
+  }
+  const variants = tractorProductVariants.filter((product) => product.id === selected.id);
 
   return (
     <>
@@ -87,13 +49,13 @@ export default function DecideProductPage() {
       >
         <section className="decide:mb-4 decide:grid decide:items-center decide:justify-between decide:gap-10 decide:max-[499px]:[grid-template-areas:'image'_'information'] decide:min-[500px]:max-[999px]:grid-cols-[1fr_3fr_1fr] decide:min-[500px]:max-[999px]:[grid-template-areas:'._image_.'_'._information_.'] decide:min-[1000px]:min-h-[clamp(400px,calc(70vh-400px),650px)] decide:min-[1000px]:grid-cols-[4fr_5fr] decide:min-[1000px]:[grid-template-areas:'image_information'] decide:min-[1000px]:gap-[10%]">
           <img
-            alt={productName(selected)}
+            alt={selected.cartName}
             className="decide:[grid-area:image] decide:block decide:aspect-square decide:h-auto decide:w-full decide:object-contain"
             fetchPriority="high"
             height="400"
             sizes="(max-width: 767px) 80vw, 400px"
-            src={image(selected.sku, 400)}
-            srcSet={imageSet(selected.sku)}
+            src={sizedImage(selected.image, 400)}
+            srcSet={responsiveImage(selected.image, [400, 800])}
             width="400"
           />
           <div className="decide:[grid-area:information]">
@@ -111,24 +73,26 @@ export default function DecideProductPage() {
                   <a
                     aria-current={variant.sku === selected.sku ? 'true' : undefined}
                     className="decide:inline-flex decide:items-center decide:gap-2 decide:border-b decide:border-stone-950 decide:text-[1rem] decide:text-stone-950 decide:no-underline decide:focus-visible:outline decide:focus-visible:outline-2 decide:focus-visible:outline-offset-4 decide:focus-visible:outline-[#f6cf45]"
-                    href={`/${language}/tractors/${slugify(variant.baseName)}?sku=${variant.sku}`}
+                    href={`/${language}/tractors/${variant.slug}?sku=${variant.sku}`}
                   >
                     <span
                       aria-hidden="true"
                       className="decide:inline-block decide:h-4 decide:w-4 decide:rounded-full decide:border decide:border-stone-900/20"
                       style={{ backgroundColor: variant.color }}
                     />
-                    {'labelKey' in variant ? t(variant.labelKey) : variant.finish}
+                    {typeof variant.labelKey === 'string'
+                      ? t(variant.labelKey)
+                      : variant.variantLabel}
                   </a>
                 </li>
               ))}
             </ul>
             <AddToCart
-              image={image(selected.sku, 200)}
+              image={sizedImage(selected.image, 200)}
               price={selected.price}
-              productName={productName(selected)}
+              productName={selected.cartName}
               sku={selected.sku}
-              slug={slugify(selected.baseName)}
+              slug={selected.slug}
             />
           </div>
         </section>
