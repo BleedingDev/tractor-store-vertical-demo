@@ -3,7 +3,7 @@
   "name": "tractor-store-vertical-demo",
   "version": "0.1.0",
   "type": "module",
-  "packageManager": "pnpm@11.5.2",
+  "packageManager": "pnpm@11.7.0",
   "scripts": {
     "dev": "pnpm --parallel --filter @tractor-store-vertical-demo/shell-super-app --filter @tractor-store-vertical-demo/explore --filter @tractor-store-vertical-demo/decide --filter @tractor-store-vertical-demo/checkout dev",
     "dev:shell": "pnpm --filter @tractor-store-vertical-demo/shell-super-app dev",
@@ -34,7 +34,7 @@
   },
   "engines": {
     "node": ">=20",
-    "pnpm": ">=11.5.2 <11.6.0"
+    "pnpm": ">=11"
   },
   "workspaces": [
     "apps/*",
@@ -53,8 +53,8 @@
   },
   "devDependencies": {
     "@effect/tsgo": "0.14.0",
-    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.2.0-ultramodern.126",
-    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.2.0-ultramodern.126",
+    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.2.0-ultramodern.127",
+    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.2.0-ultramodern.127",
     "@playwright/test": "^1.60.0",
     "@typescript/native-preview": "7.0.0-dev.20260606.1",
     "lefthook": "^2.1.9",

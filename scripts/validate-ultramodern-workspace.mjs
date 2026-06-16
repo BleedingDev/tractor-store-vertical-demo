@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const packageScope = 'tractor-store-vertical-demo';
-const expectedPnpmVersion = '11.5.2';
+const expectedPnpmVersion = '11.7.0';
 const tailwindEnabled = true;
 const fullStackVerticals = [
   {
@@ -262,16 +262,29 @@ const expectedModernPackageSpecifier = (packageName) => {
   const specifier = packageSource.modernPackages?.specifier;
   return alias ? `npm:${alias}@${specifier}` : specifier;
 };
+const parseSemver = (version) => {
+  const match = /^(\d+)\.(\d+)\.(\d+)/u.exec(version);
+  assert(match, `Unable to parse pnpm version: ${version}`);
+  return {
+    major: Number(match[1]),
+    minor: Number(match[2]),
+    patch: Number(match[3]),
+  };
+};
+const compareSemver = (left, right) =>
+  left.major - right.major || left.minor - right.minor || left.patch - right.patch;
 
-const activePnpmVersion = execFileSync('pnpm', ['--version'], {
+const activePnpmVersion = execFileSync('pnpm', ['--pm-on-fail=ignore', '--version'], {
   cwd: root,
   encoding: 'utf-8',
   stdio: ['ignore', 'pipe', 'pipe'],
 }).trim();
+const minimumPnpmVersion = { major: 11, minor: 0, patch: 0 };
+const currentPnpmVersion = parseSemver(activePnpmVersion);
 
 assert(
-  activePnpmVersion === expectedPnpmVersion,
-  `Generated workspace requires pnpm ${expectedPnpmVersion}; active pnpm is ${activePnpmVersion}. Run mise install, then rerun pnpm from the activated shell.`,
+  compareSemver(currentPnpmVersion, minimumPnpmVersion) >= 0,
+  `Generated workspace requires pnpm >=11; active pnpm is ${activePnpmVersion}. Run mise install, then rerun pnpm from the activated shell.`,
 );
 
 const requiredPaths = [
@@ -370,6 +383,7 @@ const overlay = readJson('topology/local-overlays/development.json');
 
 assert(rootPackage.private === true, 'Root package must be private');
 assert(rootPackage.packageManager === `pnpm@${expectedPnpmVersion}`, 'Root must pin pnpm');
+assert(rootPackage.engines?.pnpm === '>=11', 'Root must require pnpm >=11');
 assert(rootPackage.modernjs?.preset === 'presetUltramodern', 'Root must declare presetUltramodern');
 assert(
   rootPackage.modernjs?.packageSource?.config === './.modernjs/ultramodern-package-source.json',
