@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const packageScope = 'tractor-store-vertical-demo';
-const expectedPnpmVersion = '11.7.0';
+const expectedPnpmVersion = '11.9.0';
 const tailwindEnabled = true;
 const fullStackVerticals = [
   {

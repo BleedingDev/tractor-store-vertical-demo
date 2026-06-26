@@ -2,24 +2,29 @@
   "schemaVersion": 1,
   "template": {
     "id": "modernjs-ultramodern-superapp-workspace",
-    "version": "3.2.0-ultramodern.127",
+    "version": "3.4.0-ultramodern.1",
     "displayName": "Modern.js UltraModern SuperApp Workspace",
-    "description": "Canonical shell, full-stack verticals, shared packages, and topology skeleton.",
+    "description": "Growable SuperApp shell, shared packages, and topology skeleton.",
     "compatibilityLane": "ultramodern-mv",
-    "minimumModernVersion": "3.2.0-ultramodern.127"
+    "minimumModernVersion": "3.4.0-ultramodern.1"
   },
   "source": {
     "type": "builtin",
     "name": "modernjs-ultramodern-superapp-workspace",
     "repositoryPath": "packages/toolkit/create/template-workspace",
-    "generator": "packages/toolkit/create/src/ultramodern-workspace.ts"
+    "generator": "packages/toolkit/create/src/ultramodern-workspace/"
   },
   "integrity": {
     "checksums": [
       {
         "algorithm": "sha256",
-        "value": "2a5ccaf9573a3aab5adec9a4c40747d5bd7c56be2a2f5990b9cbf7390f796a2c",
+        "value": "73d6a858f3c74f1148ce603e2fb388b880ef4fe99d96410f9a58dc128cc59a33",
         "scope": "source-tree"
+      },
+      {
+        "algorithm": "sha256",
+        "value": "21c8b11fd9a2c1891f19cab14c10260286b0bf61e1cad21204ae363172b7caec",
+        "scope": "file-templates-tree"
       }
     ],
     "provenance": {
@@ -47,7 +52,6 @@
       "oxlint.config.ts",
       "pnpm-workspace.yaml",
       "scripts/**",
-      "services/**",
       "topology/**",
       "tsconfig.base.json"
     ],
@@ -65,7 +69,7 @@
   "packageSource": {
     "strategy": "install",
     "config": ".modernjs/ultramodern-package-source.json",
-    "modernPackageSpecifier": "3.2.0-ultramodern.127",
+    "modernPackageSpecifier": "3.4.0-ultramodern.1",
     "generatedWorkspacePackageSpecifier": "workspace:*"
   },
   "agentSkills": {

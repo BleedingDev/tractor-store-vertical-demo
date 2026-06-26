@@ -4,18 +4,18 @@
   "packageManager": {
     "source": "package.json",
     "manager": "pnpm",
-    "version": "11.7.0",
+    "version": "11.9.0",
     "toolchain": "mise"
   },
   "versions": {
     "typescript": "6.0.3",
-    "typescriptNativePreview": "7.0.0-dev.20260606.1",
-    "moduleFederation": "2.5.1",
-    "tanstackRouter": "1.170.15",
+    "typescriptNativePreview": "7.0.0-dev.20260624.1",
+    "moduleFederation": "2.6.0",
+    "tanstackRouter": "1.170.16",
     "i18next": "26.3.1",
     "zephyrRspackPlugin": "1.1.1",
     "zephyrAgent": "1.1.1",
-    "wrangler": "4.98.0"
+    "wrangler": "4.102.0"
   },
   "cssFederation": {
     "schemaVersion": 1,

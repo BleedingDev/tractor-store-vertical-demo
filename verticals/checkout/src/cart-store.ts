@@ -20,7 +20,7 @@ const cartEvent = 'ultramodern-cart-change';
 const orderStorageKey = 'ultramodern-tractor-last-order';
 const orderSequenceStorageKey = 'ultramodern-tractor-order-sequence';
 const finishSuffixPattern =
-  / (Baltic Blue|Polder Green|Sahara Dawn|Silver|Tulip Magenta|Vintage Pink|Zestful Horizon)$/u;
+  / (?:Baltic Blue|Polder Green|Sahara Dawn|Silver|Tulip Magenta|Vintage Pink|Zestful Horizon)$/u;
 const fieldLoader: CartLine = {
   id: 'CL-08-GR',
   image: 'https://blueprint.the-tractor.store/cdn/img/product/200/CL-08-GR.webp',

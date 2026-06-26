@@ -36,7 +36,7 @@ export const recommendations = [
   image: `https://blueprint.the-tractor.store/cdn/img/product/[size]/${sku}.webp`,
   name,
   sku,
-  slug: productSlug(String(name).replace(/ (Baltic Blue|Polder Green|Sahara Dawn|Silver)$/u, '')),
+  slug: productSlug(String(name).replace(/ (?:Baltic Blue|Polder Green|Sahara Dawn|Silver)$/u, '')),
 }));
 
 export const productRecommendations = [
@@ -49,7 +49,7 @@ export const productRecommendations = [
   name,
   sku,
   slug: productSlug(
-    String(name).replace(/ (Sahara Dawn|Sahara Dust|Vintage Pink|Zestful Horizon)$/u, ''),
+    String(name).replace(/ (?:Sahara Dawn|Sahara Dust|Vintage Pink|Zestful Horizon)$/u, ''),
   ),
 }));
 
