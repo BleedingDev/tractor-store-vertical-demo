@@ -305,7 +305,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {
@@ -751,7 +751,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {
@@ -1232,7 +1232,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {
@@ -1728,7 +1728,7 @@
         }
       },
       "ssr": {
-        "mode": "stream",
+        "mode": "string",
         "moduleFederationAppSSR": true
       },
       "i18n": {

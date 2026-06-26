@@ -234,6 +234,22 @@ const sortObjectKeys = (value) => {
 };
 
 const stableJson = (value) => JSON.stringify(sortObjectKeys(value));
+const expectedSsrContract = { mode: 'string', moduleFederationAppSSR: true };
+const assertAppSsrContract = (appId, contractEntry, configText) => {
+  assert(
+    stableJson(contractEntry?.ssr) === stableJson(expectedSsrContract),
+    `${appId} SSR contract must use string Module Federation SSR`,
+  );
+  assert(configText.includes("mode: 'string'"), `${appId} modern.config.ts must use string SSR`);
+  assert(
+    configText.includes('moduleFederationAppSSR: true'),
+    `${appId} modern.config.ts must enable Module Federation SSR`,
+  );
+  assert(
+    !configText.includes('splitChunks: false'),
+    `${appId} modern.config.ts must not disable splitChunks until stream SSR preserves federated CSS`,
+  );
+};
 const assertExists = (relativePath) => {
   assert(fs.existsSync(path.join(root, relativePath)), `Missing ${relativePath}`);
 };
@@ -579,6 +595,7 @@ assert(
   'Shell modern.config.ts must pin the generated Cloudflare compatibility date',
 );
 const shellContract = generatedContract.apps?.find((app) => app.id === 'shell-super-app');
+assertAppSsrContract('shell-super-app', shellContract, shellModernConfig);
 assert(
   shellContract?.deploy?.cloudflare?.workerName === expectedWorkerName('shell-super-app'),
   'Shell Cloudflare workerName is incorrect',
@@ -774,6 +791,7 @@ for (const vertical of fullStackVerticals) {
   );
 
   const contractEntry = generatedContract.apps?.find((app) => app.id === vertical.id);
+  assertAppSsrContract(vertical.id, contractEntry, modernConfig);
   assert(
     contractEntry?.path === vertical.path,
     `${vertical.id} generated contract path is incorrect`,
