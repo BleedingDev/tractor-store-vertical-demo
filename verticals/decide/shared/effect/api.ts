@@ -21,6 +21,15 @@ export const decideItemSchema = Schema.Struct({
   title: Schema.String,
 });
 
+export const ultramodernApiMarker = {
+  appId: 'decide',
+  build: '5eaf60929a19f5f1',
+  deployProfile: 'cloudflare-ssr-mf-effect-v1',
+  packageName: '@tractor-store-vertical-demo/decide',
+  surface: 'effect-bff',
+  version: '0.1.0',
+} as const;
+
 export const decideReadinessSchema = Schema.Struct({
   checks: Schema.Struct({
     effectBff: Schema.Literal('ready'),
@@ -37,11 +46,19 @@ export const decideCreatePayloadSchema = Schema.Struct({
   title: Schema.String,
 });
 
-export class DecideNotFound extends Schema.TaggedErrorClass<DecideNotFound>()('DecideNotFound', {
-  id: Schema.String,
-}) {}
+export interface DecideNotFound {
+  readonly _tag: 'DecideNotFound';
+  readonly id: string;
+}
 
-export const decideNotFoundSchema = DecideNotFound.pipe(HttpApiSchema.status(404));
+export const decideNotFoundSchema = Schema.TaggedStruct('DecideNotFound', {
+  id: Schema.String,
+}).pipe(HttpApiSchema.status(404));
+
+export const makeDecideNotFound = (id: string): DecideNotFound => ({
+  _tag: 'DecideNotFound',
+  id,
+});
 
 export interface OperationContext {
   operationId: string;

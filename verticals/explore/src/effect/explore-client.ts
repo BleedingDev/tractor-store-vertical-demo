@@ -17,15 +17,20 @@ export interface ExploreClientOptions {
   traceparent?: string;
 }
 
-export const createExploreClient = (options: ExploreClientOptions = {}) =>
+const makeExploreClient = (options: ExploreClientOptions = {}) =>
   makeEffectHttpApiClient(exploreEffectApi, {
     baseUrl: options.baseUrl ?? exploreApiContract.servicePrefix,
   });
 
-export const listExplore = (options: ExploreClientOptions & { limit?: number } = {}) =>
+export const createExploreClient = (options: ExploreClientOptions = {}): unknown =>
+  makeExploreClient(options);
+
+export const listExplore = (
+  options: ExploreClientOptions & { limit?: number } = {},
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createExploreClient({
+      makeExploreClient({
         ...options,
         operationContext: options.operationContext ?? exploreOperationContexts.list,
       }),
@@ -33,10 +38,10 @@ export const listExplore = (options: ExploreClientOptions & { limit?: number } =
     ),
   );
 
-export const getExploreReadiness = (options: ExploreClientOptions = {}) =>
+export const getExploreReadiness = (options: ExploreClientOptions = {}): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createExploreClient({
+      makeExploreClient({
         ...options,
         operationContext: options.operationContext ?? exploreOperationContexts.readiness,
       }),
@@ -44,10 +49,10 @@ export const getExploreReadiness = (options: ExploreClientOptions = {}) =>
     ),
   );
 
-export const getExplore = (id: string, options: ExploreClientOptions = {}) =>
+export const getExplore = (id: string, options: ExploreClientOptions = {}): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createExploreClient({
+      makeExploreClient({
         ...options,
         operationContext: options.operationContext ?? exploreOperationContexts.get,
       }),
@@ -55,10 +60,13 @@ export const getExplore = (id: string, options: ExploreClientOptions = {}) =>
     ),
   );
 
-export const createExplore = (title: string, options: ExploreClientOptions = {}) =>
+export const createExplore = (
+  title: string,
+  options: ExploreClientOptions = {},
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createExploreClient({
+      makeExploreClient({
         ...options,
         operationContext: options.operationContext ?? exploreOperationContexts.create,
       }),

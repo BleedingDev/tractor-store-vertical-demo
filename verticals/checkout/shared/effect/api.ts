@@ -21,6 +21,15 @@ export const checkoutItemSchema = Schema.Struct({
   title: Schema.String,
 });
 
+export const ultramodernApiMarker = {
+  appId: 'checkout',
+  build: '37c25641b66d32b5',
+  deployProfile: 'cloudflare-ssr-mf-effect-v1',
+  packageName: '@tractor-store-vertical-demo/checkout',
+  surface: 'effect-bff',
+  version: '0.1.0',
+} as const;
+
 export const checkoutReadinessSchema = Schema.Struct({
   checks: Schema.Struct({
     effectBff: Schema.Literal('ready'),
@@ -37,14 +46,19 @@ export const checkoutCreatePayloadSchema = Schema.Struct({
   title: Schema.String,
 });
 
-export class CheckoutNotFound extends Schema.TaggedErrorClass<CheckoutNotFound>()(
-  'CheckoutNotFound',
-  {
-    id: Schema.String,
-  },
-) {}
+export interface CheckoutNotFound {
+  readonly _tag: 'CheckoutNotFound';
+  readonly id: string;
+}
 
-export const checkoutNotFoundSchema = CheckoutNotFound.pipe(HttpApiSchema.status(404));
+export const checkoutNotFoundSchema = Schema.TaggedStruct('CheckoutNotFound', {
+  id: Schema.String,
+}).pipe(HttpApiSchema.status(404));
+
+export const makeCheckoutNotFound = (id: string): CheckoutNotFound => ({
+  _tag: 'CheckoutNotFound',
+  id,
+});
 
 export interface OperationContext {
   operationId: string;

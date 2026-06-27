@@ -1,6 +1,6 @@
 # UltraModern Agent Contract
 
-This workspace is generated as an agent-ready UltraModern.js SuperApp. Agents should treat the files under `.agents/skills` as local project instructions, not optional reading.
+This workspace is generated as an agent-ready UltraModern.js SuperApp. Codex should treat the files under `.codex/skills` as local project instructions, not optional reading.
 
 ## Quality Gates
 
@@ -9,7 +9,7 @@ This workspace is generated as an agent-ready UltraModern.js SuperApp. Agents sh
 - `pnpm typecheck` runs effect-tsgo as the TypeScript checker.
 - `pnpm check` runs formatting, linting, effect-tsgo, private-skill availability checks, and the generated workspace contract.
 - Generated Codex stop hooks and subagent-stop hooks run `pnpm format && pnpm lint:fix && pnpm check`.
-- `postinstall` initializes Git when needed, installs agent skills and reference repos, then installs `lefthook`. Generated `lefthook.yml` runs `pnpm format`, `pnpm lint:fix`, and `pnpm check` on pre-commit; pre-push runs `pnpm check`.
+- `postinstall` formats the generated tree, installs/updates pinned Codex skills, and installs `lefthook`. Reference repos remain an explicit `pnpm agents:refs:install` step. Generated `lefthook.yml` runs `pnpm format`, `pnpm lint:fix`, and `pnpm check` on pre-commit; pre-push runs `pnpm check`.
 
 ## Localized Routes
 
@@ -28,7 +28,7 @@ Use these skills when the task touches the matching subsystem:
 - `rstest-best-practices`: Rstest configuration, test writing, mocking, snapshots, coverage, and CI test behavior.
 - `mf`: Module Federation docs, Modern.js integration, DTS/type checks, shared dependency checks, runtime errors, and observability troubleshooting.
 
-The public `module-federation/agent-skills` repository is installed during `pnpm install` and `pnpm skills:install`. `pnpm skills:check` fails when the required public `mf` skill is missing.
+Skill bodies are lockfile-pinned in `.codex/skills-lock.json` and installed into the repo-owned `.codex/skills` directory by default. The installer updates only pinned skill directories and preserves unrelated user skills already present under `.codex/skills`. Set `ULTRAMODERN_SKIP_CODEX_SKILLS=1` or `ULTRAMODERN_CODEX_SKILLS=0` to opt out during install. `pnpm skills:check` is advisory when local skill bodies are missing so offline CI can still run the normal gate.
 
 ## Private Skills
 
@@ -38,16 +38,16 @@ ScriptedAlchemy/TechsioCZ skills are private and are cloned only when the curren
 pnpm skills:install
 ```
 
-The installer copies only the pinned private skills from `.agents/skills-lock.json`: `plan-graph`, `dag`, `subagent-graph`, `helm`, and `debugger-mode`.
+The installer copies only the pinned private skills from `.codex/skills-lock.json`: `plan-graph`, `dag`, `subagent-graph`, `helm`, and `debugger-mode`.
 
 ## Agent Reference Repositories
 
-The workspace installs read-only source references under `repos/` by default during `pnpm install` using `git subtree add --squash`. These repositories are reference material for coding agents, not application source:
+The workspace can install read-only source references under `repos/` with the explicit `pnpm agents:refs:install` command using `git subtree add --squash`. These repositories are reference material for coding agents, not application source:
 
 - `repos/effect` from `Effect-TS/effect`.
 - `repos/ultramodern.js` from `BleedingDev/ultramodern.js`.
 
-Agents may read files under `repos/` to understand upstream patterns, APIs, and project conventions. Do not edit files under `repos/`, import from them, or make production code depend on them. To skip this setup, run installs with `ULTRAMODERN_SKIP_AGENT_REPOS=1`.
+Agents may read files under `repos/` to understand upstream patterns, APIs, and project conventions. Do not edit files under `repos/`, import from them, or make production code depend on them. `ULTRAMODERN_SKIP_AGENT_REPOS=1` disables the installer even when invoked explicitly.
 
 ## Project Priorities
 
@@ -60,4 +60,4 @@ Agents may read files under `repos/` to understand upstream patterns, APIs, and 
 
 ## Skill Provenance
 
-The vendored Rstack skills, public Module Federation skill, and private TechsioCZ skill set are pinned in `.agents/skills-lock.json`. Do not update, remove, or replace them casually. If a skill needs updating, update the lock file and run `pnpm check`.
+The Rstack skills, public Module Federation skill, and private TechsioCZ skill set are pinned in `.codex/skills-lock.json`. Do not update, remove, or replace them casually. If a skill needs updating, update the lock file and run `pnpm check`.

@@ -1,9 +1,9 @@
 import { defineEffectBff, Effect, HttpApiBuilder, Layer } from '@modern-js/plugin-bff/effect-edge';
-import { ultramodernApiMarker } from '../../src/ultramodern-build.ts';
 import {
   exploreEffectApi,
   exploreOperationContexts,
-  ExploreNotFound,
+  makeExploreNotFound,
+  ultramodernApiMarker,
 } from '../../shared/effect/api.ts';
 import type { OperationContext } from '../../shared/effect/api.ts';
 
@@ -68,9 +68,7 @@ const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers
     .handle('get', ({ params }) => {
       const match = exploreItems.find((exploreItem) => exploreItem.id === params.id);
       const result =
-        match === undefined
-          ? Effect.fail(new ExploreNotFound({ id: params.id }))
-          : Effect.succeed(match);
+        match === undefined ? Effect.fail(makeExploreNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
         Effect.withSpan('ultramodern.effect.explore.get', {
           attributes: operationAttributes(exploreOperationContexts.get),
@@ -99,7 +97,9 @@ const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers
 
 const layer = HttpApiBuilder.layer(exploreEffectApi).pipe(Layer.provide(exploreLayer));
 
-export default defineEffectBff({
+const bff: unknown = defineEffectBff({
   api: exploreEffectApi,
   layer,
 });
+
+export default bff;

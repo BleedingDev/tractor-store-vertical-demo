@@ -1,9 +1,9 @@
 import { defineEffectBff, Effect, HttpApiBuilder, Layer } from '@modern-js/plugin-bff/effect-edge';
-import { ultramodernApiMarker } from '../../src/ultramodern-build.ts';
 import {
   checkoutEffectApi,
   checkoutOperationContexts,
-  CheckoutNotFound,
+  makeCheckoutNotFound,
+  ultramodernApiMarker,
 } from '../../shared/effect/api.ts';
 import type { OperationContext } from '../../shared/effect/api.ts';
 
@@ -64,9 +64,7 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
     .handle('get', ({ params }) => {
       const match = checkoutItems.find((checkoutItem) => checkoutItem.id === params.id);
       const result =
-        match === undefined
-          ? Effect.fail(new CheckoutNotFound({ id: params.id }))
-          : Effect.succeed(match);
+        match === undefined ? Effect.fail(makeCheckoutNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
         Effect.withSpan('ultramodern.effect.checkout.get', {
           attributes: operationAttributes(checkoutOperationContexts.get),
@@ -95,7 +93,9 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
 
 const layer = HttpApiBuilder.layer(checkoutEffectApi).pipe(Layer.provide(checkoutLayer));
 
-export default defineEffectBff({
+const bff: unknown = defineEffectBff({
   api: checkoutEffectApi,
   layer,
 });
+
+export default bff;

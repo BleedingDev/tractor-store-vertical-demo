@@ -13,7 +13,7 @@ const runtimeVersion = (require('@modern-js/runtime/package.json') as { version:
 const reactVersion = (require('react/package.json') as { version: string }).version;
 const reactDomVersion = (require('react-dom/package.json') as { version: string }).version;
 
-export default createModuleFederationConfig({
+const config: unknown = createModuleFederationConfig({
   bridge: {
     enableBridgeRouter: false,
   },
@@ -23,8 +23,9 @@ export default createModuleFederationConfig({
   dts: {
     displayErrorInTerminal: true,
     generateTypes: {
-      compilerInstance: '--package typescript -- tsc',
+      compilerInstance: 'tsgo',
     },
+    tsConfigPath: './tsconfig.mf-types.json',
   },
   exposes: {
     './AddToCart': './src/components/add-to-cart.tsx',
@@ -75,3 +76,5 @@ export default createModuleFederationConfig({
   },
   treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
 });
+
+export default config;

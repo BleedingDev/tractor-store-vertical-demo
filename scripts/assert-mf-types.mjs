@@ -1,62 +1,28 @@
-import fs from 'node:fs';
+#!/usr/bin/env node
+import { spawnSync } from 'node:child_process';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const root = process.cwd();
-const generatedContractPath = path.join(root, '.modernjs/ultramodern-generated-contract.json');
-const generatedContract = fs.existsSync(generatedContractPath)
-  ? JSON.parse(fs.readFileSync(generatedContractPath, 'utf-8'))
-  : undefined;
-const defaultAppDirs = ['verticals/explore', 'verticals/decide', 'verticals/checkout'];
+const createBin = process.env.ULTRAMODERN_CREATE_BIN;
+const forwardedArgs = process.argv.slice(2);
+const workspaceRoot =
+  process.env.ULTRAMODERN_WORKSPACE_ROOT ??
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ultramodernArgs = ['ultramodern', 'mf-types', ...[], ...forwardedArgs];
+const result = createBin
+  ? spawnSync(process.execPath, [createBin, ...ultramodernArgs], {
+      env: { ...process.env, ULTRAMODERN_WORKSPACE_ROOT: workspaceRoot },
+      stdio: 'inherit',
+    })
+  : spawnSync('modern-js-create', ultramodernArgs, {
+      env: { ...process.env, ULTRAMODERN_WORKSPACE_ROOT: workspaceRoot },
+      shell: process.platform === 'win32',
+      stdio: 'inherit',
+    });
 
-const args = process.argv.slice(2);
-if (args.includes('--help') || args.includes('-h')) {
-  process.stdout.write(`Usage:
-  node scripts/assert-mf-types.mjs [app-dir...]
-
-Checks that every Module Federation remote with exposed modules emitted a non-empty dist/@mf-types.zip archive and uses the workspace TypeScript compiler.
-`);
-  process.exit(0);
+if (result.error) {
+  console.error(result.error.message);
+  process.exit(1);
 }
 
-const candidateDirs = args;
-let appDirs = defaultAppDirs;
-if (candidateDirs.length > 0) {
-  appDirs = candidateDirs;
-} else if (fs.existsSync(path.join(root, 'module-federation.config.ts'))) {
-  appDirs = ['.'];
-}
-
-for (const appDir of appDirs) {
-  const configPath = path.join(root, appDir, 'module-federation.config.ts');
-  if (!fs.existsSync(configPath)) {
-    throw new Error(`Missing Module Federation config: ${path.relative(root, configPath)}`);
-  }
-
-  const contractEntry = generatedContract?.apps?.find(
-    (app) => app.path === appDir.replaceAll('\\', '/'),
-  );
-  if (
-    contractEntry &&
-    contractEntry.moduleFederation?.dts?.compilerInstance !== '--package typescript -- tsc'
-  ) {
-    throw new Error(`Module Federation DTS must use the workspace TypeScript compiler: ${appDir}`);
-  }
-
-  if (contractEntry && contractEntry.moduleFederation?.exposes?.length === 0) {
-    continue;
-  }
-
-  const typesArchivePath = path.join(root, appDir, 'dist/@mf-types.zip');
-  if (!fs.existsSync(typesArchivePath)) {
-    throw new Error(
-      `Missing Module Federation DTS archive: ${path.relative(root, typesArchivePath)}`,
-    );
-  }
-
-  const stats = fs.statSync(typesArchivePath);
-  if (stats.size === 0) {
-    throw new Error(
-      `Empty Module Federation DTS archive: ${path.relative(root, typesArchivePath)}`,
-    );
-  }
-}
+process.exit(result.status ?? 1);

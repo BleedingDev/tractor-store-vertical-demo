@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/federation-entry.tsx",
+    "src/components/add-to-cart.tsx",
+    "src/components/cart-page.tsx",
+    "src/components/checkout-page.tsx",
+    "src/components/mini-cart.tsx",
+    "src/components/thanks-page.tsx",
+    "src/modern-app-env.d.ts"
+  ]
+}

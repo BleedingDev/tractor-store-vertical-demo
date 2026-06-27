@@ -36,16 +36,31 @@ const envValue = (name: string) => {
 };
 const configuredSiteUrl = envValue('MODERN_PUBLIC_SITE_URL');
 const configuredCloudflareUrl = envValue('ULTRAMODERN_PUBLIC_URL_DECIDE');
+const configuredUltramodernAssetPrefix = envValue('ULTRAMODERN_ASSET_PREFIX');
+const configuredModernAssetPrefix = envValue('MODERN_ASSET_PREFIX');
+const moduleFederationDevServerOrigin =
+  envValue('ULTRAMODERN_MF_DEV_ORIGIN') || 'http://localhost:3020';
 const cloudflareWorkersDevSubdomain = envValue('ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN');
 const inferredCloudflareUrl =
   cloudflareDeployEnabled && cloudflareWorkersDevSubdomain !== undefined
     ? `https://${cloudflareWorkerName}.${cloudflareWorkersDevSubdomain}.workers.dev`
     : undefined;
 const siteUrl =
-  configuredCloudflareUrl ||
   configuredSiteUrl ||
+  configuredCloudflareUrl ||
   inferredCloudflareUrl ||
   `http://localhost:${port}`;
+const remoteAssetOrigin =
+  configuredCloudflareUrl ||
+  inferredCloudflareUrl ||
+  (cloudflareDeployEnabled ? '/' : `http://localhost:${port}`);
+const defaultRemoteAssetPrefix = `${remoteAssetOrigin.replace(/\/+$/u, '')}/`;
+const defaultAssetPrefix = defaultRemoteAssetPrefix;
+// Asset loading is intentionally independent from the canonical site URL.
+// Module Federation remotes must publish an absolute publicPath so browsers
+// load remoteEntry.js and exposed chunks from the remote origin, not the host.
+const assetPrefix =
+  configuredModernAssetPrefix || configuredUltramodernAssetPrefix || defaultAssetPrefix;
 if (
   cloudflareDeployEnabled &&
   process.env['ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS'] === 'true' &&
@@ -81,12 +96,15 @@ export default defineConfig(
             },
           }
         : {}),
+      dev: {
+        assetPrefix: '/',
+      },
       html: {
         outputStructure: 'flat',
       },
       output: {
-        assetPrefix: siteUrl,
-        disableTsChecker: true,
+        assetPrefix,
+        disableTsChecker: false,
         distPath: {
           html: './',
         },
@@ -147,6 +165,9 @@ export default defineConfig(
         },
         mainEntryName: 'index',
       },
+      splitChunks: {
+        chunks: 'async',
+      },
       tools: {
         autoprefixer: {
           overrideBrowserslist: ['defaults'],
@@ -155,6 +176,13 @@ export default defineConfig(
           chain.output
             .uniqueName('verticalDecide')
             .chunkLoadingGlobal('__ULTRAMODERN_VERTICAL_DECIDE_LOADED_CHUNKS__');
+        },
+        devServer: {
+          headers: {
+            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With',
+            'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
+            'Access-Control-Allow-Origin': moduleFederationDevServerOrigin,
+          },
         },
       },
     },

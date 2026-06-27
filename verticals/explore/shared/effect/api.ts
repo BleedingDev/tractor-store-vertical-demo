@@ -21,6 +21,15 @@ export const exploreItemSchema = Schema.Struct({
   title: Schema.String,
 });
 
+export const ultramodernApiMarker = {
+  appId: 'explore',
+  build: 'b3dc004d99d5acb2',
+  deployProfile: 'cloudflare-ssr-mf-effect-v1',
+  packageName: '@tractor-store-vertical-demo/explore',
+  surface: 'effect-bff',
+  version: '0.1.0',
+} as const;
+
 export const exploreReadinessSchema = Schema.Struct({
   checks: Schema.Struct({
     effectBff: Schema.Literal('ready'),
@@ -37,11 +46,19 @@ export const exploreCreatePayloadSchema = Schema.Struct({
   title: Schema.String,
 });
 
-export class ExploreNotFound extends Schema.TaggedErrorClass<ExploreNotFound>()('ExploreNotFound', {
-  id: Schema.String,
-}) {}
+export interface ExploreNotFound {
+  readonly _tag: 'ExploreNotFound';
+  readonly id: string;
+}
 
-export const exploreNotFoundSchema = ExploreNotFound.pipe(HttpApiSchema.status(404));
+export const exploreNotFoundSchema = Schema.TaggedStruct('ExploreNotFound', {
+  id: Schema.String,
+}).pipe(HttpApiSchema.status(404));
+
+export const makeExploreNotFound = (id: string): ExploreNotFound => ({
+  _tag: 'ExploreNotFound',
+  id,
+});
 
 export interface OperationContext {
   operationId: string;

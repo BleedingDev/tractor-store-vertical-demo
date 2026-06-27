@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/federation-entry.tsx",
+    "src/components/footer.tsx",
+    "src/components/header.tsx",
+    "src/components/home-page.tsx",
+    "src/components/product-grid.tsx",
+    "src/components/recommendations.tsx",
+    "src/components/store-picker.tsx",
+    "src/modern-app-env.d.ts"
+  ]
+}

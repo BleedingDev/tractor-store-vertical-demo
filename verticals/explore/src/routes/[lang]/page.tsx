@@ -1,10 +1,9 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { Helmet } from '@modern-js/runtime/head';
 import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { UltramodernRouteHead } from '../ultramodern-route-head';
 import { ultramodernLocalisedUrls } from '../ultramodern-route-metadata';
 import { ultramodernUiMarker } from '../../ultramodern-build';
 
-const fallbackLanguage = 'en';
 const supportedLanguages = ['en', 'cs'] as const;
 type SupportedLanguage = (typeof supportedLanguages)[number];
 
@@ -102,11 +101,6 @@ const localizedPath = (pathname: string, language: SupportedLanguage) => {
   return pathWithoutLanguage === '/' ? `/${language}` : `/${language}${pathWithoutLanguage}`;
 };
 
-const absoluteUrl = (pathname: string) => {
-  const origin = ULTRAMODERN_SITE_URL.replace(/\/+$/u, '');
-  return `${origin}${pathname}`;
-};
-
 const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?: unknown }) => {
   let locationSearch = '';
   if (typeof location.searchStr === 'string') {
@@ -119,30 +113,6 @@ const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?
   return `${locationSearch}${locationHash}`;
 };
 
-const LocalizedHead = () => {
-  const location = useLocation();
-  const canonicalPath = localizedPath(location.pathname, fallbackLanguage);
-
-  return (
-    <Helmet>
-      <link rel="canonical" href={absoluteUrl(canonicalPath)} />
-      {supportedLanguages.map((code) => (
-        <link
-          href={absoluteUrl(localizedPath(location.pathname, code))}
-          hrefLang={code}
-          key={code}
-          rel="alternate"
-        />
-      ))}
-      <link
-        href={absoluteUrl(localizedPath(location.pathname, fallbackLanguage))}
-        hrefLang="x-default"
-        rel="alternate"
-      />
-    </Helmet>
-  );
-};
-
 export default function ExploreHome() {
   const { i18nInstance, language } = useModernI18n();
   const t = i18nInstance['t'].bind(i18nInstance);
@@ -150,7 +120,7 @@ export default function ExploreHome() {
   const suffix = locationSuffix(location);
   return (
     <main className="explore:min-h-screen explore:bg-um-canvas explore:px-4 explore:py-6 explore:text-um-foreground explore:sm:px-8">
-      <LocalizedHead />
+      <UltramodernRouteHead />
       <nav aria-label={t('explore.language.switcher')} className="explore:flex explore:gap-3">
         {supportedLanguages.map((code) => (
           <a

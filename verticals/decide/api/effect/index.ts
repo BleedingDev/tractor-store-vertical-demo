@@ -1,9 +1,9 @@
 import { defineEffectBff, Effect, HttpApiBuilder, Layer } from '@modern-js/plugin-bff/effect-edge';
-import { ultramodernApiMarker } from '../../src/ultramodern-build.ts';
 import {
   decideEffectApi,
   decideOperationContexts,
-  DecideNotFound,
+  makeDecideNotFound,
+  ultramodernApiMarker,
 } from '../../shared/effect/api.ts';
 import type { OperationContext } from '../../shared/effect/api.ts';
 
@@ -68,9 +68,7 @@ const decideLayer = HttpApiBuilder.group(decideEffectApi, 'decide', (handlers) =
     .handle('get', ({ params }) => {
       const match = decideItems.find((decideItem) => decideItem.id === params.id);
       const result =
-        match === undefined
-          ? Effect.fail(new DecideNotFound({ id: params.id }))
-          : Effect.succeed(match);
+        match === undefined ? Effect.fail(makeDecideNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
         Effect.withSpan('ultramodern.effect.decide.get', {
           attributes: operationAttributes(decideOperationContexts.get),
@@ -99,7 +97,9 @@ const decideLayer = HttpApiBuilder.group(decideEffectApi, 'decide', (handlers) =
 
 const layer = HttpApiBuilder.layer(decideEffectApi).pipe(Layer.provide(decideLayer));
 
-export default defineEffectBff({
+const bff: unknown = defineEffectBff({
   api: decideEffectApi,
   layer,
 });
+
+export default bff;

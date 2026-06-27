@@ -53,7 +53,7 @@ const remoteManifest = (
   return `${remoteName}@http://localhost:${localPort}/mf-manifest.json`;
 };
 
-export default createModuleFederationConfig({
+const config: unknown = createModuleFederationConfig({
   bridge: {
     enableBridgeRouter: false,
   },
@@ -63,8 +63,9 @@ export default createModuleFederationConfig({
   dts: {
     displayErrorInTerminal: true,
     generateTypes: {
-      compilerInstance: '--package typescript -- tsc',
+      compilerInstance: 'tsgo',
     },
+    tsConfigPath: './tsconfig.mf-types.json',
   },
   exposes: {
     './ProductPage': './src/components/product-page.tsx',
@@ -127,3 +128,5 @@ export default createModuleFederationConfig({
   },
   treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
 });
+
+export default config;

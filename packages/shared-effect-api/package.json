@@ -15,6 +15,6 @@
     "@typescript/native-preview": "7.0.0-dev.20260624.1"
   },
   "dependencies": {
-    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.4.0-ultramodern.12"
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.4.0-ultramodern.19"
   }
 }

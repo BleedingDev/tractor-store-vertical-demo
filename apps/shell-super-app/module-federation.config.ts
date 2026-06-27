@@ -1,4 +1,5 @@
 // @effect-diagnostics nodeBuiltinImport:off processEnv:off
+// ultramodern-mf: host-only
 import { createRequire } from 'node:module';
 import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 import { dependencies } from './package.json';
@@ -53,7 +54,7 @@ const remoteManifest = (
   return `${remoteName}@http://localhost:${localPort}/mf-manifest.json`;
 };
 
-export default createModuleFederationConfig({
+const config: unknown = createModuleFederationConfig({
   bridge: {
     enableBridgeRouter: false,
   },
@@ -63,8 +64,9 @@ export default createModuleFederationConfig({
   dts: {
     displayErrorInTerminal: true,
     generateTypes: {
-      compilerInstance: '--package typescript -- tsc',
+      compilerInstance: 'tsgo',
     },
+    tsConfigPath: './tsconfig.mf-types.json',
   },
   filename: 'remoteEntry.js',
   name: 'shellSuperApp',
@@ -130,3 +132,5 @@ export default createModuleFederationConfig({
   },
   treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
 });
+
+export default config;

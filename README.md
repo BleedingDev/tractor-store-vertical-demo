@@ -25,10 +25,10 @@ Cloudflare-ready deployment.
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.4.0-ultramodern.12
+3.4.0-ultramodern.19
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.4.0-ultramodern.12`
+Generated apps and verticals use `npm:@bleedingdev/...@3.4.0-ultramodern.19`
 aliases for the Modern.js packages that are part of the UltraModern canary
 line.
 
@@ -36,17 +36,21 @@ line.
 
 ```bash
 pnpm install
-pnpm ultramodern:i18n-boundaries
-pnpm ultramodern:check
+pnpm i18n:boundaries
+pnpm contract:check
 pnpm typecheck
 pnpm build
 ```
 
-For a lighter install without local reference repositories:
+Codex skill bodies are installed into `.codex/skills` by default. To skip that
+agent setup during install:
 
 ```bash
-ULTRAMODERN_SKIP_AGENT_REPOS=1 pnpm install
+ULTRAMODERN_SKIP_CODEX_SKILLS=1 pnpm install
 ```
+
+Read-only reference repositories are explicit. Run `pnpm agents:refs:install`
+when local source references are useful.
 
 Run locally:
 

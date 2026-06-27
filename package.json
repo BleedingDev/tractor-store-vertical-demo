@@ -10,15 +10,15 @@
     "dev:explore": "pnpm --filter @tractor-store-vertical-demo/explore dev",
     "dev:decide": "pnpm --filter @tractor-store-vertical-demo/decide dev",
     "dev:checkout": "pnpm --filter @tractor-store-vertical-demo/checkout dev",
-    "build": "ULTRAMODERN_ZEPHYR=false pnpm -r --filter \"./verticals/*\" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter \"./apps/shell-super-app\" run build && pnpm ultramodern:assert-mf-types",
+    "build": "ULTRAMODERN_ZEPHYR=false pnpm -r --filter \"./verticals/*\" run build && ULTRAMODERN_ZEPHYR=false pnpm --filter \"./apps/shell-super-app\" run build && pnpm mf:types && pnpm performance:readiness",
     "format": "oxfmt . '!repos/**'",
     "format:check": "oxfmt --check . '!repos/**'",
     "lint": "oxlint apps verticals packages",
     "lint:fix": "oxlint apps verticals packages --fix",
-    "typecheck": "pnpm -r --filter \"@tractor-store-vertical-demo/*\" typecheck",
-    "cloudflare:build": "pnpm -r --filter \"./verticals/*\" run cloudflare:build && pnpm --filter \"./apps/shell-super-app\" run cloudflare:build && pnpm ultramodern:assert-mf-types",
+    "typecheck": "node ./scripts/ultramodern-typecheck.mjs --build tsconfig.json",
+    "cloudflare:build": "pnpm -r --filter \"./verticals/*\" run cloudflare:build && pnpm --filter \"./apps/shell-super-app\" run cloudflare:build && pnpm mf:types",
     "cloudflare:deploy": "pnpm -r --filter \"./verticals/*\" run cloudflare:deploy && pnpm --filter \"./apps/shell-super-app\" run cloudflare:deploy",
-    "cloudflare:proof": "node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json && pnpm proof:workflow",
+    "cloudflare:proof": "node ./scripts/proof-cloudflare-version.mjs --out .codex/reports/cloudflare-version-proof/public-url-proof.json",
     "proof:workflow": "node ./scripts/proof-public-workflow.mjs",
     "test:e2e": "pnpm proof:workflow",
     "test:e2e:headed": "pnpm proof:workflow --headed",
@@ -26,14 +26,15 @@
     "skills:check": "node ./scripts/bootstrap-agent-skills.mjs --check",
     "agents:refs:install": "node ./scripts/setup-agent-reference-repos.mjs",
     "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mjs --check",
-    "ultramodern:assert-mf-types": "node ./scripts/assert-mf-types.mjs",
-    "ultramodern:check": "node ./scripts/validate-ultramodern-workspace.mjs",
-    "ultramodern:i18n-boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mjs",
-    "postinstall": "node ./scripts/bootstrap-agent-skills.mjs && node ./scripts/setup-agent-reference-repos.mjs",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm ultramodern:i18n-boundaries && pnpm ultramodern:check"
+    "postinstall": "oxfmt . '!repos/**' && node ./scripts/bootstrap-agent-skills.mjs --postinstall",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm contract:check && pnpm performance:readiness",
+    "mf:types": "node ./scripts/assert-mf-types.mjs",
+    "performance:readiness": "node ./scripts/ultramodern-performance-readiness.mjs",
+    "contract:check": "node ./scripts/validate-ultramodern-workspace.mjs",
+    "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mjs"
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=26",
     "pnpm": ">=11"
   },
   "workspaces": [
@@ -48,13 +49,13 @@
     "ownership": "./topology/ownership.json",
     "packageSource": {
       "strategy": "install",
-      "config": "./.modernjs/ultramodern-package-source.json"
+      "config": "./.modernjs/ultramodern.json"
     }
   },
   "devDependencies": {
     "@effect/tsgo": "0.14.6",
-    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.4.0-ultramodern.12",
-    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.4.0-ultramodern.12",
+    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.4.0-ultramodern.19",
+    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.4.0-ultramodern.19",
     "@playwright/test": "^1.60.0",
     "@typescript/native-preview": "7.0.0-dev.20260624.1",
     "lefthook": "^2.1.9",

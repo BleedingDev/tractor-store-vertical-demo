@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "profile": "cloudflare-ssr-mf-effect-v1",
+  "generator": {
+    "package": "@modern-js/create",
+    "version": "3.4.0-ultramodern.19"
+  },
+  "workspace": {
+    "packageScope": "tractor-store-vertical-demo",
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.9.0"
+    },
+    "node": {
+      "version": "26.3.0",
+      "engineRange": ">=26"
+    }
+  },
+  "packageSource": {
+    "strategy": "install",
+    "modernPackageVersion": "3.4.0-ultramodern.19",
+    "aliasScope": "bleedingdev",
+    "aliasPackageNamePrefix": "modern-js-"
+  },
+  "features": {
+    "tailwind": true
+  },
+  "topology": {
+    "source": "./topology/reference-topology.json",
+    "apps": [
+      {
+        "id": "shell-super-app",
+        "kind": "shell",
+        "package": "@tractor-store-vertical-demo/shell-super-app",
+        "packageSuffix": "shell-super-app",
+        "displayName": "Shell Super App",
+        "path": "apps/shell-super-app",
+        "port": 3020,
+        "portEnv": "SHELL_SUPER_APP_PORT",
+        "moduleFederation": {
+          "role": "host",
+          "name": "shellSuperApp",
+          "exposes": [],
+          "remotes": [
+            {
+              "id": "explore",
+              "alias": "explore",
+              "name": "verticalExplore",
+              "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3021/mf-manifest.json"
+            },
+            {
+              "id": "decide",
+              "alias": "decide",
+              "name": "verticalDecide",
+              "manifestEnv": "VERTICAL_DECIDE_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3022/mf-manifest.json"
+            },
+            {
+              "id": "checkout",
+              "alias": "checkout",
+              "name": "verticalCheckout",
+              "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3023/mf-manifest.json"
+            }
+          ],
+          "ssr": true,
+          "dts": {
+            "compilerInstance": "tsgo",
+            "tsConfigPath": "./tsconfig.mf-types.json"
+          },
+          "verticalRefs": [
+            "explore",
+            "decide",
+            "checkout"
+          ]
+        }
+      },
+      {
+        "id": "explore",
+        "kind": "vertical",
+        "package": "@tractor-store-vertical-demo/explore",
+        "packageSuffix": "explore",
+        "displayName": "explore Vertical",
+        "path": "verticals/explore",
+        "domain": "explore",
+        "port": 3021,
+        "portEnv": "VERTICAL_EXPLORE_PORT",
+        "moduleFederation": {
+          "role": "remote",
+          "name": "verticalExplore",
+          "exposes": [
+            "./Footer",
+            "./Header",
+            "./HomePage",
+            "./ProductGrid",
+            "./Recommendations",
+            "./Route",
+            "./StorePicker"
+          ],
+          "ssr": true,
+          "dts": {
+            "compilerInstance": "tsgo",
+            "tsConfigPath": "./tsconfig.mf-types.json"
+          }
+        },
+        "effectApi": {
+          "stem": "explore",
+          "prefix": "/explore-api",
+          "consumedBy": [
+            "shell-super-app",
+            "explore"
+          ]
+        }
+      },
+      {
+        "id": "decide",
+        "kind": "vertical",
+        "package": "@tractor-store-vertical-demo/decide",
+        "packageSuffix": "decide",
+        "displayName": "decide Vertical",
+        "path": "verticals/decide",
+        "domain": "decide",
+        "port": 3022,
+        "portEnv": "VERTICAL_DECIDE_PORT",
+        "moduleFederation": {
+          "role": "remote",
+          "name": "verticalDecide",
+          "exposes": [
+            "./ProductPage",
+            "./Route"
+          ],
+          "verticalRefs": [
+            "explore",
+            "checkout"
+          ],
+          "remotes": [
+            {
+              "id": "explore",
+              "alias": "explore",
+              "name": "verticalExplore",
+              "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3021/mf-manifest.json"
+            },
+            {
+              "id": "checkout",
+              "alias": "checkout",
+              "name": "verticalCheckout",
+              "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3023/mf-manifest.json"
+            }
+          ],
+          "ssr": true,
+          "dts": {
+            "compilerInstance": "tsgo",
+            "tsConfigPath": "./tsconfig.mf-types.json"
+          }
+        },
+        "effectApi": {
+          "stem": "decide",
+          "prefix": "/decide-api",
+          "consumedBy": [
+            "shell-super-app",
+            "decide"
+          ]
+        }
+      },
+      {
+        "id": "checkout",
+        "kind": "vertical",
+        "package": "@tractor-store-vertical-demo/checkout",
+        "packageSuffix": "checkout",
+        "displayName": "checkout Vertical",
+        "path": "verticals/checkout",
+        "domain": "checkout",
+        "port": 3023,
+        "portEnv": "VERTICAL_CHECKOUT_PORT",
+        "moduleFederation": {
+          "role": "remote",
+          "name": "verticalCheckout",
+          "exposes": [
+            "./AddToCart",
+            "./CartPage",
+            "./CheckoutPage",
+            "./MiniCart",
+            "./Route",
+            "./ThanksPage"
+          ],
+          "ssr": true,
+          "dts": {
+            "compilerInstance": "tsgo",
+            "tsConfigPath": "./tsconfig.mf-types.json"
+          }
+        },
+        "effectApi": {
+          "stem": "checkout",
+          "prefix": "/checkout-api",
+          "consumedBy": [
+            "shell-super-app",
+            "checkout"
+          ]
+        }
+      }
+    ]
+  },
+  "bridge": {
+    "enabled": false,
+    "workspacePackages": [],
+    "dependencies": [],
+    "lockfilePolicy": "nested",
+    "gates": [],
+    "reactSingletons": [
+      "react",
+      "react-dom"
+    ]
+  },
+  "deploy": {
+    "worker": {
+      "wrangler": {
+        "compatibility_date": "2026-06-02",
+        "compatibility_flags": [
+          "nodejs_compat",
+          "global_fetch_strictly_public"
+        ]
+      },
+      "artifacts": [],
+      "publicAssetExcludes": []
+    }
+  },
+  "moduleFederation": {
+    "apps": [
+      {
+        "id": "shell-super-app",
+        "path": "apps/shell-super-app",
+        "role": "host",
+        "name": "shellSuperApp",
+        "exposes": [],
+        "hostOnly": true
+      },
+      {
+        "id": "explore",
+        "path": "verticals/explore",
+        "role": "remote",
+        "name": "verticalExplore",
+        "exposes": [
+          "./Footer",
+          "./Header",
+          "./HomePage",
+          "./ProductGrid",
+          "./Recommendations",
+          "./Route",
+          "./StorePicker"
+        ],
+        "hostOnly": false
+      },
+      {
+        "id": "decide",
+        "path": "verticals/decide",
+        "role": "remote",
+        "name": "verticalDecide",
+        "exposes": [
+          "./ProductPage",
+          "./Route"
+        ],
+        "hostOnly": false
+      },
+      {
+        "id": "checkout",
+        "path": "verticals/checkout",
+        "role": "remote",
+        "name": "verticalCheckout",
+        "exposes": [
+          "./AddToCart",
+          "./CartPage",
+          "./CheckoutPage",
+          "./MiniCart",
+          "./Route",
+          "./ThanksPage"
+        ],
+        "hostOnly": false
+      }
+    ]
+  },
+  "agentSkills": {
+    "target": "codex",
+    "lockfile": "./.codex/skills-lock.json",
+    "installDir": "./.codex/skills",
+    "mode": "repo-owned-default-on",
+    "selfContainedVendoring": true,
+    "optOutEnv": [
+      "ULTRAMODERN_SKIP_CODEX_SKILLS=1",
+      "ULTRAMODERN_CODEX_SKILLS=0"
+    ]
+  },
+  "tooling": {
+    "command": "modern-js-create ultramodern",
+    "wrappers": {
+      "validate": "scripts/validate-ultramodern-workspace.mjs",
+      "typecheck": "scripts/ultramodern-typecheck.mjs",
+      "mfTypes": "scripts/assert-mf-types.mjs",
+      "publicSurface": "scripts/generate-public-surface-assets.mjs",
+      "cloudflareProof": "scripts/proof-cloudflare-version.mjs",
+      "performanceReadiness": "scripts/ultramodern-performance-readiness.mjs",
+      "skills": "scripts/bootstrap-agent-skills.mjs"
+    }
+  }
+}

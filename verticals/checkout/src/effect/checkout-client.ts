@@ -17,15 +17,20 @@ export interface CheckoutClientOptions {
   traceparent?: string;
 }
 
-export const createCheckoutClient = (options: CheckoutClientOptions = {}) =>
+const makeCheckoutClient = (options: CheckoutClientOptions = {}) =>
   makeEffectHttpApiClient(checkoutEffectApi, {
     baseUrl: options.baseUrl ?? checkoutApiContract.servicePrefix,
   });
 
-export const listCheckout = (options: CheckoutClientOptions & { limit?: number } = {}) =>
+export const createCheckoutClient = (options: CheckoutClientOptions = {}): unknown =>
+  makeCheckoutClient(options);
+
+export const listCheckout = (
+  options: CheckoutClientOptions & { limit?: number } = {},
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createCheckoutClient({
+      makeCheckoutClient({
         ...options,
         operationContext: options.operationContext ?? checkoutOperationContexts.list,
       }),
@@ -33,10 +38,10 @@ export const listCheckout = (options: CheckoutClientOptions & { limit?: number }
     ),
   );
 
-export const getCheckoutReadiness = (options: CheckoutClientOptions = {}) =>
+export const getCheckoutReadiness = (options: CheckoutClientOptions = {}): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createCheckoutClient({
+      makeCheckoutClient({
         ...options,
         operationContext: options.operationContext ?? checkoutOperationContexts.readiness,
       }),
@@ -44,10 +49,10 @@ export const getCheckoutReadiness = (options: CheckoutClientOptions = {}) =>
     ),
   );
 
-export const getCheckout = (id: string, options: CheckoutClientOptions = {}) =>
+export const getCheckout = (id: string, options: CheckoutClientOptions = {}): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createCheckoutClient({
+      makeCheckoutClient({
         ...options,
         operationContext: options.operationContext ?? checkoutOperationContexts.get,
       }),
@@ -55,10 +60,13 @@ export const getCheckout = (id: string, options: CheckoutClientOptions = {}) =>
     ),
   );
 
-export const createCheckout = (title: string, options: CheckoutClientOptions = {}) =>
+export const createCheckout = (
+  title: string,
+  options: CheckoutClientOptions = {},
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
-      createCheckoutClient({
+      makeCheckoutClient({
         ...options,
         operationContext: options.operationContext ?? checkoutOperationContexts.create,
       }),
