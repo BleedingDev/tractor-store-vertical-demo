@@ -37,7 +37,7 @@ export default createModuleFederationConfig({
   filename: 'remoteEntry.js',
   name: 'verticalCheckout',
   shared: {
-    '@modern-js/plugin-i18n/runtime': {
+    '@modern-js/plugin-i18n/runtime/no-react-i18next': {
       requiredVersion: pluginI18nVersion,
       singleton: true,
       treeShaking: false,

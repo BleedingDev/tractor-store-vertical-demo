@@ -10,9 +10,18 @@ minimumReleaseAgeExclude:
   - '@bleedingdev/modern-js-*'
   - '@tanstack/react-router'
   - '@tanstack/router-core'
+  - 'typescript'
   - '@typescript/native-preview'
   - '@typescript/native-preview-*'
   - '@types/react'
+  - '@rsbuild/core'
+  - '@rsbuild/plugin-react'
+  - '@rsbuild/plugin-type-check'
+  - '@rspack/binding'
+  - '@rspack/binding-*'
+  - '@rspack/core'
+  - '@rspack/plugin-react-refresh'
+  - 'ts-checker-rspack-plugin'
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 1440
 blockExoticSubdeps: true
@@ -24,10 +33,15 @@ strictDepBuilds: true
 peerDependencyRules:
   allowedVersions:
     react: '>=19.0.0'
-    typescript: '>=6.0.0'
+    '@module-federation/dts-plugin>typescript': '6.0.3'
+    '@module-federation/enhanced>typescript': '6.0.3'
+    '@module-federation/modern-js-v3>typescript': '6.0.3'
+    '@module-federation/rspack>typescript': '6.0.3'
+    'i18next>typescript': '6.0.3'
 
 overrides:
   '@tanstack/react-router': 1.170.16
+  '@tanstack/router-core': 1.171.13
   node-fetch: '^3.3.2'
 
 allowBuilds:
@@ -38,11 +52,6 @@ allowBuilds:
   msgpackr-extract: true
   sharp: true
   workerd: true
-onlyBuiltDependencies:
-  - '@swc/core'
-  - core-js
-  - esbuild
-  - lefthook
-  - msgpackr-extract
-  - sharp
-  - workerd
+
+patchedDependencies:
+  '@tanstack/router-core@1.171.13': patches/@tanstack__router-core@1.171.13.patch

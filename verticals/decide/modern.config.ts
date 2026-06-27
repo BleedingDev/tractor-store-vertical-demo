@@ -139,6 +139,9 @@ export default defineConfig(
         },
       },
       source: {
+        alias: {
+          '@modern-js/plugin-i18n/runtime': '@modern-js/plugin-i18n/runtime/no-react-i18next',
+        },
         globalVars: {
           ULTRAMODERN_SITE_URL: siteUrl,
         },
@@ -152,12 +155,6 @@ export default defineConfig(
           chain.output
             .uniqueName('verticalDecide')
             .chunkLoadingGlobal('__ULTRAMODERN_VERTICAL_DECIDE_LOADED_CHUNKS__');
-          chain.ignoreWarnings([
-            {
-              message: /the request of a dependency is an expression/u,
-              module: /modern-js-plugin-i18n/u,
-            },
-          ]);
         },
       },
     },
