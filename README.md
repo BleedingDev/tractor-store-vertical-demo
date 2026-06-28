@@ -25,10 +25,10 @@ Cloudflare-ready deployment.
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.4.0-ultramodern.19
+3.4.0-ultramodern.20
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.4.0-ultramodern.19`
+Generated apps and verticals use `npm:@bleedingdev/...@3.4.0-ultramodern.20`
 aliases for the Modern.js packages that are part of the UltraModern canary
 line.
 
