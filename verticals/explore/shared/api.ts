@@ -71,7 +71,7 @@ export interface OperationContext {
 export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
   HttpApiGroup.make('explore')
     .add(
-      HttpApiEndpoint.get('list', '/effect/explore', {
+      HttpApiEndpoint.get('list', '/explore', {
         query: {
           limit: Schema.optional(Schema.FiniteFromString),
         },
@@ -81,12 +81,12 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
       }),
     )
     .add(
-      HttpApiEndpoint.get('readiness', '/effect/explore/readiness', {
+      HttpApiEndpoint.get('readiness', '/explore/readiness', {
         success: exploreReadinessSchema,
       }),
     )
     .add(
-      HttpApiEndpoint.get('get', '/effect/explore/:id', {
+      HttpApiEndpoint.get('get', '/explore/:id', {
         error: exploreNotFoundSchema,
         params: {
           id: Schema.String,
@@ -95,7 +95,7 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
       }),
     )
     .add(
-      HttpApiEndpoint.post('create', '/effect/explore', {
+      HttpApiEndpoint.post('create', '/explore', {
         payload: exploreCreatePayloadSchema,
         success: Schema.Struct({
           item: exploreItemSchema,
@@ -108,32 +108,32 @@ export const exploreOperationContexts = {
   create: {
     method: 'POST',
     operationId: 'ExploreEffectApi:explore:create',
-    routePath: '/effect/explore',
+    routePath: '/explore',
     source: 'generated-client',
   },
   get: {
     method: 'GET',
     operationId: 'ExploreEffectApi:explore:get',
-    routePath: '/effect/explore/:id',
+    routePath: '/explore/:id',
     source: 'generated-client',
   },
   list: {
     method: 'GET',
     operationId: 'ExploreEffectApi:explore:list',
-    routePath: '/effect/explore',
+    routePath: '/explore',
     source: 'generated-client',
   },
   readiness: {
     method: 'GET',
     operationId: 'ExploreEffectApi:explore:readiness',
-    routePath: '/effect/explore/readiness',
+    routePath: '/explore/readiness',
     source: 'generated-client',
   },
 } satisfies Record<string, OperationContext>;
 
 export const exploreApiContract = {
-  basePath: '/explore-api/effect/explore',
+  basePath: '/explore-api/explore',
   ownerId: 'explore',
-  readinessPath: '/explore-api/effect/explore/readiness',
+  readinessPath: '/explore-api/explore/readiness',
   servicePrefix: '/explore-api',
 } as const;

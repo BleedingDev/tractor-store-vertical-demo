@@ -4,8 +4,8 @@ import {
   decideOperationContexts,
   makeDecideNotFound,
   ultramodernApiMarker,
-} from '../../shared/effect/api.ts';
-import type { OperationContext } from '../../shared/effect/api.ts';
+} from '../shared/api.ts';
+import type { OperationContext } from '../shared/api.ts';
 
 const decideItems = [
   {

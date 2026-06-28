@@ -1,22 +1,27 @@
 import { defineEffectBff, Effect, HttpApiBuilder, Layer } from '@modern-js/plugin-bff/effect-edge';
 import {
-  checkoutEffectApi,
-  checkoutOperationContexts,
-  makeCheckoutNotFound,
+  exploreEffectApi,
+  exploreOperationContexts,
+  makeExploreNotFound,
   ultramodernApiMarker,
-} from '../../shared/effect/api.ts';
-import type { OperationContext } from '../../shared/effect/api.ts';
+} from '../shared/api.ts';
+import type { OperationContext } from '../shared/api.ts';
 
-const checkoutItems = [
+const exploreItems = [
   {
-    id: 'basket-default',
+    id: 'classic-tractors',
     marker: ultramodernApiMarker,
-    title: 'Basket with one Holland Hamster Polder Green line item',
+    title: '15 Classic tractor listings served by Explore',
   },
   {
-    id: 'CL-08-GR',
+    id: 'autonomous-tractors',
     marker: ultramodernApiMarker,
-    title: 'Checkout line item for Holland Hamster Polder Green, quantity 1, total 7750 Ø',
+    title: '8 Autonomous tractor listings served by Explore',
+  },
+  {
+    id: 'store-locator',
+    marker: ultramodernApiMarker,
+    title: '4 Tractor Store locations served by Explore',
   },
 ];
 
@@ -30,15 +35,14 @@ const operationAttributes = (operationContext: OperationContext) => ({
     : {}),
 });
 
-const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handlers) =>
+const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers) =>
   handlers
     .handle('list', ({ query }) =>
       Effect.succeed({
-        items:
-          typeof query.limit === 'number' ? checkoutItems.slice(0, query.limit) : checkoutItems,
+        items: typeof query.limit === 'number' ? exploreItems.slice(0, query.limit) : exploreItems,
       }).pipe(
-        Effect.withSpan('ultramodern.effect.checkout.list', {
-          attributes: operationAttributes(checkoutOperationContexts.list),
+        Effect.withSpan('ultramodern.effect.explore.list', {
+          attributes: operationAttributes(exploreOperationContexts.list),
           kind: 'server',
         }),
       ),
@@ -55,19 +59,19 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
         status: 'ready' as const,
         versionSkew: 'none' as const,
       }).pipe(
-        Effect.withSpan('ultramodern.effect.checkout.readiness', {
-          attributes: operationAttributes(checkoutOperationContexts.readiness),
+        Effect.withSpan('ultramodern.effect.explore.readiness', {
+          attributes: operationAttributes(exploreOperationContexts.readiness),
           kind: 'server',
         }),
       ),
     )
     .handle('get', ({ params }) => {
-      const match = checkoutItems.find((checkoutItem) => checkoutItem.id === params.id);
+      const match = exploreItems.find((exploreItem) => exploreItem.id === params.id);
       const result =
-        match === undefined ? Effect.fail(makeCheckoutNotFound(params.id)) : Effect.succeed(match);
+        match === undefined ? Effect.fail(makeExploreNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
-        Effect.withSpan('ultramodern.effect.checkout.get', {
-          attributes: operationAttributes(checkoutOperationContexts.get),
+        Effect.withSpan('ultramodern.effect.explore.get', {
+          attributes: operationAttributes(exploreOperationContexts.get),
           kind: 'server',
         }),
       );
@@ -75,7 +79,7 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
     .handle('create', ({ payload }) =>
       Effect.succeed({
         item: {
-          id: `generated-checkout-${payload.title
+          id: `generated-explore-${payload.title
             .toLowerCase()
             .replaceAll(/[^a-z0-9]+/gu, '-')
             .replaceAll(/^-|-$/gu, '')}`,
@@ -83,18 +87,18 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
           title: payload.title,
         },
       }).pipe(
-        Effect.withSpan('ultramodern.effect.checkout.create', {
-          attributes: operationAttributes(checkoutOperationContexts.create),
+        Effect.withSpan('ultramodern.effect.explore.create', {
+          attributes: operationAttributes(exploreOperationContexts.create),
           kind: 'server',
         }),
       ),
     ),
 );
 
-const layer = HttpApiBuilder.layer(checkoutEffectApi).pipe(Layer.provide(checkoutLayer));
+const layer = HttpApiBuilder.layer(exploreEffectApi).pipe(Layer.provide(exploreLayer));
 
 const bff: unknown = defineEffectBff({
-  api: checkoutEffectApi,
+  api: exploreEffectApi,
   layer,
 });
 

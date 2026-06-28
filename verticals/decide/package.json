@@ -60,7 +60,7 @@
   "exports": {
     "./ProductPage": "./src/components/product-page.tsx",
     "./Route": "./src/federation-entry.tsx",
-    "./effect/client": "./src/effect/decide-client.ts",
-    "./shared/effect/api": "./shared/effect/api.ts"
+    "./api": "./shared/api.ts",
+    "./api/client": "./src/api/decide-client.ts"
   }
 }

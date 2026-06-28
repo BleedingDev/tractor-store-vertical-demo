@@ -7,8 +7,8 @@ import {
   checkoutApiContract,
   checkoutEffectApi,
   checkoutOperationContexts,
-} from '../../shared/effect/api';
-import type { OperationContext } from '../../shared/effect/api';
+} from '../../shared/api';
+import type { OperationContext } from '../../shared/api';
 
 export interface CheckoutClientOptions {
   baseUrl?: string | URL;

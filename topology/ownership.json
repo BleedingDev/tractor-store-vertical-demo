@@ -113,24 +113,6 @@
           ]
         }
       }
-    },
-    {
-      "id": "shared-effect-api",
-      "package": "@tractor-store-vertical-demo/shared-effect-api",
-      "path": "packages/shared-effect-api",
-      "ownership": {
-        "team": "super-app-platform",
-        "slack": "#super-app-platform",
-        "pagerDuty": "pd-super-app-platform",
-        "runbookRef": "runbooks/wave2/shared-effect-api.md",
-        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#shared-packages",
-        "blastRadius": {
-          "tier": "tier-1-shared-contract",
-          "references": [
-            "docs/super-app-rfc-adr/wave2/blast-radius.md#shared-packages"
-          ]
-        }
-      }
     }
   ]
 }

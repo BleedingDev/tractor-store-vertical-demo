@@ -3,12 +3,8 @@ import {
   makeEffectHttpApiClient,
   runEffectRequest,
 } from '@modern-js/plugin-bff/effect-client';
-import {
-  exploreApiContract,
-  exploreEffectApi,
-  exploreOperationContexts,
-} from '../../shared/effect/api';
-import type { OperationContext } from '../../shared/effect/api';
+import { exploreApiContract, exploreEffectApi, exploreOperationContexts } from '../../shared/api';
+import type { OperationContext } from '../../shared/api';
 
 export interface ExploreClientOptions {
   baseUrl?: string | URL;

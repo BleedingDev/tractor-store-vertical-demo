@@ -27,11 +27,12 @@
     "agents:refs:install": "node ./scripts/setup-agent-reference-repos.mjs",
     "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mjs --check",
     "postinstall": "oxfmt . '!repos/**' && node ./scripts/bootstrap-agent-skills.mjs --postinstall",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm contract:check && pnpm performance:readiness",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm performance:readiness",
     "mf:types": "node ./scripts/assert-mf-types.mjs",
     "performance:readiness": "node ./scripts/ultramodern-performance-readiness.mjs",
     "contract:check": "node ./scripts/validate-ultramodern-workspace.mjs",
-    "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mjs"
+    "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mjs",
+    "api:check": "node ./scripts/check-ultramodern-api-boundaries.mjs"
   },
   "engines": {
     "node": ">=26",

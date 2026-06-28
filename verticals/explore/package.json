@@ -60,7 +60,7 @@
     "./Recommendations": "./src/components/recommendations.tsx",
     "./Route": "./src/federation-entry.tsx",
     "./StorePicker": "./src/components/store-picker.tsx",
-    "./effect/client": "./src/effect/explore-client.ts",
-    "./shared/effect/api": "./shared/effect/api.ts"
+    "./api": "./shared/api.ts",
+    "./api/client": "./src/api/explore-client.ts"
   }
 }

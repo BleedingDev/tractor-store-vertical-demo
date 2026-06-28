@@ -5,7 +5,7 @@ export {
   getCheckoutReadiness,
   listCheckout,
   type CheckoutClientOptions,
-} from '@tractor-store-vertical-demo/checkout/effect/client';
+} from '@tractor-store-vertical-demo/checkout/api/client';
 
 export {
   createDecide,
@@ -14,7 +14,7 @@ export {
   getDecideReadiness,
   listDecide,
   type DecideClientOptions,
-} from '@tractor-store-vertical-demo/decide/effect/client';
+} from '@tractor-store-vertical-demo/decide/api/client';
 
 export {
   createExplore,
@@ -23,4 +23,4 @@ export {
   getExploreReadiness,
   listExplore,
   type ExploreClientOptions,
-} from '@tractor-store-vertical-demo/explore/effect/client';
+} from '@tractor-store-vertical-demo/explore/api/client';

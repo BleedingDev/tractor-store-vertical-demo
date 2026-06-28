@@ -71,7 +71,7 @@ export interface OperationContext {
 export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
   HttpApiGroup.make('decide')
     .add(
-      HttpApiEndpoint.get('list', '/effect/decide', {
+      HttpApiEndpoint.get('list', '/decide', {
         query: {
           limit: Schema.optional(Schema.FiniteFromString),
         },
@@ -81,12 +81,12 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
       }),
     )
     .add(
-      HttpApiEndpoint.get('readiness', '/effect/decide/readiness', {
+      HttpApiEndpoint.get('readiness', '/decide/readiness', {
         success: decideReadinessSchema,
       }),
     )
     .add(
-      HttpApiEndpoint.get('get', '/effect/decide/:id', {
+      HttpApiEndpoint.get('get', '/decide/:id', {
         error: decideNotFoundSchema,
         params: {
           id: Schema.String,
@@ -95,7 +95,7 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
       }),
     )
     .add(
-      HttpApiEndpoint.post('create', '/effect/decide', {
+      HttpApiEndpoint.post('create', '/decide', {
         payload: decideCreatePayloadSchema,
         success: Schema.Struct({
           item: decideItemSchema,
@@ -108,32 +108,32 @@ export const decideOperationContexts = {
   create: {
     method: 'POST',
     operationId: 'DecideEffectApi:decide:create',
-    routePath: '/effect/decide',
+    routePath: '/decide',
     source: 'generated-client',
   },
   get: {
     method: 'GET',
     operationId: 'DecideEffectApi:decide:get',
-    routePath: '/effect/decide/:id',
+    routePath: '/decide/:id',
     source: 'generated-client',
   },
   list: {
     method: 'GET',
     operationId: 'DecideEffectApi:decide:list',
-    routePath: '/effect/decide',
+    routePath: '/decide',
     source: 'generated-client',
   },
   readiness: {
     method: 'GET',
     operationId: 'DecideEffectApi:decide:readiness',
-    routePath: '/effect/decide/readiness',
+    routePath: '/decide/readiness',
     source: 'generated-client',
   },
 } satisfies Record<string, OperationContext>;
 
 export const decideApiContract = {
-  basePath: '/decide-api/effect/decide',
+  basePath: '/decide-api/decide',
   ownerId: 'decide',
-  readinessPath: '/decide-api/effect/decide/readiness',
+  readinessPath: '/decide-api/decide/readiness',
   servicePrefix: '/decide-api',
 } as const;

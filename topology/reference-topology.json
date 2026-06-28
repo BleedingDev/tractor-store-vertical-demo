@@ -182,74 +182,73 @@
         "sharedContractVersion": "mf-ssr-contract-v1"
       },
       "api": {
-        "effect": {
-          "runtime": "effect",
-          "bff": {
-            "prefix": "/explore-api",
-            "openapi": "/openapi.json"
+        "runtime": "effect",
+        "bff": {
+          "prefix": "/explore-api",
+          "openapi": "/openapi.json",
+          "strictEffectApproach": true
+        },
+        "contract": {
+          "export": "./api",
+          "path": "verticals/explore/shared/api.ts"
+        },
+        "client": {
+          "export": "./api/client",
+          "path": "verticals/explore/src/api/explore-client.ts"
+        },
+        "serverEntry": "verticals/explore/api/index.ts",
+        "basePath": "/explore-api/explore",
+        "consumedBy": [
+          "shell-super-app",
+          "explore"
+        ],
+        "readiness": {
+          "endpoint": "/explore/readiness",
+          "marker": {
+            "ui": "ultramodernUiMarker",
+            "api": "ultramodernApiMarker",
+            "skew": "none"
           },
-          "contract": {
-            "export": "./shared/effect/api",
-            "path": "verticals/explore/shared/effect/api.ts"
-          },
-          "client": {
-            "export": "./effect/client",
-            "path": "verticals/explore/src/effect/explore-client.ts"
-          },
-          "serverEntry": "verticals/explore/api/effect/index.ts",
-          "basePath": "/explore-api/effect/explore",
-          "consumedBy": [
-            "shell-super-app",
-            "explore"
+          "checks": [
+            "moduleFederation",
+            "ssr",
+            "translations",
+            "effectBff"
+          ]
+        },
+        "requestContext": {
+          "propagatedHeaders": [
+            "accept-language",
+            "authorization",
+            "traceparent",
+            "x-correlation-id",
+            "x-tenant-id",
+            "x-ultramodern-env",
+            "x-vertical-version-id"
           ],
-          "readiness": {
-            "endpoint": "/effect/explore/readiness",
-            "marker": {
-              "ui": "ultramodernUiMarker",
-              "api": "ultramodernApiMarker",
-              "skew": "none"
-            },
-            "checks": [
-              "moduleFederation",
-              "ssr",
-              "translations",
-              "effectBff"
-            ]
+          "source": "shell-to-vertical-effect-client"
+        },
+        "domainOperations": {
+          "recommendationFeed": {
+            "client": "listExplore",
+            "method": "GET",
+            "path": "/explore",
+            "resource": "recommendations",
+            "owner": "explore"
           },
-          "requestContext": {
-            "propagatedHeaders": [
-              "accept-language",
-              "authorization",
-              "traceparent",
-              "x-correlation-id",
-              "x-tenant-id",
-              "x-ultramodern-env",
-              "x-vertical-version-id"
-            ],
-            "source": "shell-to-vertical-effect-client"
+          "recommendationDetail": {
+            "client": "getExplore",
+            "method": "GET",
+            "path": "/explore/:id",
+            "resource": "recommendation",
+            "owner": "explore"
           },
-          "domainOperations": {
-            "recommendationFeed": {
-              "client": "listExplore",
-              "method": "GET",
-              "path": "/effect/explore",
-              "resource": "recommendations",
-              "owner": "explore"
-            },
-            "recommendationDetail": {
-              "client": "getExplore",
-              "method": "GET",
-              "path": "/effect/explore/:id",
-              "resource": "recommendation",
-              "owner": "explore"
-            },
-            "recommendationCreate": {
-              "client": "createExplore",
-              "method": "POST",
-              "path": "/effect/explore",
-              "resource": "explore",
-              "owner": "explore"
-            }
+          "recommendationCreate": {
+            "client": "createExplore",
+            "method": "POST",
+            "path": "/explore",
+            "resource": "explore",
+            "owner": "explore"
           }
         }
       },
@@ -266,7 +265,7 @@
           "ssr": "/tractors",
           "mfManifest": "/mf-manifest.json",
           "locale": "/locales/en/explore.json",
-          "effectReadiness": "/explore-api/effect/explore/readiness"
+          "effectReadiness": "/explore-api/explore/readiness"
         },
         "evidence": {
           "proofScript": "scripts/proof-cloudflare-version.mjs",
@@ -409,74 +408,73 @@
         "sharedContractVersion": "mf-ssr-contract-v1"
       },
       "api": {
-        "effect": {
-          "runtime": "effect",
-          "bff": {
-            "prefix": "/decide-api",
-            "openapi": "/openapi.json"
+        "runtime": "effect",
+        "bff": {
+          "prefix": "/decide-api",
+          "openapi": "/openapi.json",
+          "strictEffectApproach": true
+        },
+        "contract": {
+          "export": "./api",
+          "path": "verticals/decide/shared/api.ts"
+        },
+        "client": {
+          "export": "./api/client",
+          "path": "verticals/decide/src/api/decide-client.ts"
+        },
+        "serverEntry": "verticals/decide/api/index.ts",
+        "basePath": "/decide-api/decide",
+        "consumedBy": [
+          "shell-super-app",
+          "decide"
+        ],
+        "readiness": {
+          "endpoint": "/decide/readiness",
+          "marker": {
+            "ui": "ultramodernUiMarker",
+            "api": "ultramodernApiMarker",
+            "skew": "none"
           },
-          "contract": {
-            "export": "./shared/effect/api",
-            "path": "verticals/decide/shared/effect/api.ts"
-          },
-          "client": {
-            "export": "./effect/client",
-            "path": "verticals/decide/src/effect/decide-client.ts"
-          },
-          "serverEntry": "verticals/decide/api/effect/index.ts",
-          "basePath": "/decide-api/effect/decide",
-          "consumedBy": [
-            "shell-super-app",
-            "decide"
+          "checks": [
+            "moduleFederation",
+            "ssr",
+            "translations",
+            "effectBff"
+          ]
+        },
+        "requestContext": {
+          "propagatedHeaders": [
+            "accept-language",
+            "authorization",
+            "traceparent",
+            "x-correlation-id",
+            "x-tenant-id",
+            "x-ultramodern-env",
+            "x-vertical-version-id"
           ],
-          "readiness": {
-            "endpoint": "/effect/decide/readiness",
-            "marker": {
-              "ui": "ultramodernUiMarker",
-              "api": "ultramodernApiMarker",
-              "skew": "none"
-            },
-            "checks": [
-              "moduleFederation",
-              "ssr",
-              "translations",
-              "effectBff"
-            ]
+          "source": "shell-to-vertical-effect-client"
+        },
+        "domainOperations": {
+          "productDetail": {
+            "client": "getDecide",
+            "method": "GET",
+            "path": "/decide/:id",
+            "resource": "product-detail",
+            "owner": "decide"
           },
-          "requestContext": {
-            "propagatedHeaders": [
-              "accept-language",
-              "authorization",
-              "traceparent",
-              "x-correlation-id",
-              "x-tenant-id",
-              "x-ultramodern-env",
-              "x-vertical-version-id"
-            ],
-            "source": "shell-to-vertical-effect-client"
+          "configurationDraft": {
+            "client": "createDecide",
+            "method": "POST",
+            "path": "/decide",
+            "resource": "configuration",
+            "owner": "decide"
           },
-          "domainOperations": {
-            "productDetail": {
-              "client": "getDecide",
-              "method": "GET",
-              "path": "/effect/decide/:id",
-              "resource": "product-detail",
-              "owner": "decide"
-            },
-            "configurationDraft": {
-              "client": "createDecide",
-              "method": "POST",
-              "path": "/effect/decide",
-              "resource": "configuration",
-              "owner": "decide"
-            },
-            "productList": {
-              "client": "listDecide",
-              "method": "GET",
-              "path": "/effect/decide",
-              "resource": "products",
-              "owner": "decide"
-            }
+          "productList": {
+            "client": "listDecide",
+            "method": "GET",
+            "path": "/decide",
+            "resource": "products",
+            "owner": "decide"
           }
         }
       },
@@ -493,7 +491,7 @@
           "ssr": "/tractors",
           "mfManifest": "/mf-manifest.json",
           "locale": "/locales/en/decide.json",
-          "effectReadiness": "/decide-api/effect/decide/readiness"
+          "effectReadiness": "/decide-api/decide/readiness"
         },
         "evidence": {
           "proofScript": "scripts/proof-cloudflare-version.mjs",
@@ -620,74 +618,73 @@
         "sharedContractVersion": "mf-ssr-contract-v1"
       },
       "api": {
-        "effect": {
-          "runtime": "effect",
-          "bff": {
-            "prefix": "/checkout-api",
-            "openapi": "/openapi.json"
+        "runtime": "effect",
+        "bff": {
+          "prefix": "/checkout-api",
+          "openapi": "/openapi.json",
+          "strictEffectApproach": true
+        },
+        "contract": {
+          "export": "./api",
+          "path": "verticals/checkout/shared/api.ts"
+        },
+        "client": {
+          "export": "./api/client",
+          "path": "verticals/checkout/src/api/checkout-client.ts"
+        },
+        "serverEntry": "verticals/checkout/api/index.ts",
+        "basePath": "/checkout-api/checkout",
+        "consumedBy": [
+          "shell-super-app",
+          "checkout"
+        ],
+        "readiness": {
+          "endpoint": "/checkout/readiness",
+          "marker": {
+            "ui": "ultramodernUiMarker",
+            "api": "ultramodernApiMarker",
+            "skew": "none"
           },
-          "contract": {
-            "export": "./shared/effect/api",
-            "path": "verticals/checkout/shared/effect/api.ts"
-          },
-          "client": {
-            "export": "./effect/client",
-            "path": "verticals/checkout/src/effect/checkout-client.ts"
-          },
-          "serverEntry": "verticals/checkout/api/effect/index.ts",
-          "basePath": "/checkout-api/effect/checkout",
-          "consumedBy": [
-            "shell-super-app",
-            "checkout"
+          "checks": [
+            "moduleFederation",
+            "ssr",
+            "translations",
+            "effectBff"
+          ]
+        },
+        "requestContext": {
+          "propagatedHeaders": [
+            "accept-language",
+            "authorization",
+            "traceparent",
+            "x-correlation-id",
+            "x-tenant-id",
+            "x-ultramodern-env",
+            "x-vertical-version-id"
           ],
-          "readiness": {
-            "endpoint": "/effect/checkout/readiness",
-            "marker": {
-              "ui": "ultramodernUiMarker",
-              "api": "ultramodernApiMarker",
-              "skew": "none"
-            },
-            "checks": [
-              "moduleFederation",
-              "ssr",
-              "translations",
-              "effectBff"
-            ]
+          "source": "shell-to-vertical-effect-client"
+        },
+        "domainOperations": {
+          "cartSnapshot": {
+            "client": "listCheckout",
+            "method": "GET",
+            "path": "/checkout",
+            "resource": "cart",
+            "owner": "checkout"
           },
-          "requestContext": {
-            "propagatedHeaders": [
-              "accept-language",
-              "authorization",
-              "traceparent",
-              "x-correlation-id",
-              "x-tenant-id",
-              "x-ultramodern-env",
-              "x-vertical-version-id"
-            ],
-            "source": "shell-to-vertical-effect-client"
+          "cartMutation": {
+            "client": "createCheckout",
+            "method": "POST",
+            "path": "/checkout",
+            "resource": "cart-line",
+            "owner": "checkout"
           },
-          "domainOperations": {
-            "cartSnapshot": {
-              "client": "listCheckout",
-              "method": "GET",
-              "path": "/effect/checkout",
-              "resource": "cart",
-              "owner": "checkout"
-            },
-            "cartMutation": {
-              "client": "createCheckout",
-              "method": "POST",
-              "path": "/effect/checkout",
-              "resource": "cart-line",
-              "owner": "checkout"
-            },
-            "orderConfirmation": {
-              "client": "getCheckout",
-              "method": "GET",
-              "path": "/effect/checkout/:id",
-              "resource": "order",
-              "owner": "checkout"
-            }
+          "orderConfirmation": {
+            "client": "getCheckout",
+            "method": "GET",
+            "path": "/checkout/:id",
+            "resource": "order",
+            "owner": "checkout"
           }
         }
       },
@@ -704,7 +701,7 @@
           "ssr": "/cart",
           "mfManifest": "/mf-manifest.json",
           "locale": "/locales/en/checkout.json",
-          "effectReadiness": "/checkout-api/effect/checkout/readiness"
+          "effectReadiness": "/checkout-api/checkout/readiness"
         },
         "evidence": {
           "proofScript": "scripts/proof-cloudflare-version.mjs",
@@ -821,18 +818,14 @@
       "package": "@tractor-store-vertical-demo/shared-design-tokens",
       "path": "packages/shared-design-tokens",
       "description": "Design token placeholders consumed by shell and verticals."
-    },
-    {
-      "id": "shared-effect-api",
-      "package": "@tractor-store-vertical-demo/shared-effect-api",
-      "path": "packages/shared-effect-api",
-      "description": "Shared Effect API type placeholders for vertical clients."
     }
   ],
   "validation": {
     "script": "scripts/validate-ultramodern-workspace.mjs",
     "commands": [
-      "pnpm ultramodern:check"
+      "pnpm i18n:boundaries",
+      "pnpm api:check",
+      "pnpm contract:check"
     ]
   }
 }

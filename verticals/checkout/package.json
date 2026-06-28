@@ -59,7 +59,7 @@
     "./MiniCart": "./src/components/mini-cart.tsx",
     "./Route": "./src/federation-entry.tsx",
     "./ThanksPage": "./src/components/thanks-page.tsx",
-    "./effect/client": "./src/effect/checkout-client.ts",
-    "./shared/effect/api": "./shared/effect/api.ts"
+    "./api": "./shared/api.ts",
+    "./api/client": "./src/api/checkout-client.ts"
   }
 }

@@ -77,10 +77,11 @@ export default defineConfig(
     {
       bff: {
         effect: {
-          entry: './api/effect/index',
+          entry: './api/index',
           openapi: {
             path: '/openapi.json',
           },
+          strictEffectApproach: true,
         },
         prefix: '/checkout-api',
         runtimeFramework: 'effect',
