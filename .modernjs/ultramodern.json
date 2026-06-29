@@ -3,7 +3,7 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.4.0-ultramodern.20"
+    "version": "3.5.0-ultramodern.0"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
@@ -18,7 +18,7 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.4.0-ultramodern.20",
+    "modernPackageVersion": "3.5.0-ultramodern.0",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
@@ -104,7 +104,7 @@
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
         },
-        "effectApi": {
+        "api": {
           "stem": "explore",
           "prefix": "/explore-api",
           "consumedBy": [
@@ -156,7 +156,7 @@
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
         },
-        "effectApi": {
+        "api": {
           "stem": "decide",
           "prefix": "/decide-api",
           "consumedBy": [
@@ -192,7 +192,7 @@
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
         },
-        "effectApi": {
+        "api": {
           "stem": "checkout",
           "prefix": "/checkout-api",
           "consumedBy": [
@@ -295,13 +295,14 @@
   "tooling": {
     "command": "modern-js-create ultramodern",
     "wrappers": {
-      "validate": "scripts/validate-ultramodern-workspace.mjs",
-      "typecheck": "scripts/ultramodern-typecheck.mjs",
-      "mfTypes": "scripts/assert-mf-types.mjs",
-      "publicSurface": "scripts/generate-public-surface-assets.mjs",
-      "cloudflareProof": "scripts/proof-cloudflare-version.mjs",
-      "performanceReadiness": "scripts/ultramodern-performance-readiness.mjs",
-      "skills": "scripts/bootstrap-agent-skills.mjs"
+      "validate": "scripts/validate-ultramodern-workspace.mts",
+      "typecheck": "scripts/ultramodern-typecheck.mts",
+      "mfTypes": "scripts/assert-mf-types.mts",
+      "publicSurface": "scripts/generate-public-surface-assets.mts",
+      "cloudflareProof": "scripts/proof-cloudflare-version.mts",
+      "performanceReadiness": "scripts/ultramodern-performance-readiness.mts",
+      "skills": "scripts/bootstrap-agent-skills.mts",
+      "apiBoundaries": "scripts/check-ultramodern-api-boundaries.mts"
     }
   }
 }

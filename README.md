@@ -1,8 +1,8 @@
 # Tractor Store UltraModern Demo
 
 Standalone Tractor Store demo built on UltraModern.js, Modern.js SSR, Module
-Federation, Tailwind CSS 4, localized routes, and Effect BFF handlers inside
-each Micro Vertical.
+Federation, Tailwind CSS 4, localized routes, and strict Effect HttpApi BFF
+surfaces inside each Micro Vertical.
 
 ## Workspace
 
@@ -13,8 +13,7 @@ each Micro Vertical.
 - `verticals/decide` owns product detail and decision UI plus Decide Effect API.
 - `verticals/checkout` owns cart interactions, basket UI, and Checkout Effect
   API.
-- `packages/shared-*` contain shared contracts, design tokens, and Effect API
-  helpers.
+- `packages/shared-*` contain shared contracts and design tokens.
 
 The demo is intentionally close to the original Tractor Store v2 visual design,
 but it is structured as a full-stack Micro Vertical workspace with SSR and
@@ -25,10 +24,10 @@ Cloudflare-ready deployment.
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.4.0-ultramodern.20
+3.5.0-ultramodern.0
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.4.0-ultramodern.20`
+Generated apps and verticals use `npm:@bleedingdev/...@3.5.0-ultramodern.0`
 aliases for the Modern.js packages that are part of the UltraModern canary
 line.
 
@@ -37,6 +36,7 @@ line.
 ```bash
 pnpm install
 pnpm i18n:boundaries
+pnpm api:check
 pnpm contract:check
 pnpm typecheck
 pnpm build
