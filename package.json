@@ -30,6 +30,7 @@
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm performance:readiness",
     "mf:types": "node ./scripts/assert-mf-types.mts",
     "performance:readiness": "node ./scripts/ultramodern-performance-readiness.mts",
+    "migrate:strict-effect": "node ./scripts/migrate-strict-effect.mts",
     "contract:check": "node ./scripts/validate-ultramodern-workspace.mts",
     "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mts",
     "api:check": "node ./scripts/check-ultramodern-api-boundaries.mts"
@@ -55,8 +56,8 @@
   },
   "devDependencies": {
     "@effect/tsgo": "0.14.6",
-    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.5.0-ultramodern.0",
-    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.5.0-ultramodern.0",
+    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.5.0-ultramodern.1",
+    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.5.0-ultramodern.1",
     "@playwright/test": "^1.60.0",
     "@typescript/native-preview": "7.0.0-dev.20260624.1",
     "lefthook": "^2.1.9",
