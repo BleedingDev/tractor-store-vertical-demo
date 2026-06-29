@@ -22,8 +22,13 @@ minimumReleaseAgeExclude:
   - '@rspack/core'
   - '@rspack/plugin-react-refresh'
   - 'ts-checker-rspack-plugin'
+  - 'effect@4.0.0-beta.91'
+  - '@effect/opentelemetry@4.0.0-beta.91'
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 1440
+trustPolicyExclude:
+  - '@effect/opentelemetry@4.0.0-beta.91'
+  - 'effect@4.0.0-beta.91'
 blockExoticSubdeps: true
 engineStrict: true
 pmOnFail: error
@@ -37,14 +42,14 @@ peerDependencyRules:
     '@module-federation/enhanced>typescript': '6.0.3'
     '@module-federation/modern-js-v3>typescript': '6.0.3'
     '@module-federation/rspack>typescript': '6.0.3'
-    '@effect/vitest>effect': '4.0.0-beta.89'
+    '@effect/vitest>effect': '4.0.0-beta.91'
     'i18next>typescript': '6.0.3'
 
 overrides:
   '@tanstack/react-router': 1.170.16
   '@tanstack/router-core': 1.171.13
-  '@effect/vitest': 4.0.0-beta.89
-  effect: 4.0.0-beta.89
+  '@effect/vitest': 4.0.0-beta.91
+  effect: 4.0.0-beta.91
   node-fetch: '^3.3.2'
 
 allowBuilds:
