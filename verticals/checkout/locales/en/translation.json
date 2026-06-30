@@ -16,6 +16,9 @@
       "thankYou": "Order confirmation",
       "unavailable": "Unavailable"
     },
+    "seo": {
+      "description": "Checkout renders basket, checkout, and order confirmation flows before hydration."
+    },
     "title": "Checkout Vertical",
     "actions": {
       "addToCart": "Add to basket",

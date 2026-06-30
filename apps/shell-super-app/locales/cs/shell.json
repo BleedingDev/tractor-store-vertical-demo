@@ -29,6 +29,9 @@
       "productDetail": "Detail traktoru",
       "storePicker": "Prodejci"
     },
+    "seo": {
+      "description": "Acre & Iron skládá verticaly Procházení, Rozhodování a Pokladna s lokalizovaným SSR a federovaným obchodem."
+    },
     "title": "Acre & Iron"
   }
 }

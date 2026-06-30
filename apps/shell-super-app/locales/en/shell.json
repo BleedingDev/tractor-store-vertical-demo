@@ -29,6 +29,9 @@
       "productDetail": "Tractor detail",
       "storePicker": "Stores"
     },
+    "seo": {
+      "description": "Acre & Iron composes Explore, Decide, and Checkout verticals with localized SSR and federated commerce."
+    },
     "title": "Acre & Iron"
   }
 }

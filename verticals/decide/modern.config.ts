@@ -146,9 +146,9 @@ export default defineConfig(
           }
         : {}),
       dev: {
-        // Keep dev assets origin-relative too; the default absolute
-        // http://localhost:<port> prefix breaks pages served through tunnels.
-        assetPrefix: '/',
+        // Remote dev manifests must publish an absolute publicPath so host
+        // shells load remoteEntry.js and exposed chunks from this dev server.
+        assetPrefix,
       },
       html: {
         outputStructure: 'flat',

@@ -16,6 +16,9 @@
       "thankYou": "Order confirmation",
       "unavailable": "Unavailable"
     },
+    "seo": {
+      "description": "Explore renders tractor listings, store discovery, and recommendations before hydration."
+    },
     "title": "Explore Vertical",
     "header": {
       "logoAlt": "Microfrontends Tractor Store",

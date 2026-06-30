@@ -129,8 +129,8 @@ export default defineConfig(
           }
         : {}),
       dev: {
-        // Keep dev assets origin-relative too; the default absolute
-        // http://localhost:<port> prefix breaks pages served through tunnels.
+        // Keep shell dev assets origin-relative so the shell works through
+        // tunnels and local previews without rewriting its own chunks.
         assetPrefix: '/',
       },
       html: {

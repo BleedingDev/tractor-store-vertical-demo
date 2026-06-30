@@ -16,6 +16,9 @@
       "thankYou": "Potvrzení objednávky",
       "unavailable": "Nedostupné"
     },
+    "seo": {
+      "description": "Průzkum vykresluje seznamy traktorů, prodejce a doporučení před hydratací."
+    },
     "title": "Průzkumný remote",
     "header": {
       "logoAlt": "Microfrontends Tractor Store",

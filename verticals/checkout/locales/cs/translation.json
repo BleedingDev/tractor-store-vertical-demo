@@ -16,6 +16,9 @@
       "thankYou": "Potvrzení objednávky",
       "unavailable": "Nedostupné"
     },
+    "seo": {
+      "description": "Pokladna vykresluje košík, pokladnu a potvrzení objednávky před hydratací."
+    },
     "title": "Pokladní remote",
     "actions": {
       "addToCart": "Přidat do košíku",

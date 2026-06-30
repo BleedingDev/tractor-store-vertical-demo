@@ -16,6 +16,9 @@
       "thankYou": "Order confirmation",
       "unavailable": "Unavailable"
     },
+    "seo": {
+      "description": "Decide renders tractor detail pages, variants, stock, and buying context before hydration."
+    },
     "title": "Decide Vertical",
     "product": {
       "availability": "Availability",

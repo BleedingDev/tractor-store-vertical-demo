@@ -16,6 +16,9 @@
       "thankYou": "Potvrzení objednávky",
       "unavailable": "Nedostupné"
     },
+    "seo": {
+      "description": "Rozhodování vykresluje detail traktoru, varianty, sklad a nákupní kontext před hydratací."
+    },
     "title": "Rozhodovací remote",
     "product": {
       "availability": "Dostupnost",
