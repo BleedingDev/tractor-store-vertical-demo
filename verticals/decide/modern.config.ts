@@ -66,8 +66,7 @@ const assetPrefix =
 const buildTarget = cloudflareDeployEnabled ? 'cloudflare' : 'web';
 const buildOutputRoot = cloudflareDeployEnabled ? 'dist-cloudflare' : 'dist';
 const buildTempDirectory = `node_modules/.modern-js-${appId}-${buildTarget}`;
-const buildCacheTarget = cloudflareDeployEnabled ? 'cloudflare' : 'web';
-const buildCacheDirectory = `node_modules/.cache/rspack-${appId}-${buildCacheTarget}`;
+const buildCacheDirectory = `node_modules/.cache/rspack-${appId}-${buildTarget}`;
 
 if (
   cloudflareDeployEnabled &&
