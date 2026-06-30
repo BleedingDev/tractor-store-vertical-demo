@@ -23,7 +23,6 @@
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true,
     "resolveJsonModule": true,
     "plugins": [
       {

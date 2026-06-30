@@ -13,8 +13,6 @@
   "include": [
     "src",
     "locales/**/*.json",
-    "modern.config.ts",
-    "module-federation.config.ts",
     "package.json",
     "shared"
   ],
@@ -34,8 +32,5 @@
     {
       "path": "../../verticals/checkout"
     }
-  ],
-  "exclude": [
-    "src/modern-tanstack"
   ]
 }

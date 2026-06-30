@@ -13,11 +13,9 @@
   "include": [
     "src",
     "locales/**/*.json",
-    "modern.config.ts",
-    "module-federation.config.ts",
     "package.json",
-    "api",
-    "shared"
+    "shared",
+    "api"
   ],
   "references": [
     {
@@ -26,8 +24,5 @@
     {
       "path": "../../packages/shared-design-tokens"
     }
-  ],
-  "exclude": [
-    "src/modern-tanstack"
   ]
 }
