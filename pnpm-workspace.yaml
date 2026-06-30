@@ -62,5 +62,6 @@ allowBuilds:
   workerd: true
 
 patchedDependencies:
+  '@module-federation/modern-js-v3@2.6.0': patches/@module-federation__modern-js-v3@2.6.0.patch
   '@tanstack/router-core@1.171.13': patches/@tanstack__router-core@1.171.13.patch
   'effect@4.0.0-beta.91': patches/effect-schema-error-type-id.patch
