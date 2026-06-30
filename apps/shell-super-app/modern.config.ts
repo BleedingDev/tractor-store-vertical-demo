@@ -44,6 +44,8 @@ const inferredCloudflareUrl =
   cloudflareDeployEnabled && cloudflareWorkersDevSubdomain !== undefined
     ? `https://${cloudflareWorkerName}.${cloudflareWorkersDevSubdomain}.workers.dev`
     : undefined;
+// Site origin (SEO: canonical/hreflang URLs) prefers the site-wide public URL;
+// the per-app deployment URL only fills in when no site origin is configured.
 const siteUrl =
   configuredSiteUrl ||
   configuredCloudflareUrl ||
@@ -55,8 +57,11 @@ const defaultAssetPrefix = '/';
 // load remoteEntry.js and exposed chunks from the remote origin, not the host.
 const assetPrefix =
   configuredModernAssetPrefix || configuredUltramodernAssetPrefix || defaultAssetPrefix;
-const buildCacheTarget = cloudflareDeployEnabled ? 'cloudflare' : 'web';
-const buildCacheDirectory = `node_modules/.cache/rspack-${appId}-${buildCacheTarget}`;
+const buildTarget = cloudflareDeployEnabled ? 'cloudflare' : 'web';
+const buildOutputRoot = cloudflareDeployEnabled ? 'dist-cloudflare' : 'dist';
+const buildTempDirectory = `node_modules/.modern-js-${appId}-${buildTarget}`;
+const buildCacheDirectory = `node_modules/.cache/rspack-${appId}-${buildTarget}`;
+
 if (
   cloudflareDeployEnabled &&
   process.env['ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS'] === 'true' &&
@@ -68,6 +73,7 @@ if (
     `Cloudflare deploy for ${appId} needs ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP, MODERN_PUBLIC_SITE_URL, or ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN.`,
   );
 }
+
 export default defineConfig(
   presetUltramodern(
     {
@@ -77,12 +83,54 @@ export default defineConfig(
               worker: {
                 compatibilityDate: '2026-06-02',
                 name: cloudflareWorkerName,
+                security: {
+                  contentSecurityPolicy: {
+                    directives: {
+                      'base-uri': ["'self'"],
+                      'connect-src': ["'self'", 'https:', 'http:', 'wss:', 'ws:'],
+                      'default-src': ["'self'"],
+                      'font-src': ["'self'", 'data:', 'https:', 'http:'],
+                      'form-action': ["'self'"],
+                      'frame-ancestors': ["'self'"],
+                      'img-src': ["'self'", 'data:', 'blob:', 'https:', 'http:'],
+                      'manifest-src': ["'self'", 'https:', 'http:'],
+                      'object-src': ["'none'"],
+                      'script-src': [
+                        "'self'",
+                        "'unsafe-inline'",
+                        "'unsafe-eval'",
+                        'https:',
+                        'http:',
+                        'blob:',
+                      ],
+                      'style-src': ["'self'", "'unsafe-inline'", 'https:', 'http:'],
+                      'worker-src': ["'self'", 'blob:'],
+                    },
+                    mode: 'report-only',
+                    reason:
+                      'Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement.',
+                  },
+                  enabled: true,
+                  headers: {
+                    contentTypeOptions: 'nosniff',
+                    permissionsPolicy:
+                      'camera=(), geolocation=(), microphone=(), payment=(), usb=()',
+                    referrerPolicy: 'strict-origin-when-cross-origin',
+                  },
+                  noindex: {
+                    localhost: true,
+                    previewHostnames: [],
+                    workersDev: true,
+                  },
+                },
                 ssr: true,
               },
             },
           }
         : {}),
       dev: {
+        // Keep dev assets origin-relative too; the default absolute
+        // http://localhost:<port> prefix breaks pages served through tunnels.
         assetPrefix: '/',
       },
       html: {
@@ -93,13 +141,15 @@ export default defineConfig(
         disableTsChecker: false,
         distPath: {
           html: './',
+          root: buildOutputRoot,
         },
         polyfill: 'off',
         splitRouteChunks: true,
+        tempDir: buildTempDirectory,
       },
       performance: {
         buildCache: {
-          cacheDigest: [appId, buildCacheTarget],
+          cacheDigest: [appId, buildTarget],
           cacheDirectory: buildCacheDirectory,
         },
         rsdoctor: {
@@ -113,6 +163,7 @@ export default defineConfig(
         i18nPlugin({
           backend: {
             enabled: true,
+            loadPath: '/locales/{{lng}}/{{ns}}.json',
           },
           localeDetection: {
             fallbackLanguage: 'en',
@@ -125,6 +176,9 @@ export default defineConfig(
               '/mf-manifest.json',
               '/mf-stats.json',
               '/remoteEntry.js',
+              '/robots.txt',
+              '/site.webmanifest',
+              '/sitemap.xml',
               '/static',
               '/zephyr-manifest.json',
             ],

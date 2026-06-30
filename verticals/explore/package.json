@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "modern dev",
     "build": "ULTRAMODERN_ZEPHYR=false modern build && node ../../scripts/generate-public-surface-assets.mts --app explore --target dist && node ../../scripts/assert-mf-types.mts",
-    "cloudflare:build": "ULTRAMODERN_ZEPHYR=false MODERNJS_DEPLOY=cloudflare modern build && node ../../scripts/generate-public-surface-assets.mts --app explore --target dist && ULTRAMODERN_ZEPHYR=false MODERNJS_DEPLOY=cloudflare modern deploy --skip-build && node ../../scripts/generate-public-surface-assets.mts --app explore --target cloudflare",
+    "cloudflare:build": "ULTRAMODERN_ZEPHYR=false MODERNJS_DEPLOY=cloudflare modern build && ULTRAMODERN_ZEPHYR=false MODERNJS_DEPLOY=cloudflare modern deploy --skip-build && node ../../scripts/generate-public-surface-assets.mts --app explore --target cloudflare",
     "cloudflare:deploy": "ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json",
     "cloudflare:preview": "pnpm run cloudflare:build && wrangler dev --config .output/wrangler.json",
     "cloudflare:proof": "node ../../scripts/proof-cloudflare-version.mts --app explore",
