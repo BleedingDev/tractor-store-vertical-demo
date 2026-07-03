@@ -178,7 +178,8 @@
               "readiness": "/explore-api/explore/readiness",
               "buildMarker": "verticals/explore/shared/ultramodern-build.ts",
               "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE"
-            }
+            },
+            "identityRoot": "deliveryUnit"
           },
           "executionSurfaces": {
             "cloudflare": {
@@ -237,7 +238,25 @@
             "timeoutMs": 1500,
             "failureEvent": "modernjs:microvertical-server-fallback",
             "strategy": "typed-effect-error"
+          },
+          "deliveryUnit": {
+            "schemaVersion": 1,
+            "kind": "microvertical-delivery-unit",
+            "unitId": "tractor-store-vertical-demo/explore",
+            "packageName": "@tractor-store-vertical-demo/explore",
+            "version": "0.1.0",
+            "buildMarker": "b3dc004d99d5acb2",
+            "sourceRevision": "workspace"
           }
+        },
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/explore",
+          "packageName": "@tractor-store-vertical-demo/explore",
+          "version": "0.1.0",
+          "buildMarker": "b3dc004d99d5acb2",
+          "sourceRevision": "workspace"
         }
       },
       {
@@ -317,7 +336,8 @@
               "readiness": "/decide-api/decide/readiness",
               "buildMarker": "verticals/decide/shared/ultramodern-build.ts",
               "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE"
-            }
+            },
+            "identityRoot": "deliveryUnit"
           },
           "executionSurfaces": {
             "cloudflare": {
@@ -376,7 +396,25 @@
             "timeoutMs": 1500,
             "failureEvent": "modernjs:microvertical-server-fallback",
             "strategy": "typed-effect-error"
+          },
+          "deliveryUnit": {
+            "schemaVersion": 1,
+            "kind": "microvertical-delivery-unit",
+            "unitId": "tractor-store-vertical-demo/decide",
+            "packageName": "@tractor-store-vertical-demo/decide",
+            "version": "0.1.0",
+            "buildMarker": "5eaf60929a19f5f1",
+            "sourceRevision": "workspace"
           }
+        },
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/decide",
+          "packageName": "@tractor-store-vertical-demo/decide",
+          "version": "0.1.0",
+          "buildMarker": "5eaf60929a19f5f1",
+          "sourceRevision": "workspace"
         }
       },
       {
@@ -440,7 +478,8 @@
               "readiness": "/checkout-api/checkout/readiness",
               "buildMarker": "verticals/checkout/shared/ultramodern-build.ts",
               "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT"
-            }
+            },
+            "identityRoot": "deliveryUnit"
           },
           "executionSurfaces": {
             "cloudflare": {
@@ -499,7 +538,25 @@
             "timeoutMs": 1500,
             "failureEvent": "modernjs:microvertical-server-fallback",
             "strategy": "typed-effect-error"
+          },
+          "deliveryUnit": {
+            "schemaVersion": 1,
+            "kind": "microvertical-delivery-unit",
+            "unitId": "tractor-store-vertical-demo/checkout",
+            "packageName": "@tractor-store-vertical-demo/checkout",
+            "version": "0.1.0",
+            "buildMarker": "37c25641b66d32b5",
+            "sourceRevision": "workspace"
           }
+        },
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/checkout",
+          "packageName": "@tractor-store-vertical-demo/checkout",
+          "version": "0.1.0",
+          "buildMarker": "37c25641b66d32b5",
+          "sourceRevision": "workspace"
         }
       }
     ]
