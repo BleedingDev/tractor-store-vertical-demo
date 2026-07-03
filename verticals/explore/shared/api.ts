@@ -16,8 +16,15 @@ export const exploreMarkerSchema = Schema.Struct({
 });
 
 export const exploreItemSchema = Schema.Struct({
+  category: Schema.String,
   id: Schema.String,
+  image: Schema.String,
   marker: exploreMarkerSchema,
+  name: Schema.String,
+  price: Schema.Finite,
+  productId: Schema.String,
+  sku: Schema.String,
+  slug: Schema.String,
   title: Schema.String,
 });
 
@@ -96,6 +103,7 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
     )
     .add(
       HttpApiEndpoint.post('create', '/explore', {
+        error: exploreNotFoundSchema,
         payload: exploreCreatePayloadSchema,
         success: Schema.Struct({
           item: exploreItemSchema,
@@ -137,3 +145,5 @@ export const exploreApiContract = {
   readinessPath: '/explore-api/explore/readiness',
   servicePrefix: '/explore-api',
 } as const;
+
+export const exploreApi = exploreEffectApi;

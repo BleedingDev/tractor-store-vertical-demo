@@ -16,9 +16,17 @@ export const decideMarkerSchema = Schema.Struct({
 });
 
 export const decideItemSchema = Schema.Struct({
+  color: Schema.String,
   id: Schema.String,
+  image: Schema.String,
   marker: decideMarkerSchema,
+  name: Schema.String,
+  price: Schema.Finite,
+  productId: Schema.String,
+  sku: Schema.String,
+  slug: Schema.String,
   title: Schema.String,
+  variantLabel: Schema.String,
 });
 
 export const ultramodernApiMarker = {
@@ -96,6 +104,7 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
     )
     .add(
       HttpApiEndpoint.post('create', '/decide', {
+        error: decideNotFoundSchema,
         payload: decideCreatePayloadSchema,
         success: Schema.Struct({
           item: decideItemSchema,
@@ -137,3 +146,5 @@ export const decideApiContract = {
   readinessPath: '/decide-api/decide/readiness',
   servicePrefix: '/decide-api',
 } as const;
+
+export const decideApi = decideEffectApi;

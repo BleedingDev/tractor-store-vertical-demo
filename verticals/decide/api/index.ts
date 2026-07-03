@@ -6,24 +6,24 @@ import {
   ultramodernApiMarker,
 } from '../shared/api.ts';
 import type { OperationContext } from '../shared/api.ts';
+import { tractorProductVariants } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
-const decideItems = [
-  {
-    id: 'CL-08',
-    marker: ultramodernApiMarker,
-    title: 'Holland Hamster product detail with CL-08-GR and CL-08-PI variants',
-  },
-  {
-    id: 'CL-08-GR',
-    marker: ultramodernApiMarker,
-    title: 'Holland Hamster Polder Green, 7750 Ø, in stock',
-  },
-  {
-    id: 'CL-08-PI',
-    marker: ultramodernApiMarker,
-    title: 'Holland Hamster Tulip Magenta, 7900 Ø, in stock',
-  },
-];
+const decideItems = tractorProductVariants.map((product) => ({
+  color: product.color,
+  id: product.sku,
+  image: product.image,
+  marker: ultramodernApiMarker,
+  name: product.cartName,
+  price: product.price,
+  productId: product.id,
+  sku: product.sku,
+  slug: product.slug,
+  title: `${product.cartName} detail ${product.sku}, ${product.price} Ø`,
+  variantLabel: product.variantLabel,
+}));
+
+const findDecideItem = (id: string) =>
+  decideItems.find((item) => item.sku === id || item.productId === id || item.slug === id);
 
 const operationAttributes = (operationContext: OperationContext) => ({
   'modernjs.operation.id': operationContext.operationId,
@@ -66,7 +66,7 @@ const decideLayer = HttpApiBuilder.group(decideEffectApi, 'decide', (handlers) =
       ),
     )
     .handle('get', ({ params }) => {
-      const match = decideItems.find((decideItem) => decideItem.id === params.id);
+      const match = findDecideItem(params.id);
       const result =
         match === undefined ? Effect.fail(makeDecideNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
@@ -76,23 +76,22 @@ const decideLayer = HttpApiBuilder.group(decideEffectApi, 'decide', (handlers) =
         }),
       );
     })
-    .handle('create', ({ payload }) =>
-      Effect.succeed({
-        item: {
-          id: `generated-decide-${payload.title
-            .toLowerCase()
-            .replaceAll(/[^a-z0-9]+/gu, '-')
-            .replaceAll(/^-|-$/gu, '')}`,
-          marker: ultramodernApiMarker,
-          title: payload.title,
-        },
-      }).pipe(
+    .handle('create', ({ payload }) => {
+      const item =
+        findDecideItem(payload.title) ??
+        decideItems.find((candidate) => candidate.name === payload.title);
+      const result =
+        item === undefined
+          ? Effect.fail(makeDecideNotFound(payload.title))
+          : Effect.succeed({ item });
+
+      return result.pipe(
         Effect.withSpan('ultramodern.effect.decide.create', {
           attributes: operationAttributes(decideOperationContexts.create),
           kind: 'server',
         }),
-      ),
-    ),
+      );
+    }),
 );
 
 const layer = HttpApiBuilder.layer(decideEffectApi).pipe(Layer.provide(decideLayer));

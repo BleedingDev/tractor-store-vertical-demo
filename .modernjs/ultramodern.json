@@ -18,7 +18,7 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.5.0-ultramodern.23",
+    "modernPackageVersion": "3.5.0-ultramodern.24",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
@@ -37,6 +37,46 @@
         "path": "apps/shell-super-app",
         "port": 3020,
         "portEnv": "SHELL_SUPER_APP_PORT",
+        "deploy": {
+          "cloudflare": {
+            "jsonSmokeChecks": [
+              {
+                "id": "tractor-domain-explore-cl-08-gr",
+                "route": "/explore-api/explore/CL-08-GR",
+                "expect": {
+                  "sku": "CL-08-GR",
+                  "name": "Holland Hamster",
+                  "price": 7750
+                }
+              },
+              {
+                "id": "tractor-domain-decide-cl-08-gr",
+                "route": "/decide-api/decide/CL-08-GR",
+                "expect": {
+                  "sku": "CL-08-GR",
+                  "name": "Holland Hamster Polder Green",
+                  "price": 7750
+                }
+              },
+              {
+                "id": "tractor-domain-checkout-cl-08-gr",
+                "method": "POST",
+                "route": "/checkout-api/checkout",
+                "body": {
+                  "quantity": 2,
+                  "sku": "CL-08-GR"
+                },
+                "expect": {
+                  "item.sku": "CL-08-GR",
+                  "item.name": "Holland Hamster Polder Green",
+                  "item.price": 7750,
+                  "item.quantity": 2,
+                  "item.lineTotal": 15500
+                }
+              }
+            ]
+          }
+        },
         "moduleFederation": {
           "role": "host",
           "name": "shellSuperApp",
@@ -111,6 +151,93 @@
             "shell-super-app",
             "explore"
           ]
+        },
+        "backendFederation": {
+          "role": "microvertical-server",
+          "name": "verticalExploreBackend",
+          "runtimeFramework": "effect",
+          "strictEffectApproach": true,
+          "exposes": {
+            "./effect-api": {
+              "contract": "verticals/explore/shared/api.ts",
+              "runtime": "verticals/explore/api/index.ts",
+              "client": "verticals/explore/src/api/explore-client.ts",
+              "openapi": "/explore-api/openapi.json",
+              "readiness": "/explore-api/explore/readiness"
+            }
+          },
+          "versionBoundary": {
+            "invariant": "web-and-api-same-build",
+            "packageName": "@tractor-store-vertical-demo/explore",
+            "ui": {
+              "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3021/mf-manifest.json",
+              "buildMarker": "verticals/explore/src/routes/ultramodern-route-metadata.ts"
+            },
+            "api": {
+              "readiness": "/explore-api/explore/readiness",
+              "buildMarker": "verticals/explore/shared/ultramodern-build.ts",
+              "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE"
+            }
+          },
+          "executionSurfaces": {
+            "cloudflare": {
+              "kind": "cloudflare-worker-snapshot",
+              "workerName": "tractor-store-vertical-demo-explore",
+              "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
+              "ssr": {
+                "workerEntry": ".output/server/index.mjs",
+                "workerManifest": ".output/server/modern-worker-manifest.json",
+                "routeManifest": ".output/server/route.json",
+                "ssrBundle": ".output/worker/index.js",
+                "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+                "assetsBinding": "ASSETS"
+              },
+              "zephyr": {
+                "runtime": "ssr-worker",
+                "integration": "managed-cloudflare",
+                "snapshotIdEnv": "ZEPHYR_EXPLORE_SNAPSHOT_ID",
+                "versionIdEnv": "ZEPHYR_EXPLORE_VERSION_ID",
+                "applicationUidEnv": "ZEPHYR_EXPLORE_APPLICATION_UID"
+              },
+              "workerDispatch": {
+                "preferred": "service-binding",
+                "serviceBinding": "VERTICAL_EXPLORE_WORKER",
+                "serviceBindingEnv": "VERTICAL_EXPLORE_WORKER_BINDING",
+                "dispatchNamespaceEnv": "VERTICAL_EXPLORE_DISPATCH_NAMESPACE",
+                "dispatchWorkerNameEnv": "VERTICAL_EXPLORE_WORKER_NAME",
+                "requestInterface": "fetch"
+              }
+            },
+            "node": {
+              "kind": "node-mf-runtime",
+              "adapterVersion": "backend-mf-effect-v1",
+              "remoteName": "verticalExploreBackend",
+              "manifestEnv": "VERTICAL_EXPLORE_BACKEND_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3021/backend-mf-manifest.json",
+              "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
+              "remoteType": "module",
+              "expose": "./effect-api",
+              "runtimePackage": "@modern-js/plugin-bff/effect"
+            }
+          },
+          "compatibility": {
+            "contractVersion": "microvertical-server-effect-v1",
+            "packageName": "@tractor-store-vertical-demo/explore",
+            "effectVersion": "4.0.0-beta.92",
+            "moduleFederationVersion": "2.6.0"
+          },
+          "cache": {
+            "cloudflareSnapshot": "immutable",
+            "nodeManifest": "no-store",
+            "nodeVersionedContainer": "immutable",
+            "nodeUnpinnedContainer": "revalidate"
+          },
+          "fallback": {
+            "timeoutMs": 1500,
+            "failureEvent": "modernjs:microvertical-server-fallback",
+            "strategy": "typed-effect-error"
+          }
         }
       },
       {
@@ -163,6 +290,93 @@
             "shell-super-app",
             "decide"
           ]
+        },
+        "backendFederation": {
+          "role": "microvertical-server",
+          "name": "verticalDecideBackend",
+          "runtimeFramework": "effect",
+          "strictEffectApproach": true,
+          "exposes": {
+            "./effect-api": {
+              "contract": "verticals/decide/shared/api.ts",
+              "runtime": "verticals/decide/api/index.ts",
+              "client": "verticals/decide/src/api/decide-client.ts",
+              "openapi": "/decide-api/openapi.json",
+              "readiness": "/decide-api/decide/readiness"
+            }
+          },
+          "versionBoundary": {
+            "invariant": "web-and-api-same-build",
+            "packageName": "@tractor-store-vertical-demo/decide",
+            "ui": {
+              "manifestEnv": "VERTICAL_DECIDE_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3022/mf-manifest.json",
+              "buildMarker": "verticals/decide/src/routes/ultramodern-route-metadata.ts"
+            },
+            "api": {
+              "readiness": "/decide-api/decide/readiness",
+              "buildMarker": "verticals/decide/shared/ultramodern-build.ts",
+              "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE"
+            }
+          },
+          "executionSurfaces": {
+            "cloudflare": {
+              "kind": "cloudflare-worker-snapshot",
+              "workerName": "tractor-store-vertical-demo-decide",
+              "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
+              "ssr": {
+                "workerEntry": ".output/server/index.mjs",
+                "workerManifest": ".output/server/modern-worker-manifest.json",
+                "routeManifest": ".output/server/route.json",
+                "ssrBundle": ".output/worker/index.js",
+                "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+                "assetsBinding": "ASSETS"
+              },
+              "zephyr": {
+                "runtime": "ssr-worker",
+                "integration": "managed-cloudflare",
+                "snapshotIdEnv": "ZEPHYR_DECIDE_SNAPSHOT_ID",
+                "versionIdEnv": "ZEPHYR_DECIDE_VERSION_ID",
+                "applicationUidEnv": "ZEPHYR_DECIDE_APPLICATION_UID"
+              },
+              "workerDispatch": {
+                "preferred": "service-binding",
+                "serviceBinding": "VERTICAL_DECIDE_WORKER",
+                "serviceBindingEnv": "VERTICAL_DECIDE_WORKER_BINDING",
+                "dispatchNamespaceEnv": "VERTICAL_DECIDE_DISPATCH_NAMESPACE",
+                "dispatchWorkerNameEnv": "VERTICAL_DECIDE_WORKER_NAME",
+                "requestInterface": "fetch"
+              }
+            },
+            "node": {
+              "kind": "node-mf-runtime",
+              "adapterVersion": "backend-mf-effect-v1",
+              "remoteName": "verticalDecideBackend",
+              "manifestEnv": "VERTICAL_DECIDE_BACKEND_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3022/backend-mf-manifest.json",
+              "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
+              "remoteType": "module",
+              "expose": "./effect-api",
+              "runtimePackage": "@modern-js/plugin-bff/effect"
+            }
+          },
+          "compatibility": {
+            "contractVersion": "microvertical-server-effect-v1",
+            "packageName": "@tractor-store-vertical-demo/decide",
+            "effectVersion": "4.0.0-beta.92",
+            "moduleFederationVersion": "2.6.0"
+          },
+          "cache": {
+            "cloudflareSnapshot": "immutable",
+            "nodeManifest": "no-store",
+            "nodeVersionedContainer": "immutable",
+            "nodeUnpinnedContainer": "revalidate"
+          },
+          "fallback": {
+            "timeoutMs": 1500,
+            "failureEvent": "modernjs:microvertical-server-fallback",
+            "strategy": "typed-effect-error"
+          }
         }
       },
       {
@@ -199,6 +413,93 @@
             "shell-super-app",
             "checkout"
           ]
+        },
+        "backendFederation": {
+          "role": "microvertical-server",
+          "name": "verticalCheckoutBackend",
+          "runtimeFramework": "effect",
+          "strictEffectApproach": true,
+          "exposes": {
+            "./effect-api": {
+              "contract": "verticals/checkout/shared/api.ts",
+              "runtime": "verticals/checkout/api/index.ts",
+              "client": "verticals/checkout/src/api/checkout-client.ts",
+              "openapi": "/checkout-api/openapi.json",
+              "readiness": "/checkout-api/checkout/readiness"
+            }
+          },
+          "versionBoundary": {
+            "invariant": "web-and-api-same-build",
+            "packageName": "@tractor-store-vertical-demo/checkout",
+            "ui": {
+              "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3023/mf-manifest.json",
+              "buildMarker": "verticals/checkout/src/routes/ultramodern-route-metadata.ts"
+            },
+            "api": {
+              "readiness": "/checkout-api/checkout/readiness",
+              "buildMarker": "verticals/checkout/shared/ultramodern-build.ts",
+              "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT"
+            }
+          },
+          "executionSurfaces": {
+            "cloudflare": {
+              "kind": "cloudflare-worker-snapshot",
+              "workerName": "tractor-store-vertical-demo-checkout",
+              "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
+              "ssr": {
+                "workerEntry": ".output/server/index.mjs",
+                "workerManifest": ".output/server/modern-worker-manifest.json",
+                "routeManifest": ".output/server/route.json",
+                "ssrBundle": ".output/worker/index.js",
+                "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+                "assetsBinding": "ASSETS"
+              },
+              "zephyr": {
+                "runtime": "ssr-worker",
+                "integration": "managed-cloudflare",
+                "snapshotIdEnv": "ZEPHYR_CHECKOUT_SNAPSHOT_ID",
+                "versionIdEnv": "ZEPHYR_CHECKOUT_VERSION_ID",
+                "applicationUidEnv": "ZEPHYR_CHECKOUT_APPLICATION_UID"
+              },
+              "workerDispatch": {
+                "preferred": "service-binding",
+                "serviceBinding": "VERTICAL_CHECKOUT_WORKER",
+                "serviceBindingEnv": "VERTICAL_CHECKOUT_WORKER_BINDING",
+                "dispatchNamespaceEnv": "VERTICAL_CHECKOUT_DISPATCH_NAMESPACE",
+                "dispatchWorkerNameEnv": "VERTICAL_CHECKOUT_WORKER_NAME",
+                "requestInterface": "fetch"
+              }
+            },
+            "node": {
+              "kind": "node-mf-runtime",
+              "adapterVersion": "backend-mf-effect-v1",
+              "remoteName": "verticalCheckoutBackend",
+              "manifestEnv": "VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST",
+              "manifestUrl": "http://localhost:3023/backend-mf-manifest.json",
+              "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
+              "remoteType": "module",
+              "expose": "./effect-api",
+              "runtimePackage": "@modern-js/plugin-bff/effect"
+            }
+          },
+          "compatibility": {
+            "contractVersion": "microvertical-server-effect-v1",
+            "packageName": "@tractor-store-vertical-demo/checkout",
+            "effectVersion": "4.0.0-beta.92",
+            "moduleFederationVersion": "2.6.0"
+          },
+          "cache": {
+            "cloudflareSnapshot": "immutable",
+            "nodeManifest": "no-store",
+            "nodeVersionedContainer": "immutable",
+            "nodeUnpinnedContainer": "revalidate"
+          },
+          "fallback": {
+            "timeoutMs": 1500,
+            "failureEvent": "modernjs:microvertical-server-fallback",
+            "strategy": "typed-effect-error"
+          }
         }
       }
     ]
@@ -305,5 +606,159 @@
       "skills": "scripts/bootstrap-agent-skills.mts",
       "apiBoundaries": "scripts/check-ultramodern-api-boundaries.mts"
     }
+  },
+  "backendFederation": {
+    "apps": [
+      {
+        "id": "explore",
+        "path": "verticals/explore",
+        "role": "microvertical-server",
+        "name": "verticalExploreBackend",
+        "runtimeFramework": "effect",
+        "strictEffectApproach": true,
+        "contractVersion": "microvertical-server-effect-v1",
+        "executionSurfaces": {
+          "cloudflare": {
+            "kind": "cloudflare-worker-snapshot",
+            "workerName": "tractor-store-vertical-demo-explore",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
+            "ssr": {
+              "workerEntry": ".output/server/index.mjs",
+              "workerManifest": ".output/server/modern-worker-manifest.json",
+              "routeManifest": ".output/server/route.json",
+              "ssrBundle": ".output/worker/index.js",
+              "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+              "assetsBinding": "ASSETS"
+            },
+            "zephyr": {
+              "runtime": "ssr-worker",
+              "integration": "managed-cloudflare",
+              "snapshotIdEnv": "ZEPHYR_EXPLORE_SNAPSHOT_ID",
+              "versionIdEnv": "ZEPHYR_EXPLORE_VERSION_ID",
+              "applicationUidEnv": "ZEPHYR_EXPLORE_APPLICATION_UID"
+            },
+            "workerDispatch": {
+              "preferred": "service-binding",
+              "serviceBinding": "VERTICAL_EXPLORE_WORKER",
+              "serviceBindingEnv": "VERTICAL_EXPLORE_WORKER_BINDING",
+              "dispatchNamespaceEnv": "VERTICAL_EXPLORE_DISPATCH_NAMESPACE",
+              "dispatchWorkerNameEnv": "VERTICAL_EXPLORE_WORKER_NAME",
+              "requestInterface": "fetch"
+            }
+          },
+          "node": {
+            "kind": "node-mf-runtime",
+            "adapterVersion": "backend-mf-effect-v1",
+            "remoteName": "verticalExploreBackend",
+            "manifestEnv": "VERTICAL_EXPLORE_BACKEND_MF_MANIFEST",
+            "manifestUrl": "http://localhost:3021/backend-mf-manifest.json",
+            "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
+            "remoteType": "module",
+            "expose": "./effect-api",
+            "runtimePackage": "@modern-js/plugin-bff/effect"
+          }
+        }
+      },
+      {
+        "id": "decide",
+        "path": "verticals/decide",
+        "role": "microvertical-server",
+        "name": "verticalDecideBackend",
+        "runtimeFramework": "effect",
+        "strictEffectApproach": true,
+        "contractVersion": "microvertical-server-effect-v1",
+        "executionSurfaces": {
+          "cloudflare": {
+            "kind": "cloudflare-worker-snapshot",
+            "workerName": "tractor-store-vertical-demo-decide",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
+            "ssr": {
+              "workerEntry": ".output/server/index.mjs",
+              "workerManifest": ".output/server/modern-worker-manifest.json",
+              "routeManifest": ".output/server/route.json",
+              "ssrBundle": ".output/worker/index.js",
+              "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+              "assetsBinding": "ASSETS"
+            },
+            "zephyr": {
+              "runtime": "ssr-worker",
+              "integration": "managed-cloudflare",
+              "snapshotIdEnv": "ZEPHYR_DECIDE_SNAPSHOT_ID",
+              "versionIdEnv": "ZEPHYR_DECIDE_VERSION_ID",
+              "applicationUidEnv": "ZEPHYR_DECIDE_APPLICATION_UID"
+            },
+            "workerDispatch": {
+              "preferred": "service-binding",
+              "serviceBinding": "VERTICAL_DECIDE_WORKER",
+              "serviceBindingEnv": "VERTICAL_DECIDE_WORKER_BINDING",
+              "dispatchNamespaceEnv": "VERTICAL_DECIDE_DISPATCH_NAMESPACE",
+              "dispatchWorkerNameEnv": "VERTICAL_DECIDE_WORKER_NAME",
+              "requestInterface": "fetch"
+            }
+          },
+          "node": {
+            "kind": "node-mf-runtime",
+            "adapterVersion": "backend-mf-effect-v1",
+            "remoteName": "verticalDecideBackend",
+            "manifestEnv": "VERTICAL_DECIDE_BACKEND_MF_MANIFEST",
+            "manifestUrl": "http://localhost:3022/backend-mf-manifest.json",
+            "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
+            "remoteType": "module",
+            "expose": "./effect-api",
+            "runtimePackage": "@modern-js/plugin-bff/effect"
+          }
+        }
+      },
+      {
+        "id": "checkout",
+        "path": "verticals/checkout",
+        "role": "microvertical-server",
+        "name": "verticalCheckoutBackend",
+        "runtimeFramework": "effect",
+        "strictEffectApproach": true,
+        "contractVersion": "microvertical-server-effect-v1",
+        "executionSurfaces": {
+          "cloudflare": {
+            "kind": "cloudflare-worker-snapshot",
+            "workerName": "tractor-store-vertical-demo-checkout",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
+            "ssr": {
+              "workerEntry": ".output/server/index.mjs",
+              "workerManifest": ".output/server/modern-worker-manifest.json",
+              "routeManifest": ".output/server/route.json",
+              "ssrBundle": ".output/worker/index.js",
+              "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+              "assetsBinding": "ASSETS"
+            },
+            "zephyr": {
+              "runtime": "ssr-worker",
+              "integration": "managed-cloudflare",
+              "snapshotIdEnv": "ZEPHYR_CHECKOUT_SNAPSHOT_ID",
+              "versionIdEnv": "ZEPHYR_CHECKOUT_VERSION_ID",
+              "applicationUidEnv": "ZEPHYR_CHECKOUT_APPLICATION_UID"
+            },
+            "workerDispatch": {
+              "preferred": "service-binding",
+              "serviceBinding": "VERTICAL_CHECKOUT_WORKER",
+              "serviceBindingEnv": "VERTICAL_CHECKOUT_WORKER_BINDING",
+              "dispatchNamespaceEnv": "VERTICAL_CHECKOUT_DISPATCH_NAMESPACE",
+              "dispatchWorkerNameEnv": "VERTICAL_CHECKOUT_WORKER_NAME",
+              "requestInterface": "fetch"
+            }
+          },
+          "node": {
+            "kind": "node-mf-runtime",
+            "adapterVersion": "backend-mf-effect-v1",
+            "remoteName": "verticalCheckoutBackend",
+            "manifestEnv": "VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST",
+            "manifestUrl": "http://localhost:3023/backend-mf-manifest.json",
+            "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
+            "remoteType": "module",
+            "expose": "./effect-api",
+            "runtimePackage": "@modern-js/plugin-bff/effect"
+          }
+        }
+      }
+    ]
   }
 }

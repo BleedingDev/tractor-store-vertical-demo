@@ -6,24 +6,23 @@ import {
   ultramodernApiMarker,
 } from '../shared/api.ts';
 import type { OperationContext } from '../shared/api.ts';
+import { tractorProducts } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
-const exploreItems = [
-  {
-    id: 'classic-tractors',
-    marker: ultramodernApiMarker,
-    title: '15 Classic tractor listings served by Explore',
-  },
-  {
-    id: 'autonomous-tractors',
-    marker: ultramodernApiMarker,
-    title: '8 Autonomous tractor listings served by Explore',
-  },
-  {
-    id: 'store-locator',
-    marker: ultramodernApiMarker,
-    title: '4 Tractor Store locations served by Explore',
-  },
-];
+const exploreItems = tractorProducts.map((product) => ({
+  category: product.category,
+  id: product.sku,
+  image: product.image,
+  marker: ultramodernApiMarker,
+  name: product.name,
+  price: product.startPrice,
+  productId: product.id,
+  sku: product.sku,
+  slug: product.slug,
+  title: `${product.name} listing ${product.sku}, from ${product.startPrice} Ø`,
+}));
+
+const findExploreItem = (id: string) =>
+  exploreItems.find((item) => item.sku === id || item.slug === id);
 
 const operationAttributes = (operationContext: OperationContext) => ({
   'modernjs.operation.id': operationContext.operationId,
@@ -66,7 +65,7 @@ const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers
       ),
     )
     .handle('get', ({ params }) => {
-      const match = exploreItems.find((exploreItem) => exploreItem.id === params.id);
+      const match = findExploreItem(params.id);
       const result =
         match === undefined ? Effect.fail(makeExploreNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
@@ -76,23 +75,22 @@ const exploreLayer = HttpApiBuilder.group(exploreEffectApi, 'explore', (handlers
         }),
       );
     })
-    .handle('create', ({ payload }) =>
-      Effect.succeed({
-        item: {
-          id: `generated-explore-${payload.title
-            .toLowerCase()
-            .replaceAll(/[^a-z0-9]+/gu, '-')
-            .replaceAll(/^-|-$/gu, '')}`,
-          marker: ultramodernApiMarker,
-          title: payload.title,
-        },
-      }).pipe(
+    .handle('create', ({ payload }) => {
+      const item =
+        findExploreItem(payload.title) ??
+        exploreItems.find((candidate) => candidate.name === payload.title);
+      const result =
+        item === undefined
+          ? Effect.fail(makeExploreNotFound(payload.title))
+          : Effect.succeed({ item });
+
+      return result.pipe(
         Effect.withSpan('ultramodern.effect.explore.create', {
           attributes: operationAttributes(exploreOperationContexts.create),
           kind: 'server',
         }),
-      ),
-    ),
+      );
+    }),
 );
 
 const layer = HttpApiBuilder.layer(exploreEffectApi).pipe(Layer.provide(exploreLayer));

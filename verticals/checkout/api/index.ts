@@ -6,19 +6,47 @@ import {
   ultramodernApiMarker,
 } from '../shared/api.ts';
 import type { OperationContext } from '../shared/api.ts';
+import {
+  findTractorVariant,
+  tractorProductVariants,
+} from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
-const checkoutItems = [
-  {
-    id: 'basket-default',
+const normalizeQuantity = (quantity: number | undefined) =>
+  typeof quantity === 'number' && Number.isFinite(quantity) && quantity > 0
+    ? Math.trunc(quantity)
+    : 1;
+
+const checkoutItemFromSku = (sku: string, quantity = 1) => {
+  const product = findTractorVariant(sku);
+  if (product === undefined) {
+    return;
+  }
+
+  const normalizedQuantity = normalizeQuantity(quantity);
+  const lineTotal = product.price * normalizedQuantity;
+
+  return {
+    id: product.sku,
+    image: product.image,
+    lineTotal,
     marker: ultramodernApiMarker,
-    title: 'Basket with one Holland Hamster Polder Green line item',
-  },
-  {
-    id: 'CL-08-GR',
-    marker: ultramodernApiMarker,
-    title: 'Checkout line item for Holland Hamster Polder Green, quantity 1, total 7750 Ø',
-  },
-];
+    name: product.cartName,
+    price: product.price,
+    quantity: normalizedQuantity,
+    sku: product.sku,
+    slug: product.slug,
+    title: `Checkout line item for ${product.cartName}, quantity ${normalizedQuantity}, total ${lineTotal} Ø`,
+  };
+};
+
+type CheckoutItem = NonNullable<ReturnType<typeof checkoutItemFromSku>>;
+
+const isCheckoutItem = (item: ReturnType<typeof checkoutItemFromSku>): item is CheckoutItem =>
+  item !== undefined;
+
+const checkoutItems = tractorProductVariants
+  .map((product) => checkoutItemFromSku(product.sku))
+  .filter(isCheckoutItem);
 
 const operationAttributes = (operationContext: OperationContext) => ({
   'modernjs.operation.id': operationContext.operationId,
@@ -62,7 +90,7 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
       ),
     )
     .handle('get', ({ params }) => {
-      const match = checkoutItems.find((checkoutItem) => checkoutItem.id === params.id);
+      const match = checkoutItemFromSku(params.id);
       const result =
         match === undefined ? Effect.fail(makeCheckoutNotFound(params.id)) : Effect.succeed(match);
       return result.pipe(
@@ -72,23 +100,20 @@ const checkoutLayer = HttpApiBuilder.group(checkoutEffectApi, 'checkout', (handl
         }),
       );
     })
-    .handle('create', ({ payload }) =>
-      Effect.succeed({
-        item: {
-          id: `generated-checkout-${payload.title
-            .toLowerCase()
-            .replaceAll(/[^a-z0-9]+/gu, '-')
-            .replaceAll(/^-|-$/gu, '')}`,
-          marker: ultramodernApiMarker,
-          title: payload.title,
-        },
-      }).pipe(
+    .handle('create', ({ payload }) => {
+      const item = checkoutItemFromSku(payload.sku, payload.quantity);
+      const result =
+        item === undefined
+          ? Effect.fail(makeCheckoutNotFound(payload.sku))
+          : Effect.succeed({ item });
+
+      return result.pipe(
         Effect.withSpan('ultramodern.effect.checkout.create', {
           attributes: operationAttributes(checkoutOperationContexts.create),
           kind: 'server',
         }),
-      ),
-    ),
+      );
+    }),
 );
 
 const layer = HttpApiBuilder.layer(checkoutEffectApi).pipe(Layer.provide(checkoutLayer));

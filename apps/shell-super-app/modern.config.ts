@@ -123,6 +123,31 @@ export default defineConfig(
                     workersDev: true,
                   },
                 },
+                services: [
+                  {
+                    binding:
+                      envValue('VERTICAL_EXPLORE_WORKER_BINDING') ?? 'VERTICAL_EXPLORE_WORKER',
+                    prefix: '/explore-api',
+                    service:
+                      envValue('VERTICAL_EXPLORE_WORKER_NAME') ??
+                      'tractor-store-vertical-demo-explore',
+                  },
+                  {
+                    binding: envValue('VERTICAL_DECIDE_WORKER_BINDING') ?? 'VERTICAL_DECIDE_WORKER',
+                    prefix: '/decide-api',
+                    service:
+                      envValue('VERTICAL_DECIDE_WORKER_NAME') ??
+                      'tractor-store-vertical-demo-decide',
+                  },
+                  {
+                    binding:
+                      envValue('VERTICAL_CHECKOUT_WORKER_BINDING') ?? 'VERTICAL_CHECKOUT_WORKER',
+                    prefix: '/checkout-api',
+                    service:
+                      envValue('VERTICAL_CHECKOUT_WORKER_NAME') ??
+                      'tractor-store-vertical-demo-checkout',
+                  },
+                ],
                 ssr: true,
               },
             },

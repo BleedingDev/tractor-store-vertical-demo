@@ -17,5 +17,136 @@
     "explore": "http://localhost:3021/explore-api",
     "decide": "http://localhost:3022/decide-api",
     "checkout": "http://localhost:3023/checkout-api"
+  },
+  "serverExecution": {
+    "explore": {
+      "apiBaseUrl": "http://localhost:3021/explore-api",
+      "versionBoundary": "web-and-api-same-build",
+      "cloudflare": {
+        "kind": "cloudflare-worker-snapshot",
+        "workerName": "tractor-store-vertical-demo-explore",
+        "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
+        "ssr": {
+          "workerEntry": ".output/server/index.mjs",
+          "workerManifest": ".output/server/modern-worker-manifest.json",
+          "routeManifest": ".output/server/route.json",
+          "ssrBundle": ".output/worker/index.js",
+          "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+          "assetsBinding": "ASSETS"
+        },
+        "zephyr": {
+          "runtime": "ssr-worker",
+          "integration": "managed-cloudflare",
+          "snapshotIdEnv": "ZEPHYR_EXPLORE_SNAPSHOT_ID",
+          "versionIdEnv": "ZEPHYR_EXPLORE_VERSION_ID",
+          "applicationUidEnv": "ZEPHYR_EXPLORE_APPLICATION_UID"
+        },
+        "workerDispatch": {
+          "preferred": "service-binding",
+          "serviceBinding": "VERTICAL_EXPLORE_WORKER",
+          "serviceBindingEnv": "VERTICAL_EXPLORE_WORKER_BINDING",
+          "dispatchNamespaceEnv": "VERTICAL_EXPLORE_DISPATCH_NAMESPACE",
+          "dispatchWorkerNameEnv": "VERTICAL_EXPLORE_WORKER_NAME",
+          "requestInterface": "fetch"
+        }
+      },
+      "node": {
+        "kind": "node-mf-runtime",
+        "adapterVersion": "backend-mf-effect-v1",
+        "remoteName": "verticalExploreBackend",
+        "manifestEnv": "VERTICAL_EXPLORE_BACKEND_MF_MANIFEST",
+        "manifestUrl": "http://localhost:3021/backend-mf-manifest.json",
+        "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
+        "remoteType": "module",
+        "expose": "./effect-api",
+        "runtimePackage": "@modern-js/plugin-bff/effect"
+      }
+    },
+    "decide": {
+      "apiBaseUrl": "http://localhost:3022/decide-api",
+      "versionBoundary": "web-and-api-same-build",
+      "cloudflare": {
+        "kind": "cloudflare-worker-snapshot",
+        "workerName": "tractor-store-vertical-demo-decide",
+        "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
+        "ssr": {
+          "workerEntry": ".output/server/index.mjs",
+          "workerManifest": ".output/server/modern-worker-manifest.json",
+          "routeManifest": ".output/server/route.json",
+          "ssrBundle": ".output/worker/index.js",
+          "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+          "assetsBinding": "ASSETS"
+        },
+        "zephyr": {
+          "runtime": "ssr-worker",
+          "integration": "managed-cloudflare",
+          "snapshotIdEnv": "ZEPHYR_DECIDE_SNAPSHOT_ID",
+          "versionIdEnv": "ZEPHYR_DECIDE_VERSION_ID",
+          "applicationUidEnv": "ZEPHYR_DECIDE_APPLICATION_UID"
+        },
+        "workerDispatch": {
+          "preferred": "service-binding",
+          "serviceBinding": "VERTICAL_DECIDE_WORKER",
+          "serviceBindingEnv": "VERTICAL_DECIDE_WORKER_BINDING",
+          "dispatchNamespaceEnv": "VERTICAL_DECIDE_DISPATCH_NAMESPACE",
+          "dispatchWorkerNameEnv": "VERTICAL_DECIDE_WORKER_NAME",
+          "requestInterface": "fetch"
+        }
+      },
+      "node": {
+        "kind": "node-mf-runtime",
+        "adapterVersion": "backend-mf-effect-v1",
+        "remoteName": "verticalDecideBackend",
+        "manifestEnv": "VERTICAL_DECIDE_BACKEND_MF_MANIFEST",
+        "manifestUrl": "http://localhost:3022/backend-mf-manifest.json",
+        "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
+        "remoteType": "module",
+        "expose": "./effect-api",
+        "runtimePackage": "@modern-js/plugin-bff/effect"
+      }
+    },
+    "checkout": {
+      "apiBaseUrl": "http://localhost:3023/checkout-api",
+      "versionBoundary": "web-and-api-same-build",
+      "cloudflare": {
+        "kind": "cloudflare-worker-snapshot",
+        "workerName": "tractor-store-vertical-demo-checkout",
+        "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
+        "ssr": {
+          "workerEntry": ".output/server/index.mjs",
+          "workerManifest": ".output/server/modern-worker-manifest.json",
+          "routeManifest": ".output/server/route.json",
+          "ssrBundle": ".output/worker/index.js",
+          "effectBffBundle": ".output/worker/__modern_bff_effect.js",
+          "assetsBinding": "ASSETS"
+        },
+        "zephyr": {
+          "runtime": "ssr-worker",
+          "integration": "managed-cloudflare",
+          "snapshotIdEnv": "ZEPHYR_CHECKOUT_SNAPSHOT_ID",
+          "versionIdEnv": "ZEPHYR_CHECKOUT_VERSION_ID",
+          "applicationUidEnv": "ZEPHYR_CHECKOUT_APPLICATION_UID"
+        },
+        "workerDispatch": {
+          "preferred": "service-binding",
+          "serviceBinding": "VERTICAL_CHECKOUT_WORKER",
+          "serviceBindingEnv": "VERTICAL_CHECKOUT_WORKER_BINDING",
+          "dispatchNamespaceEnv": "VERTICAL_CHECKOUT_DISPATCH_NAMESPACE",
+          "dispatchWorkerNameEnv": "VERTICAL_CHECKOUT_WORKER_NAME",
+          "requestInterface": "fetch"
+        }
+      },
+      "node": {
+        "kind": "node-mf-runtime",
+        "adapterVersion": "backend-mf-effect-v1",
+        "remoteName": "verticalCheckoutBackend",
+        "manifestEnv": "VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST",
+        "manifestUrl": "http://localhost:3023/backend-mf-manifest.json",
+        "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
+        "remoteType": "module",
+        "expose": "./effect-api",
+        "runtimePackage": "@modern-js/plugin-bff/effect"
+      }
+    }
   }
 }

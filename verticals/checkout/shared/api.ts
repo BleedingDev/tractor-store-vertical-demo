@@ -17,7 +17,14 @@ export const checkoutMarkerSchema = Schema.Struct({
 
 export const checkoutItemSchema = Schema.Struct({
   id: Schema.String,
+  image: Schema.String,
+  lineTotal: Schema.Finite,
   marker: checkoutMarkerSchema,
+  name: Schema.String,
+  price: Schema.Finite,
+  quantity: Schema.Finite,
+  sku: Schema.String,
+  slug: Schema.String,
   title: Schema.String,
 });
 
@@ -43,7 +50,8 @@ export const checkoutReadinessSchema = Schema.Struct({
 });
 
 export const checkoutCreatePayloadSchema = Schema.Struct({
-  title: Schema.String,
+  quantity: Schema.optional(Schema.Finite),
+  sku: Schema.String,
 });
 
 export interface CheckoutNotFound {
@@ -96,6 +104,7 @@ export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
     )
     .add(
       HttpApiEndpoint.post('create', '/checkout', {
+        error: checkoutNotFoundSchema,
         payload: checkoutCreatePayloadSchema,
         success: Schema.Struct({
           item: checkoutItemSchema,
@@ -137,3 +146,5 @@ export const checkoutApiContract = {
   readinessPath: '/checkout-api/checkout/readiness',
   servicePrefix: '/checkout-api',
 } as const;
+
+export const checkoutApi = checkoutEffectApi;

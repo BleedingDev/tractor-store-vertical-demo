@@ -61,8 +61,8 @@ export const getCheckout = (id: string, options: CheckoutClientOptions = {}): Pr
   );
 
 export const createCheckout = (
-  title: string,
-  options: CheckoutClientOptions = {},
+  sku: string,
+  options: CheckoutClientOptions & { quantity?: number } = {},
 ): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
@@ -70,6 +70,9 @@ export const createCheckout = (
         ...options,
         operationContext: options.operationContext ?? checkoutOperationContexts.create,
       }),
-      (client) => client.checkout.create({ payload: { title } }),
+      (client) =>
+        client.checkout.create({
+          payload: { quantity: options.quantity, sku },
+        }),
     ),
   );
