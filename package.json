@@ -34,7 +34,8 @@
     "migrate:strict-effect": "node ./scripts/migrate-strict-effect.mts",
     "contract:check": "node ./scripts/validate-ultramodern-workspace.mts",
     "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mts",
-    "api:check": "node ./scripts/check-ultramodern-api-boundaries.mts"
+    "api:check": "node ./scripts/check-ultramodern-api-boundaries.mts",
+    "zerops:materialize": "node ./scripts/materialize-zerops-runtime.mjs"
   },
   "engines": {
     "node": ">=26",

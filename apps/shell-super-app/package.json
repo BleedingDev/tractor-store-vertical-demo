@@ -10,7 +10,8 @@
     "cloudflare:preview": "pnpm run cloudflare:build && wrangler dev --config .output/wrangler.json",
     "cloudflare:proof": "node ../../scripts/proof-cloudflare-version.mts --app shell-super-app",
     "serve": "modern serve",
-    "typecheck": "node ../../scripts/ultramodern-typecheck.mts --project tsconfig.json"
+    "typecheck": "node ../../scripts/ultramodern-typecheck.mts --project tsconfig.json",
+    "deploy": "modern deploy"
   },
   "modernjs": {
     "preset": "presetUltramodern",

@@ -446,7 +446,6 @@ async function proveBackend(app, backendRuntime, target) {
       nodeAdapterVersion,
       packageName: buildIdentity.packageName,
       remoteName: app.backendName,
-      version: buildIdentity.version,
     },
   });
   const backendContract = loaded.backendFederationContract;
