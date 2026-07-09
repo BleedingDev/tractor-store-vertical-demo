@@ -5,8 +5,7 @@ import { useCartLines } from '../cart-store';
 const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCheckoutPage() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useModernI18n();
   const cart = useCartLines();
 
   const submitOrder = (event: FormEvent<HTMLFormElement>) => {

@@ -18,17 +18,17 @@ node ../scripts/browser-capture.mjs --tab-id "$TAB" --click "Add" --vars __FEDER
 
 ## Flags
 
-| Flag                            | Description                                                       |
+| Flag | Description |
 | ------------------------------- | ----------------------------------------------------------------- | ---------------- | ------- | ------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `--keep-tab`                    | Don't close tab after capture; outputs `tabId` in result          |
-| `--tab-id <id>`                 | Attach to existing tab instead of navigating                      |
-| `--click "<text or selector>"`  | Click an element; matching prefers CSS/interactive elements first |
-| `--fill "placeholder::text"`    | Type into an input/textarea located by placeholder                |
-| `--select "placeholder::value"` | Choose an option in a select located by placeholder               |
+| `--keep-tab` | Don't close tab after capture; outputs `tabId` in result |
+| `--tab-id <id>` | Attach to existing tab instead of navigating |
+| `--click "<text or selector>"` | Click an element; matching prefers CSS/interactive elements first |
+| `--fill "placeholder::text"` | Type into an input/textarea located by placeholder |
+| `--select "placeholder::value"` | Choose an option in a select located by placeholder |
 | `--action-wait <auto            | networkidle                                                       | domcontentloaded | timeout | none>` | Wait strategy after click/fill/select (`auto` is default; use `networkidle` on the final step when strict consistency is needed) |
-| `--no-entries`                  | Exclude entries logs to speed up capture and reduce output size   |
-| `--dump-dom`                    | Output page DOM structure (for identifying selectors)             |
-| `--close`                       | Close the tab after this step                                     |
+| `--no-entries` | Exclude entries logs to speed up capture and reduce output size |
+| `--dump-dom` | Output page DOM structure (for identifying selectors) |
+| `--close` | Close the tab after this step |
 
 ## Click matching
 

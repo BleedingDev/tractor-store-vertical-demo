@@ -3,8 +3,7 @@ import { responsiveImage, sizedImage, teasers } from '../tractor-data';
 import Recommendations from './recommendations';
 
 export default function HomePage() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useModernI18n();
 
   return (
     <div>

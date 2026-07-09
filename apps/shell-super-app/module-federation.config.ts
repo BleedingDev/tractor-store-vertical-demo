@@ -62,10 +62,8 @@ const config: unknown = createModuleFederationConfig({
     disableDynamicRemoteTypeHints: true,
   },
   dts: {
-    displayErrorInTerminal: true,
-    generateTypes: {
-      compilerInstance: 'tsgo',
-    },
+    consumeTypes: true,
+    generateTypes: false,
     tsConfigPath: './tsconfig.mf-types.json',
   },
   filename: 'remoteEntry.js',

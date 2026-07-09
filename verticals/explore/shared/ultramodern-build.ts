@@ -1,23 +1,51 @@
-export const ultramodernDeliveryUnit = {
-  appId: 'explore',
-  build: 'b3dc004d99d5acb2',
-  deployProfile: 'cloudflare-ssr-mf-effect-v1',
-  kind: 'microvertical-delivery-unit',
-  packageName: '@tractor-store-vertical-demo/explore',
+const ultramodernBuildArtifact = {
+  deliveryUnit: {
+    appId: 'explore',
+    build: 'b0eb373ac7caef45',
+    buildMarker: 'b0eb373ac7caef45',
+    deployProfile: 'cloudflare-ssr-mf-effect-v1',
+    kind: 'microvertical-delivery-unit',
+    packageName: '@tractor-store-vertical-demo/explore',
+    schemaVersion: 1,
+    sourceRevision: 'workspace',
+    unitId: 'tractor-store-vertical-demo/explore',
+    version: '0.1.0',
+  },
+  kind: 'ultramodern-build-artifact',
   schemaVersion: 1,
-  sourceRevision: 'workspace',
-  unitId: 'tractor-store-vertical-demo/explore',
-  version: '0.1.0',
+  surfaces: {
+    api: {
+      appId: 'explore',
+      build: 'b0eb373ac7caef45',
+      buildMarker: 'b0eb373ac7caef45',
+      deployProfile: 'cloudflare-ssr-mf-effect-v1',
+      kind: 'microvertical-delivery-unit',
+      packageName: '@tractor-store-vertical-demo/explore',
+      schemaVersion: 1,
+      sourceRevision: 'workspace',
+      surface: 'api',
+      unitId: 'tractor-store-vertical-demo/explore',
+      version: '0.1.0',
+    },
+    ui: {
+      appId: 'explore',
+      build: 'b0eb373ac7caef45',
+      buildMarker: 'b0eb373ac7caef45',
+      deployProfile: 'cloudflare-ssr-mf-effect-v1',
+      kind: 'microvertical-delivery-unit',
+      packageName: '@tractor-store-vertical-demo/explore',
+      schemaVersion: 1,
+      sourceRevision: 'workspace',
+      surface: 'ui',
+      unitId: 'tractor-store-vertical-demo/explore',
+      version: '0.1.0',
+    },
+  },
 } as const;
 
+export { ultramodernBuildArtifact };
+
+export const ultramodernDeliveryUnit = ultramodernBuildArtifact.deliveryUnit;
 export const ultramodernVerticalIdentity = ultramodernDeliveryUnit;
-
-export const ultramodernUiMarker = {
-  ...ultramodernDeliveryUnit,
-  surface: 'ui',
-} as const;
-
-export const ultramodernApiMarker = {
-  ...ultramodernDeliveryUnit,
-  surface: 'api',
-} as const;
+export const ultramodernUiMarker = ultramodernBuildArtifact.surfaces.ui;
+export const ultramodernApiMarker = ultramodernBuildArtifact.surfaces.api;

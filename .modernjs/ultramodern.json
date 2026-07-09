@@ -3,22 +3,22 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.5.0-ultramodern.1"
+    "version": "3.5.0-ultramodern.43"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
     "packageManager": {
       "name": "pnpm",
-      "version": "11.9.0"
+      "version": "11.10.0"
     },
     "node": {
-      "version": "26.3.0",
+      "version": "26.5.0",
       "engineRange": ">=26"
     }
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.5.0-ultramodern.24",
+    "modernPackageVersion": "3.5.0-ultramodern.43",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
@@ -106,7 +106,7 @@
           ],
           "ssr": true,
           "dts": {
-            "compilerInstance": "tsgo",
+            "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           },
           "verticalRefs": [
@@ -140,7 +140,7 @@
           ],
           "ssr": true,
           "dts": {
-            "compilerInstance": "tsgo",
+            "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
         },
@@ -150,7 +150,9 @@
           "consumedBy": [
             "shell-super-app",
             "explore"
-          ]
+          ],
+          "runtime": "effect",
+          "serverEntry": "verticals/explore/api/index.ts"
         },
         "backendFederation": {
           "role": "microvertical-server",
@@ -245,7 +247,7 @@
             "unitId": "tractor-store-vertical-demo/explore",
             "packageName": "@tractor-store-vertical-demo/explore",
             "version": "0.1.0",
-            "buildMarker": "b3dc004d99d5acb2",
+            "buildMarker": "b0eb373ac7caef45",
             "sourceRevision": "workspace"
           }
         },
@@ -255,7 +257,7 @@
           "unitId": "tractor-store-vertical-demo/explore",
           "packageName": "@tractor-store-vertical-demo/explore",
           "version": "0.1.0",
-          "buildMarker": "b3dc004d99d5acb2",
+          "buildMarker": "b0eb373ac7caef45",
           "sourceRevision": "workspace"
         }
       },
@@ -298,7 +300,7 @@
           ],
           "ssr": true,
           "dts": {
-            "compilerInstance": "tsgo",
+            "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
         },
@@ -308,7 +310,9 @@
           "consumedBy": [
             "shell-super-app",
             "decide"
-          ]
+          ],
+          "runtime": "effect",
+          "serverEntry": "verticals/decide/api/index.ts"
         },
         "backendFederation": {
           "role": "microvertical-server",
@@ -403,7 +407,7 @@
             "unitId": "tractor-store-vertical-demo/decide",
             "packageName": "@tractor-store-vertical-demo/decide",
             "version": "0.1.0",
-            "buildMarker": "5eaf60929a19f5f1",
+            "buildMarker": "3c6187684f45d1f7",
             "sourceRevision": "workspace"
           }
         },
@@ -413,7 +417,7 @@
           "unitId": "tractor-store-vertical-demo/decide",
           "packageName": "@tractor-store-vertical-demo/decide",
           "version": "0.1.0",
-          "buildMarker": "5eaf60929a19f5f1",
+          "buildMarker": "3c6187684f45d1f7",
           "sourceRevision": "workspace"
         }
       },
@@ -440,7 +444,7 @@
           ],
           "ssr": true,
           "dts": {
-            "compilerInstance": "tsgo",
+            "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
         },
@@ -450,7 +454,9 @@
           "consumedBy": [
             "shell-super-app",
             "checkout"
-          ]
+          ],
+          "runtime": "effect",
+          "serverEntry": "verticals/checkout/api/index.ts"
         },
         "backendFederation": {
           "role": "microvertical-server",
@@ -545,7 +551,7 @@
             "unitId": "tractor-store-vertical-demo/checkout",
             "packageName": "@tractor-store-vertical-demo/checkout",
             "version": "0.1.0",
-            "buildMarker": "37c25641b66d32b5",
+            "buildMarker": "2edc1a544185e8f4",
             "sourceRevision": "workspace"
           }
         },
@@ -555,7 +561,7 @@
           "unitId": "tractor-store-vertical-demo/checkout",
           "packageName": "@tractor-store-vertical-demo/checkout",
           "version": "0.1.0",
-          "buildMarker": "37c25641b66d32b5",
+          "buildMarker": "2edc1a544185e8f4",
           "sourceRevision": "workspace"
         }
       }

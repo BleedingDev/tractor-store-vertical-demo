@@ -114,8 +114,7 @@ const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?
 };
 
 export default function DecideHome() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useModernI18n();
   const location = useLocation();
   const suffix = locationSuffix(location);
   return (

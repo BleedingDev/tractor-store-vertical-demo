@@ -1,4 +1,3 @@
-/* eslint-disable func-style, require-unicode-regexp, sort-keys, unicorn/no-useless-fallback-in-spread, unicorn/no-useless-undefined, unicorn/numeric-separators-style */
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';

@@ -26,9 +26,9 @@ const slugFromPathname = (pathname: string) => {
 };
 
 export default function DecideProductPage() {
-  const { i18nInstance, language } = useModernI18n();
+  const { language, t } = useModernI18n();
   const location = useLocation();
-  const t = i18nInstance['t'].bind(i18nInstance);
+
   const requestedSku = new URLSearchParams(locationSearch(location)).get('sku');
   const requestedSlug = slugFromPathname(locationPathname(location));
   const selected =

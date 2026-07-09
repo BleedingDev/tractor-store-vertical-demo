@@ -1,4 +1,5 @@
 // @effect-diagnostics nodeBuiltinImport:off processEnv:off
+import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 import { dependencies } from './package.json';
@@ -12,6 +13,12 @@ const pluginTanstackVersion = (
 const runtimeVersion = (require('@modern-js/runtime/package.json') as { version: string }).version;
 const reactVersion = (require('react/package.json') as { version: string }).version;
 const reactDomVersion = (require('react-dom/package.json') as { version: string }).version;
+
+const tsgoCompilerInstance =
+  process.env.EFFECT_TSGO_BIN?.trim() ||
+  execFileSync('npx', ['effect-tsgo', 'get-exe-path'], {
+    encoding: 'utf-8',
+  }).trim();
 
 const envValue = (name: string) => {
   const value = process.env[name]?.trim();
@@ -63,7 +70,7 @@ const config: unknown = createModuleFederationConfig({
   dts: {
     displayErrorInTerminal: true,
     generateTypes: {
-      compilerInstance: 'tsgo',
+      compilerInstance: tsgoCompilerInstance,
     },
     tsConfigPath: './tsconfig.mf-types.json',
   },

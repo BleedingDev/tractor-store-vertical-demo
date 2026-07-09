@@ -1,6 +1,8 @@
 // @effect-diagnostics processEnv:off
+import { setTimeout as delay } from 'node:timers/promises';
 import { appTools, defineConfig, presetUltramodern } from '@modern-js/app-tools';
 import { bffPlugin } from '@modern-js/plugin-bff';
+import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { i18nPlugin } from '@modern-js/plugin-i18n';
 import { tanstackRouterPlugin } from '@modern-js/plugin-tanstack';
 import { moduleFederationPlugin } from '@module-federation/modern-js-v3';
@@ -11,6 +13,22 @@ type ZephyrRspackConfig = Parameters<ReturnType<typeof withZephyrRspack>>[0];
 
 const zephyrEnabled = process.env['ULTRAMODERN_ZEPHYR'] !== 'false';
 const cloudflareDeployEnabled = process.env['MODERNJS_DEPLOY'] === 'cloudflare';
+
+const parsedZephyrTimeoutMs = Number.parseInt(
+  process.env['ULTRAMODERN_ZEPHYR_TIMEOUT_MS'] ?? '',
+  10,
+);
+const zephyrTimeoutMs =
+  Number.isFinite(parsedZephyrTimeoutMs) && parsedZephyrTimeoutMs > 0
+    ? parsedZephyrTimeoutMs
+    : 45_000;
+
+const zephyrWarn = (error: unknown) => {
+  const message = error instanceof Error ? error.message : String(error);
+  console.warn(
+    `[ultramodern] zephyr-rspack-plugin failed; continuing without Zephyr (set ULTRAMODERN_ZEPHYR=false to disable it): ${message}`,
+  );
+};
 
 const zephyrRspackPlugin = () => ({
   name: 'ultramodern-zephyr-rspack-plugin',
@@ -23,7 +41,32 @@ const zephyrRspackPlugin = () => ({
     if (!zephyrEnabled) {
       return;
     }
-    api.modifyRspackConfig((config) => withZephyrRspack()(config));
+    api.modifyRspackConfig(async (config) => {
+      try {
+        // Zephyr can not only throw/reject but also hang on a stalled network
+        // call, wedging the whole build. Race it against a watchdog so a hang
+        // degrades to an unmodified config instead of blocking indefinitely.
+        const zephyrConfig = (async () => {
+          try {
+            return await withZephyrRspack()(config);
+          } catch (error) {
+            zephyrWarn(error);
+            return config;
+          }
+        })();
+        const watchdog = async () => {
+          await delay(zephyrTimeoutMs, undefined, { ref: false });
+          zephyrWarn(
+            `timed out after ${zephyrTimeoutMs}ms (override with ULTRAMODERN_ZEPHYR_TIMEOUT_MS)`,
+          );
+          return config;
+        };
+        return await Promise.race([zephyrConfig, watchdog()]);
+      } catch (error) {
+        zephyrWarn(error);
+        return config;
+      }
+    });
   },
 });
 
@@ -94,6 +137,7 @@ export default defineConfig(
         prefix: '/explore-api',
         runtimeFramework: 'effect',
       },
+      builderPlugins: [pluginTailwindcss()],
       ...(cloudflareDeployEnabled
         ? {
             deploy: {

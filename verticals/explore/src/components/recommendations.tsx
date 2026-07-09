@@ -11,8 +11,7 @@ export interface RecommendationsProps {
 }
 
 export default function Recommendations({ variant = 'home' }: RecommendationsProps) {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useModernI18n();
   const items = variant === 'product' ? productRecommendations : recommendations;
 
   return (

@@ -1,8 +1,7 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 
 export default function Footer() {
-  const { i18nInstance } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { t } = useModernI18n();
 
   return (
     <footer

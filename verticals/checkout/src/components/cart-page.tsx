@@ -4,8 +4,7 @@ import { useCartLines } from '../cart-store';
 const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCartPage() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useModernI18n();
   const { lines, remove } = useCartLines();
   const total = lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
 

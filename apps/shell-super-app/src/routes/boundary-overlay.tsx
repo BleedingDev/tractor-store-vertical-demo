@@ -42,11 +42,10 @@ const moduleLabel = (boundaryId: string | undefined, expose: string | undefined)
 };
 
 export default function BoundaryOverlay() {
-  const { i18nInstance } = useModernI18n();
+  const { t } = useModernI18n();
   const [enabled, setEnabled] = useState(false);
   const [boxes, setBoxes] = useState<BoundaryBox[]>([]);
   const boundaryConfig = useMemo(() => {
-    const t = i18nInstance['t'].bind(i18nInstance);
     const runtimeOverrides =
       typeof window === 'undefined' ? {} : (window.__ULTRAMODERN_BOUNDARIES__ ?? {});
 
@@ -59,8 +58,8 @@ export default function BoundaryOverlay() {
         },
       ]),
     ) as Record<string, BoundaryConfig>;
-  }, [i18nInstance]);
-  const toggleLabel = i18nInstance['t'].bind(i18nInstance)('shell.boundaries.toggle');
+  }, [t]);
+  const toggleLabel = t('shell.boundaries.toggle');
 
   useEffect(() => {
     setEnabled(window.localStorage.getItem(boundaryStorageKey) === 'true');

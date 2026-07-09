@@ -461,7 +461,7 @@
           "unitId": "tractor-store-vertical-demo/explore",
           "packageName": "@tractor-store-vertical-demo/explore",
           "version": "0.1.0",
-          "buildMarker": "b3dc004d99d5acb2",
+          "buildMarker": "b0eb373ac7caef45",
           "sourceRevision": "workspace"
         }
       },
@@ -471,7 +471,7 @@
         "unitId": "tractor-store-vertical-demo/explore",
         "packageName": "@tractor-store-vertical-demo/explore",
         "version": "0.1.0",
-        "buildMarker": "b3dc004d99d5acb2",
+        "buildMarker": "b0eb373ac7caef45",
         "sourceRevision": "workspace"
       }
     },
@@ -793,7 +793,7 @@
           "unitId": "tractor-store-vertical-demo/decide",
           "packageName": "@tractor-store-vertical-demo/decide",
           "version": "0.1.0",
-          "buildMarker": "5eaf60929a19f5f1",
+          "buildMarker": "3c6187684f45d1f7",
           "sourceRevision": "workspace"
         }
       },
@@ -803,7 +803,7 @@
         "unitId": "tractor-store-vertical-demo/decide",
         "packageName": "@tractor-store-vertical-demo/decide",
         "version": "0.1.0",
-        "buildMarker": "5eaf60929a19f5f1",
+        "buildMarker": "3c6187684f45d1f7",
         "sourceRevision": "workspace"
       }
     },
@@ -1109,7 +1109,7 @@
           "unitId": "tractor-store-vertical-demo/checkout",
           "packageName": "@tractor-store-vertical-demo/checkout",
           "version": "0.1.0",
-          "buildMarker": "37c25641b66d32b5",
+          "buildMarker": "2edc1a544185e8f4",
           "sourceRevision": "workspace"
         }
       },
@@ -1119,7 +1119,7 @@
         "unitId": "tractor-store-vertical-demo/checkout",
         "packageName": "@tractor-store-vertical-demo/checkout",
         "version": "0.1.0",
-        "buildMarker": "37c25641b66d32b5",
+        "buildMarker": "2edc1a544185e8f4",
         "sourceRevision": "workspace"
       }
     }

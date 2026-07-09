@@ -11,6 +11,9 @@ export default defineConfig({
     '.modern',
     '.modernjs',
     '**/routeTree.gen.ts',
+    '.output',
+    '**/modern-tanstack/**',
+    '**/routeTree.gen.*',
   ],
   singleQuote: true,
 });

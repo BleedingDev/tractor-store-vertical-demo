@@ -3,30 +3,30 @@
 # Zerops runs each full-stack MicroVertical as a package-owned Node service.
 
 zerops:
-  - setup: shell-super-app
+  - setup: 'shell-super-app'
     build:
-      base: nodejs@26
+      base: 'nodejs@26'
       buildCommands:
         - |
           curl https://mise.run | sh
           ~/.local/bin/mise install
           ~/.local/bin/mise exec -- pnpm install --frozen-lockfile
-          ~/.local/bin/mise exec -- pnpm --filter @tractor-store-vertical-demo/shell-super-app run build
-          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app shell-super-app --package @tractor-store-vertical-demo/shell-super-app --package-dir apps/shell-super-app
-          cp topology/reference-topology.json .zerops/runtime/shell-super-app/topology.json
-          cp topology/local-overlays/development.json .zerops/runtime/shell-super-app/local-overlay.json
+          ~/.local/bin/mise exec -- pnpm --filter '@tractor-store-vertical-demo/shell-super-app' run build
+          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app 'shell-super-app' --package '@tractor-store-vertical-demo/shell-super-app' --package-dir 'apps/shell-super-app'
+          cp 'topology/reference-topology.json' '.zerops/runtime/shell-super-app/topology.json'
+          cp 'topology/local-overlays/development.json' '.zerops/runtime/shell-super-app/local-overlay.json'
       deployFiles:
-        - .zerops/runtime/shell-super-app
+        - '.zerops/runtime/shell-super-app'
     deploy:
       temporaryShutdown: false
       readinessCheck:
         httpGet:
           port: 3020
-          path: /
+          path: '/'
         failureTimeout: 120
         retryPeriod: 10
     run:
-      base: nodejs@26
+      base: 'nodejs@26'
       ports:
         - port: 3020
           protocol: TCP
@@ -35,32 +35,32 @@ zerops:
         NODE_ENV: production
         SHELL_SUPER_APP_PORT: '3020'
         ULTRAMODERN_ZEROPS_SERVICE: 'shell-super-app'
-      start: cd .zerops/runtime/shell-super-app && npm run serve
+      start: cd '.zerops/runtime/shell-super-app' && npm run serve
 
-  - setup: explore
+  - setup: 'explore'
     build:
-      base: nodejs@26
+      base: 'nodejs@26'
       buildCommands:
         - |
           curl https://mise.run | sh
           ~/.local/bin/mise install
           ~/.local/bin/mise exec -- pnpm install --frozen-lockfile
-          ~/.local/bin/mise exec -- pnpm --filter @tractor-store-vertical-demo/explore run build
-          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app explore --package @tractor-store-vertical-demo/explore --package-dir verticals/explore
-          cp topology/reference-topology.json .zerops/runtime/explore/topology.json
-          cp topology/local-overlays/development.json .zerops/runtime/explore/local-overlay.json
+          ~/.local/bin/mise exec -- pnpm --filter '@tractor-store-vertical-demo/explore' run build
+          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app 'explore' --package '@tractor-store-vertical-demo/explore' --package-dir 'verticals/explore'
+          cp 'topology/reference-topology.json' '.zerops/runtime/explore/topology.json'
+          cp 'topology/local-overlays/development.json' '.zerops/runtime/explore/local-overlay.json'
       deployFiles:
-        - .zerops/runtime/explore
+        - '.zerops/runtime/explore'
     deploy:
       temporaryShutdown: false
       readinessCheck:
         httpGet:
           port: 3021
-          path: /explore-api/explore/readiness
+          path: '/explore-api/explore/readiness'
         failureTimeout: 120
         retryPeriod: 10
     run:
-      base: nodejs@26
+      base: 'nodejs@26'
       ports:
         - port: 3021
           protocol: TCP
@@ -69,32 +69,32 @@ zerops:
         NODE_ENV: production
         VERTICAL_EXPLORE_PORT: '3021'
         ULTRAMODERN_ZEROPS_SERVICE: 'explore'
-      start: cd .zerops/runtime/explore && npm run serve
+      start: cd '.zerops/runtime/explore' && npm run serve
 
-  - setup: decide
+  - setup: 'decide'
     build:
-      base: nodejs@26
+      base: 'nodejs@26'
       buildCommands:
         - |
           curl https://mise.run | sh
           ~/.local/bin/mise install
           ~/.local/bin/mise exec -- pnpm install --frozen-lockfile
-          ~/.local/bin/mise exec -- pnpm --filter @tractor-store-vertical-demo/decide run build
-          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app decide --package @tractor-store-vertical-demo/decide --package-dir verticals/decide
-          cp topology/reference-topology.json .zerops/runtime/decide/topology.json
-          cp topology/local-overlays/development.json .zerops/runtime/decide/local-overlay.json
+          ~/.local/bin/mise exec -- pnpm --filter '@tractor-store-vertical-demo/decide' run build
+          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app 'decide' --package '@tractor-store-vertical-demo/decide' --package-dir 'verticals/decide'
+          cp 'topology/reference-topology.json' '.zerops/runtime/decide/topology.json'
+          cp 'topology/local-overlays/development.json' '.zerops/runtime/decide/local-overlay.json'
       deployFiles:
-        - .zerops/runtime/decide
+        - '.zerops/runtime/decide'
     deploy:
       temporaryShutdown: false
       readinessCheck:
         httpGet:
           port: 3022
-          path: /decide-api/decide/readiness
+          path: '/decide-api/decide/readiness'
         failureTimeout: 120
         retryPeriod: 10
     run:
-      base: nodejs@26
+      base: 'nodejs@26'
       ports:
         - port: 3022
           protocol: TCP
@@ -103,32 +103,32 @@ zerops:
         NODE_ENV: production
         VERTICAL_DECIDE_PORT: '3022'
         ULTRAMODERN_ZEROPS_SERVICE: 'decide'
-      start: cd .zerops/runtime/decide && npm run serve
+      start: cd '.zerops/runtime/decide' && npm run serve
 
-  - setup: checkout
+  - setup: 'checkout'
     build:
-      base: nodejs@26
+      base: 'nodejs@26'
       buildCommands:
         - |
           curl https://mise.run | sh
           ~/.local/bin/mise install
           ~/.local/bin/mise exec -- pnpm install --frozen-lockfile
-          ~/.local/bin/mise exec -- pnpm --filter @tractor-store-vertical-demo/checkout run build
-          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app checkout --package @tractor-store-vertical-demo/checkout --package-dir verticals/checkout
-          cp topology/reference-topology.json .zerops/runtime/checkout/topology.json
-          cp topology/local-overlays/development.json .zerops/runtime/checkout/local-overlay.json
+          ~/.local/bin/mise exec -- pnpm --filter '@tractor-store-vertical-demo/checkout' run build
+          ~/.local/bin/mise exec -- pnpm run zerops:materialize -- --app 'checkout' --package '@tractor-store-vertical-demo/checkout' --package-dir 'verticals/checkout'
+          cp 'topology/reference-topology.json' '.zerops/runtime/checkout/topology.json'
+          cp 'topology/local-overlays/development.json' '.zerops/runtime/checkout/local-overlay.json'
       deployFiles:
-        - .zerops/runtime/checkout
+        - '.zerops/runtime/checkout'
     deploy:
       temporaryShutdown: false
       readinessCheck:
         httpGet:
           port: 3023
-          path: /checkout-api/checkout/readiness
+          path: '/checkout-api/checkout/readiness'
         failureTimeout: 120
         retryPeriod: 10
     run:
-      base: nodejs@26
+      base: 'nodejs@26'
       ports:
         - port: 3023
           protocol: TCP
@@ -137,4 +137,4 @@ zerops:
         NODE_ENV: production
         VERTICAL_CHECKOUT_PORT: '3023'
         ULTRAMODERN_ZEROPS_SERVICE: 'checkout'
-      start: cd .zerops/runtime/checkout && npm run serve
+      start: cd '.zerops/runtime/checkout' && npm run serve

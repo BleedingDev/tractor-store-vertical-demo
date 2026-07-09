@@ -2,8 +2,7 @@ import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { responsiveImage, sizedImage, stores } from '../tractor-data';
 
 export default function StorePicker() {
-  const { i18nInstance } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { t } = useModernI18n();
 
   return (
     <section

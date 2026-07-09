@@ -4,8 +4,7 @@ import { useLastOrder } from '../cart-store';
 const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutThanksPage() {
-  const { i18nInstance } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { t } = useModernI18n();
   const order = useLastOrder();
 
   return (

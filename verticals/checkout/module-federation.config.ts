@@ -1,4 +1,5 @@
 // @effect-diagnostics nodeBuiltinImport:off
+import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 import { dependencies } from './package.json';
@@ -13,6 +14,12 @@ const runtimeVersion = (require('@modern-js/runtime/package.json') as { version:
 const reactVersion = (require('react/package.json') as { version: string }).version;
 const reactDomVersion = (require('react-dom/package.json') as { version: string }).version;
 
+const tsgoCompilerInstance =
+  process.env.EFFECT_TSGO_BIN?.trim() ||
+  execFileSync('npx', ['effect-tsgo', 'get-exe-path'], {
+    encoding: 'utf-8',
+  }).trim();
+
 const config: unknown = createModuleFederationConfig({
   bridge: {
     enableBridgeRouter: false,
@@ -23,7 +30,7 @@ const config: unknown = createModuleFederationConfig({
   dts: {
     displayErrorInTerminal: true,
     generateTypes: {
-      compilerInstance: 'tsgo',
+      compilerInstance: tsgoCompilerInstance,
     },
     tsConfigPath: './tsconfig.mf-types.json',
   },

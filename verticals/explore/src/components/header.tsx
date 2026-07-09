@@ -2,8 +2,7 @@ import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { logoUrl } from '../tractor-data';
 
 export default function Header() {
-  const { i18nInstance, language } = useModernI18n();
-  const t = i18nInstance['t'].bind(i18nInstance);
+  const { language, t } = useModernI18n();
 
   return (
     <header
