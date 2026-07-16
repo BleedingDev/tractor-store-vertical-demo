@@ -1,5 +1,4 @@
-// @effect-diagnostics nodeBuiltinImport:off
-import { execFileSync } from 'node:child_process';
+import { resolveEffectTsgoCompiler } from '@modern-js/app-tools/config';
 import { createRequire } from 'node:module';
 import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 import { dependencies } from './package.json';
@@ -14,74 +13,64 @@ const runtimeVersion = (require('@modern-js/runtime/package.json') as { version:
 const reactVersion = (require('react/package.json') as { version: string }).version;
 const reactDomVersion = (require('react-dom/package.json') as { version: string }).version;
 
-const tsgoCompilerInstance =
-  process.env.EFFECT_TSGO_BIN?.trim() ||
-  execFileSync('npx', ['effect-tsgo', 'get-exe-path'], {
-    encoding: 'utf-8',
-  }).trim();
+const tsgoCompilerInstance = resolveEffectTsgoCompiler({ from: import.meta.url });
 
-const config: unknown = createModuleFederationConfig({
-  bridge: {
-    enableBridgeRouter: false,
-  },
-  dev: {
-    disableDynamicRemoteTypeHints: true,
-  },
-  dts: {
-    displayErrorInTerminal: true,
-    generateTypes: {
-      compilerInstance: tsgoCompilerInstance,
+const moduleFederationConfig: Parameters<typeof createModuleFederationConfig>[0] =
+  createModuleFederationConfig({
+    dts: {
+      displayErrorInTerminal: true,
+      generateTypes: {
+        compilerInstance: tsgoCompilerInstance,
+      },
+      tsConfigPath: './tsconfig.mf-types.json',
     },
-    tsConfigPath: './tsconfig.mf-types.json',
-  },
-  exposes: {
-    './AddToCart': './src/components/add-to-cart.tsx',
-    './CartPage': './src/components/cart-page.tsx',
-    './CheckoutPage': './src/components/checkout-page.tsx',
-    './MiniCart': './src/components/mini-cart.tsx',
-    './Route': './src/federation-entry.tsx',
-    './ThanksPage': './src/components/thanks-page.tsx',
-  },
-  filename: 'remoteEntry.js',
-  name: 'verticalCheckout',
-  shared: {
-    '@modern-js/plugin-i18n/runtime/no-react-i18next': {
-      requiredVersion: pluginI18nVersion,
-      singleton: true,
-      treeShaking: false,
+    exposes: {
+      './AddToCart': './src/components/add-to-cart.tsx',
+      './CartPage': './src/components/cart-page.tsx',
+      './CheckoutPage': './src/components/checkout-page.tsx',
+      './MiniCart': './src/components/mini-cart.tsx',
+      './Route': './src/federation-entry.tsx',
+      './ThanksPage': './src/components/thanks-page.tsx',
     },
-    '@modern-js/plugin-tanstack/runtime': {
-      requiredVersion: pluginTanstackVersion,
-      singleton: true,
-      treeShaking: false,
+    filename: 'remoteEntry.js',
+    name: 'verticalCheckout',
+    shared: {
+      '@modern-js/plugin-i18n/runtime/no-react-i18next': {
+        requiredVersion: pluginI18nVersion,
+        singleton: true,
+        treeShaking: false,
+      },
+      '@modern-js/plugin-tanstack/runtime': {
+        requiredVersion: pluginTanstackVersion,
+        singleton: true,
+        treeShaking: false,
+      },
+      '@modern-js/runtime': {
+        requiredVersion: runtimeVersion,
+        singleton: true,
+        treeShaking: false,
+      },
+      '@tanstack/react-router': {
+        requiredVersion: dependencies['@tanstack/react-router'],
+        singleton: true,
+        treeShaking: false,
+      },
+      react: {
+        requiredVersion: reactVersion,
+        singleton: true,
+        treeShaking: false,
+      },
+      'react-dom': {
+        requiredVersion: reactDomVersion,
+        singleton: true,
+        treeShaking: false,
+      },
+      'react-dom/client': {
+        requiredVersion: reactDomVersion,
+        singleton: true,
+        treeShaking: false,
+      },
     },
-    '@modern-js/runtime': {
-      requiredVersion: runtimeVersion,
-      singleton: true,
-      treeShaking: false,
-    },
-    '@tanstack/react-router': {
-      requiredVersion: dependencies['@tanstack/react-router'],
-      singleton: true,
-      treeShaking: false,
-    },
-    react: {
-      requiredVersion: reactVersion,
-      singleton: true,
-      treeShaking: false,
-    },
-    'react-dom': {
-      requiredVersion: reactDomVersion,
-      singleton: true,
-      treeShaking: false,
-    },
-    'react-dom/client': {
-      requiredVersion: reactDomVersion,
-      singleton: true,
-      treeShaking: false,
-    },
-  },
-  treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
-});
+  });
 
-export default config;
+export default moduleFederationConfig;

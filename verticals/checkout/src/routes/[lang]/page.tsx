@@ -1,5 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
 import { UltramodernRouteHead } from '../ultramodern-route-head';
 import { ultramodernLocalisedUrls } from '../ultramodern-route-metadata';
 import { ultramodernUiMarker } from '../../ultramodern-build';
@@ -101,35 +101,24 @@ const localizedPath = (pathname: string, language: SupportedLanguage) => {
   return pathWithoutLanguage === '/' ? `/${language}` : `/${language}${pathWithoutLanguage}`;
 };
 
-const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?: unknown }) => {
-  let locationSearch = '';
-  if (typeof location.searchStr === 'string') {
-    locationSearch = location.searchStr;
-  } else if (typeof location.search === 'string') {
-    locationSearch = location.search;
-  }
-  const locationHash = typeof location.hash === 'string' ? location.hash : '';
-
-  return `${locationSearch}${locationHash}`;
-};
-
 export default function CheckoutHome() {
   const { language, t } = useModernI18n();
   const location = useLocation();
-  const suffix = locationSuffix(location);
   return (
     <main className="checkout:min-h-screen checkout:bg-um-canvas checkout:px-4 checkout:py-6 checkout:text-um-foreground checkout:sm:px-8">
       <UltramodernRouteHead />
       <nav aria-label={t('checkout.language.switcher')} className="checkout:flex checkout:gap-3">
         {supportedLanguages.map((code) => (
-          <a
+          <Link
             aria-current={language === code ? 'page' : undefined}
             className="checkout:rounded-full checkout:border checkout:border-stone-900/15 checkout:bg-white checkout:px-4 checkout:py-2 checkout:text-sm checkout:font-bold checkout:text-stone-950 checkout:no-underline"
-            href={`${localizedPath(location.pathname, code)}${suffix}`}
+            hash={true}
             key={code}
+            search={true}
+            to={localizedPath(location.pathname, code)}
           >
             {t(`checkout.language.${code}`)}
-          </a>
+          </Link>
         ))}
       </nav>
       <h1 className="checkout:mt-10 checkout:text-5xl checkout:font-black">

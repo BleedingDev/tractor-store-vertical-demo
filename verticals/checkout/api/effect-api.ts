@@ -1,10 +1,10 @@
-import apiRuntime from './index.ts';
-import {
-  checkoutApiContract,
-  checkoutEffectApi,
-  checkoutOperationContexts,
-  ultramodernApiMarker,
+import { checkoutEffectApi, ultramodernApiMarker } from '../shared/api.ts';
+
+export {
+  checkoutApiContract as contract,
+  checkoutOperationContexts as operationContexts,
 } from '../shared/api.ts';
+export { default, default as runtime } from './index.ts';
 
 export const backendFederationContract = {
   compatibility: {
@@ -24,8 +24,3 @@ export const backendFederationContract = {
 } as const;
 
 export const api: unknown = checkoutEffectApi;
-export const contract = checkoutApiContract;
-export const operationContexts = checkoutOperationContexts;
-export const runtime = apiRuntime;
-
-export default apiRuntime;

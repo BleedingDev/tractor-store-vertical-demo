@@ -28,14 +28,7 @@ export const exploreItemSchema = Schema.Struct({
   title: Schema.String,
 });
 
-export const ultramodernApiMarker = {
-  appId: 'explore',
-  build: 'b3dc004d99d5acb2',
-  deployProfile: 'cloudflare-ssr-mf-effect-v1',
-  packageName: '@tractor-store-vertical-demo/explore',
-  surface: 'effect-bff',
-  version: '0.1.0',
-} as const;
+export { ultramodernApiMarker } from './ultramodern-build.ts';
 
 export const exploreReadinessSchema = Schema.Struct({
   checks: Schema.Struct({

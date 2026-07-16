@@ -1,6 +1,5 @@
-// @effect-diagnostics processEnv:off
-import { setTimeout as delay } from 'node:timers/promises';
 import { appTools, defineConfig, presetUltramodern } from '@modern-js/app-tools';
+import { getBuildConfigEnvironment, withBuildConfigEnvironment } from '@modern-js/app-tools/config';
 import { bffPlugin } from '@modern-js/plugin-bff';
 import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { i18nPlugin } from '@modern-js/plugin-i18n';
@@ -9,72 +8,35 @@ import { moduleFederationPlugin } from '@module-federation/modern-js-v3';
 import { withZephyr as withZephyrRspack } from 'zephyr-rspack-plugin';
 import { ultramodernLocalisedUrls } from './src/routes/ultramodern-route-metadata';
 
-type ZephyrRspackConfig = Parameters<ReturnType<typeof withZephyrRspack>>[0];
-
-const zephyrEnabled = process.env['ULTRAMODERN_ZEPHYR'] !== 'false';
-const cloudflareDeployEnabled = process.env['MODERNJS_DEPLOY'] === 'cloudflare';
-
-const parsedZephyrTimeoutMs = Number.parseInt(
-  process.env['ULTRAMODERN_ZEPHYR_TIMEOUT_MS'] ?? '',
-  10,
-);
-const zephyrTimeoutMs =
-  Number.isFinite(parsedZephyrTimeoutMs) && parsedZephyrTimeoutMs > 0
-    ? parsedZephyrTimeoutMs
-    : 45_000;
-
-const zephyrWarn = (error: unknown) => {
-  const message = error instanceof Error ? error.message : String(error);
-  console.warn(
-    `[ultramodern] zephyr-rspack-plugin failed; continuing without Zephyr (set ULTRAMODERN_ZEPHYR=false to disable it): ${message}`,
-  );
-};
+const cloudflareDeployEnabled = getBuildConfigEnvironment('MODERNJS_DEPLOY') === 'cloudflare';
 
 const zephyrRspackPlugin = () => ({
   name: 'ultramodern-zephyr-rspack-plugin',
   pre: ['@modern-js/plugin-module-federation-config'],
-  setup(api: {
-    modifyRspackConfig: (
-      handler: (config: ZephyrRspackConfig) => ZephyrRspackConfig | Promise<ZephyrRspackConfig>,
-    ) => void;
-  }) {
-    if (!zephyrEnabled) {
+  setup(api: { modifyRspackConfig: (handler: ReturnType<typeof withZephyrRspack>) => void }) {
+    // Zephyr uploads federated build artifacts to Zephyr Cloud (the fast
+    // rollback path). Uploading REQUIRES a Zephyr Cloud account and, in CI, a
+    // deploy-scoped ZE_CI_TOKEN; without it Zephyr fatally fails to load its
+    // application configuration. Zephyr therefore engages ONLY for such an
+    // authoritative deploy — a plain build never contacts Zephyr Cloud, needs
+    // no account, and is never blocked. This is the framework's "works with or
+    // without Zephyr" contract. The plugin stays registered unconditionally
+    // (this gate keys on Zephyr's native deploy token, not any UltraModern
+    // opt-out). When deploying, ZE_FAIL_BUILD=true makes an upload failure a
+    // hard build failure.
+    const zephyrCiDeploy = (getBuildConfigEnvironment('ZE_CI_TOKEN') ?? '').length > 0;
+    if (!zephyrCiDeploy) {
       return;
     }
-    api.modifyRspackConfig(async (config) => {
-      try {
-        // Zephyr can not only throw/reject but also hang on a stalled network
-        // call, wedging the whole build. Race it against a watchdog so a hang
-        // degrades to an unmodified config instead of blocking indefinitely.
-        const zephyrConfig = (async () => {
-          try {
-            return await withZephyrRspack()(config);
-          } catch (error) {
-            zephyrWarn(error);
-            return config;
-          }
-        })();
-        const watchdog = async () => {
-          await delay(zephyrTimeoutMs, undefined, { ref: false });
-          zephyrWarn(
-            `timed out after ${zephyrTimeoutMs}ms (override with ULTRAMODERN_ZEPHYR_TIMEOUT_MS)`,
-          );
-          return config;
-        };
-        return await Promise.race([zephyrConfig, watchdog()]);
-      } catch (error) {
-        zephyrWarn(error);
-        return config;
-      }
-    });
+    api.modifyRspackConfig(withBuildConfigEnvironment('ZE_FAIL_BUILD', 'true', withZephyrRspack()));
   },
 });
 
 const appId = 'decide';
 const cloudflareWorkerName = 'tractor-store-vertical-demo-decide';
-const port = Number(process.env['VERTICAL_DECIDE_PORT'] ?? 3022);
+const port = Number(getBuildConfigEnvironment('VERTICAL_DECIDE_PORT') ?? 3022);
 const envValue = (name: string) => {
-  const value = process.env[name]?.trim();
+  const value = getBuildConfigEnvironment(name)?.trim();
   return value !== undefined && value.length > 0 ? value : undefined;
 };
 const configuredSiteUrl = envValue('MODERN_PUBLIC_SITE_URL');
@@ -98,8 +60,15 @@ const siteUrl =
 const remoteAssetOrigin =
   configuredCloudflareUrl ||
   inferredCloudflareUrl ||
-  (cloudflareDeployEnabled ? '/' : `http://localhost:${port}`);
-const defaultRemoteAssetPrefix = `${remoteAssetOrigin.replace(/\/+$/u, '')}/`;
+  (cloudflareDeployEnabled ? '' : `http://localhost:${port}`);
+// When deploying to Cloudflare without a configured public URL, publish an
+// 'auto' publicPath so the remote resolves its chunks from the origin its
+// remoteEntry.js was loaded from (the vertical's Worker), not the host shell's
+// origin — otherwise cross-origin chunk loading 404s and MF reports an empty
+// moduleId. A configured/inferred URL still wins as an absolute prefix.
+const defaultRemoteAssetPrefix = remoteAssetOrigin
+  ? `${remoteAssetOrigin.replace(/\/+$/u, '')}/`
+  : 'auto';
 const defaultAssetPrefix = defaultRemoteAssetPrefix;
 // Asset loading is intentionally independent from the canonical site URL.
 // Module Federation remotes must publish an absolute publicPath so browsers
@@ -113,7 +82,7 @@ const buildCacheDirectory = `node_modules/.cache/rspack-${appId}-${buildTarget}`
 
 if (
   cloudflareDeployEnabled &&
-  process.env['ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS'] === 'true' &&
+  getBuildConfigEnvironment('ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS') === 'true' &&
   configuredCloudflareUrl === undefined &&
   configuredSiteUrl === undefined &&
   inferredCloudflareUrl === undefined
@@ -132,6 +101,7 @@ export default defineConfig(
           openapi: {
             path: '/openapi.json',
           },
+
           strictEffectApproach: true,
         },
         prefix: '/decide-api',
@@ -184,6 +154,94 @@ export default defineConfig(
                     workersDev: true,
                   },
                 },
+                services: [
+                  {
+                    binding:
+                      envValue('VERTICAL_EXPLORE_WORKER_BINDING') ?? 'VERTICAL_EXPLORE_WORKER',
+                    fragments: [
+                      {
+                        boundaryId: 'verticalExplore',
+                        expose: './Footer',
+                        path: '/{locale}/_mf/fragment/footer',
+                        remote: 'explore',
+                      },
+                      {
+                        boundaryId: 'verticalExplore',
+                        expose: './Header',
+                        path: '/{locale}/_mf/fragment/header',
+                        remote: 'explore',
+                      },
+                      {
+                        boundaryId: 'verticalExplore',
+                        expose: './HomePage',
+                        path: '/{locale}/_mf/fragment/home-page',
+                        remote: 'explore',
+                      },
+                      {
+                        boundaryId: 'verticalExplore',
+                        expose: './ProductGrid',
+                        path: '/{locale}/_mf/fragment/product-grid',
+                        remote: 'explore',
+                      },
+                      {
+                        boundaryId: 'verticalExplore',
+                        expose: './Recommendations',
+                        path: '/{locale}/_mf/fragment/recommendations',
+                        remote: 'explore',
+                      },
+                      {
+                        boundaryId: 'verticalExplore',
+                        expose: './StorePicker',
+                        path: '/{locale}/_mf/fragment/store-picker',
+                        remote: 'explore',
+                      },
+                    ],
+                    prefix: '/explore-api',
+                    service:
+                      envValue('VERTICAL_EXPLORE_WORKER_NAME') ??
+                      'tractor-store-vertical-demo-explore',
+                  },
+                  {
+                    binding:
+                      envValue('VERTICAL_CHECKOUT_WORKER_BINDING') ?? 'VERTICAL_CHECKOUT_WORKER',
+                    fragments: [
+                      {
+                        boundaryId: 'verticalCheckout',
+                        expose: './AddToCart',
+                        path: '/{locale}/_mf/fragment/add-to-cart',
+                        remote: 'checkout',
+                      },
+                      {
+                        boundaryId: 'verticalCheckout',
+                        expose: './CartPage',
+                        path: '/{locale}/_mf/fragment/cart-page',
+                        remote: 'checkout',
+                      },
+                      {
+                        boundaryId: 'verticalCheckout',
+                        expose: './CheckoutPage',
+                        path: '/{locale}/_mf/fragment/checkout-page',
+                        remote: 'checkout',
+                      },
+                      {
+                        boundaryId: 'verticalCheckout',
+                        expose: './MiniCart',
+                        path: '/{locale}/_mf/fragment/mini-cart',
+                        remote: 'checkout',
+                      },
+                      {
+                        boundaryId: 'verticalCheckout',
+                        expose: './ThanksPage',
+                        path: '/{locale}/_mf/fragment/thanks-page',
+                        remote: 'checkout',
+                      },
+                    ],
+                    prefix: '/checkout-api',
+                    service:
+                      envValue('VERTICAL_CHECKOUT_WORKER_NAME') ??
+                      'tractor-store-vertical-demo-checkout',
+                  },
+                ],
                 ssr: true,
               },
             },
@@ -215,7 +273,7 @@ export default defineConfig(
         },
         rsdoctor: {
           disableClientServer: true,
-          enabled: process.env['ULTRAMODERN_RSDOCTOR'] === 'true',
+          enabled: getBuildConfigEnvironment('ULTRAMODERN_RSDOCTOR') === 'true',
         },
       },
       plugins: [
@@ -257,7 +315,7 @@ export default defineConfig(
         port,
         publicDir: ['./locales', './assets'],
         ssr: {
-          mode: 'string',
+          mode: 'stream',
           moduleFederationAppSSR: true,
         },
       },

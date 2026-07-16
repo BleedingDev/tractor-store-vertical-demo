@@ -1,8 +1,8 @@
 const ultramodernBuildArtifact = {
   deliveryUnit: {
     appId: 'decide',
-    build: '3c6187684f45d1f7',
-    buildMarker: '3c6187684f45d1f7',
+    build: '36fc602031c23930',
+    buildMarker: '36fc602031c23930',
     deployProfile: 'cloudflare-ssr-mf-effect-v1',
     kind: 'microvertical-delivery-unit',
     packageName: '@tractor-store-vertical-demo/decide',
@@ -16,8 +16,8 @@ const ultramodernBuildArtifact = {
   surfaces: {
     api: {
       appId: 'decide',
-      build: '3c6187684f45d1f7',
-      buildMarker: '3c6187684f45d1f7',
+      build: '36fc602031c23930',
+      buildMarker: '36fc602031c23930',
       deployProfile: 'cloudflare-ssr-mf-effect-v1',
       kind: 'microvertical-delivery-unit',
       packageName: '@tractor-store-vertical-demo/decide',
@@ -29,8 +29,8 @@ const ultramodernBuildArtifact = {
     },
     ui: {
       appId: 'decide',
-      build: '3c6187684f45d1f7',
-      buildMarker: '3c6187684f45d1f7',
+      build: '36fc602031c23930',
+      buildMarker: '36fc602031c23930',
       deployProfile: 'cloudflare-ssr-mf-effect-v1',
       kind: 'microvertical-delivery-unit',
       packageName: '@tractor-store-vertical-demo/decide',

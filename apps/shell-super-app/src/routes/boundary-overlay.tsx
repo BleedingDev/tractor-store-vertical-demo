@@ -1,5 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import type { CSSProperties } from 'react';
 
 interface BoundaryConfig {
@@ -31,6 +31,17 @@ const defaultBoundaryColors = {
 
 const boundaryIds = ['explore', 'decide', 'checkout'] as const;
 const boundaryStorageKey = 'tractor-store.show-team-boundaries';
+const boundaryStorageEvent = 'tractor-store-boundary-visibility-change';
+const readBoundaryVisibility = () => window.localStorage.getItem(boundaryStorageKey) === 'true';
+const readServerBoundaryVisibility = () => false;
+const subscribeToBoundaryVisibility = (onStoreChange: () => void) => {
+  window.addEventListener('storage', onStoreChange);
+  window.addEventListener(boundaryStorageEvent, onStoreChange);
+  return () => {
+    window.removeEventListener('storage', onStoreChange);
+    window.removeEventListener(boundaryStorageEvent, onStoreChange);
+  };
+};
 const moduleLabel = (boundaryId: string | undefined, expose: string | undefined) => {
   if (boundaryId === undefined || boundaryId.length === 0) {
     return;
@@ -43,7 +54,11 @@ const moduleLabel = (boundaryId: string | undefined, expose: string | undefined)
 
 export default function BoundaryOverlay() {
   const { t } = useModernI18n();
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(
+    subscribeToBoundaryVisibility,
+    readBoundaryVisibility,
+    readServerBoundaryVisibility,
+  );
   const [boxes, setBoxes] = useState<BoundaryBox[]>([]);
   const boundaryConfig = useMemo(() => {
     const runtimeOverrides =
@@ -62,12 +77,7 @@ export default function BoundaryOverlay() {
   const toggleLabel = t('shell.boundaries.toggle');
 
   useEffect(() => {
-    setEnabled(window.localStorage.getItem(boundaryStorageKey) === 'true');
-  }, []);
-
-  useEffect(() => {
     if (!enabled) {
-      setBoxes([]);
       return;
     }
 
@@ -136,8 +146,8 @@ export default function BoundaryOverlay() {
           checked={enabled}
           onChange={(event) => {
             const nextEnabled = event.currentTarget.checked;
-            setEnabled(nextEnabled);
             window.localStorage.setItem(boundaryStorageKey, String(nextEnabled));
+            window.dispatchEvent(new CustomEvent(boundaryStorageEvent));
           }}
           type="checkbox"
         />

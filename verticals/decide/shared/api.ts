@@ -29,14 +29,7 @@ export const decideItemSchema = Schema.Struct({
   variantLabel: Schema.String,
 });
 
-export const ultramodernApiMarker = {
-  appId: 'decide',
-  build: '5eaf60929a19f5f1',
-  deployProfile: 'cloudflare-ssr-mf-effect-v1',
-  packageName: '@tractor-store-vertical-demo/decide',
-  surface: 'effect-bff',
-  version: '0.1.0',
-} as const;
+export { ultramodernApiMarker } from './ultramodern-build.ts';
 
 export const decideReadinessSchema = Schema.Struct({
   checks: Schema.Struct({

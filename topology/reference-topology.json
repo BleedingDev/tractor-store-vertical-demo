@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "ultramodern-superapp-workspace-reference-topology",
-  "description": "Generated UltraModern workspace skeleton with full-stack vertical ownership.",
+  "description": "Generated UltraModern SuperApp shell that can grow by adding full-stack verticals.",
   "preset": "presetUltramodern",
   "shell": {
     "id": "shell-super-app",
@@ -18,23 +18,17 @@
       "remotes": [
         {
           "id": "explore",
-          "alias": "explore",
           "name": "verticalExplore",
-          "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
           "manifestUrl": "http://localhost:3021/mf-manifest.json"
         },
         {
           "id": "decide",
-          "alias": "decide",
           "name": "verticalDecide",
-          "manifestEnv": "VERTICAL_DECIDE_MF_MANIFEST",
           "manifestUrl": "http://localhost:3022/mf-manifest.json"
         },
         {
           "id": "checkout",
-          "alias": "checkout",
           "name": "verticalCheckout",
-          "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
           "manifestUrl": "http://localhost:3023/mf-manifest.json"
         }
       ],
@@ -45,6 +39,7 @@
       "target": "cloudflare",
       "workerName": "tractor-store-vertical-demo-shell-super-app",
       "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP",
+      "compatibilityDate": "2026-06-02",
       "compatibilityFlags": [
         "nodejs_compat",
         "global_fetch_strictly_public"
@@ -55,13 +50,15 @@
         "mfManifest": "/mf-manifest.json",
         "locale": "/locales/en/shell.json"
       },
-      "evidence": {
-        "proofScript": "scripts/proof-cloudflare-version.mts",
-        "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
-      },
-      "compatibilityDate": "2026-06-02",
       "security": {
+        "enabled": true,
+        "headers": {
+          "referrerPolicy": "strict-origin-when-cross-origin",
+          "contentTypeOptions": "nosniff",
+          "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+        },
         "contentSecurityPolicy": {
+          "mode": "report-only",
           "directives": {
             "base-uri": [
               "'self'"
@@ -122,24 +119,49 @@
               "blob:"
             ]
           },
-          "mode": "report-only",
           "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
         },
-        "cookies": {
-          "mutateSetCookie": false,
-          "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
-        },
-        "enabled": true,
-        "headers": {
-          "contentTypeOptions": "nosniff",
-          "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
-          "referrerPolicy": "strict-origin-when-cross-origin"
-        },
         "noindex": {
+          "workersDev": true,
           "localhost": true,
-          "previewHostnames": [],
-          "workersDev": true
+          "previewHostnames": []
         }
+      },
+      "qualityGates": {
+        "publicRoutes": {
+          "requireSitemapWhenPresent": true,
+          "requireRobotsSitemapConsistency": true,
+          "requireWebManifestWhenPresent": true
+        },
+        "statusCodes": {
+          "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+          "unknownRouteStatus": 404
+        },
+        "indexing": {
+          "previewNoindex": true,
+          "productionPublicRoutesIndexable": true
+        },
+        "assets": {
+          "cssPreloadRequired": true,
+          "cssResponseRequired": true,
+          "cacheControlRequiredForCss": true,
+          "sourcemapsPubliclyReferenced": false
+        },
+        "budgets": {
+          "ssrHtmlMaxBytes": 250000,
+          "mfManifestMaxBytes": 500000,
+          "localeJsonMaxBytes": 100000,
+          "sitemapXmlMaxBytes": 500000,
+          "cssAssetMaxBytes": 750000
+        },
+        "csp": {
+          "finalMode": "report-only-dogfood",
+          "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+        }
+      },
+      "evidence": {
+        "proofScript": "scripts/proof-cloudflare-version.mts",
+        "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
       }
     },
     "ownership": {
@@ -155,6 +177,15 @@
           "docs/super-app-rfc-adr/wave2/rollback.md#shell-lkg"
         ]
       }
+    },
+    "deliveryUnit": {
+      "schemaVersion": 1,
+      "kind": "microvertical-delivery-unit",
+      "unitId": "tractor-store-vertical-demo/shell-super-app",
+      "packageName": "@tractor-store-vertical-demo/shell-super-app",
+      "version": "0.1.0",
+      "buildMarker": "052f175d1feea977",
+      "sourceRevision": "workspace"
     }
   },
   "verticals": [
@@ -178,7 +209,6 @@
           "./StorePicker"
         ],
         "ssr": true,
-        "fallbackTelemetryEvent": "modernjs:mv-runtime-parity",
         "sharedContractVersion": "mf-ssr-contract-v1"
       },
       "api": {
@@ -213,7 +243,7 @@
             "moduleFederation",
             "ssr",
             "translations",
-            "effectBff"
+            "api"
           ]
         },
         "requestContext": {
@@ -226,24 +256,24 @@
             "x-ultramodern-env",
             "x-vertical-version-id"
           ],
-          "source": "shell-to-vertical-effect-client"
+          "source": "shell-to-vertical-api-client"
         },
         "domainOperations": {
-          "recommendationFeed": {
+          "workspaceFeed": {
             "client": "listExplore",
             "method": "GET",
             "path": "/explore",
-            "resource": "recommendations",
+            "resource": "workspace-items",
             "owner": "explore"
           },
-          "recommendationDetail": {
+          "workspaceDetail": {
             "client": "getExplore",
             "method": "GET",
             "path": "/explore/:id",
-            "resource": "recommendation",
+            "resource": "workspace-item",
             "owner": "explore"
           },
-          "recommendationCreate": {
+          "workspaceCreate": {
             "client": "createExplore",
             "method": "POST",
             "path": "/explore",
@@ -256,24 +286,27 @@
         "target": "cloudflare",
         "workerName": "tractor-store-vertical-demo-explore",
         "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
+        "compatibilityDate": "2026-06-02",
         "compatibilityFlags": [
           "nodejs_compat",
           "global_fetch_strictly_public"
         ],
         "assetsBinding": "ASSETS",
         "routes": {
-          "ssr": "/tractors",
+          "ssr": "/en",
           "mfManifest": "/mf-manifest.json",
           "locale": "/locales/en/explore.json",
-          "effectReadiness": "/explore-api/explore/readiness"
+          "apiReadiness": "/explore-api/explore/readiness"
         },
-        "evidence": {
-          "proofScript": "scripts/proof-cloudflare-version.mts",
-          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
-        },
-        "compatibilityDate": "2026-06-02",
         "security": {
+          "enabled": true,
+          "headers": {
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "contentTypeOptions": "nosniff",
+            "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+          },
           "contentSecurityPolicy": {
+            "mode": "report-only",
             "directives": {
               "base-uri": [
                 "'self'"
@@ -334,37 +367,73 @@
                 "blob:"
               ]
             },
-            "mode": "report-only",
             "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
           },
-          "cookies": {
-            "mutateSetCookie": false,
-            "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
-          },
-          "enabled": true,
-          "headers": {
-            "contentTypeOptions": "nosniff",
-            "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
-            "referrerPolicy": "strict-origin-when-cross-origin"
-          },
           "noindex": {
+            "workersDev": true,
             "localhost": true,
-            "previewHostnames": [],
-            "workersDev": true
+            "previewHostnames": []
           }
-        }
+        },
+        "qualityGates": {
+          "publicRoutes": {
+            "requireSitemapWhenPresent": true,
+            "requireRobotsSitemapConsistency": true,
+            "requireWebManifestWhenPresent": true
+          },
+          "statusCodes": {
+            "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+            "unknownRouteStatus": 404
+          },
+          "indexing": {
+            "previewNoindex": true,
+            "productionPublicRoutesIndexable": true
+          },
+          "assets": {
+            "cssPreloadRequired": true,
+            "cssResponseRequired": true,
+            "cacheControlRequiredForCss": true,
+            "sourcemapsPubliclyReferenced": false
+          },
+          "budgets": {
+            "ssrHtmlMaxBytes": 250000,
+            "mfManifestMaxBytes": 500000,
+            "localeJsonMaxBytes": 100000,
+            "sitemapXmlMaxBytes": 500000,
+            "cssAssetMaxBytes": 750000
+          },
+          "csp": {
+            "finalMode": "report-only-dogfood",
+            "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+          }
+        },
+        "evidence": {
+          "proofScript": "scripts/proof-cloudflare-version.mts",
+          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+        },
+        "jsonSmokeChecks": [
+          {
+            "id": "explore-readiness-smoke",
+            "route": "/explore-api/explore/readiness",
+            "expect": {
+              "status": "ready",
+              "checks.api": "ready",
+              "checks.moduleFederation": "ready",
+              "checks.ssr": "ready"
+            }
+          }
+        ]
       },
       "ownership": {
-        "team": "tractor-explore",
-        "slack": "#tractor-explore",
-        "pagerDuty": "pd-tractor-explore",
-        "runbookRef": "runbooks/wave2/explore.md",
-        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#explore",
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/verticals/explore.md",
+        "adrRef": "docs/super-app-rfc-adr/verticals.md#explore",
         "blastRadius": {
-          "tier": "tier-1-tractor-discovery",
+          "tier": "tier-2-vertical",
           "references": [
-            "docs/super-app-rfc-adr/wave2/blast-radius.md#explore",
-            "docs/super-app-rfc-adr/wave2/rollback.md#explore-lkg"
+            "docs/super-app-rfc-adr/blast-radius.md#explore"
           ]
         }
       },
@@ -373,6 +442,15 @@
         "name": "verticalExploreBackend",
         "runtimeFramework": "effect",
         "strictEffectApproach": true,
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/explore",
+          "packageName": "@tractor-store-vertical-demo/explore",
+          "version": "0.1.0",
+          "buildMarker": "51f94b2832563336",
+          "sourceRevision": "workspace"
+        },
         "exposes": {
           "./effect-api": {
             "contract": "verticals/explore/shared/api.ts",
@@ -384,6 +462,7 @@
         },
         "versionBoundary": {
           "invariant": "web-and-api-same-build",
+          "identityRoot": "deliveryUnit",
           "packageName": "@tractor-store-vertical-demo/explore",
           "ui": {
             "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
@@ -394,8 +473,7 @@
             "readiness": "/explore-api/explore/readiness",
             "buildMarker": "verticals/explore/shared/ultramodern-build.ts",
             "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE"
-          },
-          "identityRoot": "deliveryUnit"
+          }
         },
         "executionSurfaces": {
           "cloudflare": {
@@ -435,14 +513,18 @@
             "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
             "remoteType": "module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect"
+            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "expected": {
+              "unitId": "tractor-store-vertical-demo/explore",
+              "buildMarker": "51f94b2832563336"
+            }
           }
         },
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/explore",
-          "effectVersion": "4.0.0-beta.92",
-          "moduleFederationVersion": "2.6.0"
+          "effectVersion": "4.0.0-beta.97",
+          "moduleFederationVersion": "2.7.0"
         },
         "cache": {
           "cloudflareSnapshot": "immutable",
@@ -454,15 +536,6 @@
           "timeoutMs": 1500,
           "failureEvent": "modernjs:microvertical-server-fallback",
           "strategy": "typed-effect-error"
-        },
-        "deliveryUnit": {
-          "schemaVersion": 1,
-          "kind": "microvertical-delivery-unit",
-          "unitId": "tractor-store-vertical-demo/explore",
-          "packageName": "@tractor-store-vertical-demo/explore",
-          "version": "0.1.0",
-          "buildMarker": "b0eb373ac7caef45",
-          "sourceRevision": "workspace"
         }
       },
       "deliveryUnit": {
@@ -471,7 +544,7 @@
         "unitId": "tractor-store-vertical-demo/explore",
         "packageName": "@tractor-store-vertical-demo/explore",
         "version": "0.1.0",
-        "buildMarker": "b0eb373ac7caef45",
+        "buildMarker": "51f94b2832563336",
         "sourceRevision": "workspace"
       }
     },
@@ -496,21 +569,16 @@
         "remotes": [
           {
             "id": "explore",
-            "alias": "explore",
             "name": "verticalExplore",
-            "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
             "manifestUrl": "http://localhost:3021/mf-manifest.json"
           },
           {
             "id": "checkout",
-            "alias": "checkout",
             "name": "verticalCheckout",
-            "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
             "manifestUrl": "http://localhost:3023/mf-manifest.json"
           }
         ],
         "ssr": true,
-        "fallbackTelemetryEvent": "modernjs:mv-runtime-parity",
         "sharedContractVersion": "mf-ssr-contract-v1"
       },
       "api": {
@@ -545,7 +613,7 @@
             "moduleFederation",
             "ssr",
             "translations",
-            "effectBff"
+            "api"
           ]
         },
         "requestContext": {
@@ -558,28 +626,28 @@
             "x-ultramodern-env",
             "x-vertical-version-id"
           ],
-          "source": "shell-to-vertical-effect-client"
+          "source": "shell-to-vertical-api-client"
         },
         "domainOperations": {
-          "productDetail": {
-            "client": "getDecide",
-            "method": "GET",
-            "path": "/decide/:id",
-            "resource": "product-detail",
-            "owner": "decide"
-          },
-          "configurationDraft": {
-            "client": "createDecide",
-            "method": "POST",
-            "path": "/decide",
-            "resource": "configuration",
-            "owner": "decide"
-          },
-          "productList": {
+          "workspaceFeed": {
             "client": "listDecide",
             "method": "GET",
             "path": "/decide",
-            "resource": "products",
+            "resource": "workspace-items",
+            "owner": "decide"
+          },
+          "workspaceDetail": {
+            "client": "getDecide",
+            "method": "GET",
+            "path": "/decide/:id",
+            "resource": "workspace-item",
+            "owner": "decide"
+          },
+          "workspaceCreate": {
+            "client": "createDecide",
+            "method": "POST",
+            "path": "/decide",
+            "resource": "decide",
             "owner": "decide"
           }
         }
@@ -588,24 +656,27 @@
         "target": "cloudflare",
         "workerName": "tractor-store-vertical-demo-decide",
         "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
+        "compatibilityDate": "2026-06-02",
         "compatibilityFlags": [
           "nodejs_compat",
           "global_fetch_strictly_public"
         ],
         "assetsBinding": "ASSETS",
         "routes": {
-          "ssr": "/tractors",
+          "ssr": "/en",
           "mfManifest": "/mf-manifest.json",
           "locale": "/locales/en/decide.json",
-          "effectReadiness": "/decide-api/decide/readiness"
+          "apiReadiness": "/decide-api/decide/readiness"
         },
-        "evidence": {
-          "proofScript": "scripts/proof-cloudflare-version.mts",
-          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
-        },
-        "compatibilityDate": "2026-06-02",
         "security": {
+          "enabled": true,
+          "headers": {
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "contentTypeOptions": "nosniff",
+            "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+          },
           "contentSecurityPolicy": {
+            "mode": "report-only",
             "directives": {
               "base-uri": [
                 "'self'"
@@ -666,37 +737,73 @@
                 "blob:"
               ]
             },
-            "mode": "report-only",
             "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
           },
-          "cookies": {
-            "mutateSetCookie": false,
-            "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
-          },
-          "enabled": true,
-          "headers": {
-            "contentTypeOptions": "nosniff",
-            "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
-            "referrerPolicy": "strict-origin-when-cross-origin"
-          },
           "noindex": {
+            "workersDev": true,
             "localhost": true,
-            "previewHostnames": [],
-            "workersDev": true
+            "previewHostnames": []
           }
-        }
+        },
+        "qualityGates": {
+          "publicRoutes": {
+            "requireSitemapWhenPresent": true,
+            "requireRobotsSitemapConsistency": true,
+            "requireWebManifestWhenPresent": true
+          },
+          "statusCodes": {
+            "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+            "unknownRouteStatus": 404
+          },
+          "indexing": {
+            "previewNoindex": true,
+            "productionPublicRoutesIndexable": true
+          },
+          "assets": {
+            "cssPreloadRequired": true,
+            "cssResponseRequired": true,
+            "cacheControlRequiredForCss": true,
+            "sourcemapsPubliclyReferenced": false
+          },
+          "budgets": {
+            "ssrHtmlMaxBytes": 250000,
+            "mfManifestMaxBytes": 500000,
+            "localeJsonMaxBytes": 100000,
+            "sitemapXmlMaxBytes": 500000,
+            "cssAssetMaxBytes": 750000
+          },
+          "csp": {
+            "finalMode": "report-only-dogfood",
+            "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+          }
+        },
+        "evidence": {
+          "proofScript": "scripts/proof-cloudflare-version.mts",
+          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+        },
+        "jsonSmokeChecks": [
+          {
+            "id": "decide-readiness-smoke",
+            "route": "/decide-api/decide/readiness",
+            "expect": {
+              "status": "ready",
+              "checks.api": "ready",
+              "checks.moduleFederation": "ready",
+              "checks.ssr": "ready"
+            }
+          }
+        ]
       },
       "ownership": {
-        "team": "tractor-decide",
-        "slack": "#tractor-decide",
-        "pagerDuty": "pd-tractor-decide",
-        "runbookRef": "runbooks/wave2/decide.md",
-        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#decide",
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/verticals/decide.md",
+        "adrRef": "docs/super-app-rfc-adr/verticals.md#decide",
         "blastRadius": {
-          "tier": "tier-1-tractor-configuration",
+          "tier": "tier-2-vertical",
           "references": [
-            "docs/super-app-rfc-adr/wave2/blast-radius.md#decide",
-            "docs/super-app-rfc-adr/wave2/rollback.md#decide-lkg"
+            "docs/super-app-rfc-adr/blast-radius.md#decide"
           ]
         }
       },
@@ -705,6 +812,15 @@
         "name": "verticalDecideBackend",
         "runtimeFramework": "effect",
         "strictEffectApproach": true,
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/decide",
+          "packageName": "@tractor-store-vertical-demo/decide",
+          "version": "0.1.0",
+          "buildMarker": "36fc602031c23930",
+          "sourceRevision": "workspace"
+        },
         "exposes": {
           "./effect-api": {
             "contract": "verticals/decide/shared/api.ts",
@@ -716,6 +832,7 @@
         },
         "versionBoundary": {
           "invariant": "web-and-api-same-build",
+          "identityRoot": "deliveryUnit",
           "packageName": "@tractor-store-vertical-demo/decide",
           "ui": {
             "manifestEnv": "VERTICAL_DECIDE_MF_MANIFEST",
@@ -726,8 +843,7 @@
             "readiness": "/decide-api/decide/readiness",
             "buildMarker": "verticals/decide/shared/ultramodern-build.ts",
             "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE"
-          },
-          "identityRoot": "deliveryUnit"
+          }
         },
         "executionSurfaces": {
           "cloudflare": {
@@ -767,14 +883,18 @@
             "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
             "remoteType": "module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect"
+            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "expected": {
+              "unitId": "tractor-store-vertical-demo/decide",
+              "buildMarker": "36fc602031c23930"
+            }
           }
         },
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/decide",
-          "effectVersion": "4.0.0-beta.92",
-          "moduleFederationVersion": "2.6.0"
+          "effectVersion": "4.0.0-beta.97",
+          "moduleFederationVersion": "2.7.0"
         },
         "cache": {
           "cloudflareSnapshot": "immutable",
@@ -786,15 +906,6 @@
           "timeoutMs": 1500,
           "failureEvent": "modernjs:microvertical-server-fallback",
           "strategy": "typed-effect-error"
-        },
-        "deliveryUnit": {
-          "schemaVersion": 1,
-          "kind": "microvertical-delivery-unit",
-          "unitId": "tractor-store-vertical-demo/decide",
-          "packageName": "@tractor-store-vertical-demo/decide",
-          "version": "0.1.0",
-          "buildMarker": "3c6187684f45d1f7",
-          "sourceRevision": "workspace"
         }
       },
       "deliveryUnit": {
@@ -803,7 +914,7 @@
         "unitId": "tractor-store-vertical-demo/decide",
         "packageName": "@tractor-store-vertical-demo/decide",
         "version": "0.1.0",
-        "buildMarker": "3c6187684f45d1f7",
+        "buildMarker": "36fc602031c23930",
         "sourceRevision": "workspace"
       }
     },
@@ -826,7 +937,6 @@
           "./ThanksPage"
         ],
         "ssr": true,
-        "fallbackTelemetryEvent": "modernjs:mv-runtime-parity",
         "sharedContractVersion": "mf-ssr-contract-v1"
       },
       "api": {
@@ -861,7 +971,7 @@
             "moduleFederation",
             "ssr",
             "translations",
-            "effectBff"
+            "api"
           ]
         },
         "requestContext": {
@@ -874,28 +984,56 @@
             "x-ultramodern-env",
             "x-vertical-version-id"
           ],
-          "source": "shell-to-vertical-effect-client"
+          "source": "shell-to-vertical-api-client"
         },
         "domainOperations": {
-          "cartSnapshot": {
+          "checkoutCartAddItem": {
+            "client": "addCheckoutCartItem",
+            "method": "POST",
+            "path": "/checkout/cart/items",
+            "resource": "checkout-cart",
+            "owner": "checkout"
+          },
+          "checkoutCartClear": {
+            "client": "clearCheckoutCart",
+            "method": "POST",
+            "path": "/checkout/cart/clear",
+            "resource": "checkout-cart",
+            "owner": "checkout"
+          },
+          "checkoutCartRead": {
+            "client": "getCheckoutCart",
+            "method": "GET",
+            "path": "/checkout/cart",
+            "resource": "checkout-cart",
+            "owner": "checkout"
+          },
+          "checkoutCartRemoveItem": {
+            "client": "removeCheckoutCartItem",
+            "method": "POST",
+            "path": "/checkout/cart/remove",
+            "resource": "checkout-cart",
+            "owner": "checkout"
+          },
+          "workspaceFeed": {
             "client": "listCheckout",
             "method": "GET",
             "path": "/checkout",
-            "resource": "cart",
+            "resource": "workspace-items",
             "owner": "checkout"
           },
-          "cartMutation": {
-            "client": "createCheckout",
-            "method": "POST",
-            "path": "/checkout",
-            "resource": "cart-line",
-            "owner": "checkout"
-          },
-          "orderConfirmation": {
+          "workspaceDetail": {
             "client": "getCheckout",
             "method": "GET",
             "path": "/checkout/:id",
-            "resource": "order",
+            "resource": "workspace-item",
+            "owner": "checkout"
+          },
+          "workspaceCreate": {
+            "client": "createCheckout",
+            "method": "POST",
+            "path": "/checkout",
+            "resource": "checkout",
             "owner": "checkout"
           }
         }
@@ -904,24 +1042,27 @@
         "target": "cloudflare",
         "workerName": "tractor-store-vertical-demo-checkout",
         "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
+        "compatibilityDate": "2026-06-02",
         "compatibilityFlags": [
           "nodejs_compat",
           "global_fetch_strictly_public"
         ],
         "assetsBinding": "ASSETS",
         "routes": {
-          "ssr": "/cart",
+          "ssr": "/en",
           "mfManifest": "/mf-manifest.json",
           "locale": "/locales/en/checkout.json",
-          "effectReadiness": "/checkout-api/checkout/readiness"
+          "apiReadiness": "/checkout-api/checkout/readiness"
         },
-        "evidence": {
-          "proofScript": "scripts/proof-cloudflare-version.mts",
-          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
-        },
-        "compatibilityDate": "2026-06-02",
         "security": {
+          "enabled": true,
+          "headers": {
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "contentTypeOptions": "nosniff",
+            "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+          },
           "contentSecurityPolicy": {
+            "mode": "report-only",
             "directives": {
               "base-uri": [
                 "'self'"
@@ -982,37 +1123,73 @@
                 "blob:"
               ]
             },
-            "mode": "report-only",
             "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
           },
-          "cookies": {
-            "mutateSetCookie": false,
-            "reason": "Generated Cloudflare worker does not own application Set-Cookie headers."
-          },
-          "enabled": true,
-          "headers": {
-            "contentTypeOptions": "nosniff",
-            "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
-            "referrerPolicy": "strict-origin-when-cross-origin"
-          },
           "noindex": {
+            "workersDev": true,
             "localhost": true,
-            "previewHostnames": [],
-            "workersDev": true
+            "previewHostnames": []
           }
-        }
+        },
+        "qualityGates": {
+          "publicRoutes": {
+            "requireSitemapWhenPresent": true,
+            "requireRobotsSitemapConsistency": true,
+            "requireWebManifestWhenPresent": true
+          },
+          "statusCodes": {
+            "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+            "unknownRouteStatus": 404
+          },
+          "indexing": {
+            "previewNoindex": true,
+            "productionPublicRoutesIndexable": true
+          },
+          "assets": {
+            "cssPreloadRequired": true,
+            "cssResponseRequired": true,
+            "cacheControlRequiredForCss": true,
+            "sourcemapsPubliclyReferenced": false
+          },
+          "budgets": {
+            "ssrHtmlMaxBytes": 250000,
+            "mfManifestMaxBytes": 500000,
+            "localeJsonMaxBytes": 100000,
+            "sitemapXmlMaxBytes": 500000,
+            "cssAssetMaxBytes": 750000
+          },
+          "csp": {
+            "finalMode": "report-only-dogfood",
+            "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+          }
+        },
+        "evidence": {
+          "proofScript": "scripts/proof-cloudflare-version.mts",
+          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+        },
+        "jsonSmokeChecks": [
+          {
+            "id": "checkout-readiness-smoke",
+            "route": "/checkout-api/checkout/readiness",
+            "expect": {
+              "status": "ready",
+              "checks.api": "ready",
+              "checks.moduleFederation": "ready",
+              "checks.ssr": "ready"
+            }
+          }
+        ]
       },
       "ownership": {
-        "team": "tractor-checkout",
-        "slack": "#tractor-checkout",
-        "pagerDuty": "pd-tractor-checkout",
-        "runbookRef": "runbooks/wave2/checkout.md",
-        "adrRef": "docs/super-app-rfc-adr/wave2/reference-topology.md#checkout",
+        "team": "super-app-platform",
+        "slack": "#super-app-platform",
+        "pagerDuty": "pd-super-app-platform",
+        "runbookRef": "runbooks/verticals/checkout.md",
+        "adrRef": "docs/super-app-rfc-adr/verticals.md#checkout",
         "blastRadius": {
-          "tier": "tier-1-tractor-purchase",
+          "tier": "tier-2-vertical",
           "references": [
-            "docs/super-app-rfc-adr/wave2/blast-radius.md#checkout",
-            "docs/super-app-rfc-adr/wave2/rollback.md#checkout-lkg"
+            "docs/super-app-rfc-adr/blast-radius.md#checkout"
           ]
         }
       },
@@ -1021,6 +1198,15 @@
         "name": "verticalCheckoutBackend",
         "runtimeFramework": "effect",
         "strictEffectApproach": true,
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/checkout",
+          "packageName": "@tractor-store-vertical-demo/checkout",
+          "version": "0.1.0",
+          "buildMarker": "7d5413e907d393e5",
+          "sourceRevision": "workspace"
+        },
         "exposes": {
           "./effect-api": {
             "contract": "verticals/checkout/shared/api.ts",
@@ -1032,6 +1218,7 @@
         },
         "versionBoundary": {
           "invariant": "web-and-api-same-build",
+          "identityRoot": "deliveryUnit",
           "packageName": "@tractor-store-vertical-demo/checkout",
           "ui": {
             "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
@@ -1042,8 +1229,7 @@
             "readiness": "/checkout-api/checkout/readiness",
             "buildMarker": "verticals/checkout/shared/ultramodern-build.ts",
             "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT"
-          },
-          "identityRoot": "deliveryUnit"
+          }
         },
         "executionSurfaces": {
           "cloudflare": {
@@ -1083,14 +1269,18 @@
             "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
             "remoteType": "module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect"
+            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "expected": {
+              "unitId": "tractor-store-vertical-demo/checkout",
+              "buildMarker": "7d5413e907d393e5"
+            }
           }
         },
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/checkout",
-          "effectVersion": "4.0.0-beta.92",
-          "moduleFederationVersion": "2.6.0"
+          "effectVersion": "4.0.0-beta.97",
+          "moduleFederationVersion": "2.7.0"
         },
         "cache": {
           "cloudflareSnapshot": "immutable",
@@ -1102,15 +1292,6 @@
           "timeoutMs": 1500,
           "failureEvent": "modernjs:microvertical-server-fallback",
           "strategy": "typed-effect-error"
-        },
-        "deliveryUnit": {
-          "schemaVersion": 1,
-          "kind": "microvertical-delivery-unit",
-          "unitId": "tractor-store-vertical-demo/checkout",
-          "packageName": "@tractor-store-vertical-demo/checkout",
-          "version": "0.1.0",
-          "buildMarker": "2edc1a544185e8f4",
-          "sourceRevision": "workspace"
         }
       },
       "deliveryUnit": {
@@ -1119,7 +1300,7 @@
         "unitId": "tractor-store-vertical-demo/checkout",
         "packageName": "@tractor-store-vertical-demo/checkout",
         "version": "0.1.0",
-        "buildMarker": "2edc1a544185e8f4",
+        "buildMarker": "7d5413e907d393e5",
         "sourceRevision": "workspace"
       }
     }
@@ -1129,13 +1310,13 @@
       "id": "shared-contracts",
       "package": "@tractor-store-vertical-demo/shared-contracts",
       "path": "packages/shared-contracts",
-      "description": "Route, ownership, and topology contract placeholders."
+      "description": "Generated route, ownership, and topology contracts."
     },
     {
       "id": "shared-design-tokens",
       "package": "@tractor-store-vertical-demo/shared-design-tokens",
       "path": "packages/shared-design-tokens",
-      "description": "Design token placeholders consumed by shell and verticals."
+      "description": "Generated design tokens consumed by shell and verticals."
     }
   ],
   "validation": {

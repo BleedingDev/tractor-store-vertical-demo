@@ -1,12 +1,14 @@
 import {
+  productSlug,
+  tractorProducts,
+} from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
+
+export {
   logoUrl,
   productSlug,
   responsiveImage,
   sizedImage,
-  tractorProducts,
 } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
-
-export { logoUrl, productSlug, responsiveImage, sizedImage };
 
 export const teasers = [
   {

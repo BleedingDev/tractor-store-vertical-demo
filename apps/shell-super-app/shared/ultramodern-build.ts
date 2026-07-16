@@ -1,8 +1,8 @@
 const ultramodernBuildArtifact = {
   deliveryUnit: {
     appId: 'shell-super-app',
-    build: '6e0ed293344c063c',
-    buildMarker: '6e0ed293344c063c',
+    build: '052f175d1feea977',
+    buildMarker: '052f175d1feea977',
     deployProfile: 'cloudflare-ssr-mf-effect-v1',
     kind: 'microvertical-delivery-unit',
     packageName: '@tractor-store-vertical-demo/shell-super-app',
@@ -16,8 +16,8 @@ const ultramodernBuildArtifact = {
   surfaces: {
     api: {
       appId: 'shell-super-app',
-      build: '6e0ed293344c063c',
-      buildMarker: '6e0ed293344c063c',
+      build: '052f175d1feea977',
+      buildMarker: '052f175d1feea977',
       deployProfile: 'cloudflare-ssr-mf-effect-v1',
       kind: 'microvertical-delivery-unit',
       packageName: '@tractor-store-vertical-demo/shell-super-app',
@@ -29,8 +29,8 @@ const ultramodernBuildArtifact = {
     },
     ui: {
       appId: 'shell-super-app',
-      build: '6e0ed293344c063c',
-      buildMarker: '6e0ed293344c063c',
+      build: '052f175d1feea977',
+      buildMarker: '052f175d1feea977',
       deployProfile: 'cloudflare-ssr-mf-effect-v1',
       kind: 'microvertical-delivery-unit',
       packageName: '@tractor-store-vertical-demo/shell-super-app',

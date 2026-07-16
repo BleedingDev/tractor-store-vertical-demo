@@ -57,7 +57,6 @@ function run(command, commandArgs, options = {}) {
     env: {
       ...process.env,
       MODERNJS_DEPLOY: 'node',
-      ULTRAMODERN_ZEPHYR: 'false',
     },
     stdio: 'inherit',
   });

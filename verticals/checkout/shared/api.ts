@@ -28,14 +28,7 @@ export const checkoutItemSchema = Schema.Struct({
   title: Schema.String,
 });
 
-export const ultramodernApiMarker = {
-  appId: 'checkout',
-  build: '37c25641b66d32b5',
-  deployProfile: 'cloudflare-ssr-mf-effect-v1',
-  packageName: '@tractor-store-vertical-demo/checkout',
-  surface: 'effect-bff',
-  version: '0.1.0',
-} as const;
+export { ultramodernApiMarker } from './ultramodern-build.ts';
 
 export const checkoutReadinessSchema = Schema.Struct({
   checks: Schema.Struct({

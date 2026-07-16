@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 
 export interface CartLine {
   id: string;
@@ -109,13 +109,8 @@ const nextOrderId = () => {
   return `tractor-${next.toString(36)}`;
 };
 
-const readLastOrder = (): CartOrder | undefined => {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
+const parseLastOrder = (value: string | null): CartOrder | undefined => {
   try {
-    const value = window.localStorage.getItem(orderStorageKey);
     if (value === null || value.length === 0) {
       return;
     }
@@ -140,6 +135,18 @@ const readLastOrder = (): CartOrder | undefined => {
     return undefined;
   }
 };
+
+const subscribeToCart = (onStoreChange: () => void) => {
+  window.addEventListener(cartEvent, onStoreChange);
+  window.addEventListener('storage', onStoreChange);
+  return () => {
+    window.removeEventListener(cartEvent, onStoreChange);
+    window.removeEventListener('storage', onStoreChange);
+  };
+};
+
+const readLastOrderValue = () => window.localStorage.getItem(orderStorageKey);
+const readServerLastOrderValue = () => null;
 
 const updateLine = (id: string, updater: (line: CartLine) => CartLine | undefined) => {
   const next = readCart()
@@ -222,11 +229,6 @@ export const useCartLines = () => {
 };
 
 export const useLastOrder = () => {
-  const [order, setOrder] = useState<CartOrder | undefined>();
-
-  useEffect(() => {
-    setOrder(readLastOrder());
-  }, []);
-
-  return order;
+  const value = useSyncExternalStore(subscribeToCart, readLastOrderValue, readServerLastOrderValue);
+  return useMemo(() => parseLastOrder(value), [value]);
 };

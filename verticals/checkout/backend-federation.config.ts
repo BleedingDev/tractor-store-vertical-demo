@@ -1,4 +1,3 @@
-// @effect-diagnostics nodeBuiltinImport:off
 import { createRequire } from 'node:module';
 import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 import { dependencies } from './package.json';
@@ -32,7 +31,6 @@ const moduleFederationConfig: Parameters<typeof createModuleFederationConfig>[0]
         treeShaking: false,
       },
     },
-    treeShakingSharedExcludePlugins: ['RspackModuleFederationPlugin'],
   });
 
 export default moduleFederationConfig;

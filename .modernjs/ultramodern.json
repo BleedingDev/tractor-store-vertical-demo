@@ -3,13 +3,13 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.5.0-ultramodern.43"
+    "version": "3.5.0-ultramodern.48"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
     "packageManager": {
       "name": "pnpm",
-      "version": "11.10.0"
+      "version": "11.11.0"
     },
     "node": {
       "version": "26.5.0",
@@ -18,7 +18,7 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.5.0-ultramodern.43",
+    "modernPackageVersion": "3.5.0-ultramodern.48",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
@@ -39,6 +39,10 @@
         "portEnv": "SHELL_SUPER_APP_PORT",
         "deploy": {
           "cloudflare": {
+            "distributedSsrProofRoutes": [
+              "/en",
+              "/en/tractors/CL-08-GR"
+            ],
             "jsonSmokeChecks": [
               {
                 "id": "tractor-domain-explore-cl-08-gr",
@@ -81,6 +85,11 @@
           "role": "host",
           "name": "shellSuperApp",
           "exposes": [],
+          "verticalRefs": [
+            "explore",
+            "decide",
+            "checkout"
+          ],
           "remotes": [
             {
               "id": "explore",
@@ -108,12 +117,16 @@
           "dts": {
             "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
-          },
-          "verticalRefs": [
-            "explore",
-            "decide",
-            "checkout"
-          ]
+          }
+        },
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/shell-super-app",
+          "packageName": "@tractor-store-vertical-demo/shell-super-app",
+          "version": "0.1.0",
+          "buildMarker": "052f175d1feea977",
+          "sourceRevision": "workspace"
         }
       },
       {
@@ -145,13 +158,13 @@
           }
         },
         "api": {
+          "runtime": "effect",
           "stem": "explore",
           "prefix": "/explore-api",
           "consumedBy": [
             "shell-super-app",
             "explore"
           ],
-          "runtime": "effect",
           "serverEntry": "verticals/explore/api/index.ts"
         },
         "backendFederation": {
@@ -159,6 +172,15 @@
           "name": "verticalExploreBackend",
           "runtimeFramework": "effect",
           "strictEffectApproach": true,
+          "deliveryUnit": {
+            "schemaVersion": 1,
+            "kind": "microvertical-delivery-unit",
+            "unitId": "tractor-store-vertical-demo/explore",
+            "packageName": "@tractor-store-vertical-demo/explore",
+            "version": "0.1.0",
+            "buildMarker": "51f94b2832563336",
+            "sourceRevision": "workspace"
+          },
           "exposes": {
             "./effect-api": {
               "contract": "verticals/explore/shared/api.ts",
@@ -170,6 +192,7 @@
           },
           "versionBoundary": {
             "invariant": "web-and-api-same-build",
+            "identityRoot": "deliveryUnit",
             "packageName": "@tractor-store-vertical-demo/explore",
             "ui": {
               "manifestEnv": "VERTICAL_EXPLORE_MF_MANIFEST",
@@ -180,8 +203,7 @@
               "readiness": "/explore-api/explore/readiness",
               "buildMarker": "verticals/explore/shared/ultramodern-build.ts",
               "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE"
-            },
-            "identityRoot": "deliveryUnit"
+            }
           },
           "executionSurfaces": {
             "cloudflare": {
@@ -221,14 +243,18 @@
               "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
               "remoteType": "module",
               "expose": "./effect-api",
-              "runtimePackage": "@modern-js/plugin-bff/effect"
+              "runtimePackage": "@modern-js/plugin-bff/effect",
+              "expected": {
+                "unitId": "tractor-store-vertical-demo/explore",
+                "buildMarker": "51f94b2832563336"
+              }
             }
           },
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/explore",
-            "effectVersion": "4.0.0-beta.92",
-            "moduleFederationVersion": "2.6.0"
+            "effectVersion": "4.0.0-beta.97",
+            "moduleFederationVersion": "2.7.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -240,15 +266,6 @@
             "timeoutMs": 1500,
             "failureEvent": "modernjs:microvertical-server-fallback",
             "strategy": "typed-effect-error"
-          },
-          "deliveryUnit": {
-            "schemaVersion": 1,
-            "kind": "microvertical-delivery-unit",
-            "unitId": "tractor-store-vertical-demo/explore",
-            "packageName": "@tractor-store-vertical-demo/explore",
-            "version": "0.1.0",
-            "buildMarker": "b0eb373ac7caef45",
-            "sourceRevision": "workspace"
           }
         },
         "deliveryUnit": {
@@ -257,7 +274,7 @@
           "unitId": "tractor-store-vertical-demo/explore",
           "packageName": "@tractor-store-vertical-demo/explore",
           "version": "0.1.0",
-          "buildMarker": "b0eb373ac7caef45",
+          "buildMarker": "51f94b2832563336",
           "sourceRevision": "workspace"
         }
       },
@@ -305,13 +322,13 @@
           }
         },
         "api": {
+          "runtime": "effect",
           "stem": "decide",
           "prefix": "/decide-api",
           "consumedBy": [
             "shell-super-app",
             "decide"
           ],
-          "runtime": "effect",
           "serverEntry": "verticals/decide/api/index.ts"
         },
         "backendFederation": {
@@ -319,6 +336,15 @@
           "name": "verticalDecideBackend",
           "runtimeFramework": "effect",
           "strictEffectApproach": true,
+          "deliveryUnit": {
+            "schemaVersion": 1,
+            "kind": "microvertical-delivery-unit",
+            "unitId": "tractor-store-vertical-demo/decide",
+            "packageName": "@tractor-store-vertical-demo/decide",
+            "version": "0.1.0",
+            "buildMarker": "36fc602031c23930",
+            "sourceRevision": "workspace"
+          },
           "exposes": {
             "./effect-api": {
               "contract": "verticals/decide/shared/api.ts",
@@ -330,6 +356,7 @@
           },
           "versionBoundary": {
             "invariant": "web-and-api-same-build",
+            "identityRoot": "deliveryUnit",
             "packageName": "@tractor-store-vertical-demo/decide",
             "ui": {
               "manifestEnv": "VERTICAL_DECIDE_MF_MANIFEST",
@@ -340,8 +367,7 @@
               "readiness": "/decide-api/decide/readiness",
               "buildMarker": "verticals/decide/shared/ultramodern-build.ts",
               "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE"
-            },
-            "identityRoot": "deliveryUnit"
+            }
           },
           "executionSurfaces": {
             "cloudflare": {
@@ -381,14 +407,18 @@
               "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
               "remoteType": "module",
               "expose": "./effect-api",
-              "runtimePackage": "@modern-js/plugin-bff/effect"
+              "runtimePackage": "@modern-js/plugin-bff/effect",
+              "expected": {
+                "unitId": "tractor-store-vertical-demo/decide",
+                "buildMarker": "36fc602031c23930"
+              }
             }
           },
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/decide",
-            "effectVersion": "4.0.0-beta.92",
-            "moduleFederationVersion": "2.6.0"
+            "effectVersion": "4.0.0-beta.97",
+            "moduleFederationVersion": "2.7.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -400,15 +430,6 @@
             "timeoutMs": 1500,
             "failureEvent": "modernjs:microvertical-server-fallback",
             "strategy": "typed-effect-error"
-          },
-          "deliveryUnit": {
-            "schemaVersion": 1,
-            "kind": "microvertical-delivery-unit",
-            "unitId": "tractor-store-vertical-demo/decide",
-            "packageName": "@tractor-store-vertical-demo/decide",
-            "version": "0.1.0",
-            "buildMarker": "3c6187684f45d1f7",
-            "sourceRevision": "workspace"
           }
         },
         "deliveryUnit": {
@@ -417,7 +438,7 @@
           "unitId": "tractor-store-vertical-demo/decide",
           "packageName": "@tractor-store-vertical-demo/decide",
           "version": "0.1.0",
-          "buildMarker": "3c6187684f45d1f7",
+          "buildMarker": "36fc602031c23930",
           "sourceRevision": "workspace"
         }
       },
@@ -449,13 +470,13 @@
           }
         },
         "api": {
+          "runtime": "effect",
           "stem": "checkout",
           "prefix": "/checkout-api",
           "consumedBy": [
             "shell-super-app",
             "checkout"
           ],
-          "runtime": "effect",
           "serverEntry": "verticals/checkout/api/index.ts"
         },
         "backendFederation": {
@@ -463,6 +484,15 @@
           "name": "verticalCheckoutBackend",
           "runtimeFramework": "effect",
           "strictEffectApproach": true,
+          "deliveryUnit": {
+            "schemaVersion": 1,
+            "kind": "microvertical-delivery-unit",
+            "unitId": "tractor-store-vertical-demo/checkout",
+            "packageName": "@tractor-store-vertical-demo/checkout",
+            "version": "0.1.0",
+            "buildMarker": "7d5413e907d393e5",
+            "sourceRevision": "workspace"
+          },
           "exposes": {
             "./effect-api": {
               "contract": "verticals/checkout/shared/api.ts",
@@ -474,6 +504,7 @@
           },
           "versionBoundary": {
             "invariant": "web-and-api-same-build",
+            "identityRoot": "deliveryUnit",
             "packageName": "@tractor-store-vertical-demo/checkout",
             "ui": {
               "manifestEnv": "VERTICAL_CHECKOUT_MF_MANIFEST",
@@ -484,8 +515,7 @@
               "readiness": "/checkout-api/checkout/readiness",
               "buildMarker": "verticals/checkout/shared/ultramodern-build.ts",
               "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT"
-            },
-            "identityRoot": "deliveryUnit"
+            }
           },
           "executionSurfaces": {
             "cloudflare": {
@@ -525,14 +555,18 @@
               "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
               "remoteType": "module",
               "expose": "./effect-api",
-              "runtimePackage": "@modern-js/plugin-bff/effect"
+              "runtimePackage": "@modern-js/plugin-bff/effect",
+              "expected": {
+                "unitId": "tractor-store-vertical-demo/checkout",
+                "buildMarker": "7d5413e907d393e5"
+              }
             }
           },
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/checkout",
-            "effectVersion": "4.0.0-beta.92",
-            "moduleFederationVersion": "2.6.0"
+            "effectVersion": "4.0.0-beta.97",
+            "moduleFederationVersion": "2.7.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -544,15 +578,6 @@
             "timeoutMs": 1500,
             "failureEvent": "modernjs:microvertical-server-fallback",
             "strategy": "typed-effect-error"
-          },
-          "deliveryUnit": {
-            "schemaVersion": 1,
-            "kind": "microvertical-delivery-unit",
-            "unitId": "tractor-store-vertical-demo/checkout",
-            "packageName": "@tractor-store-vertical-demo/checkout",
-            "version": "0.1.0",
-            "buildMarker": "2edc1a544185e8f4",
-            "sourceRevision": "workspace"
           }
         },
         "deliveryUnit": {
@@ -561,7 +586,7 @@
           "unitId": "tractor-store-vertical-demo/checkout",
           "packageName": "@tractor-store-vertical-demo/checkout",
           "version": "0.1.0",
-          "buildMarker": "2edc1a544185e8f4",
+          "buildMarker": "7d5413e907d393e5",
           "sourceRevision": "workspace"
         }
       }
@@ -663,11 +688,15 @@
       "typecheck": "scripts/ultramodern-typecheck.mts",
       "mfTypes": "scripts/assert-mf-types.mts",
       "publicSurface": "scripts/generate-public-surface-assets.mts",
+      "backendFederationGenerate": "scripts/generate-node-backend-federation.mts",
+      "backendFederationProof": "scripts/proof-node-backend-federation.mts",
       "cloudflareProof": "scripts/proof-cloudflare-version.mts",
+      "cloudflareOutputVerify": "scripts/verify-cloudflare-output.mts",
       "performanceReadiness": "scripts/ultramodern-performance-readiness.mts",
       "migrateStrictEffect": "scripts/migrate-strict-effect.mts",
-      "skills": "scripts/bootstrap-agent-skills.mts",
-      "apiBoundaries": "scripts/check-ultramodern-api-boundaries.mts"
+      "routesGenerate": "scripts/generate-tanstack-routes.mts",
+      "apiBoundaries": "scripts/check-ultramodern-api-boundaries.mts",
+      "skills": "scripts/bootstrap-agent-skills.mts"
     }
   },
   "backendFederation": {
@@ -680,6 +709,15 @@
         "runtimeFramework": "effect",
         "strictEffectApproach": true,
         "contractVersion": "microvertical-server-effect-v1",
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/explore",
+          "packageName": "@tractor-store-vertical-demo/explore",
+          "version": "0.1.0",
+          "buildMarker": "51f94b2832563336",
+          "sourceRevision": "workspace"
+        },
         "executionSurfaces": {
           "cloudflare": {
             "kind": "cloudflare-worker-snapshot",
@@ -718,7 +756,11 @@
             "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
             "remoteType": "module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect"
+            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "expected": {
+              "unitId": "tractor-store-vertical-demo/explore",
+              "buildMarker": "51f94b2832563336"
+            }
           }
         }
       },
@@ -730,6 +772,15 @@
         "runtimeFramework": "effect",
         "strictEffectApproach": true,
         "contractVersion": "microvertical-server-effect-v1",
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/decide",
+          "packageName": "@tractor-store-vertical-demo/decide",
+          "version": "0.1.0",
+          "buildMarker": "36fc602031c23930",
+          "sourceRevision": "workspace"
+        },
         "executionSurfaces": {
           "cloudflare": {
             "kind": "cloudflare-worker-snapshot",
@@ -768,7 +819,11 @@
             "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
             "remoteType": "module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect"
+            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "expected": {
+              "unitId": "tractor-store-vertical-demo/decide",
+              "buildMarker": "36fc602031c23930"
+            }
           }
         }
       },
@@ -780,6 +835,15 @@
         "runtimeFramework": "effect",
         "strictEffectApproach": true,
         "contractVersion": "microvertical-server-effect-v1",
+        "deliveryUnit": {
+          "schemaVersion": 1,
+          "kind": "microvertical-delivery-unit",
+          "unitId": "tractor-store-vertical-demo/checkout",
+          "packageName": "@tractor-store-vertical-demo/checkout",
+          "version": "0.1.0",
+          "buildMarker": "7d5413e907d393e5",
+          "sourceRevision": "workspace"
+        },
         "executionSurfaces": {
           "cloudflare": {
             "kind": "cloudflare-worker-snapshot",
@@ -818,7 +882,11 @@
             "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
             "remoteType": "module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect"
+            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "expected": {
+              "unitId": "tractor-store-vertical-demo/checkout",
+              "buildMarker": "7d5413e907d393e5"
+            }
           }
         }
       }

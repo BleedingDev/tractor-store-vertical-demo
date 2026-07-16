@@ -1,5 +1,4 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
 import {
   findListedTractorBySlug,
   findTractorVariant,
@@ -9,31 +8,16 @@ import {
 } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 import { AddToCart, Recommendations } from './vertical-components';
 
-const locationSearch = (location: { search?: unknown; searchStr?: unknown }) => {
-  if (typeof location.searchStr === 'string') {
-    return location.searchStr;
-  }
-  return typeof location.search === 'string' ? location.search : '';
-};
+export interface DecideProductPageProps {
+  sku?: string;
+  slug?: string;
+}
 
-const locationPathname = (location: { pathname?: unknown }) =>
-  typeof location.pathname === 'string' ? location.pathname : '';
-
-const slugFromPathname = (pathname: string) => {
-  const segments = pathname.split('/').filter(Boolean);
-  const tractorsIndex = segments.indexOf('tractors');
-  return tractorsIndex === -1 ? undefined : segments[tractorsIndex + 1];
-};
-
-export default function DecideProductPage() {
+export default function DecideProductPage({ sku, slug }: DecideProductPageProps) {
   const { language, t } = useModernI18n();
-  const location = useLocation();
-
-  const requestedSku = new URLSearchParams(locationSearch(location)).get('sku');
-  const requestedSlug = slugFromPathname(locationPathname(location));
   const selected =
-    findTractorVariant(requestedSku) ??
-    findTractorVariant(findListedTractorBySlug(requestedSlug)?.sku) ??
+    findTractorVariant(sku) ??
+    findTractorVariant(findListedTractorBySlug(slug)?.sku) ??
     tractorProductVariants[0];
   if (selected === undefined) {
     return null;

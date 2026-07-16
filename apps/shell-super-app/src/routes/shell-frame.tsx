@@ -1,5 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { useLocation } from '@modern-js/plugin-tanstack/runtime';
+import { useLocation, useNavigate } from '@modern-js/plugin-tanstack/runtime';
 import type { ReactNode } from 'react';
 import BoundaryOverlay from './boundary-overlay';
 import { Footer, Header, MiniCart } from './vertical-components';
@@ -108,22 +108,10 @@ const localizedPath = (pathname: string, language: SupportedLanguage) => {
   return pathWithoutLanguage === '/' ? `/${language}` : `/${language}${pathWithoutLanguage}`;
 };
 
-const locationSuffix = (location: { hash?: unknown; search?: unknown; searchStr?: unknown }) => {
-  let locationSearch = '';
-  if (typeof location.searchStr === 'string') {
-    locationSearch = location.searchStr;
-  } else if (typeof location.search === 'string') {
-    locationSearch = location.search;
-  }
-  const locationHash = typeof location.hash === 'string' ? location.hash : '';
-
-  return `${locationSearch}${locationHash}`;
-};
-
 export default function ShellFrame({ children, showCart = true }: ShellFrameProps) {
+  const navigate = useNavigate();
   const { language, t } = useModernI18n();
   const location = useLocation();
-  const suffix = locationSuffix(location);
 
   return (
     <main className="shell:min-h-screen shell:bg-white shell:py-4 shell:font-[Raleway,Helvetica,Arial,sans-serif] shell:text-stone-950">
@@ -142,9 +130,11 @@ export default function ShellFrame({ children, showCart = true }: ShellFrameProp
               onChange={(event) => {
                 const nextLanguage = event.currentTarget.value;
                 if (isSupportedLanguage(nextLanguage)) {
-                  window.location.assign(
-                    `${localizedPath(location.pathname, nextLanguage)}${suffix}`,
-                  );
+                  void navigate({
+                    hash: true,
+                    search: true,
+                    to: localizedPath(location.pathname, nextLanguage),
+                  });
                 }
               }}
               value={language}

@@ -1,10 +1,4 @@
-import runtime from './index.ts';
 import { ultramodernApiMarker } from '../shared/ultramodern-build.ts';
-import {
-  decideApi as api,
-  decideApiContract as contract,
-  decideOperationContexts as operationContexts,
-} from '../shared/api.ts';
 
 export const backendFederationContract = {
   compatibility: {
@@ -27,6 +21,9 @@ export const backendFederationContract = {
   strictEffectApproach: true,
 } as const;
 
-export { api, contract, operationContexts, runtime };
-
-export default runtime;
+export { default, default as runtime } from './index.ts';
+export {
+  decideApi as api,
+  decideApiContract as contract,
+  decideOperationContexts as operationContexts,
+} from '../shared/api.ts';

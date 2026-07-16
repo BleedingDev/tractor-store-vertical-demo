@@ -1,36 +1,31 @@
 import { defineRuntimeConfig } from '@modern-js/runtime';
+import { ultramodernBoundaryDebuggerPlugin } from '@modern-js/runtime/boundary-debugger';
 import { createInstance } from 'i18next';
-import csCheckoutResource from '../../../verticals/checkout/locales/cs/checkout.json';
-import enCheckoutResource from '../../../verticals/checkout/locales/en/checkout.json';
-import csDecideResource from '../../../verticals/decide/locales/cs/decide.json';
-import enDecideResource from '../../../verticals/decide/locales/en/decide.json';
-import csExploreResource from '../../../verticals/explore/locales/cs/explore.json';
-import enExploreResource from '../../../verticals/explore/locales/en/explore.json';
 import csResource from '../locales/cs/shell.json';
 import enResource from '../locales/en/shell.json';
 import { ultramodernRouteNamespace } from './routes/ultramodern-route-metadata';
 
-type LocaleResource = Record<string, unknown>;
+type LocaleResource = string | { readonly [key: string]: LocaleResource };
 
-const mergeLocaleResources = (...resources: readonly LocaleResource[]) =>
-  Object.assign({}, ...resources);
+const flattenLocaleResource = (resource: LocaleResource, prefix = ''): Record<string, string> => {
+  if (typeof resource === 'string') {
+    return prefix.length > 0 ? { [prefix]: resource } : {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(resource).flatMap(([key, value]) => {
+      const nextKey = prefix.length > 0 ? `${prefix}.${key}` : key;
+      return typeof value === 'string'
+        ? [[nextKey, value]]
+        : Object.entries(flattenLocaleResource(value, nextKey));
+    }),
+  );
+};
 
 const i18nInstance = createInstance();
-const csResources = mergeLocaleResources(
-  csResource,
-  csExploreResource,
-  csDecideResource,
-  csCheckoutResource,
-);
-const enResources = mergeLocaleResources(
-  enResource,
-  enExploreResource,
-  enDecideResource,
-  enCheckoutResource,
-);
 const resources = {
-  cs: { [ultramodernRouteNamespace]: csResources, translation: csResources },
-  en: { [ultramodernRouteNamespace]: enResources, translation: enResources },
+  cs: { [ultramodernRouteNamespace]: flattenLocaleResource(csResource) },
+  en: { [ultramodernRouteNamespace]: flattenLocaleResource(enResource) },
 } as const;
 
 export default defineRuntimeConfig({
@@ -47,6 +42,49 @@ export default defineRuntimeConfig({
       supportedLngs: ['en', 'cs'],
     },
   },
+  plugins: [
+    ultramodernBoundaryDebuggerPlugin({
+      metadata: {
+        appId: 'shell-super-app',
+        boundaries: [
+          {
+            appId: 'shell-super-app',
+            label: 'Shell Super App',
+            mfName: 'shellSuperApp',
+            ownerTeam: 'super-app-platform',
+            packageName: '@tractor-store-vertical-demo/shell-super-app',
+            role: 'host',
+          },
+          {
+            appId: 'explore',
+            label: 'explore Vertical',
+            mfName: 'verticalExplore',
+            ownerTeam: 'super-app-platform',
+            packageName: '@tractor-store-vertical-demo/explore',
+            role: 'vertical',
+          },
+          {
+            appId: 'decide',
+            label: 'decide Vertical',
+            mfName: 'verticalDecide',
+            ownerTeam: 'super-app-platform',
+            packageName: '@tractor-store-vertical-demo/decide',
+            role: 'vertical',
+          },
+          {
+            appId: 'checkout',
+            label: 'checkout Vertical',
+            mfName: 'verticalCheckout',
+            ownerTeam: 'super-app-platform',
+            packageName: '@tractor-store-vertical-demo/checkout',
+            role: 'vertical',
+          },
+        ],
+        schemaVersion: 1,
+      },
+    }),
+  ],
+
   router: {
     framework: 'tanstack',
   },

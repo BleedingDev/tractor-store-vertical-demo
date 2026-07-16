@@ -1,8 +1,8 @@
 const ultramodernBuildArtifact = {
   deliveryUnit: {
     appId: 'explore',
-    build: 'b0eb373ac7caef45',
-    buildMarker: 'b0eb373ac7caef45',
+    build: '51f94b2832563336',
+    buildMarker: '51f94b2832563336',
     deployProfile: 'cloudflare-ssr-mf-effect-v1',
     kind: 'microvertical-delivery-unit',
     packageName: '@tractor-store-vertical-demo/explore',
@@ -16,8 +16,8 @@ const ultramodernBuildArtifact = {
   surfaces: {
     api: {
       appId: 'explore',
-      build: 'b0eb373ac7caef45',
-      buildMarker: 'b0eb373ac7caef45',
+      build: '51f94b2832563336',
+      buildMarker: '51f94b2832563336',
       deployProfile: 'cloudflare-ssr-mf-effect-v1',
       kind: 'microvertical-delivery-unit',
       packageName: '@tractor-store-vertical-demo/explore',
@@ -29,8 +29,8 @@ const ultramodernBuildArtifact = {
     },
     ui: {
       appId: 'explore',
-      build: 'b0eb373ac7caef45',
-      buildMarker: 'b0eb373ac7caef45',
+      build: '51f94b2832563336',
+      buildMarker: '51f94b2832563336',
       deployProfile: 'cloudflare-ssr-mf-effect-v1',
       kind: 'microvertical-delivery-unit',
       packageName: '@tractor-store-vertical-demo/explore',

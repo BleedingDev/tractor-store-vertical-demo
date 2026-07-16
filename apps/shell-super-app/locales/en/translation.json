@@ -33,5 +33,155 @@
       "description": "Acre & Iron composes Explore, Decide, and Checkout verticals with localized SSR and federated commerce."
     },
     "title": "Acre & Iron"
+  },
+  "explore": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "explore",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "seo": {
+      "description": "Explore renders tractor listings, store discovery, and recommendations before hydration."
+    },
+    "title": "Explore Vertical",
+    "header": {
+      "logoAlt": "Microfrontends Tractor Store",
+      "machines": "Machines",
+      "navigation": "Main navigation",
+      "stores": "Stores"
+    },
+    "recommendations": {
+      "aiFirst": "AI-first option",
+      "bestRows": "Best for tight rows",
+      "loaderReady": "Loader-ready",
+      "title": "Recommendations",
+      "vineyard": "Vineyard profile"
+    },
+    "teasers": {
+      "autonomous": "Autonomous Tractors",
+      "classic": "Classic Tractors"
+    },
+    "products": {
+      "all": "All",
+      "autonomous": "Autonomous",
+      "classics": "Classics",
+      "count_one": "{{count}} product",
+      "count_other": "{{count}} products",
+      "filter": "Filter",
+      "filterLabel": "Filter machines",
+      "title": "All Machines"
+    },
+    "footer": {
+      "basedOn": "based on",
+      "projectPrefix": "a",
+      "projectSuffix": "project",
+      "techstack": "techstack"
+    },
+    "stores": {
+      "northRegion": "North region",
+      "southRegion": "South region",
+      "title": "Stores"
+    }
+  },
+  "decide": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "decide",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "seo": {
+      "description": "Decide renders tractor detail pages, variants, stock, and buying context before hydration."
+    },
+    "title": "Decide Vertical",
+    "product": {
+      "availability": "Availability",
+      "eyebrow": "Machine detail",
+      "features": {
+        "comfort": "Ergonomic design with a focus on operator comfort and efficiency",
+        "landscapes": "Optimized for tulip fields and versatile European landscapes",
+        "quality": "Dutch craftsmanship for precision and quality"
+      },
+      "inStock": "In stock",
+      "lede": "A loader-ready tractor for feed, hay, gravel, and winter road work.",
+      "power": "Power",
+      "price": "Price",
+      "variants": {
+        "polderGreen": "Polder Green",
+        "tulipMagenta": "Tulip Magenta"
+      }
+    }
+  },
+  "checkout": {
+    "language": {
+      "cs": "Czech",
+      "en": "English",
+      "switcher": "Language"
+    },
+    "role": "checkout",
+    "routes": {
+      "cart": "Cart",
+      "checkout": "Checkout",
+      "home": "Home",
+      "listing": "Tractors",
+      "productDetail": "Tractor detail",
+      "storePicker": "Store picker",
+      "thankYou": "Order confirmation",
+      "unavailable": "Unavailable"
+    },
+    "seo": {
+      "description": "Checkout renders basket, checkout, and order confirmation flows before hydration."
+    },
+    "title": "Checkout Vertical",
+    "actions": {
+      "addToCart": "Add to basket",
+      "checkout": "Checkout",
+      "continueShopping": "Continue shopping",
+      "placeOrder": "Place order",
+      "remove": "Remove",
+      "viewCart": "View cart"
+    },
+    "cart": {
+      "empty": "Your cart is empty.",
+      "title": "Basket",
+      "total": "Total"
+    },
+    "form": {
+      "address": "Delivery address",
+      "email": "Email",
+      "name": "Name"
+    },
+    "product": {
+      "stockShipping": "8 in stock, free shipping"
+    },
+    "summary": {
+      "title": "Order summary"
+    },
+    "thanks": {
+      "empty": "No recent order was found in this browser.",
+      "orderNumber": "Order number",
+      "title": "Thank you for your order"
+    }
   }
 }

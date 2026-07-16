@@ -1,66 +1,51 @@
-import '@modern-js/app-tools/types';
-import type React from 'react';
+/// <reference types="@modern-js/app-tools/types" />
 
-declare global {
-  const ULTRAMODERN_SITE_URL: string;
-}
+declare const ULTRAMODERN_SITE_URL: string;
 
 declare module 'explore/Footer' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/explore/Footer';
 }
 
 declare module 'explore/Header' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/explore/Header';
 }
 
 declare module 'explore/HomePage' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/explore/HomePage';
 }
 
 declare module 'explore/ProductGrid' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/explore/ProductGrid';
 }
 
 declare module 'explore/Recommendations' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/explore/Recommendations';
 }
 
 declare module 'explore/StorePicker' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/explore/StorePicker';
 }
 
 declare module 'decide/ProductPage' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/decide/ProductPage';
 }
 
 declare module 'checkout/AddToCart' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/checkout/AddToCart';
 }
 
 declare module 'checkout/CartPage' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/checkout/CartPage';
 }
 
 declare module 'checkout/CheckoutPage' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/checkout/CheckoutPage';
 }
 
 declare module 'checkout/MiniCart' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/checkout/MiniCart';
 }
 
 declare module 'checkout/ThanksPage' {
-  const Component: React.ComponentType<Record<string, never>>;
-  export default Component;
+  export { default } from '@tractor-store-vertical-demo/checkout/ThanksPage';
 }
