@@ -9,9 +9,12 @@ import {
 export const checkoutMarkerSchema = Schema.Struct({
   appId: Schema.String,
   build: Schema.String,
+  buildMarker: Schema.String,
   deployProfile: Schema.String,
   packageName: Schema.String,
+  sourceRevision: Schema.String,
   surface: Schema.String,
+  unitId: Schema.String,
   version: Schema.String,
 });
 

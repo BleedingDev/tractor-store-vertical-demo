@@ -12,7 +12,10 @@ const moduleFederationConfig: Parameters<typeof createModuleFederationConfig>[0]
     exposes: {
       './effect-api': './api/effect-api.ts',
     },
-    filename: 'backendRemoteEntry.mjs',
+    filename: 'backendRemoteEntry.cjs',
+    library: {
+      type: 'commonjs-module',
+    },
     name: 'verticalExploreBackend',
     shared: {
       '@modern-js/plugin-bff': {

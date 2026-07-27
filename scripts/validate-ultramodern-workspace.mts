@@ -79,172 +79,172 @@ const workspaceValidationContract = {
         {
           sourceName: '@modern-js/adapter-rstest',
           targetName: '@bleedingdev/modern-js-adapter-rstest',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/app-tools',
           targetName: '@bleedingdev/modern-js-app-tools',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/bff-core',
           targetName: '@bleedingdev/modern-js-bff-core',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/bff-runtime',
           targetName: '@bleedingdev/modern-js-bff-runtime',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/builder',
           targetName: '@bleedingdev/modern-js-builder',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/code-tools',
           targetName: '@bleedingdev/modern-js-code-tools',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/create',
           targetName: '@bleedingdev/modern-js-create',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/create-request',
           targetName: '@bleedingdev/modern-js-create-request',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/i18n-utils',
           targetName: '@bleedingdev/modern-js-i18n-utils',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/image',
           targetName: '@bleedingdev/modern-js-image',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/main-doc',
           targetName: '@bleedingdev/modern-js-main-doc',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin',
           targetName: '@bleedingdev/modern-js-plugin',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-bff',
           targetName: '@bleedingdev/modern-js-plugin-bff',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-data-loader',
           targetName: '@bleedingdev/modern-js-plugin-data-loader',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-i18n',
           targetName: '@bleedingdev/modern-js-plugin-i18n',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-polyfill',
           targetName: '@bleedingdev/modern-js-plugin-polyfill',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-ssg',
           targetName: '@bleedingdev/modern-js-plugin-ssg',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-styled-components',
           targetName: '@bleedingdev/modern-js-plugin-styled-components',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/plugin-tanstack',
           targetName: '@bleedingdev/modern-js-plugin-tanstack',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/prod-server',
           targetName: '@bleedingdev/modern-js-prod-server',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/render',
           targetName: '@bleedingdev/modern-js-render',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/runtime',
           targetName: '@bleedingdev/modern-js-runtime',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/runtime-utils',
           targetName: '@bleedingdev/modern-js-runtime-utils',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/sandpack-react',
           targetName: '@bleedingdev/modern-js-sandpack-react',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/server',
           targetName: '@bleedingdev/modern-js-server',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/server-core',
           targetName: '@bleedingdev/modern-js-server-core',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/server-runtime',
           targetName: '@bleedingdev/modern-js-server-runtime',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/server-runtime-extensions',
           targetName: '@bleedingdev/modern-js-server-runtime-extensions',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/server-utils',
           targetName: '@bleedingdev/modern-js-server-utils',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/tsconfig',
           targetName: '@bleedingdev/modern-js-tsconfig',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/types',
           targetName: '@bleedingdev/modern-js-types',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
         {
           sourceName: '@modern-js/utils',
           targetName: '@bleedingdev/modern-js-utils',
-          version: '3.5.0-ultramodern.48',
+          version: '3.5.0-ultramodern.95',
         },
       ],
       release: {
         tag: 'latest',
-        version: '3.5.0-ultramodern.48',
+        version: '3.5.0-ultramodern.95',
       },
       schema: 'bleedingdev.ultramodern.release-cohort',
       schemaVersion: 1,
       source: {
-        commit: 'cf8d7cf46114f62f8767f5dcdecbccff8a592984',
+        commit: '5cb0211b621acbdd00cbe562d6c97728c3fa3d14',
         repository: 'BleedingDev/ultramodern.js',
       },
     },
@@ -511,8 +511,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalExploreBackend',
                 manifestEnv: 'VERTICAL_EXPLORE_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3021/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3021/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3021/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -525,7 +525,7 @@ const workspaceValidationContract = {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/explore',
               effectVersion: '4.0.0-beta.97',
-              moduleFederationVersion: '2.7.0',
+              moduleFederationVersion: '2.8.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -666,8 +666,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalDecideBackend',
                 manifestEnv: 'VERTICAL_DECIDE_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3022/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3022/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3022/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -680,7 +680,7 @@ const workspaceValidationContract = {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/decide',
               effectVersion: '4.0.0-beta.97',
-              moduleFederationVersion: '2.7.0',
+              moduleFederationVersion: '2.8.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -811,8 +811,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalCheckoutBackend',
                 manifestEnv: 'VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3023/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3023/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3023/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -825,7 +825,7 @@ const workspaceValidationContract = {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/checkout',
               effectVersion: '4.0.0-beta.97',
-              moduleFederationVersion: '2.7.0',
+              moduleFederationVersion: '2.8.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -1094,8 +1094,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalExploreBackend',
                 manifestEnv: 'VERTICAL_EXPLORE_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3021/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3021/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3021/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -1108,7 +1108,7 @@ const workspaceValidationContract = {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/explore',
               effectVersion: '4.0.0-beta.97',
-              moduleFederationVersion: '2.7.0',
+              moduleFederationVersion: '2.8.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -1408,8 +1408,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalDecideBackend',
                 manifestEnv: 'VERTICAL_DECIDE_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3022/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3022/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3022/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -1422,7 +1422,7 @@ const workspaceValidationContract = {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/decide',
               effectVersion: '4.0.0-beta.97',
-              moduleFederationVersion: '2.7.0',
+              moduleFederationVersion: '2.8.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -1716,8 +1716,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalCheckoutBackend',
                 manifestEnv: 'VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3023/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3023/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3023/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -1730,7 +1730,7 @@ const workspaceValidationContract = {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/checkout',
               effectVersion: '4.0.0-beta.97',
-              moduleFederationVersion: '2.7.0',
+              moduleFederationVersion: '2.8.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -2107,15 +2107,14 @@ const workspaceValidationContract = {
         decide: 'http://localhost:3022/mf-manifest.json',
         checkout: 'http://localhost:3023/mf-manifest.json',
       },
-      apis: {
-        explore: 'http://localhost:3021/explore-api',
-        decide: 'http://localhost:3022/decide-api',
-        checkout: 'http://localhost:3023/checkout-api',
-      },
       serverExecution: {
         explore: {
           apiBaseUrl: 'http://localhost:3021/explore-api',
           versionBoundary: 'web-and-api-same-build',
+          deliveryUnit: {
+            unitId: 'tractor-store-vertical-demo/explore',
+            buildMarker: '51f94b2832563336',
+          },
           cloudflare: {
             kind: 'cloudflare-worker-snapshot',
             workerName: 'tractor-store-vertical-demo-explore',
@@ -2150,15 +2149,23 @@ const workspaceValidationContract = {
             remoteName: 'verticalExploreBackend',
             manifestEnv: 'VERTICAL_EXPLORE_BACKEND_MF_MANIFEST',
             manifestUrl: 'http://localhost:3021/backend-mf-manifest.json',
-            containerEntry: 'http://localhost:3021/backendRemoteEntry.mjs',
-            remoteType: 'module',
+            containerEntry: 'http://localhost:3021/backendRemoteEntry.cjs',
+            remoteType: 'commonjs-module',
             expose: './effect-api',
             runtimePackage: '@modern-js/plugin-bff/effect',
+            expected: {
+              unitId: 'tractor-store-vertical-demo/explore',
+              buildMarker: '51f94b2832563336',
+            },
           },
         },
         decide: {
           apiBaseUrl: 'http://localhost:3022/decide-api',
           versionBoundary: 'web-and-api-same-build',
+          deliveryUnit: {
+            unitId: 'tractor-store-vertical-demo/decide',
+            buildMarker: '36fc602031c23930',
+          },
           cloudflare: {
             kind: 'cloudflare-worker-snapshot',
             workerName: 'tractor-store-vertical-demo-decide',
@@ -2193,15 +2200,23 @@ const workspaceValidationContract = {
             remoteName: 'verticalDecideBackend',
             manifestEnv: 'VERTICAL_DECIDE_BACKEND_MF_MANIFEST',
             manifestUrl: 'http://localhost:3022/backend-mf-manifest.json',
-            containerEntry: 'http://localhost:3022/backendRemoteEntry.mjs',
-            remoteType: 'module',
+            containerEntry: 'http://localhost:3022/backendRemoteEntry.cjs',
+            remoteType: 'commonjs-module',
             expose: './effect-api',
             runtimePackage: '@modern-js/plugin-bff/effect',
+            expected: {
+              unitId: 'tractor-store-vertical-demo/decide',
+              buildMarker: '36fc602031c23930',
+            },
           },
         },
         checkout: {
           apiBaseUrl: 'http://localhost:3023/checkout-api',
           versionBoundary: 'web-and-api-same-build',
+          deliveryUnit: {
+            unitId: 'tractor-store-vertical-demo/checkout',
+            buildMarker: '7d5413e907d393e5',
+          },
           cloudflare: {
             kind: 'cloudflare-worker-snapshot',
             workerName: 'tractor-store-vertical-demo-checkout',
@@ -2236,12 +2251,21 @@ const workspaceValidationContract = {
             remoteName: 'verticalCheckoutBackend',
             manifestEnv: 'VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST',
             manifestUrl: 'http://localhost:3023/backend-mf-manifest.json',
-            containerEntry: 'http://localhost:3023/backendRemoteEntry.mjs',
-            remoteType: 'module',
+            containerEntry: 'http://localhost:3023/backendRemoteEntry.cjs',
+            remoteType: 'commonjs-module',
             expose: './effect-api',
             runtimePackage: '@modern-js/plugin-bff/effect',
+            expected: {
+              unitId: 'tractor-store-vertical-demo/checkout',
+              buildMarker: '7d5413e907d393e5',
+            },
           },
         },
+      },
+      apis: {
+        explore: 'http://localhost:3021/explore-api',
+        decide: 'http://localhost:3022/decide-api',
+        checkout: 'http://localhost:3023/checkout-api',
       },
     },
   },
@@ -2253,7 +2277,7 @@ const workspaceValidationContract = {
         packageScope: 'tractor-store-vertical-demo',
         packageManager: {
           name: 'pnpm',
-          version: '11.11.0',
+          version: '11.17.0',
         },
         node: {
           version: '26.5.0',
@@ -2378,8 +2402,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalExploreBackend',
                 manifestEnv: 'VERTICAL_EXPLORE_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3021/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3021/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3021/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -2441,8 +2465,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalDecideBackend',
                 manifestEnv: 'VERTICAL_DECIDE_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3022/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3022/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3022/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -2504,8 +2528,8 @@ const workspaceValidationContract = {
                 remoteName: 'verticalCheckoutBackend',
                 manifestEnv: 'VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST',
                 manifestUrl: 'http://localhost:3023/backend-mf-manifest.json',
-                containerEntry: 'http://localhost:3023/backendRemoteEntry.mjs',
-                remoteType: 'module',
+                containerEntry: 'http://localhost:3023/backendRemoteEntry.cjs',
+                remoteType: 'commonjs-module',
                 expose: './effect-api',
                 runtimePackage: '@modern-js/plugin-bff/effect',
                 expected: {
@@ -2876,10 +2900,9 @@ const workspaceValidationContract = {
   versions: {
     cloudflareCompatibilityDate: '2026-06-02',
     effect: '4.0.0-beta.97',
-    moduleFederation: '2.7.0',
+    moduleFederation: '2.8.0',
     node: '26.5.0',
-    pnpm: '11.11.0',
-    typescriptCompilerApi: '6.0.3',
+    pnpm: '11.17.0',
   },
   tailwindEnabled: true,
   structuralShellPolicy: {
@@ -3261,8 +3284,7 @@ const workspaceValidationContract = {
     cloudflareSsrProof: 'node ./scripts/proof-workerd-ssr.mts',
     cloudflareOutputVerify: 'node ./scripts/verify-cloudflare-output.mts',
     backendFederationGenerate: 'node ./scripts/generate-node-backend-federation.mts',
-    nodeProof:
-      'pnpm node:backend-federation:generate && node ./scripts/proof-node-backend-federation.mts',
+    nodeProof: 'node ./scripts/proof-node-backend-federation.mts',
     mfTypes: 'node ./scripts/assert-mf-types.mts',
     performanceReadiness: 'node ./scripts/ultramodern-performance-readiness.mts',
     migrateStrictEffect: 'node ./scripts/migrate-strict-effect.mts',
@@ -3270,7 +3292,7 @@ const workspaceValidationContract = {
     contractCheck: 'node ./scripts/validate-ultramodern-workspace.mts',
     typecheck: 'node ./scripts/ultramodern-typecheck.mts --project tsconfig.json',
     check:
-      'pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm node:proof && pnpm performance:readiness',
+      'pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm performance:readiness',
   },
   packageScripts: {
     build:
@@ -3284,8 +3306,7 @@ const workspaceValidationContract = {
     'cloudflare:ssr-proof': 'node ./scripts/proof-workerd-ssr.mts',
     'cloudflare-output:verify': 'node ./scripts/verify-cloudflare-output.mts',
     'node:backend-federation:generate': 'node ./scripts/generate-node-backend-federation.mts',
-    'node:proof':
-      'pnpm node:backend-federation:generate && node ./scripts/proof-node-backend-federation.mts',
+    'node:proof': 'node ./scripts/proof-node-backend-federation.mts',
     'mf:types': 'node ./scripts/assert-mf-types.mts',
     'performance:readiness': 'node ./scripts/ultramodern-performance-readiness.mts',
     'migrate:strict-effect': 'node ./scripts/migrate-strict-effect.mts',
@@ -3293,7 +3314,7 @@ const workspaceValidationContract = {
     'contract:check': 'node ./scripts/validate-ultramodern-workspace.mts',
     typecheck: 'node ./scripts/ultramodern-typecheck.mts --project tsconfig.json',
     check:
-      'pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm node:proof && pnpm performance:readiness',
+      'pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm performance:readiness',
   },
   cloudflareSecurity: {
     enabled: true,
@@ -3338,8 +3359,6 @@ const packageScope = workspaceValidationContract.packageScope;
 const expectedNodeVersion = workspaceValidationContract.versions.node;
 const expectedEffectVersion = workspaceValidationContract.versions.effect;
 const expectedModuleFederationVersion = workspaceValidationContract.versions.moduleFederation;
-const expectedTypescriptCompilerApiVersion =
-  workspaceValidationContract.versions.typescriptCompilerApi;
 const expectedCloudflareCompatibilityDate =
   workspaceValidationContract.versions.cloudflareCompatibilityDate;
 const tailwindEnabled = workspaceValidationContract.tailwindEnabled;
@@ -4272,7 +4291,7 @@ const createPublicSurface = (app) => {
     metadataExport: './src/routes/ultramodern-route-metadata',
     generator: 'scripts/generate-public-surface-assets.mts',
     outputRoot: 'dist/public',
-    cloudflareOutputRoot: '.output/public',
+    cloudflareBuildOutputRoot: 'dist-cloudflare/public',
     privateRoutePolicy: 'omit-from-generated-public-surface',
     files:
       publicRoutes.length > 0 ? ['robots.txt', 'sitemap.xml', 'site.webmanifest'] : ['robots.txt'],
@@ -4784,7 +4803,7 @@ const expectedBackendFederationName = (vertical) => `${vertical.mfName}Backend`;
 const expectedBackendManifestUrl = (vertical) =>
   `http://localhost:${vertical.port}/backend-mf-manifest.json`;
 const expectedBackendContainerEntry = (vertical) =>
-  `http://localhost:${vertical.port}/backendRemoteEntry.mjs`;
+  `http://localhost:${vertical.port}/backendRemoteEntry.cjs`;
 const expectedBackendManifestEnv = (vertical) =>
   `VERTICAL_${toEnvSegment(vertical.domain ?? vertical.id)}_BACKEND_MF_MANIFEST`;
 const expectedPublicUrlEnv = (vertical) => `ULTRAMODERN_PUBLIC_URL_${toEnvSegment(vertical.id)}`;
@@ -4853,7 +4872,7 @@ const expectedBackendFederationSubset = (vertical) => ({
     manifestEnv: expectedBackendManifestEnv(vertical),
     manifestUrl: expectedBackendManifestUrl(vertical),
     containerEntry: expectedBackendContainerEntry(vertical),
-    remoteType: 'module',
+    remoteType: 'commonjs-module',
     expose: './effect-api',
   },
   compatibility: {
@@ -5650,8 +5669,12 @@ const assertPublicSurfaceContract = (appId, publicSurface) => {
     `${appId} public surface dist outputRoot is incorrect`,
   );
   assert(
-    publicSurface?.cloudflareOutputRoot === '.output/public',
-    `${appId} public surface Cloudflare outputRoot is incorrect`,
+    publicSurface?.cloudflareBuildOutputRoot === 'dist-cloudflare/public',
+    `${appId} public surface Cloudflare build outputRoot is incorrect`,
+  );
+  assert(
+    !('cloudflareOutputRoot' in (publicSurface ?? {})),
+    `${appId} public surface must not target final .output directly`,
   );
   assert(
     !('staticRoot' in (publicSurface ?? {})),
@@ -5831,17 +5854,23 @@ const assertTargetIsolatedBuildArtifacts = (appId, modernConfig) => {
   );
 };
 const assertCloudflareBuildSkipsDeployRebuild = (appId, packageJson) => {
+  const cloudflareBuild = packageJson.scripts?.['cloudflare:build'] ?? '';
+  const buildCommand = 'MODERNJS_DEPLOY=cloudflare modern build';
+  const publicSurfaceCommand = `--app ${appId} --target cloudflare-dist`;
+  const deployCommand = 'MODERNJS_DEPLOY=cloudflare modern deploy --skip-build';
   assert(
-    packageJson.scripts?.['cloudflare:build']?.includes(
-      'MODERNJS_DEPLOY=cloudflare modern deploy --skip-build',
-    ),
+    cloudflareBuild.includes(deployCommand),
     `${appId} cloudflare:build must deploy with --skip-build after the explicit Cloudflare build`,
   );
   assert(
-    !packageJson.scripts?.['cloudflare:build']?.includes(
-      '--target dist && MODERNJS_DEPLOY=cloudflare modern deploy',
-    ),
-    `${appId} cloudflare:build must not write public-surface assets into the normal web dist before deploy`,
+    cloudflareBuild.includes(publicSurfaceCommand) &&
+      cloudflareBuild.indexOf(buildCommand) < cloudflareBuild.indexOf(publicSurfaceCommand) &&
+      cloudflareBuild.indexOf(publicSurfaceCommand) < cloudflareBuild.indexOf(deployCommand),
+    `${appId} cloudflare:build must generate public-surface assets in the explicit Cloudflare build output before deploy`,
+  );
+  assert(
+    !/--target (?:dist|cloudflare)(?=\s|$)/u.test(cloudflareBuild),
+    `${appId} cloudflare:build must not target the Node dist or final Cloudflare output directly`,
   );
 };
 const stripYamlInlineComment = (value) => {
@@ -6088,17 +6117,6 @@ assert(
     `'@module-federation/bridge-react@${expectedModuleFederationVersion}': patches/@module-federation__bridge-react@${expectedModuleFederationVersion}.patch`,
   ),
   'pnpm-workspace.yaml must patch the generated Module Federation React bridge cohort',
-);
-assert(
-  pnpmWorkspace.includes(`'@module-federation/dts-plugin@${expectedModuleFederationVersion}':`) &&
-    pnpmWorkspace.includes(`typescript: npm:typescript@${expectedTypescriptCompilerApiVersion}`),
-  'pnpm-workspace.yaml must isolate the Module Federation DTS plugin on the supported TypeScript compiler API',
-);
-assert(
-  [`'${expectedTypescriptCompilerApiVersion}'`, expectedTypescriptCompilerApiVersion].some(
-    (version) => pnpmWorkspace.includes(`'@module-federation/dts-plugin>typescript': ${version}`),
-  ),
-  'pnpm-workspace.yaml must declare the Module Federation DTS compiler peer version',
 );
 assert(
   [`'effect@${expectedEffectVersion}'`, `effect@${expectedEffectVersion}`].some((effectPatchKey) =>
@@ -7003,9 +7021,8 @@ if (hasBackendSurfaces) {
     'Root must expose local Node backend federation artifact generation',
   );
   assert(
-    rootPackage.scripts?.['node:proof'] ===
-      'pnpm node:backend-federation:generate && node ./scripts/proof-node-backend-federation.mts',
-    'Root must expose node:proof for backend federation Effect modules',
+    rootPackage.scripts?.['node:proof'] === 'node ./scripts/proof-node-backend-federation.mts',
+    'Root must expose read-only node:proof for already-built backend federation Effect modules',
   );
 } else {
   assert(
@@ -7046,15 +7063,13 @@ assertNotExists('scripts/verify-cloudflare-output.mjs');
 assertNotExists('scripts/generate-tanstack-routes.mjs');
 assert(
   rootPackage.scripts?.check?.includes('pnpm api:check') &&
-    (hasBackendSurfaces
-      ? rootPackage.scripts.check.includes('pnpm node:proof')
-      : !rootPackage.scripts.check.includes('pnpm node:proof')) &&
+    !rootPackage.scripts.check.includes('pnpm node:proof') &&
     rootPackage.scripts.check.endsWith(
       bridgeConfig
         ? '&& pnpm performance:readiness && pnpm bridge:check'
         : '&& pnpm performance:readiness',
     ),
-  'Root check must run Node backend federation proof when backend surfaces exist, default-on performance readiness diagnostics, and bridge gates when configured',
+  'Root check must remain static while running default-on performance readiness diagnostics and bridge gates when configured',
 );
 if (hasDeliveryUnits) {
   const zeropsYaml = readText('zerops.yaml');
@@ -7353,6 +7368,22 @@ assert(
 assert(
   /^dist-cloudflare\/$/mu.test(gitignore),
   'Generated .gitignore must ignore Cloudflare build output',
+);
+assert(
+  /^\.output\/$/mu.test(gitignore),
+  'Generated .gitignore must ignore root final deployment output',
+);
+assert(
+  /^\*\*\/\.output\/$/mu.test(gitignore),
+  'Generated .gitignore must ignore per-app final deployment output',
+);
+assert(
+  /^\*\*\/src\/modern-tanstack\/$/mu.test(gitignore),
+  'Generated .gitignore must ignore framework-owned TanStack router output',
+);
+assert(
+  /^\*\*\/\.tsgo\.\*\.resolved\.json$/mu.test(gitignore),
+  'Generated .gitignore must ignore transient TS-Go resolution output',
 );
 assert(
   shellModernAppEnv.includes('/// <reference types="@modern-js/app-tools/types" />'),
@@ -8330,6 +8361,12 @@ for (const expectedApp of workspaceValidationContract.topology.compactConfig?.ap
 
   const compactAppEntry = ultramodernConfig.topology?.apps?.find(
     (entry) => entry?.id === expectedApp.id,
+  );
+  assertSameJson(
+    compactAppEntry?.deploy?.cloudflare,
+    expectedApp.deploy?.cloudflare,
+    `${compactConfigPath} topology.apps.${expectedApp.id}.deploy.cloudflare`,
+    'regenerate the app Cloudflare deployment contract; do not add local proof-only smoke checks',
   );
   assertSameJson(
     deliveryUnitBlock(compactAppEntry?.deliveryUnit),

@@ -24,3 +24,4 @@ src/modern-tanstack/
 dist-cloudflare/
 .zerops/runtime/
 **/.output/
+**/.tsgo.*.resolved.json

@@ -340,6 +340,11 @@ export default defineConfig(
     },
     {
       appId,
+      deliveryUnit: {
+        buildMarker: '052f175d1feea977',
+        unitId: 'tractor-store-vertical-demo/shell-super-app',
+        version: '0.1.0',
+      },
       enableBffRequestId: true,
       enableModuleFederationSSR: true,
       enableTelemetryExporters: true,

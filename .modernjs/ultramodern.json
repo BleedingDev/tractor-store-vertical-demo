@@ -3,13 +3,13 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.5.0-ultramodern.48"
+    "version": "3.5.0-ultramodern.95"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
     "packageManager": {
       "name": "pnpm",
-      "version": "11.11.0"
+      "version": "11.17.0"
     },
     "node": {
       "version": "26.5.0",
@@ -18,7 +18,8 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.5.0-ultramodern.48",
+    "modernPackageVersion": "3.5.0-ultramodern.95",
+    "registry": "https://registry.npmjs.org/",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
@@ -240,8 +241,8 @@
               "remoteName": "verticalExploreBackend",
               "manifestEnv": "VERTICAL_EXPLORE_BACKEND_MF_MANIFEST",
               "manifestUrl": "http://localhost:3021/backend-mf-manifest.json",
-              "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
-              "remoteType": "module",
+              "containerEntry": "http://localhost:3021/backendRemoteEntry.cjs",
+              "remoteType": "commonjs-module",
               "expose": "./effect-api",
               "runtimePackage": "@modern-js/plugin-bff/effect",
               "expected": {
@@ -254,7 +255,7 @@
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/explore",
             "effectVersion": "4.0.0-beta.97",
-            "moduleFederationVersion": "2.7.0"
+            "moduleFederationVersion": "2.8.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -404,8 +405,8 @@
               "remoteName": "verticalDecideBackend",
               "manifestEnv": "VERTICAL_DECIDE_BACKEND_MF_MANIFEST",
               "manifestUrl": "http://localhost:3022/backend-mf-manifest.json",
-              "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
-              "remoteType": "module",
+              "containerEntry": "http://localhost:3022/backendRemoteEntry.cjs",
+              "remoteType": "commonjs-module",
               "expose": "./effect-api",
               "runtimePackage": "@modern-js/plugin-bff/effect",
               "expected": {
@@ -418,7 +419,7 @@
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/decide",
             "effectVersion": "4.0.0-beta.97",
-            "moduleFederationVersion": "2.7.0"
+            "moduleFederationVersion": "2.8.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -552,8 +553,8 @@
               "remoteName": "verticalCheckoutBackend",
               "manifestEnv": "VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST",
               "manifestUrl": "http://localhost:3023/backend-mf-manifest.json",
-              "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
-              "remoteType": "module",
+              "containerEntry": "http://localhost:3023/backendRemoteEntry.cjs",
+              "remoteType": "commonjs-module",
               "expose": "./effect-api",
               "runtimePackage": "@modern-js/plugin-bff/effect",
               "expected": {
@@ -566,7 +567,7 @@
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/checkout",
             "effectVersion": "4.0.0-beta.97",
-            "moduleFederationVersion": "2.7.0"
+            "moduleFederationVersion": "2.8.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -753,8 +754,8 @@
             "remoteName": "verticalExploreBackend",
             "manifestEnv": "VERTICAL_EXPLORE_BACKEND_MF_MANIFEST",
             "manifestUrl": "http://localhost:3021/backend-mf-manifest.json",
-            "containerEntry": "http://localhost:3021/backendRemoteEntry.mjs",
-            "remoteType": "module",
+            "containerEntry": "http://localhost:3021/backendRemoteEntry.cjs",
+            "remoteType": "commonjs-module",
             "expose": "./effect-api",
             "runtimePackage": "@modern-js/plugin-bff/effect",
             "expected": {
@@ -816,8 +817,8 @@
             "remoteName": "verticalDecideBackend",
             "manifestEnv": "VERTICAL_DECIDE_BACKEND_MF_MANIFEST",
             "manifestUrl": "http://localhost:3022/backend-mf-manifest.json",
-            "containerEntry": "http://localhost:3022/backendRemoteEntry.mjs",
-            "remoteType": "module",
+            "containerEntry": "http://localhost:3022/backendRemoteEntry.cjs",
+            "remoteType": "commonjs-module",
             "expose": "./effect-api",
             "runtimePackage": "@modern-js/plugin-bff/effect",
             "expected": {
@@ -879,8 +880,8 @@
             "remoteName": "verticalCheckoutBackend",
             "manifestEnv": "VERTICAL_CHECKOUT_BACKEND_MF_MANIFEST",
             "manifestUrl": "http://localhost:3023/backend-mf-manifest.json",
-            "containerEntry": "http://localhost:3023/backendRemoteEntry.mjs",
-            "remoteType": "module",
+            "containerEntry": "http://localhost:3023/backendRemoteEntry.cjs",
+            "remoteType": "commonjs-module",
             "expose": "./effect-api",
             "runtimePackage": "@modern-js/plugin-bff/effect",
             "expected": {

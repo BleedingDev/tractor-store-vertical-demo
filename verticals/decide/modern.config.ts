@@ -351,6 +351,11 @@ export default defineConfig(
     },
     {
       appId,
+      deliveryUnit: {
+        buildMarker: '36fc602031c23930',
+        unitId: 'tractor-store-vertical-demo/decide',
+        version: '0.1.0',
+      },
       enableBffRequestId: true,
       enableModuleFederationSSR: true,
       enableTelemetryExporters: true,
