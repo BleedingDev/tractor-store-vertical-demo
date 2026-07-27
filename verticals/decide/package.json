@@ -25,10 +25,10 @@
     "checkout": "@tractor-store-vertical-demo/checkout@workspace:*"
   },
   "dependencies": {
-    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.5.0-ultramodern.95",
-    "@modern-js/plugin-i18n": "npm:@bleedingdev/modern-js-plugin-i18n@3.5.0-ultramodern.95",
-    "@modern-js/plugin-tanstack": "npm:@bleedingdev/modern-js-plugin-tanstack@3.5.0-ultramodern.95",
-    "@modern-js/runtime": "npm:@bleedingdev/modern-js-runtime@3.5.0-ultramodern.95",
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.5.0-ultramodern.96",
+    "@modern-js/plugin-i18n": "npm:@bleedingdev/modern-js-plugin-i18n@3.5.0-ultramodern.96",
+    "@modern-js/plugin-tanstack": "npm:@bleedingdev/modern-js-plugin-tanstack@3.5.0-ultramodern.96",
+    "@modern-js/runtime": "npm:@bleedingdev/modern-js-runtime@3.5.0-ultramodern.96",
     "@module-federation/bridge-react": "2.8.0",
     "@module-federation/modern-js-v3": "2.8.0",
     "@module-federation/runtime": "2.8.0",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@effect/tsgo": "0.19.0",
-    "@modern-js/app-tools": "npm:@bleedingdev/modern-js-app-tools@3.5.0-ultramodern.95",
+    "@modern-js/app-tools": "npm:@bleedingdev/modern-js-app-tools@3.5.0-ultramodern.96",
     "@rsbuild/plugin-tailwindcss": "^2.0.3",
     "@types/node": "^20",
     "@types/react": "^19.2.17",
