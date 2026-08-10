@@ -85,6 +85,35 @@ async function findSystemChrome() {
   }
 }
 
+async function captureComputedStyle(locator, subject, route) {
+  const style = await locator.evaluate((element) => {
+    const computed = window.getComputedStyle(element);
+    return {
+      display: computed.display,
+      opacity: Number.parseFloat(computed.opacity),
+      visibility: computed.visibility,
+    };
+  });
+  return { ...style, route, subject };
+}
+
+async function captureVisibleBoundary(locator, route) {
+  return {
+    boundaryId: await locator.getAttribute('data-modern-boundary-id'),
+    expose: await locator.getAttribute('data-modern-mf-expose'),
+    route,
+    visible: await locator.isVisible(),
+  };
+}
+
+function passingControl(role, name, route) {
+  return { name, role, route, status: 'pass' };
+}
+
+function passingInteraction(type) {
+  return { status: 'pass', type };
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
@@ -98,6 +127,13 @@ async function main() {
     product,
     shellUrl,
     startedAt: new Date().toISOString(),
+    ui: {
+      accessibility: { controls: [], status: 'running' },
+      computedStyles: { samples: [], status: 'running' },
+      dom: { boundaries: [], status: 'running' },
+      runtime: { interactions: [], status: 'running' },
+      status: 'running',
+    },
   };
 
   const browser = await chromium.launch({
@@ -122,6 +158,10 @@ async function main() {
       '[data-modern-boundary-id="explore"][data-modern-mf-expose="./ProductGrid"]',
     );
     await expect(productGrid).toBeVisible();
+    evidence.ui.computedStyles.samples.push(
+      await captureComputedStyle(productGrid, 'product-grid', '/en/tractors'),
+    );
+    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(productGrid, '/en/tractors'));
     await expect(page.getByRole('heading', { name: 'All Machines' })).toBeVisible();
     await expect(page.getByText('23 products')).toBeVisible();
     await expect(page.locator('[data-modern-mf-expose="./CheckoutPage"]')).toHaveCount(0);
@@ -139,8 +179,20 @@ async function main() {
     await expect(
       page.locator('[data-modern-boundary-id="decide"][data-modern-mf-expose="./ProductPage"]'),
     ).toBeVisible();
+    const productPage = page.locator(
+      '[data-modern-boundary-id="decide"][data-modern-mf-expose="./ProductPage"]',
+    );
+    const productRoute = `/en/tractors/${product.slug}?sku=${product.sku}`;
+    evidence.ui.computedStyles.samples.push(
+      await captureComputedStyle(productPage, 'product-page', productRoute),
+    );
+    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(productPage, productRoute));
+    evidence.ui.runtime.interactions.push(passingInteraction('open-product'));
     await expect(page.getByRole('heading', { name: product.gridName })).toBeVisible();
     await expect(page.getByRole('link', { exact: true, name: product.variant })).toBeVisible();
+    const addToBasket = page.getByRole('link', { name: 'Add to basket' });
+    await expect(addToBasket).toBeVisible();
+    evidence.ui.accessibility.controls.push(passingControl('link', 'Add to basket', productRoute));
     await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => undefined);
     evidence.assertions.push({
       route: `/en/tractors/${product.slug}?sku=${product.sku}`,
@@ -148,12 +200,18 @@ async function main() {
       type: 'product-detail',
     });
 
-    await page.getByRole('link', { name: 'Add to basket' }).click();
+    await addToBasket.click();
     await expect(page).toHaveURL(new RegExp(`/en/cart\\?sku=${product.sku}$`, 'u'));
     const cartPage = page.locator(
       '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./CartPage"]',
     );
     await expect(cartPage).toBeVisible();
+    const cartRoute = `/en/cart?sku=${product.sku}`;
+    evidence.ui.computedStyles.samples.push(
+      await captureComputedStyle(cartPage, 'cart-page', cartRoute),
+    );
+    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(cartPage, cartRoute));
+    evidence.ui.runtime.interactions.push(passingInteraction('add-to-basket'));
     await expect(page.getByRole('heading', { name: 'Basket' })).toBeVisible();
     await expect(cartPage.getByText(product.detailName)).toBeVisible();
     await expect(cartPage.getByText(product.sku)).toBeVisible();
@@ -184,36 +242,68 @@ async function main() {
       type: 'cart-product-match',
     });
 
-    await page.getByRole('link', { name: 'Checkout' }).click();
+    const checkoutLink = page.getByRole('link', { name: 'Checkout' });
+    await expect(checkoutLink).toBeVisible();
+    evidence.ui.accessibility.controls.push(passingControl('link', 'Checkout', cartRoute));
+    await checkoutLink.click();
     await expect(page).toHaveURL(new RegExp('/en/checkout$', 'u'));
     const checkoutPage = page.locator(
       '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./CheckoutPage"]',
     );
     await expect(checkoutPage).toBeVisible();
+    evidence.ui.computedStyles.samples.push(
+      await captureComputedStyle(checkoutPage, 'checkout-page', '/en/checkout'),
+    );
+    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(checkoutPage, '/en/checkout'));
+    evidence.ui.runtime.interactions.push(passingInteraction('begin-checkout'));
     const checkoutForm = page.getByRole('button', { name: 'Place order' });
     await expect(page.getByRole('heading', { name: 'Checkout' })).toBeVisible();
-    await expect(page.getByLabel('Name')).toBeVisible();
-    await expect(page.getByLabel('Email')).toBeVisible();
-    await expect(page.getByLabel('Delivery address')).toBeVisible();
+    const nameField = page.getByRole('textbox', { name: 'Name' });
+    const emailField = page.getByRole('textbox', { name: 'Email' });
+    const deliveryAddressField = page.getByRole('textbox', {
+      name: 'Delivery address',
+    });
+    await expect(nameField).toBeVisible();
+    await expect(emailField).toBeVisible();
+    await expect(deliveryAddressField).toBeVisible();
     await expect(checkoutPage.getByText(product.detailName)).toBeVisible();
     await expect(checkoutPage.getByText(product.sku)).toBeVisible();
     await expect(checkoutForm).toBeVisible();
+    evidence.ui.accessibility.controls.push(
+      passingControl('textbox', 'Name', '/en/checkout'),
+      passingControl('textbox', 'Email', '/en/checkout'),
+      passingControl('textbox', 'Delivery address', '/en/checkout'),
+      passingControl('button', 'Place order', '/en/checkout'),
+    );
     evidence.assertions.push({
       route: '/en/checkout',
       status: 'pass',
       type: 'checkout-page',
     });
 
-    await page.getByLabel('Name').fill('Workflow Proof');
-    await page.getByLabel('Email').fill('workflow-proof@example.com');
-    await page.getByLabel('Delivery address').fill('100 Tractor Test Lane');
+    await nameField.fill('Workflow Proof');
+    await emailField.fill('workflow-proof@example.com');
+    await deliveryAddressField.fill('100 Tractor Test Lane');
     await checkoutForm.click();
     await expect(page).toHaveURL(new RegExp('/en/checkout/thank-you/tractor-[a-z0-9]+$', 'u'));
     const thanksPage = page.locator(
       '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./ThanksPage"]',
     );
     await expect(thanksPage).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Thank you for your order' })).toBeVisible();
+    evidence.ui.computedStyles.samples.push(
+      await captureComputedStyle(thanksPage, 'thanks-page', '/en/checkout/thank-you'),
+    );
+    evidence.ui.dom.boundaries.push(
+      await captureVisibleBoundary(thanksPage, '/en/checkout/thank-you'),
+    );
+    evidence.ui.runtime.interactions.push(passingInteraction('place-order'));
+    const thankYouHeading = page.getByRole('heading', {
+      name: 'Thank you for your order',
+    });
+    await expect(thankYouHeading).toBeVisible();
+    evidence.ui.accessibility.controls.push(
+      passingControl('heading', 'Thank you for your order', '/en/checkout/thank-you'),
+    );
     await expect(thanksPage.getByText(product.detailName)).toBeVisible();
     await expect(thanksPage.getByText(new RegExp(`${product.sku} × \\d+`, 'u'))).toBeVisible();
     await expect(page.getByLabel('Basket (0)')).toBeVisible();
@@ -236,6 +326,12 @@ async function main() {
       status: 'pass',
       type: 'thank-you-page',
     });
+
+    evidence.ui.accessibility.status = 'pass';
+    evidence.ui.computedStyles.status = 'pass';
+    evidence.ui.dom.status = 'pass';
+    evidence.ui.runtime.status = 'pass';
+    evidence.ui.status = 'pass';
 
     evidence.finishedAt = new Date().toISOString();
     evidence.status = 'pass';

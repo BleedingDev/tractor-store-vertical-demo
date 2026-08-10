@@ -24,10 +24,10 @@ Cloudflare-ready deployment.
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.5.0-ultramodern.1
+3.5.0-ultramodern.102
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.5.0-ultramodern.1`
+Generated apps and verticals use `npm:@bleedingdev/...@3.5.0-ultramodern.102`
 aliases for the Modern.js packages that are part of the UltraModern canary
 line.
 
@@ -35,7 +35,7 @@ To migrate an older generated app onto the strict Effect/HttpApi topology and
 package cohort:
 
 ```bash
-pnpm migrate:strict-effect -- --version 3.5.0-ultramodern.1
+pnpm migrate:strict-effect -- --version 3.5.0-ultramodern.102
 ```
 
 ## Commands
