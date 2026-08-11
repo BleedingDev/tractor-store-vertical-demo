@@ -1,5 +1,6 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import Footer from '../../../../../components/footer';
 
 export default function FooterFragmentPage() {

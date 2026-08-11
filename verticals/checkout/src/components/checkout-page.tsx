@@ -1,9 +1,11 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { Form, Link, useNavigate } from '@modern-js/plugin-tanstack/runtime';
 import type { FormEvent } from 'react';
+
 import { useCartLines } from '../cart-store';
 
-const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
+const formatPrice = (price: number) =>
+  `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCheckoutPage() {
   const navigate = useNavigate();
@@ -32,7 +34,10 @@ export default function CheckoutCheckoutPage() {
           {t('checkout.routes.checkout')}
         </h1>
         {cart.lines.length > 0 ? (
-          <Form className="checkout:mt-8 checkout:grid checkout:gap-5" onSubmit={submitOrder}>
+          <Form
+            className="checkout:mt-8 checkout:grid checkout:gap-5"
+            onSubmit={submitOrder}
+          >
             <label className="checkout:grid checkout:gap-2 checkout:text-sm checkout:font-bold checkout:text-stone-900">
               {t('checkout.form.name')}
               <input
@@ -73,7 +78,9 @@ export default function CheckoutCheckoutPage() {
           </Form>
         ) : (
           <div className="checkout:mt-8 checkout:rounded-lg checkout:border checkout:border-stone-200 checkout:bg-white checkout:p-6">
-            <p className="checkout:m-0 checkout:text-stone-700">{t('checkout.cart.empty')}</p>
+            <p className="checkout:m-0 checkout:text-stone-700">
+              {t('checkout.cart.empty')}
+            </p>
             <Link
               className="checkout:mt-6 checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
               to={`/${language}/tractors`}
@@ -101,7 +108,9 @@ export default function CheckoutCheckoutPage() {
                 width="64"
               />
               <div className="checkout:min-w-0 checkout:flex-1">
-                <strong className="checkout:block checkout:font-normal">{line.name}</strong>
+                <strong className="checkout:block checkout:font-normal">
+                  {line.name}
+                </strong>
                 <span className="checkout:block checkout:text-sm checkout:text-stone-600">
                   {line.id} × {line.quantity}
                 </span>

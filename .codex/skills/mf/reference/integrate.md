@@ -60,8 +60,7 @@ The demo provider exposes a React component at `'provider'`. The user can import
 import ProviderApp from 'provider';
 ```
 
-**Custom remotes** (use when user chose `custom`):
-Ask the user to provide remote entries in the format `name: url`, then use them as-is.
+**Custom remotes** (use when user chose `custom`): Ask the user to provide remote entries in the format `name: url`, then use them as-is.
 
 ### Exposes (for provider / both)
 
@@ -353,13 +352,13 @@ If the user says **yes**:
 
 Search for the entry component file in this priority order:
 
-| Bundler          | Candidates (in order)                                                        |
-| ---------------- | ---------------------------------------------------------------------------- |
-| Rsbuild          | `src/App.tsx`, `src/App.jsx`, `src/App.js`                                   |
-| Modern.js        | `src/routes/page.tsx`, `src/routes/page.jsx`                                 |
+| Bundler | Candidates (in order) |
+| --- | --- |
+| Rsbuild | `src/App.tsx`, `src/App.jsx`, `src/App.js` |
+| Modern.js | `src/routes/page.tsx`, `src/routes/page.jsx` |
 | Webpack / Rspack | `src/App.tsx`, `src/App.jsx`, `src/App.js`, `src/index.tsx`, `src/index.jsx` |
-| Next.js          | `pages/index.tsx`, `pages/index.jsx`, `pages/index.js`                       |
-| Vite             | `src/App.tsx`, `src/App.jsx`, `src/App.js`                                   |
+| Next.js | `pages/index.tsx`, `pages/index.jsx`, `pages/index.js` |
+| Vite | `src/App.tsx`, `src/App.jsx`, `src/App.js` |
 
 Read the first file that exists. If none found, tell the user which file to modify manually and show the snippet — do not attempt blind writes.
 

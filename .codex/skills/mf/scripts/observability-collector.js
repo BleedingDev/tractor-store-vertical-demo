@@ -28,7 +28,9 @@ function parseArgs(argv) {
 
 function normalizePort(value) {
   const port = Number(value || DEFAULT_PORT);
-  return Number.isInteger(port) && port > 0 && port <= 65535 ? port : DEFAULT_PORT;
+  return Number.isInteger(port) && port > 0 && port <= 65535
+    ? port
+    : DEFAULT_PORT;
 }
 
 function isLocalOrigin(origin) {
@@ -85,10 +87,11 @@ function start() {
   const port = normalizePort(args.port);
   const idleMs = Number(args['idle-ms'] || DEFAULT_IDLE_MS);
   const outputDir = path.resolve(
-    args.dir || path.join(process.cwd(), '.mf/observability/collector'),
+    args.dir || path.join(process.cwd(), '.mf/observability/collector')
   );
   const sessionId =
-    args.session || `session-${new Date().toISOString().replace(/[:.]/g, '-')}-${process.pid}`;
+    args.session ||
+    `session-${new Date().toISOString().replace(/[:.]/g, '-')}-${process.pid}`;
   const files = createSessionFiles(outputDir, sessionId);
   let count = 0;
   let idleTimer = null;
@@ -232,8 +235,8 @@ function start() {
           files,
         },
         null,
-        2,
-      )}\n`,
+        2
+      )}\n`
     );
   });
 

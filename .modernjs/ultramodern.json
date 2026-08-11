@@ -3,23 +3,22 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.5.0-ultramodern.102"
+    "version": "3.5.0-ultramodern.103"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
     "packageManager": {
       "name": "pnpm",
-      "version": "11.17.0"
+      "version": "11.21.0"
     },
     "node": {
-      "version": "26.5.0",
+      "version": "26.7.0",
       "engineRange": ">=26"
     }
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.5.0-ultramodern.102",
-    "registry": "https://registry.npmjs.org/",
+    "modernPackageVersion": "3.5.0-ultramodern.103",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
@@ -254,8 +253,8 @@
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/explore",
-            "effectVersion": "4.0.0-beta.102",
-            "moduleFederationVersion": "2.8.0"
+            "effectVersion": "4.0.0-beta.107",
+            "moduleFederationVersion": "2.8.2"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -418,8 +417,8 @@
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/decide",
-            "effectVersion": "4.0.0-beta.102",
-            "moduleFederationVersion": "2.8.0"
+            "effectVersion": "4.0.0-beta.107",
+            "moduleFederationVersion": "2.8.2"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -566,8 +565,8 @@
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/checkout",
-            "effectVersion": "4.0.0-beta.102",
-            "moduleFederationVersion": "2.8.0"
+            "effectVersion": "4.0.0-beta.107",
+            "moduleFederationVersion": "2.8.2"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",

@@ -3,6 +3,7 @@ import {
   makeEffectHttpApiClient,
   runEffectRequest,
 } from '@modern-js/plugin-bff/effect-client';
+
 import {
   checkoutApiContract,
   checkoutEffectApi,
@@ -22,57 +23,67 @@ const makeCheckoutClient = (options: CheckoutClientOptions = {}) =>
     baseUrl: options.baseUrl ?? checkoutApiContract.servicePrefix,
   });
 
-export const createCheckoutClient = (options: CheckoutClientOptions = {}): unknown =>
-  makeCheckoutClient(options);
+export const createCheckoutClient = (
+  options: CheckoutClientOptions = {}
+): unknown => makeCheckoutClient(options);
 
 export const listCheckout = (
-  options: CheckoutClientOptions & { limit?: number } = {},
+  options: CheckoutClientOptions & { limit?: number } = {}
 ): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
         ...options,
-        operationContext: options.operationContext ?? checkoutOperationContexts.list,
+        operationContext:
+          options.operationContext ?? checkoutOperationContexts.list,
       }),
-      (client) => client.checkout.list({ query: { limit: options.limit } }),
-    ),
+      (client) => client.checkout.list({ query: { limit: options.limit } })
+    )
   );
 
-export const getCheckoutReadiness = (options: CheckoutClientOptions = {}): Promise<unknown> =>
+export const getCheckoutReadiness = (
+  options: CheckoutClientOptions = {}
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
         ...options,
-        operationContext: options.operationContext ?? checkoutOperationContexts.readiness,
+        operationContext:
+          options.operationContext ?? checkoutOperationContexts.readiness,
       }),
-      (client) => client.checkout.readiness({}),
-    ),
+      (client) => client.checkout.readiness({})
+    )
   );
 
-export const getCheckout = (id: string, options: CheckoutClientOptions = {}): Promise<unknown> =>
+export const getCheckout = (
+  id: string,
+  options: CheckoutClientOptions = {}
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
         ...options,
-        operationContext: options.operationContext ?? checkoutOperationContexts.get,
+        operationContext:
+          options.operationContext ?? checkoutOperationContexts.get,
       }),
-      (client) => client.checkout.get({ params: { id } }),
-    ),
+      (client) => client.checkout.get({ params: { id } })
+    )
   );
 
 export const createCheckout = (
   sku: string,
-  options: CheckoutClientOptions & { quantity?: number } = {},
+  options: CheckoutClientOptions & { quantity?: number } = {}
 ): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
         ...options,
-        operationContext: options.operationContext ?? checkoutOperationContexts.create,
+        operationContext:
+          options.operationContext ?? checkoutOperationContexts.create,
       }),
       (client) =>
         client.checkout.create({
           payload: { quantity: options.quantity, sku },
-        }),
-    ),
+        })
+    )
   );

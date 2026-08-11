@@ -5,14 +5,26 @@
   var _module_federation_sdk = {
     isDebugMode: function () {
       try {
-        if (typeof process !== 'undefined' && process.env && process.env.FEDERATION_DEBUG)
+        if (
+          typeof process !== 'undefined' &&
+          process.env &&
+          process.env.FEDERATION_DEBUG
+        )
           return true;
       } catch {}
       try {
-        if (typeof FEDERATION_DEBUG !== 'undefined' && Boolean(FEDERATION_DEBUG)) return true;
+        if (
+          typeof FEDERATION_DEBUG !== 'undefined' &&
+          Boolean(FEDERATION_DEBUG)
+        )
+          return true;
       } catch {}
       try {
-        if (global && global.localStorage && global.localStorage.getItem('FEDERATION_DEBUG'))
+        if (
+          global &&
+          global.localStorage &&
+          global.localStorage.getItem('FEDERATION_DEBUG')
+        )
           return true;
       } catch {}
       return false;
@@ -22,9 +34,15 @@
         debug: function () {
           if (!_module_federation_sdk.isDebugMode()) return;
           try {
-            var logger = global && global.console && (global.console.debug || global.console.log);
+            var logger =
+              global &&
+              global.console &&
+              (global.console.debug || global.console.log);
             if (typeof logger === 'function')
-              logger.apply(global.console, [prefix].concat(Array.prototype.slice.call(arguments)));
+              logger.apply(
+                global.console,
+                [prefix].concat(Array.prototype.slice.call(arguments))
+              );
           } catch {}
         },
       };
@@ -37,7 +55,7 @@
   const DEFAULT_COLLECTOR_PORT = 17891;
   const COLLECTOR_PATH = '/__mf_observability';
   const logger = (0, _module_federation_sdk.createLogger)(
-    '[ Module Federation Observability Plugin ]',
+    '[ Module Federation Observability Plugin ]'
   );
   const DEFAULT_DEVTOOLS_SOURCE = 'module-federation/observability';
   const COMPONENT_BUSINESS_LOADED_EVENT = 'component:business-loaded';
@@ -48,7 +66,8 @@
   const URL_PATTERN = /https?:\/\/[^\s'"<>]+/g;
   const DIAGNOSTIC_DOC_LINK_PATTERN =
     /https?:\/\/module-federation\.io\/guide\/troubleshooting\/[^\s'"<>]+/i;
-  const RUNTIME_DOC_LINK = 'https://module-federation.io/guide/troubleshooting/runtime';
+  const RUNTIME_DOC_LINK =
+    'https://module-federation.io/guide/troubleshooting/runtime';
   const MAX_METADATA_KEYS = 20;
   const MAX_FACT_KEYS = 50;
   const MAX_MODULE_INFO_ENTRIES = 20;
@@ -63,7 +82,10 @@
   }
   function normalizeQueryLimit(value) {
     if (typeof value !== 'number' || !Number.isFinite(value)) return;
-    return Math.max(1, Math.min(HARD_MAX_REPORT_QUERY_LIMIT, Math.floor(value)));
+    return Math.max(
+      1,
+      Math.min(HARD_MAX_REPORT_QUERY_LIMIT, Math.floor(value))
+    );
   }
   function normalizeCollectorPort(value) {
     if (!Number.isFinite(value) || !value) return DEFAULT_COLLECTOR_PORT;
@@ -102,7 +124,9 @@
     const sanitized = String(value)
       .replace(URL_PATTERN, (url) => sanitizeUrl(url) || '[redacted-url]')
       .replace(SENSITIVE_PAIR_PATTERN, '[redacted]');
-    return sanitized.length > maxLength ? `${sanitized.slice(0, maxLength)}...` : sanitized;
+    return sanitized.length > maxLength
+      ? `${sanitized.slice(0, maxLength)}...`
+      : sanitized;
   }
   function getRawText(value) {
     if (value === void 0 || value === null) return;
@@ -111,7 +135,9 @@
   function clipText(value, maxLength = 320) {
     if (value === void 0 || value === null) return;
     const sanitized = String(value);
-    return sanitized.length > maxLength ? `${sanitized.slice(0, maxLength)}...` : sanitized;
+    return sanitized.length > maxLength
+      ? `${sanitized.slice(0, maxLength)}...`
+      : sanitized;
   }
   function clipObservabilityMetadata(metadata, maxKeys = MAX_METADATA_KEYS) {
     if (!metadata || typeof metadata !== 'object') return;
@@ -221,20 +247,26 @@
     const versions = /* @__PURE__ */ new Set();
     const shareScopeMap = args.shareScopeMap || {};
     getSharedScopes(args.shareInfo).forEach((scope) => {
-      Object.keys(shareScopeMap[scope]?.[args.pkgName] || {}).forEach((version) => {
-        versions.add(version);
-      });
+      Object.keys(shareScopeMap[scope]?.[args.pkgName] || {}).forEach(
+        (version) => {
+          versions.add(version);
+        }
+      );
     });
     return Array.from(versions);
   }
   function getSharedMissReason(args) {
     if (!args.shareInfo) return 'missing-config';
-    return getAvailableSharedVersions(args).length ? 'version-mismatch' : 'missing-provider';
+    return getAvailableSharedVersions(args).length
+      ? 'version-mismatch'
+      : 'missing-provider';
   }
   function getSharedErrorReason(args) {
     if (args.recovered) return getSharedMissReason(args);
-    const errorMessage = getErrorInfo(args.error, { enabled: false }).errorMessage || '';
-    if (!args.shareInfo || /Cannot find shared/i.test(errorMessage)) return 'missing-config';
+    const errorMessage =
+      getErrorInfo(args.error, { enabled: false }).errorMessage || '';
+    if (!args.shareInfo || /Cannot find shared/i.test(errorMessage))
+      return 'missing-config';
     if (
       args.lifecycle === 'loadShareSync' &&
       typeof args.shareInfo.get === 'function' &&
@@ -297,7 +329,9 @@
       name: sanitizeText(shared.name, 160) || 'unknown',
       shareScope: normalizeSharedScope(shared.shareScope),
       requiredVersion:
-        shared.requiredVersion === false ? false : sanitizeText(shared.requiredVersion, 120),
+        shared.requiredVersion === false
+          ? false
+          : sanitizeText(shared.requiredVersion, 120),
       selectedVersion: sanitizeText(shared.selectedVersion, 120),
       availableVersions: (shared.availableVersions || [])
         .map((version) => sanitizeText(version, 120))
@@ -329,15 +363,20 @@
     }
   }
   function getReactComponentName(component, fallback) {
-    if (typeof component === 'function') return component.displayName || component.name || fallback;
+    if (typeof component === 'function')
+      return component.displayName || component.name || fallback;
     if (!isRecord(component)) return fallback;
     const displayName = getObjectValue(component, 'displayName');
     if (typeof displayName === 'string' && displayName) return displayName;
     const render = getObjectValue(component, 'render');
-    if (typeof render === 'function') return render.displayName || render.name || fallback;
+    if (typeof render === 'function')
+      return render.displayName || render.name || fallback;
     return fallback;
   }
-  function isLikelyReactFunctionComponent(component, allowAnonymousComponent = false) {
+  function isLikelyReactFunctionComponent(
+    component,
+    allowAnonymousComponent = false
+  ) {
     if (typeof component !== 'function') return false;
     const name = component.displayName || component.name || '';
     if (/^use[A-Z0-9]/.test(name)) return false;
@@ -346,7 +385,14 @@
     return /^[A-Z]/.test(name);
   }
   function copyComponentStatics(target, source) {
-    const reserved = new Set(['arguments', 'caller', 'length', 'name', 'prototype', 'displayName']);
+    const reserved = new Set([
+      'arguments',
+      'caller',
+      'length',
+      'name',
+      'prototype',
+      'displayName',
+    ]);
     Object.getOwnPropertyNames(source).forEach((key) => {
       if (reserved.has(key)) return;
       const descriptor = Object.getOwnPropertyDescriptor(source, key);
@@ -366,13 +412,13 @@
     };
     return Object.defineProperties(
       Object.create(Object.getPrototypeOf(moduleExports)),
-      descriptors,
+      descriptors
     );
   }
   function resolveReactComponentTarget(
     component,
     defaultExportMode = 'preserve',
-    allowAnonymousComponent = false,
+    allowAnonymousComponent = false
   ) {
     if (isLikelyReactFunctionComponent(component, allowAnonymousComponent))
       return {
@@ -381,11 +427,15 @@
       };
     if (!isRecord(component)) return;
     const defaultExport = getObjectValue(component, 'default');
-    if (!isLikelyReactFunctionComponent(defaultExport, allowAnonymousComponent)) return;
+    if (!isLikelyReactFunctionComponent(defaultExport, allowAnonymousComponent))
+      return;
     return {
       component: defaultExport,
       createResult: (wrappedComponent) => {
-        const descriptor = Object.getOwnPropertyDescriptor(component, 'default');
+        const descriptor = Object.getOwnPropertyDescriptor(
+          component,
+          'default'
+        );
         let defaultExportReplaced = false;
         try {
           if (!descriptor || descriptor.writable || descriptor.set) {
@@ -409,7 +459,9 @@
     };
   }
   function normalizeEventSource(value) {
-    return value === 'runtime' || value === 'business' || value === 'react' ? value : void 0;
+    return value === 'runtime' || value === 'business' || value === 'react'
+      ? value
+      : void 0;
   }
   function extractErrorCode(value) {
     const matched = String(value ?? '').match(ERROR_CODE_PATTERN)?.[0];
@@ -419,7 +471,9 @@
     if (!error) return {};
     if (error instanceof Error)
       return {
-        errorCode: extractErrorCode(`${error.name}\n${error.message}\n${error.stack || ''}`),
+        errorCode: extractErrorCode(
+          `${error.name}\n${error.message}\n${error.stack || ''}`
+        ),
         errorName: getRawText(error.name),
         errorMessage: getRawText(error.message),
         errorStack: sanitizeStack(error.stack, stackTraceOptions),
@@ -430,7 +484,8 @@
     };
   }
   function omitUndefinedFields(value) {
-    if (Array.isArray(value)) return value.map((item) => omitUndefinedFields(item));
+    if (Array.isArray(value))
+      return value.map((item) => omitUndefinedFields(item));
     if (!value || typeof value !== 'object') return value;
     const cleanValue = {};
     Object.entries(value).forEach(([key, item]) => {
@@ -446,7 +501,9 @@
       shared: event.shared
         ? {
             ...event.shared,
-            shareScope: event.shared.shareScope ? [...event.shared.shareScope] : void 0,
+            shareScope: event.shared.shareScope
+              ? [...event.shared.shareScope]
+              : void 0,
             availableVersions: event.shared.availableVersions
               ? [...event.shared.availableVersions]
               : void 0,
@@ -460,21 +517,28 @@
   function copySummary(summary) {
     return {
       ...summary,
-      phases: Object.entries(summary.phases).reduce((memo, [phase, phaseSummary]) => {
-        memo[phase] = { ...phaseSummary };
-        return memo;
-      }, {}),
+      phases: Object.entries(summary.phases).reduce(
+        (memo, [phase, phaseSummary]) => {
+          memo[phase] = { ...phaseSummary };
+          return memo;
+        },
+        {}
+      ),
       shared: summary.shared
         ? {
             ...summary.shared,
-            shareScope: summary.shared.shareScope ? [...summary.shared.shareScope] : void 0,
+            shareScope: summary.shared.shareScope
+              ? [...summary.shared.shareScope]
+              : void 0,
           }
         : void 0,
       flags: { ...summary.flags },
       error: summary.error
         ? {
             ...summary.error,
-            context: summary.error.context ? { ...summary.error.context } : void 0,
+            context: summary.error.context
+              ? { ...summary.error.context }
+              : void 0,
           }
         : void 0,
     };
@@ -495,7 +559,9 @@
     return {
       ...moduleInfo,
       entries: moduleInfo.entries.map((entry) => ({ ...entry })),
-      availableNames: moduleInfo.availableNames ? [...moduleInfo.availableNames] : void 0,
+      availableNames: moduleInfo.availableNames
+        ? [...moduleInfo.availableNames]
+        : void 0,
     };
   }
   function copyLoadedBeforeInfo(loadedBefore) {
@@ -516,7 +582,9 @@
       shared: report.shared
         ? {
             ...report.shared,
-            shareScope: report.shared.shareScope ? [...report.shared.shareScope] : void 0,
+            shareScope: report.shared.shareScope
+              ? [...report.shared.shareScope]
+              : void 0,
             availableVersions: report.shared.availableVersions
               ? [...report.shared.availableVersions]
               : void 0,
@@ -542,7 +610,9 @@
     if (!moduleCache) return [];
     if (moduleCache instanceof Map) return Array.from(moduleCache.values());
     const entries =
-      typeof moduleCache.entries === 'function' ? Array.from(moduleCache.entries()) : void 0;
+      typeof moduleCache.entries === 'function'
+        ? Array.from(moduleCache.entries())
+        : void 0;
     if (entries) return entries.map(([, value]) => value);
     if (isRecord(moduleCache)) return Object.values(moduleCache);
     return [];
@@ -554,15 +624,17 @@
         Object.values(instance.remoteHandler?.idToRemoteMap || {})
           .filter((item) => item?.name === remoteName)
           .map((item) => sanitizeText(item.expose, 240))
-          .filter((expose) => Boolean(expose)),
-      ),
+          .filter((expose) => Boolean(expose))
+      )
     );
   }
   function collectLoadedBeforeInfo(remote, expose, origin) {
     const entryGlobalName = remote?.entryGlobalName;
     if (!entryGlobalName) return;
     const federation = getFederationGlobal();
-    const instances = Array.isArray(federation?.__INSTANCES__) ? federation.__INSTANCES__ : [];
+    const instances = Array.isArray(federation?.__INSTANCES__)
+      ? federation.__INSTANCES__
+      : [];
     const targetExpose = normalizeExposeName(expose);
     const consumers = [];
     instances.forEach((instance) => {
@@ -571,12 +643,17 @@
         (item) =>
           isRecord(item) &&
           isRecord(item.remoteInfo) &&
-          item.remoteInfo.entryGlobalName === entryGlobalName,
+          item.remoteInfo.entryGlobalName === entryGlobalName
       );
       if (!matchedModule) return;
-      const exposes = getLoadedExposesForRemote(instance, matchedModule.remoteInfo?.name);
+      const exposes = getLoadedExposesForRemote(
+        instance,
+        matchedModule.remoteInfo?.name
+      );
       const consumer = {
-        name: sanitizeText(instance.options?.name, 120) || sanitizeText(instance.name, 120),
+        name:
+          sanitizeText(instance.options?.name, 120) ||
+          sanitizeText(instance.name, 120),
         remoteEntryExports: Boolean(matchedModule.remoteEntryExports),
         containerInitialized: matchedModule.inited === true,
         exposes: exposes.length ? exposes : void 0,
@@ -589,8 +666,9 @@
       expose: targetExpose
         ? consumers.some((consumer) =>
             (consumer.exposes || []).some(
-              (loadedExpose) => normalizeExposeName(loadedExpose) === targetExpose,
-            ),
+              (loadedExpose) =>
+                normalizeExposeName(loadedExpose) === targetExpose
+            )
           )
         : false,
       consumers,
@@ -610,7 +688,9 @@
   }
   function getPhaseDurationKey(event) {
     const exposeKey =
-      event.phase === 'expose' || event.phase === 'moduleFactory' ? event.expose || '' : '';
+      event.phase === 'expose' || event.phase === 'moduleFactory'
+        ? event.expose || ''
+        : '';
     return [
       event.traceId,
       event.phase,
@@ -620,11 +700,15 @@
   }
   function getRemoteEntryKey(remote) {
     if (!remote?.name) return;
-    return [remote.name, remote.entryGlobalName || '', remote.entry || ''].join('|');
+    return [remote.name, remote.entryGlobalName || '', remote.entry || ''].join(
+      '|'
+    );
   }
   function getHostRemotesSummary(options) {
     const remotes = (options?.remotes || [])
-      .map((remote) => clipText(remote.alias || remote.name || remote.entry, 120))
+      .map((remote) =>
+        clipText(remote.alias || remote.name || remote.entry, 120)
+      )
       .filter((remote) => Boolean(remote))
       .slice(0, 20);
     return remotes.length ? remotes.join(',') : void 0;
@@ -698,12 +782,18 @@
         report.summary.error?.context?.['url'],
       ]
         .map(normalizeModuleInfoLookupValue)
-        .filter((value) => Boolean(value)),
+        .filter((value) => Boolean(value))
     );
   }
   function matchesModuleInfoLookup(entry, lookupValues) {
     if (!lookupValues.size) return false;
-    return [entry.name, entry.publicPath, entry.getPublicPath, entry.remoteEntry, entry.globalName]
+    return [
+      entry.name,
+      entry.publicPath,
+      entry.getPublicPath,
+      entry.remoteEntry,
+      entry.globalName,
+    ]
       .map(normalizeModuleInfoLookupValue)
       .filter((value) => Boolean(value))
       .some((entryValue) =>
@@ -712,8 +802,8 @@
             entryValue === lookupValue ||
             entryValue.startsWith(`${lookupValue}:`) ||
             entryValue.includes(`:${lookupValue}`) ||
-            (lookupValue.startsWith('http') && entryValue.includes(lookupValue)),
-        ),
+            (lookupValue.startsWith('http') && entryValue.includes(lookupValue))
+        )
       );
   }
   function getModuleInfoCaptureReason(report) {
@@ -735,7 +825,8 @@
     if (/RUNTIME-007/.test(text)) return 'remote-snapshot';
     if (/RUNTIME-011/.test(text)) return 'remote-entry-missing-in-snapshot';
     if (/moduleInfo|module info/i.test(text)) return 'module-info';
-    if (/remote snapshot|global snapshot|snapshot/i.test(text)) return 'remote-snapshot';
+    if (/remote snapshot|global snapshot|snapshot/i.test(text))
+      return 'remote-snapshot';
   }
   function createModuleInfoSummary(report) {
     const reason = getModuleInfoCaptureReason(report);
@@ -747,7 +838,7 @@
       .filter((entry) => Boolean(entry));
     const lookupValues = getModuleInfoLookupValues(report);
     const matchedEntries = clippedEntries.filter((entry) =>
-      matchesModuleInfoLookup(entry, lookupValues),
+      matchesModuleInfoLookup(entry, lookupValues)
     );
     return {
       reason,
@@ -757,7 +848,9 @@
       entries: matchedEntries.slice(0, MAX_MODULE_INFO_ENTRIES),
       availableNames: matchedEntries.length
         ? void 0
-        : clippedEntries.map((entry) => entry.name).slice(0, MAX_MODULE_INFO_ENTRIES),
+        : clippedEntries
+            .map((entry) => entry.name)
+            .slice(0, MAX_MODULE_INFO_ENTRIES),
     };
   }
   function getResourceErrorType(event) {
@@ -765,7 +858,11 @@
     if (!event.errorCode && !text) return;
     if (/ScriptExecutionError/i.test(text)) return 'script-execution';
     if (/timeout|timed out/i.test(text)) return 'timeout';
-    if (/ScriptNetworkError|NetworkError|Failed to fetch|Request failed|ERR_|404|CORS/i.test(text))
+    if (
+      /ScriptNetworkError|NetworkError|Failed to fetch|Request failed|ERR_|404|CORS/i.test(
+        text
+      )
+    )
       return 'network';
     return event.errorCode === 'RUNTIME-008' ? 'unknown' : void 0;
   }
@@ -788,13 +885,15 @@
       case 'RUNTIME-012':
         return 'shared';
       case 'RUNTIME-008':
-        return resourceErrorType === 'network' || resourceErrorType === 'timeout'
+        return resourceErrorType === 'network' ||
+          resourceErrorType === 'timeout'
           ? 'network'
           : 'remote';
       default:
         if (event.shared) return 'shared';
         if (event.remote) return 'remote';
-        if (event.phase === 'manifest' || event.phase === 'matchRemote') return 'host';
+        if (event.phase === 'manifest' || event.phase === 'matchRemote')
+          return 'host';
         return event.errorCode ? 'runtime' : void 0;
     }
   }
@@ -804,7 +903,9 @@
       return resourceErrorType === 'network' || resourceErrorType === 'timeout';
     if (event.errorCode === 'RUNTIME-003') {
       const text = `${event.errorMessage || ''}\n${event.message || ''}`;
-      return /NetworkError|Failed to fetch|Request failed|timeout|timed out/i.test(text);
+      return /NetworkError|Failed to fetch|Request failed|timeout|timed out/i.test(
+        text
+      );
     }
     if (
       event.errorCode &&
@@ -831,12 +932,15 @@
     if (event.remote?.name) context.remoteName = event.remote.name;
     if (event.remote?.alias) context.remoteAlias = event.remote.alias;
     if (event.remote?.type) context.remoteType = event.remote.type;
-    if (event.remote?.entryGlobalName) context.entryGlobalName = event.remote.entryGlobalName;
+    if (event.remote?.entryGlobalName)
+      context.entryGlobalName = event.remote.entryGlobalName;
     if (event.sanitizedUrl) context.url = event.sanitizedUrl;
     if (event.expose) context.expose = event.expose;
     if (event.shared?.name) context.shareName = event.shared.name;
-    if (event.shared?.requiredVersion) context.requiredVersion = event.shared.requiredVersion;
-    if (event.shared?.selectedVersion) context.selectedVersion = event.shared.selectedVersion;
+    if (event.shared?.requiredVersion)
+      context.requiredVersion = event.shared.requiredVersion;
+    if (event.shared?.selectedVersion)
+      context.selectedVersion = event.shared.selectedVersion;
     if (event.shared?.provider) context.provider = event.shared.provider;
     const resourceErrorType = getResourceErrorType(event);
     if (resourceErrorType) context.resourceErrorType = resourceErrorType;
@@ -865,12 +969,17 @@
       adapterOptions.guardSharedHooksByRuntimeVersion === true;
     const shouldGuardRuntimeHooksByRuntimeVersion =
       adapterOptions.guardRuntimeHooksByRuntimeVersion === true;
-    const shouldDisablePreloadHooks = adapterOptions.disablePreloadHooks === true;
+    const shouldDisablePreloadHooks =
+      adapterOptions.disablePreloadHooks === true;
     const shouldReturnHookArgs = adapterOptions.returnHookArgs === true;
-    const shouldForceDevelopmentChannels = adapterOptions.forceDevelopmentChannels === true;
+    const shouldForceDevelopmentChannels =
+      adapterOptions.forceDevelopmentChannels === true;
     const returnHookArgs = (args) => (shouldReturnHookArgs ? args : void 0);
     const level = options.level || 'summary';
-    const configuredMaxEvents = normalizeMaxEvents(options.maxEvents, DEFAULT_MAX_EVENTS);
+    const configuredMaxEvents = normalizeMaxEvents(
+      options.maxEvents,
+      DEFAULT_MAX_EVENTS
+    );
     const events = [];
     const reports = /* @__PURE__ */ new Map();
     const traceByRequest = /* @__PURE__ */ new Map();
@@ -922,8 +1031,10 @@
         sanitizeRequestId(event.requestAlias) ||
         resolveAliasRequestId(event.requestId, sanitizedRemote);
       const hostName =
-        sanitizeText(event.hostName, 120) || sanitizeText(origin?.options?.name, 120);
-      const runtimeVersion = sanitizeText(origin?.version, 80) || appliedRuntimeVersion;
+        sanitizeText(event.hostName, 120) ||
+        sanitizeText(origin?.options?.name, 120);
+      const runtimeVersion =
+        sanitizeText(origin?.version, 80) || appliedRuntimeVersion;
       const message = getRawText(event.message) || errorInfo.errorMessage;
       const normalizedEvent = {
         traceId,
@@ -959,17 +1070,24 @@
       if (normalizedEvent.status === 'error' || event.error) {
         normalizedEvent.ownerHint = getOwnerHint(normalizedEvent);
         normalizedEvent.retryable = getRetryable(normalizedEvent);
-        normalizedEvent.errorContext = createErrorContext(normalizedEvent, event.errorContext);
+        normalizedEvent.errorContext = createErrorContext(
+          normalizedEvent,
+          event.errorContext
+        );
       }
       return normalizedEvent;
     };
     const supportsRuntimeHookObservability = (origin) =>
       supportsRuntimeObservability({
         ...origin,
-        version: sanitizeText(origin?.version, 80) || appliedRuntimeVersion || origin?.version,
+        version:
+          sanitizeText(origin?.version, 80) ||
+          appliedRuntimeVersion ||
+          origin?.version,
       });
     const shouldSkipRuntimeHook = (origin) =>
-      shouldGuardRuntimeHooksByRuntimeVersion && !supportsRuntimeHookObservability(origin);
+      shouldGuardRuntimeHooksByRuntimeVersion &&
+      !supportsRuntimeHookObservability(origin);
     const applyPhaseDuration = (event) => {
       const key = getPhaseDurationKey(event);
       if (event.status === 'start') {
@@ -984,7 +1102,8 @@
     };
     const updateTraceMaps = (event) => {
       if (event.requestId) traceByRequest.set(event.requestId, event.traceId);
-      if (event.remote?.name) traceByRemote.set(event.remote.name, event.traceId);
+      if (event.remote?.name)
+        traceByRemote.set(event.remote.name, event.traceId);
     };
     const trimEvents = (report) => {
       while (events.length > effectiveMaxEvents) events.shift();
@@ -1002,19 +1121,25 @@
       event.phase === 'loadRemote' && event.status === 'complete';
     const isRuntimeLoadedEvent = (event) =>
       event.phase === 'loadRemote' &&
-      (event.status === 'success' || (event.status === 'complete' && event.recovered));
+      (event.status === 'success' ||
+        (event.status === 'complete' && event.recovered));
     const isSharedResolvedEvent = (event) =>
       event.phase === 'shared' &&
-      (event.status === 'success' || (event.status === 'complete' && event.recovered));
-    const isPreloadedEvent = (event) => event.phase === 'preload' && event.status === 'success';
+      (event.status === 'success' ||
+        (event.status === 'complete' && event.recovered));
+    const isPreloadedEvent = (event) =>
+      event.phase === 'preload' && event.status === 'success';
     const isComponentLoadedEvent = (event) =>
       event.status === 'success' &&
       (event.eventName === COMPONENT_BUSINESS_LOADED_EVENT ||
-        (event.phase === 'component' && event.message === COMPONENT_BUSINESS_LOADED_EVENT));
+        (event.phase === 'component' &&
+          event.message === COMPONENT_BUSINESS_LOADED_EVENT));
     const shouldReplaceFailedPhase = (report, event) => {
       if (isLoadRemoteCompleteEvent(event) && report.failedPhase) return false;
       if (!report.failedPhase) return true;
-      return report.failedPhase === 'loadRemote' && event.phase !== 'loadRemote';
+      return (
+        report.failedPhase === 'loadRemote' && event.phase !== 'loadRemote'
+      );
     };
     const createEmptyPhaseCollection = () => ({
       phases: {},
@@ -1043,23 +1168,33 @@
         }
         if (event.lifecycle) phaseSummary.lifecycle = event.lifecycle;
         collection.phases[phase] = phaseSummary;
-        if (event.phase === 'loadRemote' && event.status === 'complete' && event.recovered)
+        if (
+          event.phase === 'loadRemote' &&
+          event.status === 'complete' &&
+          event.recovered
+        )
           collection.flags.fallback = true;
         if (event.shared?.selectedVersion || event.shared?.provider)
           collection.shared = {
             name: event.shared.name,
             provider: event.shared.provider,
             selectedVersion: event.shared.selectedVersion,
-            shareScope: event.shared.shareScope ? [...event.shared.shareScope] : void 0,
+            shareScope: event.shared.shareScope
+              ? [...event.shared.shareScope]
+              : void 0,
           };
       });
       return collection;
     };
     const createErrorSummary = (eventsForReport, failedPhase) => {
       const errorEvent =
-        eventsForReport.find((event) => event.status === 'error' && event.phase === failedPhase) ||
+        eventsForReport.find(
+          (event) => event.status === 'error' && event.phase === failedPhase
+        ) ||
         eventsForReport.find((event) => event.status === 'error') ||
-        eventsForReport.find((event) => event.status === 'complete' && event.errorMessage);
+        eventsForReport.find(
+          (event) => event.status === 'complete' && event.errorMessage
+        );
       if (!errorEvent) return;
       return {
         errorCode: errorEvent.errorCode,
@@ -1069,7 +1204,9 @@
         lifecycle: errorEvent.lifecycle,
         ownerHint: errorEvent.ownerHint,
         retryable: errorEvent.retryable,
-        context: errorEvent.errorContext ? { ...errorEvent.errorContext } : void 0,
+        context: errorEvent.errorContext
+          ? { ...errorEvent.errorContext }
+          : void 0,
       };
     };
     const createReportSummary = (report) => {
@@ -1108,7 +1245,8 @@
       const moduleInfo = createModuleInfoSummary(report);
       if (moduleInfo) report.moduleInfo = moduleInfo;
     };
-    const getReportContext = (report) => report.summary.error?.context || report.errorContext;
+    const getReportContext = (report) =>
+      report.summary.error?.context || report.errorContext;
     const getContextText = (context, key) => {
       const value = context?.[key];
       return typeof value === 'string' && value ? value : void 0;
@@ -1129,19 +1267,26 @@
       const matched = [
         report.errorMessage,
         report.errorStack,
-        ...report.events.flatMap((event) => [event.errorMessage, event.errorStack, event.message]),
+        ...report.events.flatMap((event) => [
+          event.errorMessage,
+          event.errorStack,
+          event.message,
+        ]),
       ]
         .filter((item) => Boolean(item))
         .join('\n')
         .match(DIAGNOSTIC_DOC_LINK_PATTERN)?.[0];
       const docLink = sanitizeText(matched, 240);
       if (docLink) return docLink;
-      return report.errorCode?.startsWith('RUNTIME-') ? RUNTIME_DOC_LINK : void 0;
+      return report.errorCode?.startsWith('RUNTIME-')
+        ? RUNTIME_DOC_LINK
+        : void 0;
     };
     const getDiagnosisTitle = (report) => {
       if (report.status !== 'error') {
         if (report.shared) {
-          if (report.summary.sharedResolved) return 'Shared dependency resolved successfully';
+          if (report.summary.sharedResolved)
+            return 'Shared dependency resolved successfully';
           return 'Shared dependency loading is pending';
         }
         if (report.summary.componentLoaded) return 'Business component loaded';
@@ -1171,7 +1316,8 @@
           const resourceErrorType = getDiagnosisResourceErrorType(report);
           if (resourceErrorType === 'network')
             return 'Remote entry failed because of a network error';
-          if (resourceErrorType === 'timeout') return 'Remote entry request timed out';
+          if (resourceErrorType === 'timeout')
+            return 'Remote entry request timed out';
           if (resourceErrorType === 'script-execution')
             return 'Remote entry loaded but failed during execution';
           return 'Remote entry resource could not be loaded';
@@ -1188,9 +1334,12 @@
       Array.from(
         new Set(
           report.events
-            .filter((event) => event.status === 'success' || event.status === 'complete')
-            .map((event) => event.phase),
-        ),
+            .filter(
+              (event) =>
+                event.status === 'success' || event.status === 'complete'
+            )
+            .map((event) => event.phase)
+        )
       );
     const getPendingPhases = (report) => {
       const started = /* @__PURE__ */ new Set();
@@ -1215,14 +1364,17 @@
       addFact('status', report.status);
       addFact('outcome', report.summary.outcome);
       addFact('errorCode', report.errorCode || report.summary.error?.errorCode);
-      addFact('failedPhase', report.failedPhase || report.summary.error?.failedPhase);
+      addFact(
+        'failedPhase',
+        report.failedPhase || report.summary.error?.failedPhase
+      );
       addFact('lifecycle', report.summary.error?.lifecycle);
       addFact('ownerHint', ownerHint);
       addFact('retryable', report.retryable ?? report.summary.error?.retryable);
       addFact('requestId', report.requestId);
       addFact(
         'requestAlias',
-        report.requestAlias || report.summary.error?.context?.['requestAlias'],
+        report.requestAlias || report.summary.error?.context?.['requestAlias']
       );
       addFact('hostName', report.hostName);
       addFact('remoteName', report.remote?.name);
@@ -1245,7 +1397,10 @@
       addFact('strictVersion', report.shared?.strictVersion);
       addFact('eager', report.shared?.eager);
       addFact('sharedReason', report.shared?.reason);
-      addFact('componentName', report.events.find(isComponentLoadedEvent)?.componentName);
+      addFact(
+        'componentName',
+        report.events.find(isComponentLoadedEvent)?.componentName
+      );
       addFact('moduleInfoReason', report.moduleInfo?.reason);
       addFact('moduleInfoTotalCount', report.moduleInfo?.totalCount);
       addFact('moduleInfoMatchedCount', report.moduleInfo?.matchedCount);
@@ -1253,7 +1408,7 @@
         'moduleInfoNames',
         report.moduleInfo?.entries.length
           ? report.moduleInfo.entries.map((entry) => entry.name)
-          : report.moduleInfo?.availableNames,
+          : report.moduleInfo?.availableNames
       );
       addFact('cached', report.summary.flags.cached);
       addFact('fallback', report.summary.flags.fallback);
@@ -1272,7 +1427,9 @@
       if (report.summary.runtimeLoaded && !report.summary.componentLoaded)
         warnings.push('Business component readiness signal was not recorded');
       if (report.moduleInfo && report.moduleInfo.matchedCount === 0)
-        warnings.push('No matching clipped moduleInfo entry was found for the failed remote');
+        warnings.push(
+          'No matching clipped moduleInfo entry was found for the failed remote'
+        );
       return warnings;
     };
     const createDiagnosisActions = (report, ownerHint) => {
@@ -1291,69 +1448,69 @@
           pushAction(
             'check-remote-global',
             'Check the remote global name against the remoteEntry build output',
-            'remote',
+            'remote'
           );
           pushAction(
             'check-remote-entry',
             'Check that remoteEntry registers the expected container',
-            'remote',
+            'remote'
           );
           break;
         case 'RUNTIME-003':
           pushAction(
             'check-manifest-url',
             'Check the manifest URL and manifest JSON response',
-            'host',
+            'host'
           );
           pushAction(
             'check-network',
             'Check network availability, CORS, and timeout for the manifest',
-            'network',
+            'network'
           );
           break;
         case 'RUNTIME-013':
           pushAction(
             'check-manifest-url',
             'Check that the manifest response is valid Module Federation JSON',
-            'remote',
+            'remote'
           );
           break;
         case 'RUNTIME-004':
           pushAction(
             'check-host-remotes',
             'Check that the requested remote exists in host remotes',
-            'host',
+            'host'
           );
           break;
         case 'RUNTIME-007':
           pushAction(
             'check-module-info',
             'Check deployment-provided __FEDERATION__.moduleInfo for the requested remote',
-            'host',
+            'host'
           );
           pushAction(
             'check-host-remotes',
             'Check that the runtime remote name or alias matches moduleInfo',
-            'host',
+            'host'
           );
           break;
         case 'RUNTIME-014':
           pushAction(
             'check-expose',
             'Check that the requested expose exists in the remote build output',
-            'remote',
+            'remote'
           );
           break;
         case 'RUNTIME-015':
           pushAction(
             'check-remote-entry',
             'Check the error thrown during remoteEntry init',
-            'remote',
+            'remote'
           );
           pushAction(
             'check-shared-provider',
             'Check share scope initialization data passed to the remote',
-            'shared',
+            'shared'
           );
           break;
         case 'RUNTIME-005':
@@ -1361,12 +1518,12 @@
           pushAction(
             'check-shared-provider',
             'Check that a compatible shared provider is available',
-            'shared',
+            'shared'
           );
           pushAction(
             'check-shared-version',
             'Compare requested shared version with available versions',
-            'shared',
+            'shared'
           );
           if (
             report.summary.error?.lifecycle === 'loadShareSync' ||
@@ -1376,16 +1533,19 @@
             pushAction(
               'check-eager-config',
               'Check eager configuration or add an async boundary before sync shared consumption',
-              'shared',
+              'shared'
             );
           break;
         case 'RUNTIME-008': {
           const resourceErrorType = getDiagnosisResourceErrorType(report);
-          if (resourceErrorType === 'network' || resourceErrorType === 'timeout')
+          if (
+            resourceErrorType === 'network' ||
+            resourceErrorType === 'timeout'
+          )
             pushAction(
               'check-network',
               'Check remoteEntry URL, CORS, status code, and timeout',
-              'network',
+              'network'
             );
           pushAction(
             'check-remote-entry',
@@ -1394,27 +1554,35 @@
               : 'Check that remoteEntry is reachable and serves JavaScript',
             resourceErrorType === 'network' || resourceErrorType === 'timeout'
               ? 'network'
-              : 'remote',
+              : 'remote'
           );
           break;
         }
         default:
           if (report.failedPhase === 'manifest')
-            pushAction('check-manifest-url', 'Check manifest loading and parsing', 'host');
+            pushAction(
+              'check-manifest-url',
+              'Check manifest loading and parsing',
+              'host'
+            );
           if (report.failedPhase === 'remoteEntry')
             pushAction(
               'check-remote-entry',
               'Check remoteEntry loading and initialization',
-              'remote',
+              'remote'
             );
           if (report.failedPhase === 'expose')
             pushAction(
               'check-expose',
               'Check that the requested expose exists in the remote',
-              'remote',
+              'remote'
             );
           if (report.failedPhase === 'shared') {
-            pushAction('check-shared-provider', 'Check shared dependency resolution', 'shared');
+            pushAction(
+              'check-shared-provider',
+              'Check shared dependency resolution',
+              'shared'
+            );
             if (
               report.shared?.requiredVersion !== void 0 ||
               report.shared?.availableVersions?.length ||
@@ -1423,7 +1591,7 @@
               pushAction(
                 'check-shared-version',
                 'Compare requested shared version with available versions',
-                'shared',
+                'shared'
               );
             if (
               report.summary.error?.lifecycle === 'loadShareSync' ||
@@ -1433,21 +1601,24 @@
               pushAction(
                 'check-eager-config',
                 'Check eager configuration or add an async boundary before sync shared consumption',
-                'shared',
+                'shared'
               );
           }
       }
-      if (report.moduleInfo && !actions.some((action) => action.id === 'check-module-info'))
+      if (
+        report.moduleInfo &&
+        !actions.some((action) => action.id === 'check-module-info')
+      )
         pushAction(
           'check-module-info',
           'Check deployment-provided __FEDERATION__.moduleInfo for the requested remote',
-          'host',
+          'host'
         );
       if (!actions.length)
         pushAction(
           'inspect-runtime-events',
           'Inspect the ordered observability events for the failed phase',
-          ownerHint,
+          ownerHint
         );
       return actions;
     };
@@ -1536,16 +1707,19 @@
       if (event.ownerHint) report.ownerHint = event.ownerHint;
       if (event.retryable !== void 0) report.retryable = event.retryable;
       if (event.errorContext) report.errorContext = { ...event.errorContext };
-      if (event.loadedBefore) report.loadedBefore = copyLoadedBeforeInfo(event.loadedBefore);
+      if (event.loadedBefore)
+        report.loadedBefore = copyLoadedBeforeInfo(event.loadedBefore);
       report.events.push(event);
       report.updatedAt = event.timestamp;
       report.duration = Math.max(0, report.updatedAt - report.startedAt);
       const eventOutcome = getEventOutcome(event);
       if (eventOutcome === 'error') {
         report.status = 'error';
-        if (shouldReplaceFailedPhase(report, event)) report.failedPhase = event.phase;
+        if (shouldReplaceFailedPhase(report, event))
+          report.failedPhase = event.phase;
       } else if (eventOutcome === 'recovered') report.status = 'success';
-      else if (eventOutcome === 'success' && report.status !== 'error') report.status = 'success';
+      else if (eventOutcome === 'success' && report.status !== 'error')
+        report.status = 'success';
       refreshReportDerivedFields(report);
       latestTraceId = event.traceId;
       trimEvents(report);
@@ -1593,7 +1767,10 @@
           credentials: 'omit',
           mode: 'cors',
         }).catch((error) => {
-          logger.debug('Failed to notify local observability collector.', error);
+          logger.debug(
+            'Failed to notify local observability collector.',
+            error
+          );
         });
       } catch (error) {
         logger.debug('Failed to notify local observability collector.', error);
@@ -1615,7 +1792,7 @@
             event: copyEvent(event),
             report: copyReport(report),
           },
-          '*',
+          '*'
         );
       } catch {}
     };
@@ -1623,19 +1800,24 @@
     const getTraceIdsSnapshot = () => Array.from(reports.keys());
     const getReportTimeline = () =>
       Array.from(reports.values()).sort((left, right) => {
-        if (right.updatedAt !== left.updatedAt) return right.updatedAt - left.updatedAt;
+        if (right.updatedAt !== left.updatedAt)
+          return right.updatedAt - left.updatedAt;
         return right.startedAt - left.startedAt;
       });
     const matchesReportValue = (value, expected) => {
       if (!value || !expected) return false;
       const normalizedValue = value.toLowerCase();
       const normalizedExpected = expected.toLowerCase();
-      return normalizedValue === normalizedExpected || normalizedValue.includes(normalizedExpected);
+      return (
+        normalizedValue === normalizedExpected ||
+        normalizedValue.includes(normalizedExpected)
+      );
     };
     const matchesReportQuery = (report, query) => {
       if (query.traceId && report.traceId !== query.traceId) return false;
       if (query.status && report.status !== query.status) return false;
-      if (query.outcome && report.summary.outcome !== query.outcome) return false;
+      if (query.outcome && report.summary.outcome !== query.outcome)
+        return false;
       if (
         query.remote &&
         ![
@@ -1650,12 +1832,16 @@
         return false;
       if (
         query.expose &&
-        ![report.expose, report.requestId].some((value) => matchesReportValue(value, query.expose))
+        ![report.expose, report.requestId].some((value) =>
+          matchesReportValue(value, query.expose)
+        )
       )
         return false;
       if (
         query.shared &&
-        ![report.shared?.name].some((value) => matchesReportValue(value, query.shared))
+        ![report.shared?.name].some((value) =>
+          matchesReportValue(value, query.shared)
+        )
       )
         return false;
       return true;
@@ -1668,9 +1854,11 @@
     const findReportsSnapshot = (query = {}) => {
       const limit = normalizeQueryLimit(query.limit);
       const matchedReports = getReportTimeline().filter((report) =>
-        matchesReportQuery(report, query),
+        matchesReportQuery(report, query)
       );
-      return (limit ? matchedReports.slice(0, limit) : matchedReports).map(copyReport);
+      return (limit ? matchedReports.slice(0, limit) : matchedReports).map(
+        copyReport
+      );
     };
     const getLatestReportSnapshot = () => {
       if (!latestTraceId) return;
@@ -1697,7 +1885,9 @@
       if (!shouldExposeBrowserGlobal()) return;
       const federationGlobal = getFederationGlobal();
       if (!federationGlobal) return;
-      const scope = normalizeScope(options.browser?.scope || origin?.options?.name || 'default');
+      const scope = normalizeScope(
+        options.browser?.scope || origin?.options?.name || 'default'
+      );
       const reader = createBrowserReader();
       const readers = federationGlobal.__OBSERVABILITY__ || {};
       federationGlobal.__OBSERVABILITY__ = readers;
@@ -1721,7 +1911,8 @@
     };
     const shouldNotifyCollector = () => Boolean(collectorOptions);
     const shouldNotifyDevtools = () => shouldUseDevelopmentChannels();
-    const shouldUseMinimalBrowserConsole = () => options.browser?.mode === 'production';
+    const shouldUseMinimalBrowserConsole = () =>
+      options.browser?.mode === 'production';
     const shouldUseStartTrace = () =>
       options.trace?.printStart ??
       (options.browser?.enabled === true && !shouldUseMinimalBrowserConsole());
@@ -1735,7 +1926,8 @@
       input.status === 'start' &&
       (input.phase === 'loadRemote' || input.phase === 'shared');
     const shouldCollectLoadedBefore = (error) =>
-      Boolean(error) || (level === 'verbose' && !shouldUseMinimalBrowserConsole());
+      Boolean(error) ||
+      (level === 'verbose' && !shouldUseMinimalBrowserConsole());
     const getBrowserReadCommand = (traceId) => {
       if (!browserGlobalScope) return;
       return `window.__FEDERATION__.__OBSERVABILITY__[${JSON.stringify(browserGlobalScope)}].getReport(${JSON.stringify(traceId)})`;
@@ -1765,14 +1957,16 @@
         `phase: ${report.failedPhase || event.phase}`,
       ];
       if (report.requestId) lines.push(`requestId: ${report.requestId}`);
-      if (report.requestAlias) lines.push(`requestAlias: ${report.requestAlias}`);
+      if (report.requestAlias)
+        lines.push(`requestAlias: ${report.requestAlias}`);
       if (report.errorCode) lines.push(`errorCode: ${report.errorCode}`);
       if (report.shared?.name) lines.push(`shared: ${report.shared.name}`);
       const browserReadCommand = getBrowserReadCommand(report.traceId);
       if (browserReadCommand) lines.push(`read: ${browserReadCommand}`);
       else lines.push('read: enable browser output or use onReport(report)');
       const rawStack = getRawStack(rawError);
-      if (options.printRawStack === true && rawStack) lines.push('rawStack:', rawStack);
+      if (options.printRawStack === true && rawStack)
+        lines.push('rawStack:', rawStack);
       try {
         console.error(lines.join('\n'));
       } catch {}
@@ -1799,7 +1993,10 @@
       if (event.lifecycle) lines.push(`lifecycle: ${event.lifecycle}`);
       const browserReadCommand = getBrowserReadCommand(report.traceId);
       if (browserReadCommand) lines.push(`read: ${browserReadCommand}`);
-      else lines.push('read: enable browser output or use getReports({ limit: 10 })');
+      else
+        lines.push(
+          'read: enable browser output or use getReports({ limit: 10 })'
+        );
       try {
         console.info(lines.join('\n'));
       } catch {}
@@ -1819,7 +2016,8 @@
       const event = normalizeEvent(input, resolveTraceId(input), origin);
       applyPhaseDuration(event);
       updateTraceMaps(event);
-      if (!shouldRecordEvent(level, input) && !shouldRecordStartTrace(input)) return;
+      if (!shouldRecordEvent(level, input) && !shouldRecordStartTrace(input))
+        return;
       events.push(event);
       const report = updateReport(event);
       emitStartConsoleHint(event, report);
@@ -1838,7 +2036,9 @@
           traceId:
             markOptions.traceId ||
             (markOptions.requestId
-              ? traceByRequest.get(sanitizeRequestId(markOptions.requestId) || '')
+              ? traceByRequest.get(
+                  sanitizeRequestId(markOptions.requestId) || ''
+                )
               : void 0) ||
             latestTraceId ||
             createTraceId({
@@ -1855,7 +2055,7 @@
           message: COMPONENT_BUSINESS_LOADED_EVENT,
           source: 'business',
         },
-        lastRuntimeOrigin,
+        lastRuntimeOrigin
       );
     };
     const getReactForOrigin = async (origin) => {
@@ -1868,7 +2068,8 @@
         } catch {
           reactFactory = void 0;
         }
-        if (typeof reactFactory !== 'function') reactFactory = await origin.loadShare?.('react');
+        if (typeof reactFactory !== 'function')
+          reactFactory = await origin.loadShare?.('react');
         if (typeof reactFactory !== 'function') return;
         return resolveReactLike(reactFactory());
       } catch {
@@ -1878,10 +2079,15 @@
       }
     };
     const getReactWrapPolicy = (loadArgs) => {
-      if (options.react?.enabled === false || options.react?.injectLoadedCallback !== true) return;
+      if (
+        options.react?.enabled === false ||
+        options.react?.injectLoadedCallback !== true
+      )
+        return;
       const remoteIds = options.react.remoteIds || [];
       if (!remoteIds.length) return { allowAnonymousComponent: false };
-      const normalizeRemoteId = (value) => value.replace(/\/\.\//g, '/').replace(/^\.\//, '');
+      const normalizeRemoteId = (value) =>
+        value.replace(/\/\.\//g, '/').replace(/^\.\//, '');
       const expectedRemoteIds = new Set(remoteIds.map(normalizeRemoteId));
       const candidates = /* @__PURE__ */ new Set();
       const addCandidate = (value) => {
@@ -1890,8 +2096,13 @@
         candidates.add(normalizeRemoteId(value));
       };
       const exposeValues = [loadArgs.expose];
-      if (loadArgs.expose?.startsWith('./')) exposeValues.push(loadArgs.expose.slice(2));
-      const remoteNames = [loadArgs.pkgNameOrAlias, loadArgs.remote?.alias, loadArgs.remote?.name];
+      if (loadArgs.expose?.startsWith('./'))
+        exposeValues.push(loadArgs.expose.slice(2));
+      const remoteNames = [
+        loadArgs.pkgNameOrAlias,
+        loadArgs.remote?.alias,
+        loadArgs.remote?.name,
+      ];
       addCandidate(loadArgs.id);
       addCandidate(loadArgs.expose);
       remoteNames.forEach((remoteName) => {
@@ -1899,30 +2110,44 @@
           addCandidate(remoteName && expose ? `${remoteName}/${expose}` : '');
         });
       });
-      return Array.from(candidates).some((candidate) => expectedRemoteIds.has(candidate))
+      return Array.from(candidates).some((candidate) =>
+        expectedRemoteIds.has(candidate)
+      )
         ? { allowAnonymousComponent: true }
         : void 0;
     };
-    const createReactComponentWrapper = (component, loadArgs, wrapPolicy, react) => {
+    const createReactComponentWrapper = (
+      component,
+      loadArgs,
+      wrapPolicy,
+      react
+    ) => {
       const target = resolveReactComponentTarget(
         component,
         options.react?.defaultExportMode ||
           (wrapPolicy.allowAnonymousComponent ? 'component' : 'preserve'),
-        wrapPolicy.allowAnonymousComponent,
+        wrapPolicy.allowAnonymousComponent
       );
       if (!target) return;
-      const componentName = getReactComponentName(target.component, loadArgs.expose || loadArgs.id);
+      const componentName = getReactComponentName(
+        target.component,
+        loadArgs.expose || loadArgs.id
+      );
       const originalComponent = target.component;
       const ObservedRemoteComponent = (props) => {
         const incomingProps = isRecord(props) ? props : {};
-        const originalLoadedCallback = getObjectValue(incomingProps, ON_MF_REMOTE_LOADED_PROP);
+        const originalLoadedCallback = getObjectValue(
+          incomingProps,
+          ON_MF_REMOTE_LOADED_PROP
+        );
         const onMFRemoteLoaded = (loadedOptions = {}) => {
           markComponentLoaded({
             requestId: loadArgs.id,
             componentName: loadedOptions.componentName || componentName,
             metadata: loadedOptions.metadata,
           });
-          if (typeof originalLoadedCallback === 'function') originalLoadedCallback(loadedOptions);
+          if (typeof originalLoadedCallback === 'function')
+            originalLoadedCallback(loadedOptions);
         };
         const nextProps = {
           ...incomingProps,
@@ -1942,7 +2167,7 @@
         component,
         loadArgs,
         wrapPolicy,
-        await getReactForOrigin(loadArgs.origin),
+        await getReactForOrigin(loadArgs.origin)
       );
     };
     const wrapReactComponentFactory = async (factory, loadArgs) => {
@@ -1954,24 +2179,41 @@
         const moduleOrPromise = originalFactory(...factoryArgs);
         if (moduleOrPromise && typeof moduleOrPromise.then === 'function')
           return moduleOrPromise.then((module) => {
-            return createReactComponentWrapper(module, loadArgs, wrapPolicy, react) || module;
+            return (
+              createReactComponentWrapper(
+                module,
+                loadArgs,
+                wrapPolicy,
+                react
+              ) || module
+            );
           });
         return (
-          createReactComponentWrapper(moduleOrPromise, loadArgs, wrapPolicy, react) ||
-          moduleOrPromise
+          createReactComponentWrapper(
+            moduleOrPromise,
+            loadArgs,
+            wrapPolicy,
+            react
+          ) || moduleOrPromise
         );
       };
     };
     const plugin = {
       name: pluginName,
       apply(instance) {
-        appliedRuntimeVersion = sanitizeText(instance.version, 80) || appliedRuntimeVersion;
-        if (shouldAttachInstanceApi) instance.markComponentLoaded = markComponentLoaded;
+        appliedRuntimeVersion =
+          sanitizeText(instance.version, 80) || appliedRuntimeVersion;
+        if (shouldAttachInstanceApi)
+          instance.markComponentLoaded = markComponentLoaded;
       },
       beforeRequest(args) {
         const requestArgs = args;
-        if (!prepareRuntimeOrigin(requestArgs.origin)) return returnHookArgs(args);
-        const remote = resolveRemoteFromRequestId(requestArgs.id, requestArgs.options);
+        if (!prepareRuntimeOrigin(requestArgs.origin))
+          return returnHookArgs(args);
+        const remote = resolveRemoteFromRequestId(
+          requestArgs.id,
+          requestArgs.options
+        );
         recordEvent(
           {
             phase: 'loadRemote',
@@ -1981,14 +2223,16 @@
             lifecycle: 'beforeRequest',
             message: 'remote:load-start',
           },
-          requestArgs.origin,
+          requestArgs.origin
         );
         return returnHookArgs(args);
       },
       afterMatchRemote(args) {
         const matchArgs = args;
         if (!prepareRuntimeOrigin(matchArgs.origin)) return;
-        const remote = createRemoteInfo(matchArgs.remoteInfo || matchArgs.remote);
+        const remote = createRemoteInfo(
+          matchArgs.remoteInfo || matchArgs.remote
+        );
         const hostRemotes = getHostRemotesSummary(matchArgs.options);
         recordEvent(
           {
@@ -2002,7 +2246,7 @@
             error: matchArgs.error,
             errorContext: hostRemotes ? { hostRemotes } : void 0,
           },
-          matchArgs.origin,
+          matchArgs.origin
         );
       },
       beforeLoadRemoteSnapshot(args) {
@@ -2013,7 +2257,8 @@
         const snapshotArgs = args;
         const moduleRemote = createRemoteInfo(snapshotArgs.moduleInfo);
         const snapshotRemoteEntry =
-          snapshotArgs.remoteSnapshot?.remoteEntry || snapshotArgs.remoteSnapshot?.entry;
+          snapshotArgs.remoteSnapshot?.remoteEntry ||
+          snapshotArgs.remoteSnapshot?.entry;
         const manifestUrl = isManifestUrl(moduleRemote?.entry)
           ? moduleRemote?.entry
           : isManifestUrl(snapshotRemoteEntry)
@@ -2021,13 +2266,17 @@
             : void 0;
         if (!manifestUrl) return returnHookArgs(args);
         const remote = createRemoteInfo({
-          name: moduleRemote?.name || sanitizeText(snapshotArgs.remoteSnapshot?.name, 120),
+          name:
+            moduleRemote?.name ||
+            sanitizeText(snapshotArgs.remoteSnapshot?.name, 120),
           alias: moduleRemote?.alias,
           entry: manifestUrl,
           entryGlobalName:
             moduleRemote?.entryGlobalName ||
             sanitizeText(snapshotArgs.remoteSnapshot?.entryGlobalName, 120),
-          type: moduleRemote?.type || sanitizeText(snapshotArgs.remoteSnapshot?.type, 80),
+          type:
+            moduleRemote?.type ||
+            sanitizeText(snapshotArgs.remoteSnapshot?.type, 80),
         });
         if (seenManifestUrls.has(manifestUrl)) {
           recordEvent(
@@ -2041,7 +2290,7 @@
               message: 'manifest:cached',
               cached: true,
             },
-            lastRuntimeOrigin,
+            lastRuntimeOrigin
           );
           return returnHookArgs(args);
         }
@@ -2057,7 +2306,7 @@
             lifecycle: 'loadSnapshot',
             message: 'manifest:load-start',
           },
-          lastRuntimeOrigin,
+          lastRuntimeOrigin
         );
         return returnHookArgs(args);
       },
@@ -2066,7 +2315,8 @@
         const snapshotArgs = args;
         if (snapshotArgs.from !== 'manifest') return returnHookArgs(args);
         const manifestUrl =
-          sanitizeUrl(snapshotArgs.manifestUrl) || sanitizeUrl(snapshotArgs.moduleInfo?.entry);
+          sanitizeUrl(snapshotArgs.manifestUrl) ||
+          sanitizeUrl(snapshotArgs.moduleInfo?.entry);
         recordEvent(
           {
             phase: 'manifest',
@@ -2081,7 +2331,7 @@
             message: 'manifest:resolved',
             cached: Boolean(manifestUrl && seenManifestUrls.has(manifestUrl)),
           },
-          lastRuntimeOrigin,
+          lastRuntimeOrigin
         );
         if (manifestUrl) {
           loadingManifestUrls.delete(manifestUrl);
@@ -2091,8 +2341,14 @@
       },
       afterResolve(args) {
         const resolveArgs = args;
-        if (!prepareRuntimeOrigin(resolveArgs.origin)) return returnHookArgs(args);
-        if (!isManifestUrl(createRemoteInfo(resolveArgs.remoteInfo || resolveArgs.remote)?.entry))
+        if (!prepareRuntimeOrigin(resolveArgs.origin))
+          return returnHookArgs(args);
+        if (
+          !isManifestUrl(
+            createRemoteInfo(resolveArgs.remoteInfo || resolveArgs.remote)
+              ?.entry
+          )
+        )
           return returnHookArgs(args);
         return returnHookArgs(args);
       },
@@ -2101,7 +2357,10 @@
         if (!prepareRuntimeOrigin(loadArgs.origin)) return;
         const wrappedComponent =
           typeof loadArgs.exposeModuleFactory === 'function'
-            ? await wrapReactComponentFactory(loadArgs.exposeModuleFactory, loadArgs)
+            ? await wrapReactComponentFactory(
+                loadArgs.exposeModuleFactory,
+                loadArgs
+              )
             : await wrapReactComponent(loadArgs.exposeModule, loadArgs);
         const remote = createRemoteInfo(loadArgs.remote);
         recordEvent(
@@ -2114,10 +2373,14 @@
             remote,
             message: 'remote:loaded',
             loadedBefore: shouldCollectLoadedBefore()
-              ? collectLoadedBeforeInfo(remote, loadArgs.expose, loadArgs.origin)
+              ? collectLoadedBeforeInfo(
+                  remote,
+                  loadArgs.expose,
+                  loadArgs.origin
+                )
               : void 0,
           },
-          loadArgs.origin,
+          loadArgs.origin
         );
         if (wrappedComponent) return wrappedComponent;
       },
@@ -2131,7 +2394,8 @@
         )
           return;
         const isManifestError = errorArgs.lifecycle === 'afterResolve';
-        if (isManifestError && errorArgs.id) loadingManifestUrls.delete(errorArgs.id);
+        if (isManifestError && errorArgs.id)
+          loadingManifestUrls.delete(errorArgs.id);
         const remote = createRemoteInfo(errorArgs.remote);
         recordEvent(
           {
@@ -2148,9 +2412,13 @@
                 ? `remote:${errorArgs.lifecycle}:failed`
                 : 'remote:failed',
             error: errorArgs.error,
-            loadedBefore: collectLoadedBeforeInfo(remote, errorArgs.expose, errorArgs.origin),
+            loadedBefore: collectLoadedBeforeInfo(
+              remote,
+              errorArgs.expose,
+              errorArgs.origin
+            ),
           },
-          errorArgs.origin,
+          errorArgs.origin
         );
       },
       afterLoadRemote(args) {
@@ -2173,15 +2441,22 @@
             error: loadArgs.error,
             recovered: loadArgs.recovered,
             loadedBefore: shouldCollectLoadedBefore(loadArgs.error)
-              ? collectLoadedBeforeInfo(remote, loadArgs.expose, loadArgs.origin)
+              ? collectLoadedBeforeInfo(
+                  remote,
+                  loadArgs.expose,
+                  loadArgs.origin
+                )
               : void 0,
           },
-          loadArgs.origin,
+          loadArgs.origin
         );
       },
       loadEntry(args) {
         const entryArgs = args;
-        if (shouldSkipRuntimeHook(entryArgs.origin) || !prepareRuntimeOrigin(entryArgs.origin))
+        if (
+          shouldSkipRuntimeHook(entryArgs.origin) ||
+          !prepareRuntimeOrigin(entryArgs.origin)
+        )
           return;
         const remote = createRemoteInfo(entryArgs.remoteInfo);
         recordEvent(
@@ -2194,12 +2469,15 @@
             lifecycle: 'loadEntry',
             message: 'remoteEntry:load-start',
           },
-          entryArgs.origin,
+          entryArgs.origin
         );
       },
       afterLoadEntry(args) {
         const entryArgs = args;
-        if (shouldSkipRuntimeHook(entryArgs.origin) || !prepareRuntimeOrigin(entryArgs.origin))
+        if (
+          shouldSkipRuntimeHook(entryArgs.origin) ||
+          !prepareRuntimeOrigin(entryArgs.origin)
+        )
           return;
         const remote = createRemoteInfo(entryArgs.remoteInfo);
         const remoteEntryKey = getRemoteEntryKey(sanitizeRemote(remote));
@@ -2223,13 +2501,17 @@
             recovered: entryArgs.recovered,
             cached,
           },
-          entryArgs.origin,
+          entryArgs.origin
         );
-        if (!entryArgs.error && remoteEntryKey) seenRemoteEntryKeys.add(remoteEntryKey);
+        if (!entryArgs.error && remoteEntryKey)
+          seenRemoteEntryKeys.add(remoteEntryKey);
       },
       beforeInitRemote(args) {
         const initArgs = args;
-        if (shouldSkipRuntimeHook(initArgs.origin) || !prepareRuntimeOrigin(initArgs.origin))
+        if (
+          shouldSkipRuntimeHook(initArgs.origin) ||
+          !prepareRuntimeOrigin(initArgs.origin)
+        )
           return;
         const remote = createRemoteInfo(initArgs.remoteInfo);
         recordEvent(
@@ -2241,12 +2523,15 @@
             lifecycle: 'beforeInitRemote',
             message: 'remoteEntry:init-start',
           },
-          initArgs.origin,
+          initArgs.origin
         );
       },
       afterInitRemote(args) {
         const initArgs = args;
-        if (shouldSkipRuntimeHook(initArgs.origin) || !prepareRuntimeOrigin(initArgs.origin))
+        if (
+          shouldSkipRuntimeHook(initArgs.origin) ||
+          !prepareRuntimeOrigin(initArgs.origin)
+        )
           return;
         const remote = createRemoteInfo(initArgs.remoteInfo);
         recordEvent(
@@ -2264,12 +2549,15 @@
             error: initArgs.error,
             cached: initArgs.cached,
           },
-          initArgs.origin,
+          initArgs.origin
         );
       },
       beforeGetExpose(args) {
         const exposeArgs = args;
-        if (shouldSkipRuntimeHook(exposeArgs.origin) || !prepareRuntimeOrigin(exposeArgs.origin))
+        if (
+          shouldSkipRuntimeHook(exposeArgs.origin) ||
+          !prepareRuntimeOrigin(exposeArgs.origin)
+        )
           return;
         recordEvent(
           {
@@ -2281,12 +2569,15 @@
             lifecycle: 'beforeGetExpose',
             message: 'expose:get-start',
           },
-          exposeArgs.origin,
+          exposeArgs.origin
         );
       },
       afterGetExpose(args) {
         const exposeArgs = args;
-        if (shouldSkipRuntimeHook(exposeArgs.origin) || !prepareRuntimeOrigin(exposeArgs.origin))
+        if (
+          shouldSkipRuntimeHook(exposeArgs.origin) ||
+          !prepareRuntimeOrigin(exposeArgs.origin)
+        )
           return;
         const remote = createRemoteInfo(exposeArgs.moduleInfo);
         recordEvent(
@@ -2300,15 +2591,22 @@
             message: exposeArgs.error ? 'expose:get-failed' : 'expose:resolved',
             error: exposeArgs.error,
             loadedBefore: shouldCollectLoadedBefore(exposeArgs.error)
-              ? collectLoadedBeforeInfo(remote, exposeArgs.expose, exposeArgs.origin)
+              ? collectLoadedBeforeInfo(
+                  remote,
+                  exposeArgs.expose,
+                  exposeArgs.origin
+                )
               : void 0,
           },
-          exposeArgs.origin,
+          exposeArgs.origin
         );
       },
       beforeExecuteFactory(args) {
         const factoryArgs = args;
-        if (shouldSkipRuntimeHook(factoryArgs.origin) || !prepareRuntimeOrigin(factoryArgs.origin))
+        if (
+          shouldSkipRuntimeHook(factoryArgs.origin) ||
+          !prepareRuntimeOrigin(factoryArgs.origin)
+        )
           return;
         recordEvent(
           {
@@ -2320,12 +2618,15 @@
             lifecycle: 'beforeExecuteFactory',
             message: 'moduleFactory:execute-start',
           },
-          factoryArgs.origin,
+          factoryArgs.origin
         );
       },
       afterExecuteFactory(args) {
         const factoryArgs = args;
-        if (shouldSkipRuntimeHook(factoryArgs.origin) || !prepareRuntimeOrigin(factoryArgs.origin))
+        if (
+          shouldSkipRuntimeHook(factoryArgs.origin) ||
+          !prepareRuntimeOrigin(factoryArgs.origin)
+        )
           return;
         const remote = createRemoteInfo(factoryArgs.moduleInfo);
         recordEvent(
@@ -2336,13 +2637,19 @@
             expose: factoryArgs.expose,
             remote,
             lifecycle: 'afterExecuteFactory',
-            message: factoryArgs.error ? 'moduleFactory:execute-failed' : 'moduleFactory:executed',
+            message: factoryArgs.error
+              ? 'moduleFactory:execute-failed'
+              : 'moduleFactory:executed',
             error: factoryArgs.error,
             loadedBefore: shouldCollectLoadedBefore(factoryArgs.error)
-              ? collectLoadedBeforeInfo(remote, factoryArgs.expose, factoryArgs.origin)
+              ? collectLoadedBeforeInfo(
+                  remote,
+                  factoryArgs.expose,
+                  factoryArgs.origin
+                )
               : void 0,
           },
-          factoryArgs.origin,
+          factoryArgs.origin
         );
       },
       beforeLoadShare(args) {
@@ -2361,7 +2668,7 @@
             shared: createSharedInfo(args),
             message: 'shared:load-start',
           },
-          args.origin,
+          args.origin
         );
         return returnHookArgs(args);
       },
@@ -2380,9 +2687,11 @@
             lifecycle: args.lifecycle,
             shared: createSharedInfo(args),
             message:
-              args.lifecycle === 'loadShareSync' ? 'shared:resolved-sync' : 'shared:resolved',
+              args.lifecycle === 'loadShareSync'
+                ? 'shared:resolved-sync'
+                : 'shared:resolved',
           },
-          args.origin,
+          args.origin
         );
         return returnHookArgs(args);
       },
@@ -2408,7 +2717,7 @@
             error: handledCustomShareMiss ? void 0 : args.error,
             recovered: args.recovered,
           },
-          args.origin,
+          args.origin
         );
         return returnHookArgs(args);
       },
@@ -2416,14 +2725,18 @@
     if (!shouldDisablePreloadHooks) {
       plugin.generatePreloadAssets = (args) => {
         const preloadArgs = args;
-        if (!prepareRuntimeOrigin(preloadArgs.origin)) return returnHookArgs(args);
-        const remote = createRemoteInfo(preloadArgs.remoteInfo || preloadArgs.remote);
+        if (!prepareRuntimeOrigin(preloadArgs.origin))
+          return returnHookArgs(args);
+        const remote = createRemoteInfo(
+          preloadArgs.remoteInfo || preloadArgs.remote
+        );
         const preloadConfig = preloadArgs.preloadOptions?.preloadConfig;
         recordEvent(
           {
             phase: 'preload',
             status: 'start',
-            requestId: remote?.name || sanitizeText(preloadConfig?.nameOrAlias, 160),
+            requestId:
+              remote?.name || sanitizeText(preloadConfig?.nameOrAlias, 160),
             remote,
             lifecycle: 'generatePreloadAssets',
             message: 'preload:assets-ready',
@@ -2437,13 +2750,14 @@
                 : preloadConfig?.depsRemote,
             }),
           },
-          preloadArgs.origin,
+          preloadArgs.origin
         );
         return returnHookArgs(args);
       };
       plugin.afterPreloadRemote = (args) => {
         const preloadArgs = args;
-        if (!prepareRuntimeOrigin(preloadArgs.origin)) return returnHookArgs(args);
+        if (!prepareRuntimeOrigin(preloadArgs.origin))
+          return returnHookArgs(args);
         const results = preloadArgs.results || [];
         if (results.length === 0 && preloadArgs.error) {
           recordEvent(
@@ -2455,18 +2769,22 @@
               message: 'preload:failed',
               error: preloadArgs.error,
             },
-            preloadArgs.origin,
+            preloadArgs.origin
           );
           return returnHookArgs(args);
         }
         results.forEach((preloadResult) => {
-          const remote = createRemoteInfo(preloadResult.remoteInfo || preloadResult.remote);
+          const remote = createRemoteInfo(
+            preloadResult.remoteInfo || preloadResult.remote
+          );
           const requestId =
             sanitizeRequestId(preloadResult.id) ||
             remote?.name ||
             sanitizeText(preloadResult.preloadConfig?.nameOrAlias, 160);
           preloadResult.results?.forEach((assetResult) => {
-            const isError = assetResult.status === 'error' || assetResult.status === 'timeout';
+            const isError =
+              assetResult.status === 'error' ||
+              assetResult.status === 'timeout';
             recordEvent(
               {
                 phase: 'preload',
@@ -2494,7 +2812,7 @@
                   preloadNameOrAlias: preloadResult.preloadConfig?.nameOrAlias,
                 }),
               },
-              preloadArgs.origin,
+              preloadArgs.origin
             );
           });
         });

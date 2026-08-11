@@ -66,7 +66,11 @@ node ../scripts/browser-capture.mjs "https://example.com" 12000 --vars __VMOK__.
           "reason": "circular",
           "circularRef": "__FEDERATION__.snapshotHandler"
         },
-        { "path": "__FEDERATION__.moduleCache.init", "reason": "function", "detail": "init" }
+        {
+          "path": "__FEDERATION__.moduleCache.init",
+          "reason": "function",
+          "detail": "init"
+        }
       ]
     },
     "__NEXT_DATA__": { "exists": false, "skippedPaths": [] }

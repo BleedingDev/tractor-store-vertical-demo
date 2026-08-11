@@ -74,9 +74,13 @@ function httpRequest(method, port, requestPath) {
             }
             return;
           }
-          reject(new Error(`${method} ${requestPath} failed with ${res.statusCode}: ${body}`));
+          reject(
+            new Error(
+              `${method} ${requestPath} failed with ${res.statusCode}: ${body}`
+            )
+          );
         });
-      },
+      }
     );
     req.on('timeout', () => {
       req.destroy(new Error(`${method} ${requestPath} timed out`));
@@ -221,8 +225,8 @@ class CdpConnection {
     if (message.error) {
       pending.reject(
         new Error(
-          `${pending.method} failed: ${message.error.message || JSON.stringify(message.error)}`,
-        ),
+          `${pending.method} failed: ${message.error.message || JSON.stringify(message.error)}`
+        )
       );
     } else {
       pending.resolve(message.result);
@@ -259,7 +263,7 @@ function connectWebSocket(wsUrl) {
           'Sec-WebSocket-Version: 13',
           '',
           '',
-        ].join('\r\n'),
+        ].join('\r\n')
       );
     });
 
@@ -296,7 +300,14 @@ function selectPage(pages, pageId, urlContains) {
   return pageTargets.find((page) => page.url && page.url !== 'about:blank');
 }
 
-function buildReadExpression({ scope, limit, traceId, remote, expose, shared }) {
+function buildReadExpression({
+  scope,
+  limit,
+  traceId,
+  remote,
+  expose,
+  shared,
+}) {
   return `(() => {
     const observability =
       window.__FEDERATION__ && window.__FEDERATION__.__OBSERVABILITY__;
@@ -420,13 +431,17 @@ async function main() {
         ...planned,
         message: 'Dry run finished. Chrome was not contacted.',
       },
-      asJson,
+      asJson
     );
     return;
   }
 
   const pages = await httpRequest('GET', port, '/json/list');
-  const page = selectPage(Array.isArray(pages) ? pages : [], pageId, urlContains);
+  const page = selectPage(
+    Array.isArray(pages) ? pages : [],
+    pageId,
+    urlContains
+  );
   if (!page?.webSocketDebuggerUrl) {
     throw new Error('No matching Chrome page target was found.');
   }
@@ -482,7 +497,7 @@ main().catch((error) => {
       status: 'failed',
       message: error.message,
     },
-    asJson,
+    asJson
   );
   process.exit(1);
 });

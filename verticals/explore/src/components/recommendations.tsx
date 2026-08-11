@@ -1,4 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
 import {
   productRecommendations,
   recommendations,
@@ -10,9 +11,12 @@ export interface RecommendationsProps {
   variant?: 'home' | 'product';
 }
 
-export default function Recommendations({ variant = 'home' }: RecommendationsProps) {
+export default function Recommendations({
+  variant = 'home',
+}: RecommendationsProps) {
   const { language, t } = useModernI18n();
-  const items = variant === 'product' ? productRecommendations : recommendations;
+  const items =
+    variant === 'product' ? productRecommendations : recommendations;
 
   return (
     <section
@@ -26,7 +30,10 @@ export default function Recommendations({ variant = 'home' }: RecommendationsPro
         </h2>
         <ul className="explore:relative explore:mt-9 explore:grid explore:list-none explore:grid-cols-2 explore:gap-10 explore:p-0 explore:min-[500px]:grid-cols-3 explore:min-[1000px]:grid-cols-4">
           {items.map((item) => (
-            <li className="explore:min-[500px]:max-[999px]:[&:nth-child(4)]:hidden" key={item.sku}>
+            <li
+              className="explore:min-[500px]:max-[999px]:[&:nth-child(4)]:hidden"
+              key={item.sku}
+            >
               <a
                 className="explore:block explore:text-center explore:text-stone-900 explore:no-underline explore:focus-visible:outline explore:focus-visible:outline-2 explore:focus-visible:outline-offset-4 explore:focus-visible:outline-[#ff5a55]"
                 href={`/${language}/tractors/${item.slug}?sku=${item.sku}`}

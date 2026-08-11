@@ -523,8 +523,8 @@
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/explore",
-          "effectVersion": "4.0.0-beta.102",
-          "moduleFederationVersion": "2.8.0"
+          "effectVersion": "4.0.0-beta.107",
+          "moduleFederationVersion": "2.8.2"
         },
         "cache": {
           "cloudflareSnapshot": "immutable",
@@ -893,8 +893,8 @@
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/decide",
-          "effectVersion": "4.0.0-beta.102",
-          "moduleFederationVersion": "2.8.0"
+          "effectVersion": "4.0.0-beta.107",
+          "moduleFederationVersion": "2.8.2"
         },
         "cache": {
           "cloudflareSnapshot": "immutable",
@@ -1279,8 +1279,8 @@
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/checkout",
-          "effectVersion": "4.0.0-beta.102",
-          "moduleFederationVersion": "2.8.0"
+          "effectVersion": "4.0.0-beta.107",
+          "moduleFederationVersion": "2.8.2"
         },
         "cache": {
           "cloudflareSnapshot": "immutable",

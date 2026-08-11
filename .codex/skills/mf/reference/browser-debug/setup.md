@@ -6,16 +6,13 @@ One-time setup: create a debug Chrome profile that shares your real cookies/auth
 
 ## Why a separate profile directory?
 
-Chrome **refuses** to enable remote debugging on the default profile directory
-(`~/Library/Application Support/Google/Chrome`) as a security measure:
+Chrome **refuses** to enable remote debugging on the default profile directory (`~/Library/Application Support/Google/Chrome`) as a security measure:
 
 ```
 DevTools remote debugging requires a non-default data directory.
 ```
 
-The workaround: copy your real profile to a non-default path. Because macOS Chrome
-encrypts cookies using the system Keychain (`Chrome Safe Storage` key), a copied
-profile can still decrypt cookies — so you stay logged into all your sites.
+The workaround: copy your real profile to a non-default path. Because macOS Chrome encrypts cookies using the system Keychain (`Chrome Safe Storage` key), a copied profile can still decrypt cookies — so you stay logged into all your sites.
 
 ---
 
@@ -51,9 +48,7 @@ rsync -a --delete "$REAL/" "$DEBUG_DIR/Default/"
 echo "Debug profile ready: $DEBUG_DIR (sourced from $PROFILE)"
 ```
 
-> **Note:** `rsync --delete` is incremental — fast after the first sync. Re-run any time
-> sessions have expired. The Keychain entry (`Chrome Safe Storage`) is shared, so
-> encrypted cookies still decrypt correctly from the copied profile.
+> **Note:** `rsync --delete` is incremental — fast after the first sync. Re-run any time sessions have expired. The Keychain entry (`Chrome Safe Storage`) is shared, so encrypted cookies still decrypt correctly from the copied profile.
 
 ---
 
@@ -134,21 +129,14 @@ node ../scripts/browser-capture.mjs "<url>" [timeout_ms] [--vars var1,var2,...]
 
 ## Troubleshooting
 
-**`DevTools remote debugging requires a non-default data directory`**
-→ Chrome blocks debugging on the default profile. Follow the one-time setup above to
-create `~/Library/Application Support/Google/ChromeDebug`.
+**`DevTools remote debugging requires a non-default data directory`** → Chrome blocks debugging on the default profile. Follow the one-time setup above to create `~/Library/Application Support/Google/ChromeDebug`.
 
-**Connection refused / port still closed**
-→ `open -na` silently reuses the existing Chrome process. Use the binary path approach above.
+**Connection refused / port still closed** → `open -na` silently reuses the existing Chrome process. Use the binary path approach above.
 
-**Cookies expired / not logged in after copying profile**
-→ Re-run the profile copy command to refresh it from your real profile.
+**Cookies expired / not logged in after copying profile** → Re-run the profile copy command to refresh it from your real profile.
 
-**`Node.js 21+ required` error**
-→ Upgrade Node.js: `nvm install 21 && nvm use 21` (or install from nodejs.org).
+**`Node.js 21+ required` error** → Upgrade Node.js: `nvm install 21 && nvm use 21` (or install from nodejs.org).
 
-**`PUT /json/new` fails (older Chrome)**
-→ Try downgrading to Node's `fetch` with `GET /json/new` — edit the `fetch(..., { method: 'PUT' })` line in `browser-capture.mjs` to remove the method option (defaults to GET).
+**`PUT /json/new` fails (older Chrome)** → Try downgrading to Node's `fetch` with `GET /json/new` — edit the `fetch(..., { method: 'PUT' })` line in `browser-capture.mjs` to remove the method option (defaults to GET).
 
-**Page loads but no logs captured**
-→ The page may have errored before CDP attached. Try increasing timeout, or check if the error only triggers on user interaction.
+**Page loads but no logs captured** → The page may have errored before CDP attached. Try increasing timeout, or check if the error only triggers on user interaction.

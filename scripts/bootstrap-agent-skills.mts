@@ -34,7 +34,7 @@ if (result.error) {
       ' for UltraModern command "' +
       ultramodernArgs.slice(1).join(' ') +
       '": ' +
-      result.error.message,
+      result.error.message
   );
   process.exit(1);
 }

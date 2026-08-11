@@ -40,7 +40,8 @@ function checkPlugin(ctx, results) {
       results.push({
         code: 'CONFIG-PLUGIN',
         severity: 'warning',
-        message: 'Next.js project detected but @module-federation/nextjs-mf is not installed.',
+        message:
+          'Next.js project detected but @module-federation/nextjs-mf is not installed.',
         context: { bundler, recommended: '@module-federation/nextjs-mf' },
       });
     }
@@ -96,7 +97,8 @@ function checkPlugin(ctx, results) {
       results.push({
         code: 'CONFIG-PLUGIN',
         severity: 'warning',
-        message: 'Webpack project detected but @module-federation/enhanced is not installed.',
+        message:
+          'Webpack project detected but @module-federation/enhanced is not installed.',
         context: { bundler, recommended: '@module-federation/enhanced' },
       });
     }
@@ -108,7 +110,10 @@ function checkAsyncEntry(ctx, results) {
   const deps = ctx.dependencies || {};
   const configFile = (ctx.bundler && ctx.bundler.configFile) || '';
 
-  if (deps['@module-federation/modern-js-v3'] || deps['@module-federation/modern-js']) {
+  if (
+    deps['@module-federation/modern-js-v3'] ||
+    deps['@module-federation/modern-js']
+  ) {
     return;
   }
 
@@ -164,7 +169,9 @@ function main(ctx) {
   checkPlugin(ctx, results);
   checkAsyncEntry(ctx, results);
   checkExposes(ctx, results);
-  process.stdout.write(`${JSON.stringify({ context: ctx, results }, null, 2)}\n`);
+  process.stdout.write(
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+  );
 }
 
 const args = parseArgs(process.argv);

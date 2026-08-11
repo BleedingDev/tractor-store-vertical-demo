@@ -132,19 +132,24 @@ try {
     console.log('🔌 Plugin Analysis (by name):');
     console.log('─'.repeat(80));
 
-    const sortedPlugins = [...pluginStats.entries()].sort((a, b) => b[1].total - a[1].total);
+    const sortedPlugins = [...pluginStats.entries()].sort(
+      (a, b) => b[1].total - a[1].total
+    );
 
     sortedPlugins.forEach(([name, stat]) => {
       const avg = stat.total / stat.count;
       console.log(`${name}`);
       console.log(
         `  Total: ${stat.total.toFixed(2)}ms | Count: ${stat.count} | ` +
-          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`,
+          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`
       );
       console.log('');
     });
 
-    const totalPluginTime = [...pluginStats.values()].reduce((sum, stat) => sum + stat.total, 0);
+    const totalPluginTime = [...pluginStats.values()].reduce(
+      (sum, stat) => sum + stat.total,
+      0
+    );
     console.log(`Total Plugin Time: ${totalPluginTime.toFixed(2)}ms\n`);
   }
 
@@ -153,19 +158,24 @@ try {
     console.log('\n🔧 Loader Analysis (by name):');
     console.log('─'.repeat(80));
 
-    const sortedLoaders = [...loaderStats.entries()].sort((a, b) => b[1].total - a[1].total);
+    const sortedLoaders = [...loaderStats.entries()].sort(
+      (a, b) => b[1].total - a[1].total
+    );
 
     sortedLoaders.forEach(([name, stat]) => {
       const avg = stat.total / stat.count;
       console.log(`${name}`);
       console.log(
         `  Total: ${stat.total.toFixed(2)}ms | Count: ${stat.count} | ` +
-          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`,
+          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`
       );
       console.log('');
     });
 
-    const totalLoaderTime = [...loaderStats.values()].reduce((sum, stat) => sum + stat.total, 0);
+    const totalLoaderTime = [...loaderStats.values()].reduce(
+      (sum, stat) => sum + stat.total,
+      0
+    );
     console.log(`Total Loader Time: ${totalLoaderTime.toFixed(2)}ms\n`);
   }
 } catch (err) {

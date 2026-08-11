@@ -82,12 +82,12 @@ export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
         success: Schema.Struct({
           items: Schema.Array(checkoutItemSchema),
         }),
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.get('readiness', '/checkout/readiness', {
         success: checkoutReadinessSchema,
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.get('get', '/checkout/:id', {
@@ -96,7 +96,7 @@ export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
           id: Schema.String,
         },
         success: checkoutItemSchema,
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.post('create', '/checkout', {
@@ -105,8 +105,8 @@ export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
         success: Schema.Struct({
           item: checkoutItemSchema,
         }),
-      }),
-    ),
+      })
+    )
 );
 
 export const checkoutOperationContexts = {

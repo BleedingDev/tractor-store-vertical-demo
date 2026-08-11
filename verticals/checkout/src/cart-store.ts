@@ -23,7 +23,8 @@ const finishSuffixPattern =
   / (?:Baltic Blue|Polder Green|Sahara Dawn|Silver|Tulip Magenta|Vintage Pink|Zestful Horizon)$/u;
 const fieldLoader: CartLine = {
   id: 'CL-08-GR',
-  image: 'https://blueprint.the-tractor.store/cdn/img/product/200/CL-08-GR.webp',
+  image:
+    'https://blueprint.the-tractor.store/cdn/img/product/200/CL-08-GR.webp',
   name: 'Holland Hamster Polder Green',
   price: 7750,
   quantity: 1,
@@ -62,7 +63,9 @@ const lineFromUnknown = (value: unknown): CartLine | undefined => {
     name: candidate.name,
     price: candidate.price,
     quantity:
-      typeof candidate.quantity === 'number' && candidate.quantity > 0 ? candidate.quantity : 1,
+      typeof candidate.quantity === 'number' && candidate.quantity > 0
+        ? candidate.quantity
+        : 1,
     slug:
       typeof candidate.slug === 'string' && candidate.slug.length > 0
         ? candidate.slug
@@ -82,7 +85,9 @@ const readCart = (): CartLine[] => {
     }
     const parsed = JSON.parse(value) as unknown;
     return Array.isArray(parsed)
-      ? parsed.map(lineFromUnknown).filter((line): line is CartLine => line !== undefined)
+      ? parsed
+          .map(lineFromUnknown)
+          .filter((line): line is CartLine => line !== undefined)
       : [];
   } catch {
     return [];
@@ -103,7 +108,9 @@ const nextOrderId = () => {
     return 'tractor-1';
   }
 
-  const current = Number(window.localStorage.getItem(orderSequenceStorageKey) ?? '0');
+  const current = Number(
+    window.localStorage.getItem(orderSequenceStorageKey) ?? '0'
+  );
   const next = Number.isFinite(current) ? current + 1 : 1;
   window.localStorage.setItem(orderSequenceStorageKey, String(next));
   return `tractor-${next.toString(36)}`;
@@ -148,7 +155,10 @@ const subscribeToCart = (onStoreChange: () => void) => {
 const readLastOrderValue = () => window.localStorage.getItem(orderStorageKey);
 const readServerLastOrderValue = () => null;
 
-const updateLine = (id: string, updater: (line: CartLine) => CartLine | undefined) => {
+const updateLine = (
+  id: string,
+  updater: (line: CartLine) => CartLine | undefined
+) => {
   const next = readCart()
     .map((line) => (line.id === id ? updater(line) : line))
     .filter((line): line is CartLine => line !== undefined);
@@ -181,8 +191,10 @@ export const useCartLines = () => {
         }
         writeCart(
           existing.map((line) =>
-            line.id === fieldLoader.id ? { ...line, quantity: line.quantity + 1 } : line,
-          ),
+            line.id === fieldLoader.id
+              ? { ...line, quantity: line.quantity + 1 }
+              : line
+          )
         );
       },
       addProduct: (product: Omit<CartLine, 'quantity'>) => {
@@ -194,13 +206,17 @@ export const useCartLines = () => {
         }
         writeCart(
           existing.map((line) =>
-            line.id === product.id ? { ...line, quantity: line.quantity + 1 } : line,
-          ),
+            line.id === product.id
+              ? { ...line, quantity: line.quantity + 1 }
+              : line
+          )
         );
       },
       decrement: (id: string) =>
         updateLine(id, (line) =>
-          line.quantity > 1 ? { ...line, quantity: line.quantity - 1 } : undefined,
+          line.quantity > 1
+            ? { ...line, quantity: line.quantity - 1 }
+            : undefined
         ),
       increment: (id: string) =>
         updateLine(id, (line) => ({ ...line, quantity: line.quantity + 1 })),
@@ -214,21 +230,29 @@ export const useCartLines = () => {
         const order: CartOrder = {
           id: nextOrderId(),
           lines: currentLines,
-          total: currentLines.reduce((sum, line) => sum + line.price * line.quantity, 0),
+          total: currentLines.reduce(
+            (sum, line) => sum + line.price * line.quantity,
+            0
+          ),
         };
 
         window.localStorage.setItem(orderStorageKey, JSON.stringify(order));
         writeCart([]);
         return order;
       },
-      remove: (id: string) => writeCart(readCart().filter((line) => line.id !== id)),
+      remove: (id: string) =>
+        writeCart(readCart().filter((line) => line.id !== id)),
       total: lines.reduce((sum, line) => sum + line.price * line.quantity, 0),
     }),
-    [lines],
+    [lines]
   );
 };
 
 export const useLastOrder = () => {
-  const value = useSyncExternalStore(subscribeToCart, readLastOrderValue, readServerLastOrderValue);
+  const value = useSyncExternalStore(
+    subscribeToCart,
+    readLastOrderValue,
+    readServerLastOrderValue
+  );
   return useMemo(() => parseLastOrder(value), [value]);
 };

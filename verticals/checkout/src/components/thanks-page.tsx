@@ -1,7 +1,9 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
 import { useLastOrder } from '../cart-store';
 
-const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
+const formatPrice = (price: number) =>
+  `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutThanksPage() {
   const { t } = useModernI18n();
@@ -18,7 +20,9 @@ export default function CheckoutThanksPage() {
           {t('checkout.thanks.title')}
         </h1>
         {order === undefined ? (
-          <p className="checkout:mt-3 checkout:text-stone-700">{t('checkout.thanks.empty')}</p>
+          <p className="checkout:mt-3 checkout:text-stone-700">
+            {t('checkout.thanks.empty')}
+          </p>
         ) : (
           <>
             <p className="checkout:mt-3 checkout:text-stone-700">
@@ -38,7 +42,9 @@ export default function CheckoutThanksPage() {
                     width="64"
                   />
                   <div className="checkout:min-w-0 checkout:flex-1">
-                    <strong className="checkout:block checkout:font-normal">{line.name}</strong>
+                    <strong className="checkout:block checkout:font-normal">
+                      {line.name}
+                    </strong>
                     <span className="checkout:block checkout:text-sm checkout:text-stone-600">
                       {line.id} × {line.quantity}
                     </span>

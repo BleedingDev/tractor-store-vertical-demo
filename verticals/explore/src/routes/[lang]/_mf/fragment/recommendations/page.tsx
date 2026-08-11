@@ -1,9 +1,12 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import Recommendations from '../../../../../components/recommendations';
 
 export default function RecommendationsFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof Recommendations>>({
+  const props = useDistributedSsrFragmentProps<
+    ComponentProps<typeof Recommendations>
+  >({
     boundaryId: 'verticalExplore',
     expose: './Recommendations',
   });

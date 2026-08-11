@@ -1,4 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
 import { responsiveImage, sizedImage, stores } from '../tractor-data';
 
 export default function StorePicker() {
@@ -29,7 +30,9 @@ export default function StorePicker() {
               srcSet={responsiveImage(store.image, [200, 400])}
               width="200"
             />
-            <h2 className="explore:mt-4 explore:text-[1.2rem] explore:font-normal">{store.name}</h2>
+            <h2 className="explore:mt-4 explore:text-[1.2rem] explore:font-normal">
+              {store.name}
+            </h2>
             <p className="explore:mt-2 explore:text-[0.95rem]">
               {store.street}
               <br />

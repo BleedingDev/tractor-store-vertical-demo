@@ -4,7 +4,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-const workspaceRoot = path.resolve(process.env.ULTRAMODERN_WORKSPACE_ROOT ?? process.cwd());
+const workspaceRoot = path.resolve(
+  process.env.ULTRAMODERN_WORKSPACE_ROOT ?? process.cwd()
+);
 const args = process.argv.slice(2);
 
 function fail(message) {
@@ -80,7 +82,9 @@ const sourceSnapshotSkipSegments = new Set([
 ]);
 
 function shouldSnapshotSourcePath(relativePath) {
-  return !relativePath.split(path.sep).some((segment) => sourceSnapshotSkipSegments.has(segment));
+  return !relativePath
+    .split(path.sep)
+    .some((segment) => sourceSnapshotSkipSegments.has(segment));
 }
 
 function listWorkspaceSourceFiles() {
@@ -109,7 +113,7 @@ function snapshotWorkspaceSourceFiles() {
     listWorkspaceSourceFiles().map((relativePath) => [
       relativePath,
       fs.readFileSync(path.join(workspaceRoot, relativePath)),
-    ]),
+    ])
   );
 }
 
@@ -122,7 +126,10 @@ function restoreWorkspaceSourceFiles(snapshot) {
   for (const [relativePath, content] of snapshot) {
     const absolute = path.join(workspaceRoot, relativePath);
     fs.mkdirSync(path.dirname(absolute), { recursive: true });
-    if (!fs.existsSync(absolute) || !fs.readFileSync(absolute).equals(content)) {
+    if (
+      !fs.existsSync(absolute) ||
+      !fs.readFileSync(absolute).equals(content)
+    ) {
       fs.writeFileSync(absolute, content);
     }
   }
@@ -167,7 +174,12 @@ try {
 }
 
 if (!fs.existsSync(appOutputDir)) {
-  fail(`Modern.js Node deploy did not produce ${path.relative(workspaceRoot, appOutputDir)}`);
+  fail(
+    `Modern.js Node deploy did not produce ${path.relative(
+      workspaceRoot,
+      appOutputDir
+    )}`
+  );
 }
 
 fs.rmSync(runtimeDir, { force: true, recursive: true });
@@ -176,11 +188,18 @@ fs.cpSync(appOutputDir, runtimeDir, { recursive: true });
 
 const entryPath = path.join(runtimeDir, 'index.js');
 if (!fs.existsSync(entryPath)) {
-  fail(`Modern.js Node deploy output is missing ${path.relative(workspaceRoot, entryPath)}`);
+  fail(
+    `Modern.js Node deploy output is missing ${path.relative(
+      workspaceRoot,
+      entryPath
+    )}`
+  );
 }
 
 const packageJsonPath = path.join(runtimeDir, 'package.json');
-const runtimePackage = fs.existsSync(packageJsonPath) ? readJson(packageJsonPath) : {};
+const runtimePackage = fs.existsSync(packageJsonPath)
+  ? readJson(packageJsonPath)
+  : {};
 normalizeRuntimePackageDependencies(runtimePackage);
 
 runtimePackage.private = true;
@@ -196,12 +215,14 @@ installRuntimeDependencies(runtimePackage);
 console.log(
   `[ultramodern:zerops] materialized ${appId} runtime at ${path.relative(
     workspaceRoot,
-    runtimeDir,
-  )}`,
+    runtimeDir
+  )}`
 );
 
 function normalizeRuntimePackageDependencies(packageJson) {
-  const compactConfig = readOptionalJson(path.join(workspaceRoot, '.modernjs/ultramodern.json'));
+  const compactConfig = readOptionalJson(
+    path.join(workspaceRoot, '.modernjs/ultramodern.json')
+  );
   const packageSource = compactConfig?.packageSource;
   const modernPackageVersion = packageSource?.modernPackageVersion;
   const aliasScope = packageSource?.aliasScope;
@@ -214,42 +235,62 @@ function normalizeRuntimePackageDependencies(packageJson) {
   const aliasPrefix = `@${aliasScope}/${aliasPackageNamePrefix}`;
   for (const section of ['dependencies', 'optionalDependencies']) {
     const dependencies = packageJson[section];
-    if (!dependencies || typeof dependencies !== 'object' || Array.isArray(dependencies)) {
+    if (
+      !dependencies ||
+      typeof dependencies !== 'object' ||
+      Array.isArray(dependencies)
+    ) {
       continue;
     }
 
     for (const dependencyName of Object.keys(dependencies)) {
       if (dependencyName.startsWith(aliasPrefix)) {
-        const officialPackageName = `@modern-js/${dependencyName.slice(aliasPrefix.length)}`;
+        const officialPackageName = `@modern-js/${dependencyName.slice(
+          aliasPrefix.length
+        )}`;
         dependencies[dependencyName] = modernPackageVersion;
-        dependencies[officialPackageName] ??= `npm:${dependencyName}@${modernPackageVersion}`;
+        dependencies[officialPackageName] ??=
+          `npm:${dependencyName}@${modernPackageVersion}`;
       }
     }
   }
 }
 
 function installRuntimeDependencies(runtimePackage) {
-  const installDir = fs.mkdtempSync(path.join(os.tmpdir(), `ultramodern-zerops-${appId}-`));
+  const installDir = fs.mkdtempSync(
+    path.join(os.tmpdir(), `ultramodern-zerops-${appId}-`)
+  );
 
   try {
     const workspacePackages = collectWorkspacePackages();
     const installPackage = JSON.parse(JSON.stringify(runtimePackage));
-    const localDependencies = removeWorkspaceDependencies(installPackage, workspacePackages);
+    const localDependencies = removeWorkspaceDependencies(
+      installPackage,
+      workspacePackages
+    );
 
     writeJson(path.join(installDir, 'package.json'), installPackage);
     run(
       process.platform === 'win32' ? 'npm.cmd' : 'npm',
-      ['install', '--omit=dev', '--no-audit', '--fund=false', '--legacy-peer-deps'],
-      { cwd: installDir },
+      [
+        'install',
+        '--omit=dev',
+        '--no-audit',
+        '--fund=false',
+        '--legacy-peer-deps',
+      ],
+      { cwd: installDir }
     );
 
     fs.rmSync(path.join(runtimeDir, 'node_modules'), {
       force: true,
       recursive: true,
     });
-    fs.cpSync(path.join(installDir, 'node_modules'), path.join(runtimeDir, 'node_modules'), {
-      recursive: true,
-    });
+    fs.cpSync(
+      path.join(installDir, 'node_modules'),
+      path.join(runtimeDir, 'node_modules'),
+      { recursive: true }
+    );
 
     for (const dependency of localDependencies) {
       copyWorkspacePackage(dependency, workspacePackages);
@@ -295,7 +336,11 @@ function removeWorkspaceDependencies(packageJson, workspacePackages) {
   const localDependencies = [];
   for (const section of ['dependencies', 'optionalDependencies']) {
     const dependencies = packageJson[section];
-    if (!dependencies || typeof dependencies !== 'object' || Array.isArray(dependencies)) {
+    if (
+      !dependencies ||
+      typeof dependencies !== 'object' ||
+      Array.isArray(dependencies)
+    ) {
       continue;
     }
 
@@ -316,7 +361,11 @@ function copyWorkspacePackage(packageName, workspacePackages) {
     return;
   }
 
-  const targetDirectory = path.join(runtimeDir, 'node_modules', ...packageName.split('/'));
+  const targetDirectory = path.join(
+    runtimeDir,
+    'node_modules',
+    ...packageName.split('/')
+  );
   fs.rmSync(targetDirectory, { force: true, recursive: true });
   fs.mkdirSync(path.dirname(targetDirectory), { recursive: true });
   fs.cpSync(sourceDirectory, targetDirectory, {
@@ -339,7 +388,7 @@ function makeWorkspacePackageRuntimeSafe(packageDirectory) {
     fs.writeFileSync(
       jsFile,
       transpileGeneratedPackageTs(fs.readFileSync(tsFile, 'utf-8')),
-      'utf-8',
+      'utf-8'
     );
   }
 }
@@ -355,7 +404,10 @@ function rewriteTsExports(value) {
 
   if (value && typeof value === 'object') {
     return Object.fromEntries(
-      Object.entries(value).map(([key, entry]) => [key, rewriteTsExports(entry)]),
+      Object.entries(value).map(([key, entry]) => [
+        key,
+        rewriteTsExports(entry),
+      ])
     );
   }
 
@@ -368,7 +420,11 @@ function listTsFiles(directory) {
     const entryPath = path.join(directory, entry.name);
     if (entry.isDirectory()) {
       files.push(...listTsFiles(entryPath));
-    } else if (entry.isFile() && entry.name.endsWith('.ts') && !entry.name.endsWith('.d.ts')) {
+    } else if (
+      entry.isFile() &&
+      entry.name.endsWith('.ts') &&
+      !entry.name.endsWith('.d.ts')
+    ) {
       files.push(entryPath);
     }
   }
@@ -383,11 +439,17 @@ function transpileGeneratedPackageTs(source) {
     .replace(/^\s*type\s+\w+\s*=\s*[^;]+;\s*$/gmu, '')
     .replace(/^\s*interface\s+\w+\s*\{[^}]*\}\s*$/gmsu, '')
     .replace(/\b(const|let|var)\s+([A-Za-z_$][\w$]*)\s*:\s*[^=]+=/gu, '$1 $2 =')
-    .replace(/\(([^)]*)\)\s*:\s*[^=]+=>/gu, (_, params) => `(${stripParameterTypes(params)}) =>`)
-    .replace(/\(([^)]*)\)\s*=>/gu, (_, params) => `(${stripParameterTypes(params)}) =>`)
+    .replace(
+      /\(([^)]*)\)\s*:\s*[^=]+=>/gu,
+      (_, params) => `(${stripParameterTypes(params)}) =>`
+    )
+    .replace(
+      /\(([^)]*)\)\s*=>/gu,
+      (_, params) => `(${stripParameterTypes(params)}) =>`
+    )
     .replace(
       /function(\s+\w+\s*)\(([^)]*)\)/gu,
-      (_, name, params) => `function${name}(${stripParameterTypes(params)})`,
+      (_, name, params) => `function${name}(${stripParameterTypes(params)})`
     )
     .replace(/\s+as\s+const\b/gu, '')
     .replace(/\s+satisfies\s+[A-Za-z_$][\w$]*(?:<[^>]+>)?/gu, '');

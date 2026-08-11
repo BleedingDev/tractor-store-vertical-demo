@@ -1,9 +1,12 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import ProductPage from '../../../../../components/product-page';
 
 export default function ProductPageFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof ProductPage>>({
+  const props = useDistributedSsrFragmentProps<
+    ComponentProps<typeof ProductPage>
+  >({
     boundaryId: 'verticalDecide',
     expose: './ProductPage',
   });

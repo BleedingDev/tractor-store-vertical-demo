@@ -1,13 +1,17 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { Link, useLocation } from '@modern-js/plugin-tanstack/runtime';
+
+import { ultramodernUiMarker } from '../../ultramodern-build';
 import { UltramodernRouteHead } from '../ultramodern-route-head';
 import { ultramodernLocalisedUrls } from '../ultramodern-route-metadata';
-import { ultramodernUiMarker } from '../../ultramodern-build';
 
 const supportedLanguages = ['en', 'cs'] as const;
 type SupportedLanguage = (typeof supportedLanguages)[number];
 
-const localisedUrls = ultramodernLocalisedUrls as Record<string, Record<SupportedLanguage, string>>;
+const localisedUrls = ultramodernLocalisedUrls as Record<
+  string,
+  Record<SupportedLanguage, string>
+>;
 
 const isSupportedLanguage = (value: string): value is SupportedLanguage =>
   supportedLanguages.includes(value as SupportedLanguage);
@@ -25,7 +29,8 @@ const stripLanguagePrefix = (pathname: string) => {
   return `/${segments.join('/')}`;
 };
 
-const escapeRegExp = (value: string) => value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+const escapeRegExp = (value: string) =>
+  value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
 
 const paramName = (segment: string) => segment.slice(1).replace(/\?$/u, '');
 
@@ -42,7 +47,9 @@ const matchPattern = (pathname: string, pattern: string) => {
       return `/${escapeRegExp(segment)}`;
     })
     .join('');
-  const match = new RegExp(`^${source || '/'}$`, 'u').exec(normalisePath(pathname));
+  const match = new RegExp(`^${source || '/'}$`, 'u').exec(
+    normalisePath(pathname)
+  );
 
   if (match === null) {
     return;
@@ -64,7 +71,9 @@ const buildPath = (pattern: string, params: Record<string, string>) => {
         return segment;
       }
       const value = params[paramName(segment)];
-      return value !== undefined && value.length > 0 ? encodeURIComponent(value) : '';
+      return value !== undefined && value.length > 0
+        ? encodeURIComponent(value)
+        : '';
     })
     .filter(Boolean)
     .join('/');
@@ -72,7 +81,10 @@ const buildPath = (pattern: string, params: Record<string, string>) => {
   return `/${path}`;
 };
 
-const resolveLocalisedPath = (pathname: string, targetLanguage: SupportedLanguage) => {
+const resolveLocalisedPath = (
+  pathname: string,
+  targetLanguage: SupportedLanguage
+) => {
   const pathWithoutLanguage = stripLanguagePrefix(pathname);
 
   for (const entry of Object.values(localisedUrls)) {
@@ -98,7 +110,9 @@ const resolveLocalisedPath = (pathname: string, targetLanguage: SupportedLanguag
 
 const localizedPath = (pathname: string, language: SupportedLanguage) => {
   const pathWithoutLanguage = resolveLocalisedPath(pathname, language);
-  return pathWithoutLanguage === '/' ? `/${language}` : `/${language}${pathWithoutLanguage}`;
+  return pathWithoutLanguage === '/'
+    ? `/${language}`
+    : `/${language}${pathWithoutLanguage}`;
 };
 
 export default function DecideHome() {
@@ -107,7 +121,10 @@ export default function DecideHome() {
   return (
     <main className="decide:min-h-screen decide:bg-um-canvas decide:px-4 decide:py-6 decide:text-um-foreground decide:sm:px-8">
       <UltramodernRouteHead />
-      <nav aria-label={t('decide.language.switcher')} className="decide:flex decide:gap-3">
+      <nav
+        aria-label={t('decide.language.switcher')}
+        className="decide:flex decide:gap-3"
+      >
         {supportedLanguages.map((code) => (
           <Link
             aria-current={language === code ? 'page' : undefined}
@@ -121,8 +138,13 @@ export default function DecideHome() {
           </Link>
         ))}
       </nav>
-      <h1 className="decide:mt-10 decide:text-5xl decide:font-black">{t('decide.title')}</h1>
-      <p className="decide:mt-3 decide:text-lg decide:text-stone-600" data-modern-role="vertical">
+      <h1 className="decide:mt-10 decide:text-5xl decide:font-black">
+        {t('decide.title')}
+      </h1>
+      <p
+        className="decide:mt-3 decide:text-lg decide:text-stone-600"
+        data-modern-role="vertical"
+      >
         {t('decide.role')}
       </p>
       <p

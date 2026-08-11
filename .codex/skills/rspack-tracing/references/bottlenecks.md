@@ -4,12 +4,12 @@ This reference maps internal Rspack tracing spans to high-level concepts to help
 
 ## Core Compilation Phases
 
-| Span Name               | Description                                                    | Potential Bottlenecks                                                             |
-| :---------------------- | :------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
-| `tracing::profiling`    | The entire build process.                                      | Overall slowness.                                                                 |
-| `compiler::make`        | **Make Phase**: Resolving, loading, and parsing modules.       | Heavy loaders (babel/swc with complex configs), too many files, slow file system. |
-| `compiler::seal`        | **Seal Phase**: Optimizing, splitting chunks, generating code. | Complex code splitting, heavy minification, many modules.                         |
-| `compiler::emit_assets` | **Emit Phase**: Writing files to disk.                         | Slow disk I/O, huge output files.                                                 |
+| Span Name | Description | Potential Bottlenecks |
+| :-- | :-- | :-- |
+| `tracing::profiling` | The entire build process. | Overall slowness. |
+| `compiler::make` | **Make Phase**: Resolving, loading, and parsing modules. | Heavy loaders (babel/swc with complex configs), too many files, slow file system. |
+| `compiler::seal` | **Seal Phase**: Optimizing, splitting chunks, generating code. | Complex code splitting, heavy minification, many modules. |
+| `compiler::emit_assets` | **Emit Phase**: Writing files to disk. | Slow disk I/O, huge output files. |
 
 ## Detailed Spans
 

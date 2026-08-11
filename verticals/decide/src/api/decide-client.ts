@@ -3,7 +3,12 @@ import {
   makeEffectHttpApiClient,
   runEffectRequest,
 } from '@modern-js/plugin-bff/effect-client';
-import { decideApiContract, decideEffectApi, decideOperationContexts } from '../../shared/api';
+
+import {
+  decideApiContract,
+  decideEffectApi,
+  decideOperationContexts,
+} from '../../shared/api';
 import type { OperationContext } from '../../shared/api';
 
 export interface DecideClientOptions {
@@ -18,51 +23,64 @@ const makeDecideClient = (options: DecideClientOptions = {}) =>
     baseUrl: options.baseUrl ?? decideApiContract.servicePrefix,
   });
 
-export const createDecideClient = (options: DecideClientOptions = {}): unknown =>
-  makeDecideClient(options);
+export const createDecideClient = (
+  options: DecideClientOptions = {}
+): unknown => makeDecideClient(options);
 
 export const listDecide = (
-  options: DecideClientOptions & { limit?: number } = {},
+  options: DecideClientOptions & { limit?: number } = {}
 ): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
         ...options,
-        operationContext: options.operationContext ?? decideOperationContexts.list,
+        operationContext:
+          options.operationContext ?? decideOperationContexts.list,
       }),
-      (client) => client.decide.list({ query: { limit: options.limit } }),
-    ),
+      (client) => client.decide.list({ query: { limit: options.limit } })
+    )
   );
 
-export const getDecideReadiness = (options: DecideClientOptions = {}): Promise<unknown> =>
+export const getDecideReadiness = (
+  options: DecideClientOptions = {}
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
         ...options,
-        operationContext: options.operationContext ?? decideOperationContexts.readiness,
+        operationContext:
+          options.operationContext ?? decideOperationContexts.readiness,
       }),
-      (client) => client.decide.readiness({}),
-    ),
+      (client) => client.decide.readiness({})
+    )
   );
 
-export const getDecide = (id: string, options: DecideClientOptions = {}): Promise<unknown> =>
+export const getDecide = (
+  id: string,
+  options: DecideClientOptions = {}
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
         ...options,
-        operationContext: options.operationContext ?? decideOperationContexts.get,
+        operationContext:
+          options.operationContext ?? decideOperationContexts.get,
       }),
-      (client) => client.decide.get({ params: { id } }),
-    ),
+      (client) => client.decide.get({ params: { id } })
+    )
   );
 
-export const createDecide = (title: string, options: DecideClientOptions = {}): Promise<unknown> =>
+export const createDecide = (
+  title: string,
+  options: DecideClientOptions = {}
+): Promise<unknown> =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
         ...options,
-        operationContext: options.operationContext ?? decideOperationContexts.create,
+        operationContext:
+          options.operationContext ?? decideOperationContexts.create,
       }),
-      (client) => client.decide.create({ payload: { title } }),
-    ),
+      (client) => client.decide.create({ payload: { title } })
+    )
   );

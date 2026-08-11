@@ -1,9 +1,10 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
 import { useLocation, useNavigate } from '@modern-js/plugin-tanstack/runtime';
 import type { ReactNode } from 'react';
+
 import BoundaryOverlay from './boundary-overlay';
-import { Footer, Header, MiniCart } from './vertical-components';
 import { ultramodernLocalisedUrls } from './ultramodern-route-metadata';
+import { Footer, Header, MiniCart } from './vertical-components';
 
 const supportedLanguages = ['en', 'cs'] as const;
 type SupportedLanguage = (typeof supportedLanguages)[number];
@@ -14,7 +15,10 @@ interface ShellFrameProps {
   showCart?: boolean;
 }
 
-const localisedUrls = ultramodernLocalisedUrls as Record<string, Record<SupportedLanguage, string>>;
+const localisedUrls = ultramodernLocalisedUrls as Record<
+  string,
+  Record<SupportedLanguage, string>
+>;
 
 const isSupportedLanguage = (value: string): value is SupportedLanguage =>
   supportedLanguages.includes(value as SupportedLanguage);
@@ -32,7 +36,8 @@ const stripLanguagePrefix = (pathname: string) => {
   return `/${segments.join('/')}`;
 };
 
-const escapeRegExp = (value: string) => value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+const escapeRegExp = (value: string) =>
+  value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
 
 const paramName = (segment: string) => segment.slice(1).replace(/\?$/u, '');
 
@@ -49,7 +54,9 @@ const matchPattern = (pathname: string, pattern: string) => {
       return `/${escapeRegExp(segment)}`;
     })
     .join('');
-  const match = new RegExp(`^${source || '/'}$`, 'u').exec(normalisePath(pathname));
+  const match = new RegExp(`^${source || '/'}$`, 'u').exec(
+    normalisePath(pathname)
+  );
 
   if (match === null) {
     return;
@@ -71,7 +78,9 @@ const buildPath = (pattern: string, params: Record<string, string>) => {
         return segment;
       }
       const value = params[paramName(segment)];
-      return value !== undefined && value.length > 0 ? encodeURIComponent(value) : '';
+      return value !== undefined && value.length > 0
+        ? encodeURIComponent(value)
+        : '';
     })
     .filter(Boolean)
     .join('/');
@@ -79,7 +88,10 @@ const buildPath = (pattern: string, params: Record<string, string>) => {
   return `/${path}`;
 };
 
-const resolveLocalisedPath = (pathname: string, targetLanguage: SupportedLanguage) => {
+const resolveLocalisedPath = (
+  pathname: string,
+  targetLanguage: SupportedLanguage
+) => {
   const pathWithoutLanguage = stripLanguagePrefix(pathname);
 
   for (const entry of Object.values(localisedUrls)) {
@@ -105,10 +117,15 @@ const resolveLocalisedPath = (pathname: string, targetLanguage: SupportedLanguag
 
 const localizedPath = (pathname: string, language: SupportedLanguage) => {
   const pathWithoutLanguage = resolveLocalisedPath(pathname, language);
-  return pathWithoutLanguage === '/' ? `/${language}` : `/${language}${pathWithoutLanguage}`;
+  return pathWithoutLanguage === '/'
+    ? `/${language}`
+    : `/${language}${pathWithoutLanguage}`;
 };
 
-export default function ShellFrame({ children, showCart = true }: ShellFrameProps) {
+export default function ShellFrame({
+  children,
+  showCart = true,
+}: ShellFrameProps) {
   const navigate = useNavigate();
   const { language, t } = useModernI18n();
   const location = useLocation();

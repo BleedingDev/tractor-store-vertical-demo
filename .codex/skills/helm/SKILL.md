@@ -36,8 +36,7 @@ Use `helm` when those decisions mostly exist and the work now requires:
 - rebalancing or relaunching agents
 - integrating partial results safely
 
-If the graph is backed by plan files, refresh the current frontier with `dag` before reshaping lanes so steering decisions follow the latest checked-off todos. Keep the handoff exact by reusing a selection that resolves to the same plan files, or by carrying the same explicit `--graph-id` when helming must stay attached to one saved slot.
-If you need to change the selected plan set or dependency overlay, re-run `plan-graph validate` first so the updated graph does not introduce orphaned selected plans before you steer agents against it.
+If the graph is backed by plan files, refresh the current frontier with `dag` before reshaping lanes so steering decisions follow the latest checked-off todos. Keep the handoff exact by reusing a selection that resolves to the same plan files, or by carrying the same explicit `--graph-id` when helming must stay attached to one saved slot. If you need to change the selected plan set or dependency overlay, re-run `plan-graph validate` first so the updated graph does not introduce orphaned selected plans before you steer agents against it.
 
 ## Plan-Backed Control Record
 
@@ -49,8 +48,7 @@ When the graph comes from `.plan.md` files, keep one canonical control bundle in
 - `selection_hash`
 - `snapshot_path` and `state_dir`
 
-Refresh that bundle with `dag --format json` before major reshapes. If the rollout is long-lived, keep a minimal operator ledger at `<state_dir>/operator-log.md` with lane, agent id, owner, status, blocker, and next action so a resumed helm session can reattach quickly.
-If the frontier suddenly shows a wrapper or summary plan as a runnable lane, treat that as a graph-structure check and confirm the selected plans are still properly linked rather than assuming execution priorities changed on their own.
+Refresh that bundle with `dag --format json` before major reshapes. If the rollout is long-lived, keep a minimal operator ledger at `<state_dir>/operator-log.md` with lane, agent id, owner, status, blocker, and next action so a resumed helm session can reattach quickly. If the frontier suddenly shows a wrapper or summary plan as a runnable lane, treat that as a graph-structure check and confirm the selected plans are still properly linked rather than assuming execution priorities changed on their own.
 
 When lanes own work that corresponds to specific todos in `.plan.md` files, make the lane update those todo statuses itself as part of the task. Do not centralize routine todo checkoffs back on the primary lane unless the worker lacks write ownership for the plan files or the plan state is intentionally held by a single integrator.
 

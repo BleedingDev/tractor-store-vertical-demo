@@ -82,12 +82,12 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
         success: Schema.Struct({
           items: Schema.Array(decideItemSchema),
         }),
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.get('readiness', '/decide/readiness', {
         success: decideReadinessSchema,
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.get('get', '/decide/:id', {
@@ -96,7 +96,7 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
           id: Schema.String,
         },
         success: decideItemSchema,
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.post('create', '/decide', {
@@ -105,8 +105,8 @@ export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
         success: Schema.Struct({
           item: decideItemSchema,
         }),
-      }),
-    ),
+      })
+    )
 );
 
 export const decideOperationContexts = {

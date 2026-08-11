@@ -1,9 +1,12 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import AddToCart from '../../../../../components/add-to-cart';
 
 export default function AddToCartFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof AddToCart>>({
+  const props = useDistributedSsrFragmentProps<
+    ComponentProps<typeof AddToCart>
+  >({
     boundaryId: 'verticalCheckout',
     expose: './AddToCart',
   });

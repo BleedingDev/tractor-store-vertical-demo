@@ -24,14 +24,16 @@ type ThingReference =
 
 const withSchemaContext = <TType extends string, TInput extends object>(
   type: TType,
-  input: TInput,
+  input: TInput
 ): SchemaObject<TType> & TInput => ({
   '@context': schemaContext,
   '@type': type,
   ...input,
 });
 
-export const defineRouteJsonLd = <TJsonLd extends RouteJsonLd>(jsonLd: TJsonLd): TJsonLd => jsonLd;
+export const defineRouteJsonLd = <TJsonLd extends RouteJsonLd>(
+  jsonLd: TJsonLd
+): TJsonLd => jsonLd;
 
 export interface WebPageJsonLdInput {
   readonly name: string;
@@ -41,7 +43,8 @@ export interface WebPageJsonLdInput {
   readonly isPartOf?: ThingReference;
 }
 
-export const webPageJsonLd = (input: WebPageJsonLdInput) => withSchemaContext('WebPage', input);
+export const webPageJsonLd = (input: WebPageJsonLdInput) =>
+  withSchemaContext('WebPage', input);
 
 export interface WebApplicationJsonLdInput {
   readonly name: string;
@@ -65,8 +68,9 @@ export interface SoftwareApplicationJsonLdInput {
   readonly operatingSystem?: string;
 }
 
-export const softwareApplicationJsonLd = (input: SoftwareApplicationJsonLdInput) =>
-  withSchemaContext('SoftwareApplication', input);
+export const softwareApplicationJsonLd = (
+  input: SoftwareApplicationJsonLdInput
+) => withSchemaContext('SoftwareApplication', input);
 
 export interface OrganizationJsonLdInput {
   readonly name: string;
@@ -83,7 +87,9 @@ export interface BreadcrumbListItemInput {
   readonly item: string;
 }
 
-export const breadcrumbListJsonLd = (items: readonly BreadcrumbListItemInput[]) =>
+export const breadcrumbListJsonLd = (
+  items: readonly BreadcrumbListItemInput[]
+) =>
   withSchemaContext('BreadcrumbList', {
     itemListElement: items.map((entry, index) => ({
       '@type': 'ListItem',

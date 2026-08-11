@@ -78,7 +78,9 @@ function listDirectories(startDirectory) {
 
   return fs
     .readdirSync(absoluteStart, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && !ignoredDirectories.has(entry.name))
+    .filter(
+      (entry) => entry.isDirectory() && !ignoredDirectories.has(entry.name)
+    )
     .map((entry) => path.posix.join(startDirectory, entry.name));
 }
 
@@ -112,13 +114,17 @@ for (const forbiddenPath of [
 ]) {
   assertNoPath(
     forbiddenPath,
-    `${forbiddenPath} is forbidden in UltraModern strictEffectApproach workspaces; use api/index.ts, shared/api.ts and src/api/* instead.`,
+    `${forbiddenPath} is forbidden in UltraModern strictEffectApproach workspaces; use api/index.ts, shared/api.ts and src/api/* instead.`
   );
 }
 
-const generatedFiles = [...listFiles('apps'), ...listFiles('verticals'), ...listFiles('packages')];
+const generatedFiles = [
+  ...listFiles('apps'),
+  ...listFiles('verticals'),
+  ...listFiles('packages'),
+];
 const textFiles = generatedFiles.filter((file) =>
-  /\.(?:[cm]?[jt]sx?|json|md|mjs|mts|cts)$/u.test(file),
+  /\.(?:[cm]?[jt]sx?|json|md|mjs|mts|cts)$/u.test(file)
 );
 
 for (const file of textFiles) {
@@ -129,31 +135,31 @@ for (const file of textFiles) {
       file,
       content,
       /\bnew\s+Response\s*\(|\bResponse\.json\s*\(/u,
-      'API modules must not hand-build Response objects; model endpoints through Effect HttpApi and schemas.',
+      'API modules must not hand-build Response objects; model endpoints through Effect HttpApi and schemas.'
     );
     assertNotContains(
       file,
       content,
       /\b(?:request|req)\.(?:json|text|formData|arrayBuffer)\s*\(/u,
-      'API modules must not manually parse request bodies; use HttpApiEndpoint payload/query/params schemas.',
+      'API modules must not manually parse request bodies; use HttpApiEndpoint payload/query/params schemas.'
     );
     assertNotContains(
       file,
       content,
       /\bexport\s+const\s+handler\b|\bexport\s+default\s+async\b/u,
-      'API modules must not export raw request handlers; export defineEffectBff(...) from api/index.ts.',
+      'API modules must not export raw request handlers; export defineEffectBff(...) from api/index.ts.'
     );
     assertNotContains(
       file,
       content,
       /\bcreateHandler\s*[:=]\s*(?!defineEffectBff\b)/u,
-      'API modules must not define unbranded handler factories; use defineEffectBff(...).',
+      'API modules must not define unbranded handler factories; use defineEffectBff(...).'
     );
     assertNotContains(
       file,
       content,
       /\bSchema\.(?:UnknownFromJsonString|Unknown|Any)\b/u,
-      'API modules must use concrete request, response and error schemas; Schema.UnknownFromJsonString, Schema.Unknown and Schema.Any are forbidden in UltraModern API code.',
+      'API modules must use concrete request, response and error schemas; Schema.UnknownFromJsonString, Schema.Unknown and Schema.Any are forbidden in UltraModern API code.'
     );
   }
 
@@ -161,26 +167,29 @@ for (const file of textFiles) {
     file,
     content,
     /@modern-js\/plugin-bff\/hono-server/u,
-    'UltraModern API workspaces must not import Hono server helpers; use @modern-js/plugin-bff/effect-edge and HttpApi.',
+    'UltraModern API workspaces must not import Hono server helpers; use @modern-js/plugin-bff/effect-edge and HttpApi.'
   );
   assertNotContains(
     file,
     content,
     /\bruntimeFramework\s*(?::|=)\s*['"]hono['"]/u,
-    'Generated UltraModern API apps must use the Effect runtime.',
+    'Generated UltraModern API apps must use the Effect runtime.'
   );
   assertNotContains(
     file,
     content,
     /\bstrictEffectApproach\s*(?::|=)\s*false\b/u,
-    'Generated UltraModern API apps must keep strictEffectApproach enabled.',
+    'Generated UltraModern API apps must keep strictEffectApproach enabled.'
   );
 }
 
 const verticalDirectories = listDirectories('verticals');
 const shellClient = 'apps/shell-super-app/src/api/vertical-clients.ts';
 if (exists('apps/shell-super-app') && verticalDirectories.length > 0) {
-  assert(exists(shellClient), `${shellClient} must aggregate vertical API clients.`);
+  assert(
+    exists(shellClient),
+    `${shellClient} must aggregate vertical API clients.`
+  );
 }
 
 function assertApiSurface(appPath) {
@@ -196,8 +205,13 @@ function assertApiSurface(appPath) {
   assert(exists(srcApiDirectory), `${srcApiDirectory} is required.`);
 
   if (exists(srcApiDirectory)) {
-    const clientFiles = listFiles(srcApiDirectory).filter((file) => /-client\.ts$/u.test(file));
-    assert(clientFiles.length > 0, `${srcApiDirectory} must contain a generated API client.`);
+    const clientFiles = listFiles(srcApiDirectory).filter((file) =>
+      /-client\.ts$/u.test(file)
+    );
+    assert(
+      clientFiles.length > 0,
+      `${srcApiDirectory} must contain a generated API client.`
+    );
   }
 
   if (exists(apiEntry)) {
@@ -206,20 +220,25 @@ function assertApiSurface(appPath) {
       apiEntry,
       entry,
       /\bdefineEffectBff\b/u,
-      'must export a defineEffectBff(...) runtime definition.',
+      'must export a defineEffectBff(...) runtime definition.'
     );
     assertContains(
       apiEntry,
       entry,
       /\bHttpApiBuilder\b/u,
-      'must implement handlers through HttpApiBuilder.',
+      'must implement handlers through HttpApiBuilder.'
     );
-    assertContains(apiEntry, entry, /\bLayer\b/u, 'must compose dependencies with Effect Layer.');
+    assertContains(
+      apiEntry,
+      entry,
+      /\bLayer\b/u,
+      'must compose dependencies with Effect Layer.'
+    );
     assertContains(
       apiEntry,
       entry,
       /from ['"]\.\.\/shared\/api\.ts['"]/u,
-      'must import the contract from ../shared/api.ts.',
+      'must import the contract from ../shared/api.ts.'
     );
   }
   if (exists(backendEffectExpose)) {
@@ -228,53 +247,63 @@ function assertApiSurface(appPath) {
       backendEffectExpose,
       backendExpose,
       /backendFederationContract/u,
-      'must export backendFederationContract metadata.',
+      'must export backendFederationContract metadata.'
     );
     assertContains(
       backendEffectExpose,
       backendExpose,
       /role:\s*['"]microvertical-server['"]/u,
-      'must describe the MicroVertical server role.',
+      'must describe the MicroVertical server role.'
     );
     assertContains(
       backendEffectExpose,
       backendExpose,
       /strictEffectApproach:\s*true/u,
-      'must preserve strict Effect backend execution.',
+      'must preserve strict Effect backend execution.'
     );
     assertContains(
       backendEffectExpose,
       backendExpose,
       /contractVersion:\s*['"]microvertical-server-effect-v1['"]/u,
-      'must preserve the MicroVertical server contract version.',
+      'must preserve the MicroVertical server contract version.'
     );
     assertContains(
       backendEffectExpose,
       backendExpose,
       /export\s*\{\s*default\s*,\s*default\s+as\s+runtime\s*\}\s+from\s+['"]\.\/index\.ts['"]/u,
-      'must re-export the generated Effect BFF runtime as both default and runtime.',
+      'must re-export the generated Effect BFF runtime as both default and runtime.'
     );
     assert(
       !/\b(request|handler)\s*:\s*async\s*\(/u.test(backendExpose),
-      `${backendEffectExpose}: must not expose raw request handlers.`,
+      `${backendEffectExpose}: must not expose raw request handlers.`
     );
   }
 
   if (exists(sharedApi)) {
     const contract = readText(sharedApi);
-    assertContains(sharedApi, contract, /\bHttpApi\.make\b/u, 'must declare the HttpApi contract.');
-    assertContains(sharedApi, contract, /\bHttpApiGroup\.make\b/u, 'must declare HttpApi groups.');
+    assertContains(
+      sharedApi,
+      contract,
+      /\bHttpApi\.make\b/u,
+      'must declare the HttpApi contract.'
+    );
+    assertContains(
+      sharedApi,
+      contract,
+      /\bHttpApiGroup\.make\b/u,
+      'must declare HttpApi groups.'
+    );
     assertContains(
       sharedApi,
       contract,
       /\bHttpApiEndpoint\./u,
-      'must declare endpoints through HttpApiEndpoint.',
+      'must declare endpoints through HttpApiEndpoint.'
     );
     assertContains(
       sharedApi,
       contract,
       /\bSchema\./u,
-      'must use Schema for request, response and error shapes.',
+      'must use Schema for request, response and error shapes.'
     );
   }
 
@@ -284,19 +313,19 @@ function assertApiSurface(appPath) {
       modernConfig,
       config,
       /runtimeFramework:\s*['"]effect['"]/u,
-      'must use bff.runtimeFramework: effect.',
+      'must use bff.runtimeFramework: effect.'
     );
     assertContains(
       modernConfig,
       config,
       /entry:\s*['"]\.\/api\/index['"]/u,
-      'must point bff.effect.entry at ./api/index.',
+      'must point bff.effect.entry at ./api/index.'
     );
     assertContains(
       modernConfig,
       config,
       /strictEffectApproach:\s*true/u,
-      'must enable strictEffectApproach explicitly.',
+      'must enable strictEffectApproach explicitly.'
     );
   }
 
@@ -304,12 +333,12 @@ function assertApiSurface(appPath) {
     const packageJson = JSON.parse(readText(packageJsonPath));
     assert(
       packageJson.exports?.['./api'] === './shared/api.ts',
-      `${packageJsonPath}: package must export ./api from shared/api.ts.`,
+      `${packageJsonPath}: package must export ./api from shared/api.ts.`
     );
     assert(
       typeof packageJson.exports?.['./api/client'] === 'string' &&
         packageJson.exports['./api/client'].startsWith('./src/api/'),
-      `${packageJsonPath}: package must export ./api/client from src/api/*.`,
+      `${packageJsonPath}: package must export ./api/client from src/api/*.`
     );
   }
 }
@@ -325,10 +354,13 @@ for (const verticalPath of verticalDirectories) {
 }
 
 if (exists('apps/shell-super-app/package.json')) {
-  const shellPackageJson = JSON.parse(readText('apps/shell-super-app/package.json'));
+  const shellPackageJson = JSON.parse(
+    readText('apps/shell-super-app/package.json')
+  );
   assert(
-    shellPackageJson.exports?.['./api/clients'] === './src/api/vertical-clients.ts',
-    'apps/shell-super-app/package.json must export ./api/clients.',
+    shellPackageJson.exports?.['./api/clients'] ===
+      './src/api/vertical-clients.ts',
+    'apps/shell-super-app/package.json must export ./api/clients.'
   );
 }
 
@@ -337,11 +369,11 @@ if (exists('package.json')) {
   assert(
     rootPackageJson.scripts?.['api:check'] ===
       'node ./scripts/check-ultramodern-api-boundaries.mts',
-    'Root package.json must expose api:check.',
+    'Root package.json must expose api:check.'
   );
   assert(
     rootPackageJson.scripts?.check?.includes('pnpm api:check'),
-    'Root check script must include pnpm api:check.',
+    'Root check script must include pnpm api:check.'
   );
 }
 
@@ -351,17 +383,17 @@ if (exists('topology/reference-topology.json')) {
     if (vertical.api?.runtime === 'effect') {
       assert(
         vertical.api.bff?.strictEffectApproach === true,
-        `${vertical.id} topology must mark strictEffectApproach as true.`,
+        `${vertical.id} topology must mark strictEffectApproach as true.`
       );
       assert(
         typeof vertical.api.serverEntry === 'string' &&
           vertical.api.serverEntry.endsWith('/api/index.ts'),
-        `${vertical.id} topology must use api/index.ts as the server entry.`,
+        `${vertical.id} topology must use api/index.ts as the server entry.`
       );
     }
     assert(
       !vertical.api?.effect,
-      `${vertical.id} topology must describe the API directly, not under api.effect.`,
+      `${vertical.id} topology must describe the API directly, not under api.effect.`
     );
   }
 }

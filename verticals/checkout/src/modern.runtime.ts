@@ -1,5 +1,6 @@
 import { defineRuntimeConfig } from '@modern-js/runtime';
 import { createInstance } from 'i18next';
+
 import csResource from '../locales/cs/checkout.json';
 import enResource from '../locales/en/checkout.json';
 import { ultramodernRouteNamespace } from './routes/ultramodern-route-metadata';

@@ -1,21 +1,14 @@
 # UltraModern.js Workspace
 
-This is an UltraModern.js SuperApp: a composition shell plus independently
-owned business MicroVerticals.
+This is an UltraModern.js SuperApp: a composition shell plus independently owned business MicroVerticals.
 
 ## Work Here
 
-- Use Node `>=26` and pnpm `11.10.0`. Run `mise install` before `pnpm install`
-  when the active toolchain differs.
-- Keep business features out of the shell. Follow [README.md](./README.md) to
-  add a MicroVertical.
-- Run checks relevant to the change. Before finishing code changes, run
-  `pnpm check`; also run `pnpm build` for runtime, build, routing, or deployment
-  changes.
+- Use Node `>=26` and pnpm `11.10.0`. Run `mise install` before `pnpm install` when the active toolchain differs.
+- Keep business features out of the shell. Follow [README.md](./README.md) to add a MicroVertical.
+- Run checks relevant to the change. Before finishing code changes, run `pnpm check`; also run `pnpm build` for runtime, build, routing, or deployment changes.
 
 ## Reusable Guidance
 
-- Read only the relevant sections of [README.md](./README.md) for architecture,
-  routes and i18n, environment variables, deployment, and troubleshooting.
-- Use a skill under [`.codex/skills`](./.codex/skills) only when its description
-  matches the task; read that skill's `SKILL.md` and referenced files on demand.
+- Read only the relevant sections of [README.md](./README.md) for architecture, routes and i18n, environment variables, deployment, and troubleshooting.
+- Use a skill under [`.codex/skills`](./.codex/skills) only when its description matches the task; read that skill's `SKILL.md` and referenced files on demand.

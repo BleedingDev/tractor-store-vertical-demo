@@ -1,4 +1,5 @@
 import { useParams, useSearch } from '@modern-js/plugin-tanstack/runtime';
+
 import ShellFrame from '../../../shell-frame';
 import { UltramodernRouteHead } from '../../../ultramodern-route-head';
 import { ProductPage } from '../../../vertical-components';

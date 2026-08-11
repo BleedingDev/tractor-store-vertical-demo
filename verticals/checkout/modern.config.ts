@@ -1,19 +1,30 @@
-import { appTools, defineConfig, presetUltramodern } from '@modern-js/app-tools';
-import { getBuildConfigEnvironment, withBuildConfigEnvironment } from '@modern-js/app-tools/config';
+import {
+  appTools,
+  defineConfig,
+  presetUltramodern,
+} from '@modern-js/app-tools';
+import {
+  getBuildConfigEnvironment,
+  withBuildConfigEnvironment,
+} from '@modern-js/app-tools/config';
 import { bffPlugin } from '@modern-js/plugin-bff';
-import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { i18nPlugin } from '@modern-js/plugin-i18n';
 import { tanstackRouterPlugin } from '@modern-js/plugin-tanstack';
 import { moduleFederationPlugin } from '@module-federation/modern-js-v3';
+import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { withZephyr as withZephyrRspack } from 'zephyr-rspack-plugin';
+
 import { ultramodernLocalisedUrls } from './src/routes/ultramodern-route-metadata';
 
-const cloudflareDeployEnabled = getBuildConfigEnvironment('MODERNJS_DEPLOY') === 'cloudflare';
+const cloudflareDeployEnabled =
+  getBuildConfigEnvironment('MODERNJS_DEPLOY') === 'cloudflare';
 
 const zephyrRspackPlugin = () => ({
   name: 'ultramodern-zephyr-rspack-plugin',
   pre: ['@modern-js/plugin-module-federation-config'],
-  setup(api: { modifyRspackConfig: (handler: ReturnType<typeof withZephyrRspack>) => void }) {
+  setup(api: {
+    modifyRspackConfig: (handler: ReturnType<typeof withZephyrRspack>) => void;
+  }) {
     // Zephyr uploads federated build artifacts to Zephyr Cloud (the fast
     // rollback path). Uploading REQUIRES a Zephyr Cloud account and, in CI, a
     // deploy-scoped ZE_CI_TOKEN; without it Zephyr fatally fails to load its
@@ -24,17 +35,22 @@ const zephyrRspackPlugin = () => ({
     // (this gate keys on Zephyr's native deploy token, not any UltraModern
     // opt-out). When deploying, ZE_FAIL_BUILD=true makes an upload failure a
     // hard build failure.
-    const zephyrCiDeploy = (getBuildConfigEnvironment('ZE_CI_TOKEN') ?? '').length > 0;
+    const zephyrCiDeploy =
+      (getBuildConfigEnvironment('ZE_CI_TOKEN') ?? '').length > 0;
     if (!zephyrCiDeploy) {
       return;
     }
-    api.modifyRspackConfig(withBuildConfigEnvironment('ZE_FAIL_BUILD', 'true', withZephyrRspack()));
+    api.modifyRspackConfig(
+      withBuildConfigEnvironment('ZE_FAIL_BUILD', 'true', withZephyrRspack())
+    );
   },
 });
 
 const appId = 'checkout';
 const cloudflareWorkerName = 'tractor-store-vertical-demo-checkout';
-const port = Number(getBuildConfigEnvironment('VERTICAL_CHECKOUT_PORT') ?? 3023);
+const port = Number(
+  getBuildConfigEnvironment('VERTICAL_CHECKOUT_PORT') ?? 3023
+);
 const envValue = (name: string) => {
   const value = getBuildConfigEnvironment(name)?.trim();
   return value !== undefined && value.length > 0 ? value : undefined;
@@ -45,7 +61,9 @@ const configuredUltramodernAssetPrefix = envValue('ULTRAMODERN_ASSET_PREFIX');
 const configuredModernAssetPrefix = envValue('MODERN_ASSET_PREFIX');
 const moduleFederationDevServerOrigin =
   envValue('ULTRAMODERN_MF_DEV_ORIGIN') || 'http://localhost:3020';
-const cloudflareWorkersDevSubdomain = envValue('ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN');
+const cloudflareWorkersDevSubdomain = envValue(
+  'ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN'
+);
 const inferredCloudflareUrl =
   cloudflareDeployEnabled && cloudflareWorkersDevSubdomain !== undefined
     ? `https://${cloudflareWorkerName}.${cloudflareWorkersDevSubdomain}.workers.dev`
@@ -74,7 +92,9 @@ const defaultAssetPrefix = defaultRemoteAssetPrefix;
 // Module Federation remotes must publish an absolute publicPath so browsers
 // load remoteEntry.js and exposed chunks from the remote origin, not the host.
 const assetPrefix =
-  configuredModernAssetPrefix || configuredUltramodernAssetPrefix || defaultAssetPrefix;
+  configuredModernAssetPrefix ||
+  configuredUltramodernAssetPrefix ||
+  defaultAssetPrefix;
 const buildTarget = cloudflareDeployEnabled ? 'cloudflare' : 'web';
 const buildOutputRoot = cloudflareDeployEnabled ? 'dist-cloudflare' : 'dist';
 const buildTempDirectory = `node_modules/.modern-js-${appId}-${buildTarget}`;
@@ -82,13 +102,14 @@ const buildCacheDirectory = `node_modules/.cache/rspack-${appId}-${buildTarget}`
 
 if (
   cloudflareDeployEnabled &&
-  getBuildConfigEnvironment('ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS') === 'true' &&
+  getBuildConfigEnvironment('ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS') ===
+    'true' &&
   configuredCloudflareUrl === undefined &&
   configuredSiteUrl === undefined &&
   inferredCloudflareUrl === undefined
 ) {
   throw new Error(
-    `Cloudflare deploy for ${appId} needs ULTRAMODERN_PUBLIC_URL_CHECKOUT, MODERN_PUBLIC_SITE_URL, or ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN.`,
+    `Cloudflare deploy for ${appId} needs ULTRAMODERN_PUBLIC_URL_CHECKOUT, MODERN_PUBLIC_SITE_URL, or ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN.`
   );
 }
 
@@ -118,12 +139,24 @@ export default defineConfig(
                   contentSecurityPolicy: {
                     directives: {
                       'base-uri': ["'self'"],
-                      'connect-src': ["'self'", 'https:', 'http:', 'wss:', 'ws:'],
+                      'connect-src': [
+                        "'self'",
+                        'https:',
+                        'http:',
+                        'wss:',
+                        'ws:',
+                      ],
                       'default-src': ["'self'"],
                       'font-src': ["'self'", 'data:', 'https:', 'http:'],
                       'form-action': ["'self'"],
                       'frame-ancestors': ["'self'"],
-                      'img-src': ["'self'", 'data:', 'blob:', 'https:', 'http:'],
+                      'img-src': [
+                        "'self'",
+                        'data:',
+                        'blob:',
+                        'https:',
+                        'http:',
+                      ],
                       'manifest-src': ["'self'", 'https:', 'http:'],
                       'object-src': ["'none'"],
                       'script-src': [
@@ -134,7 +167,12 @@ export default defineConfig(
                         'http:',
                         'blob:',
                       ],
-                      'style-src': ["'self'", "'unsafe-inline'", 'https:', 'http:'],
+                      'style-src': [
+                        "'self'",
+                        "'unsafe-inline'",
+                        'https:',
+                        'http:',
+                      ],
                       'worker-src': ["'self'", 'blob:'],
                     },
                     mode: 'report-only',
@@ -215,7 +253,10 @@ export default defineConfig(
             ],
             languages: ['en', 'cs'],
             localePathRedirect: true,
-            localisedUrls: ultramodernLocalisedUrls as Record<string, Record<string, string>>,
+            localisedUrls: ultramodernLocalisedUrls as Record<
+              string,
+              Record<string, string>
+            >,
           },
           reactI18next: false,
         }),
@@ -233,7 +274,8 @@ export default defineConfig(
       },
       source: {
         alias: {
-          '@modern-js/plugin-i18n/runtime': '@modern-js/plugin-i18n/runtime/no-react-i18next',
+          '@modern-js/plugin-i18n/runtime':
+            '@modern-js/plugin-i18n/runtime/no-react-i18next',
         },
         globalVars: {
           ULTRAMODERN_SITE_URL: siteUrl,
@@ -250,11 +292,14 @@ export default defineConfig(
         bundlerChain: (chain) => {
           chain.output
             .uniqueName('verticalCheckout')
-            .chunkLoadingGlobal('__ULTRAMODERN_VERTICAL_CHECKOUT_LOADED_CHUNKS__');
+            .chunkLoadingGlobal(
+              '__ULTRAMODERN_VERTICAL_CHECKOUT_LOADED_CHUNKS__'
+            );
         },
         devServer: {
           headers: {
-            'Access-Control-Allow-Headers': 'Accept, Authorization, Content-Type, X-Requested-With',
+            'Access-Control-Allow-Headers':
+              'Accept, Authorization, Content-Type, X-Requested-With',
             'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
             'Access-Control-Allow-Origin': moduleFederationDevServerOrigin,
           },
@@ -272,6 +317,6 @@ export default defineConfig(
       enableModuleFederationSSR: true,
       enableTelemetryExporters: true,
       telemetryFailLoudStartup: false,
-    },
-  ),
+    }
+  )
 );

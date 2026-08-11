@@ -6,6 +6,7 @@ import {
   sizedImage,
   tractorProductVariants,
 } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
+
 import { AddToCart, Recommendations } from './vertical-components';
 
 export interface DecideProductPageProps {
@@ -13,7 +14,10 @@ export interface DecideProductPageProps {
   slug?: string;
 }
 
-export default function DecideProductPage({ sku, slug }: DecideProductPageProps) {
+export default function DecideProductPage({
+  sku,
+  slug,
+}: DecideProductPageProps) {
   const { language, t } = useModernI18n();
   const selected =
     findTractorVariant(sku) ??
@@ -22,7 +26,9 @@ export default function DecideProductPage({ sku, slug }: DecideProductPageProps)
   if (selected === undefined) {
     return null;
   }
-  const variants = tractorProductVariants.filter((product) => product.id === selected.id);
+  const variants = tractorProductVariants.filter(
+    (product) => product.id === selected.id
+  );
 
   return (
     <>
@@ -47,15 +53,23 @@ export default function DecideProductPage({ sku, slug }: DecideProductPageProps)
               {selected.baseName}
             </h1>
             <ul className="decide:mt-5 decide:list-none decide:p-0 decide:text-[1rem] decide:leading-relaxed decide:text-stone-800">
-              <li className="decide:mb-3">{t('decide.product.features.quality')}</li>
-              <li className="decide:mb-3">{t('decide.product.features.landscapes')}</li>
-              <li className="decide:mb-3">{t('decide.product.features.comfort')}</li>
+              <li className="decide:mb-3">
+                {t('decide.product.features.quality')}
+              </li>
+              <li className="decide:mb-3">
+                {t('decide.product.features.landscapes')}
+              </li>
+              <li className="decide:mb-3">
+                {t('decide.product.features.comfort')}
+              </li>
             </ul>
             <ul className="decide:mt-10 decide:flex decide:list-none decide:flex-wrap decide:gap-6 decide:p-0">
               {variants.map((variant) => (
                 <li key={variant.sku}>
                   <a
-                    aria-current={variant.sku === selected.sku ? 'true' : undefined}
+                    aria-current={
+                      variant.sku === selected.sku ? 'true' : undefined
+                    }
                     className="decide:inline-flex decide:items-center decide:gap-2 decide:border-b decide:border-stone-950 decide:text-[1rem] decide:text-stone-950 decide:no-underline decide:focus-visible:outline decide:focus-visible:outline-2 decide:focus-visible:outline-offset-4 decide:focus-visible:outline-[#f6cf45]"
                     href={`/${language}/tractors/${variant.slug}?sku=${variant.sku}`}
                   >

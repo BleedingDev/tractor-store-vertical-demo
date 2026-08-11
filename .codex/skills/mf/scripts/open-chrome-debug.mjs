@@ -2,12 +2,17 @@
 
 import { spawn } from 'node:child_process';
 import { access, mkdir } from 'node:fs/promises';
+import http from 'node:http';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import http from 'node:http';
 
-const DEFAULT_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const DEFAULT_USER_DATA_DIR = join(homedir(), '.chrome-debug-profiles', 'mf-obs');
+const DEFAULT_CHROME =
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const DEFAULT_USER_DATA_DIR = join(
+  homedir(),
+  '.chrome-debug-profiles',
+  'mf-obs'
+);
 
 function readArg(name, fallback) {
   const prefix = `--${name}=`;
@@ -56,7 +61,7 @@ function checkDebugPort(port) {
             body,
           });
         });
-      },
+      }
     );
     req.on('timeout', () => {
       req.destroy();
@@ -93,9 +98,13 @@ function httpJson(method, port, requestPath) {
             }
             return;
           }
-          reject(new Error(`${method} ${requestPath} failed with ${res.statusCode}: ${body}`));
+          reject(
+            new Error(
+              `${method} ${requestPath} failed with ${res.statusCode}: ${body}`
+            )
+          );
         });
-      },
+      }
     );
     req.on('timeout', () => {
       req.destroy(new Error(`${method} ${requestPath} timed out`));
@@ -138,10 +147,13 @@ const url = readArg('url', 'about:blank');
 const chrome = readArg('chrome', process.env.CHROME_BIN || DEFAULT_CHROME);
 const timeoutMs = Number(readArg('timeout-ms', '15000'));
 const userDataDir =
-  readArg('user-data-dir') || process.env.MF_CHROME_DEBUG_USER_DATA_DIR || DEFAULT_USER_DATA_DIR;
+  readArg('user-data-dir') ||
+  process.env.MF_CHROME_DEBUG_USER_DATA_DIR ||
+  DEFAULT_USER_DATA_DIR;
 const json = hasFlag('json');
 const dryRun = hasFlag('dry-run');
-const restartDebugProfile = hasFlag('restart') || hasFlag('restart-debug-profile');
+const restartDebugProfile =
+  hasFlag('restart') || hasFlag('restart-debug-profile');
 
 if (!Number.isInteger(port) || port <= 0 || port > 65535) {
   print(
@@ -149,7 +161,7 @@ if (!Number.isInteger(port) || port <= 0 || port > 65535) {
       ok: false,
       message: `Invalid Chrome debug port: ${String(port)}`,
     },
-    json,
+    json
   );
   process.exit(1);
 }
@@ -164,7 +176,7 @@ try {
       chrome,
       message: `Chrome executable not found: ${chrome}`,
     },
-    json,
+    json
   );
   process.exit(1);
 }
@@ -191,7 +203,7 @@ if (dryRun) {
         ? 'Dry run only. This would restart the fixed Chrome debug profile with remote debugging enabled.'
         : 'Dry run only. This would launch the fixed Chrome debug profile with remote debugging enabled.',
     },
-    json,
+    json
   );
   process.exit(0);
 }
@@ -210,7 +222,7 @@ if (existing.ok) {
         url,
         message: `Chrome debug port is available, but opening the target page failed: ${error.message}`,
       },
-      json,
+      json
     );
     process.exit(1);
   }
@@ -225,7 +237,7 @@ if (existing.ok) {
       url: `http://127.0.0.1:${port}/json/version`,
       message: `Chrome debug port already available on ${port}.`,
     },
-    json,
+    json
   );
   process.exit(0);
 }
@@ -247,7 +259,7 @@ try {
       args,
       message: `Failed to launch Chrome: ${error.message}`,
     },
-    json,
+    json
   );
   process.exit(1);
 }
@@ -272,7 +284,7 @@ if (ready.ok) {
       url: `http://127.0.0.1:${port}/json/version`,
       message: `Chrome debug port ready on ${port}.`,
     },
-    json,
+    json
   );
   process.exit(0);
 }
@@ -291,6 +303,6 @@ print(
       ? 'Chrome debug port did not become available after restarting the fixed debug profile. Ask the user to close that debug Chrome window manually or choose another debug port before continuing.'
       : 'Chrome debug port did not become available after launching the fixed debug profile. The profile may already be open without remote debugging, or the port may be blocked. Ask the user to close that debug Chrome window or choose another debug port before continuing.',
   },
-  json,
+  json
 );
 process.exit(2);

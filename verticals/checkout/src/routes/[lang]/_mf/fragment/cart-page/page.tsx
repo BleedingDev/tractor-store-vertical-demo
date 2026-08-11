@@ -1,12 +1,15 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import CartPage from '../../../../../components/cart-page';
 
 export default function CartPageFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof CartPage>>({
-    boundaryId: 'verticalCheckout',
-    expose: './CartPage',
-  });
+  const props = useDistributedSsrFragmentProps<ComponentProps<typeof CartPage>>(
+    {
+      boundaryId: 'verticalCheckout',
+      expose: './CartPage',
+    }
+  );
 
   return (
     <>

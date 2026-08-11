@@ -84,7 +84,9 @@ args.forEach((a, i) => {
     skipIdx.add(i + 1);
   }
 });
-const positional = args.filter((a, i) => !a.startsWith('--') && !skipIdx.has(i));
+const positional = args.filter(
+  (a, i) => !a.startsWith('--') && !skipIdx.has(i)
+);
 
 const targetUrl = positional[0] ?? null;
 const timeout = Number(positional[1] ?? 15_000);
@@ -93,35 +95,38 @@ if (!targetUrl && !tabId) {
   process.stderr.write(
     'Usage:\n' +
       '  node capture.mjs <url> [timeout_ms] [--vars v1,v2] [--keep-tab] [--click "text"] [--dump-dom] [--eval "expr"] [--wait-until auto|domcontentloaded|networkidle|timeout] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-entries] [--entries-limit N]\n' +
-      '  node capture.mjs --tab-id <id> [--click "text"] [--vars v1,v2] [--dump-dom] [--close] [--eval "expr"] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-follow-new-tab]\n',
+      '  node capture.mjs --tab-id <id> [--click "text"] [--vars v1,v2] [--dump-dom] [--close] [--eval "expr"] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-follow-new-tab]\n'
   );
   process.exit(1);
 }
 
 if (!Number.isFinite(timeout) || timeout <= 0) {
   process.stderr.write(
-    `Invalid timeout: ${String(positional[1])}. timeout_ms must be a positive number.\n`,
+    `Invalid timeout: ${String(positional[1])}. timeout_ms must be a positive number.\n`
   );
   process.exit(1);
 }
 
-if (entriesLimitRaw != null && (!Number.isInteger(entriesLimit) || entriesLimit <= 0)) {
+if (
+  entriesLimitRaw != null &&
+  (!Number.isInteger(entriesLimit) || entriesLimit <= 0)
+) {
   process.stderr.write(
-    `Invalid --entries-limit: ${entriesLimitRaw}. It must be a positive integer.\n`,
+    `Invalid --entries-limit: ${entriesLimitRaw}. It must be a positive integer.\n`
   );
   process.exit(1);
 }
 
 if (waitUntilRaw != null && parsedWaitUntil == null) {
   process.stderr.write(
-    `Invalid --wait-until: ${waitUntilRaw}. Valid values: auto, domcontentloaded, networkidle, timeout.\n`,
+    `Invalid --wait-until: ${waitUntilRaw}. Valid values: auto, domcontentloaded, networkidle, timeout.\n`
   );
   process.exit(1);
 }
 
 if (actionWaitRaw != null && parsedActionWait == null) {
   process.stderr.write(
-    `Invalid --action-wait: ${actionWaitRaw}. Valid values: auto, networkidle, domcontentloaded, timeout, none.\n`,
+    `Invalid --action-wait: ${actionWaitRaw}. Valid values: auto, networkidle, domcontentloaded, timeout, none.\n`
   );
   process.exit(1);
 }
@@ -131,20 +136,31 @@ const hasInteractionAction = Boolean(clickTarget || fillArg || selectArg);
 const hasPostActionCapture = Boolean(evalExpr || varNames.length || dumpDom);
 // Auto-enable --no-entries for pure interaction steps on an existing tab (click/fill/select
 // with no variable/eval/dom capture): entries are noise and slow down the chain.
-const noEntries = noEntriesFlag || Boolean(tabId && hasInteractionAction && !hasPostActionCapture);
+const noEntries =
+  noEntriesFlag ||
+  Boolean(tabId && hasInteractionAction && !hasPostActionCapture);
 const waitUntil = parsedWaitUntil ?? 'auto';
 const actionWait = parsedActionWait ?? 'auto';
-const effectiveWaitUntil = waitUntil === 'auto' ? 'domcontentloaded' : waitUntil;
+const effectiveWaitUntil =
+  waitUntil === 'auto' ? 'domcontentloaded' : waitUntil;
 const effectiveActionWait =
-  actionWait === 'auto' ? (hasInteractionAction ? 'domcontentloaded' : 'none') : actionWait;
+  actionWait === 'auto'
+    ? hasInteractionAction
+      ? 'domcontentloaded'
+      : 'none'
+    : actionWait;
 const navigateWaitBudgetMs = hasWaitUntilFlag
   ? timeout
   : Math.min(timeout, AUTO_NETWORKIDLE_MAX_MS);
-const actionWaitBudgetMs = hasActionWaitFlag ? timeout : Math.min(timeout, AUTO_NETWORKIDLE_MAX_MS);
+const actionWaitBudgetMs = hasActionWaitFlag
+  ? timeout
+  : Math.min(timeout, AUTO_NETWORKIDLE_MAX_MS);
 
 if (typeof WebSocket === 'undefined') {
   process.stderr.write(
-    'Node.js 21+ required (built-in WebSocket). Current: ' + process.version + '\n',
+    'Node.js 21+ required (built-in WebSocket). Current: ' +
+      process.version +
+      '\n'
   );
   process.exit(1);
 }
@@ -164,25 +180,34 @@ class Session {
       if (msg.id != null) {
         const p = this.#pending.get(msg.id);
         this.#pending.delete(msg.id);
-        msg.error ? p?.reject(new Error(msg.error.message)) : p?.resolve(msg.result);
+        msg.error
+          ? p?.reject(new Error(msg.error.message))
+          : p?.resolve(msg.result);
       }
-      if (msg.method) this.#listeners.get(msg.method)?.forEach((fn) => fn(msg.params));
+      if (msg.method)
+        this.#listeners.get(msg.method)?.forEach((fn) => fn(msg.params));
     });
   }
 
   open() {
     return new Promise((resolve, reject) => {
       this.#ws.addEventListener('open', resolve, { once: true });
-      this.#ws.addEventListener('error', (e) => reject(new Error(String(e.message ?? e))), {
-        once: true,
-      });
+      this.#ws.addEventListener(
+        'error',
+        (e) => reject(new Error(String(e.message ?? e))),
+        {
+          once: true,
+        }
+      );
     });
   }
 
   send(method, params = {}) {
     const id = this.#nextId++;
     this.#ws.send(JSON.stringify({ id, method, params }));
-    return new Promise((resolve, reject) => this.#pending.set(id, { resolve, reject }));
+    return new Promise((resolve, reject) =>
+      this.#pending.set(id, { resolve, reject })
+    );
   }
 
   on(event, fn) {
@@ -206,7 +231,7 @@ try {
       '  CHROME=$(find /Applications ~/Applications -name "Google Chrome" -path "*/MacOS/Google Chrome" 2>/dev/null | head -1)\n' +
       '  killall "Google Chrome" 2>/dev/null; sleep 1\n' +
       '  "$CHROME" --remote-debugging-port=9222 --user-data-dir="$HOME/Library/Application Support/Google/Chrome" &\n\n' +
-      'This uses your REAL Chrome profile — all cookies and login sessions are preserved.\n',
+      'This uses your REAL Chrome profile — all cookies and login sessions are preserved.\n'
   );
   process.exit(1);
 }
@@ -225,7 +250,9 @@ if (tabId) {
   }
   process.stderr.write(`Attaching to tab: ${tab.url}\n`);
 } else {
-  process.stderr.write(`Navigating to ${targetUrl} (timeout: ${timeout / 1000}s)...\n`);
+  process.stderr.write(
+    `Navigating to ${targetUrl} (timeout: ${timeout / 1000}s)...\n`
+  );
   tab = await (await fetch(`${CDP_BASE}/json/new`, { method: 'PUT' })).json();
 }
 
@@ -246,7 +273,7 @@ session.on('Runtime.consoleAPICalled', ({ type, args: a, stackTrace }) => {
           ? x.description
           : x.value != null
             ? String(x.value)
-            : x.type,
+            : x.type
     )
     .join(' ');
   const f = stackTrace?.callFrames?.[0];
@@ -281,18 +308,21 @@ session.on('Network.responseReceived', ({ response }) => {
 
 const pendingUrls = new Map();
 session.on('Network.requestWillBeSent', ({ requestId, request }) =>
-  pendingUrls.set(requestId, request.url),
+  pendingUrls.set(requestId, request.url)
 );
-session.on('Network.loadingFailed', ({ requestId, errorText, blockedReason, canceled }) => {
-  if (canceled) return;
-  logs.push({
-    t: stamp(),
-    level: 'error',
-    msg: `[network] ${blockedReason ?? errorText} — ${pendingUrls.get(requestId) ?? '?'}`,
-    stack: null,
-  });
-  pendingUrls.delete(requestId);
-});
+session.on(
+  'Network.loadingFailed',
+  ({ requestId, errorText, blockedReason, canceled }) => {
+    if (canceled) return;
+    logs.push({
+      t: stamp(),
+      level: 'error',
+      msg: `[network] ${blockedReason ?? errorText} — ${pendingUrls.get(requestId) ?? '?'}`,
+      stack: null,
+    });
+    pendingUrls.delete(requestId);
+  }
+);
 
 session.on('Log.entryAdded', ({ entry }) => {
   if (entry.level === 'verbose') return;
@@ -421,7 +451,9 @@ if (clickTarget) {
   const clickStart = Date.now();
   process.stderr.write(`Clicking: \"${clickTarget}\"\\n`);
 
-  const beforeTabs = followNewTab ? await (await fetch(`${CDP_BASE}/json/list`)).json() : null;
+  const beforeTabs = followNewTab
+    ? await (await fetch(`${CDP_BASE}/json/list`)).json()
+    : null;
 
   const r = await session.send('Runtime.evaluate', {
     expression: `(function(q) {
@@ -499,10 +531,12 @@ if (clickTarget) {
   clickResult = JSON.parse(r?.result?.value ?? '{\"found\":false}');
 
   if (!clickResult.found) {
-    process.stderr.write(`  Warning: element not found for \"${clickTarget}\"\\n`);
+    process.stderr.write(
+      `  Warning: element not found for \"${clickTarget}\"\\n`
+    );
   } else {
     process.stderr.write(
-      `  Clicked: <${clickResult.tag}> \"${clickResult.text}\" (${clickResult.matchStrategy}/${clickResult.matchType})\\n`,
+      `  Clicked: <${clickResult.tag}> \"${clickResult.text}\" (${clickResult.matchStrategy}/${clickResult.matchType})\\n`
     );
     // wait briefly for click-triggered requests to start, then wait by action mode
     await new Promise((r) => setTimeout(r, 200));
@@ -515,7 +549,9 @@ if (clickTarget) {
       const deadline = Date.now() + 3000;
       while (Date.now() < deadline && !newTarget) {
         const now = await (await fetch(`${CDP_BASE}/json/list`)).json();
-        newTarget = now.find((t) => !beforeIds.has(t.id) && (t.type === 'page' || !t.type));
+        newTarget = now.find(
+          (t) => !beforeIds.has(t.id) && (t.type === 'page' || !t.type)
+        );
         if (!newTarget) await new Promise((r) => setTimeout(r, 250));
       }
       if (newTarget) {
@@ -562,7 +598,9 @@ if (fillArg) {
   const sep = fillArg.indexOf('::');
   const placeholder = sep !== -1 ? fillArg.slice(0, sep) : fillArg;
   const text = sep !== -1 ? fillArg.slice(sep + 2) : '';
-  process.stderr.write(`Filling: placeholder="${placeholder}" text="${text}"\n`);
+  process.stderr.write(
+    `Filling: placeholder="${placeholder}" text="${text}"\n`
+  );
 
   const r = await session.send('Runtime.evaluate', {
     expression: `(function(ph, txt) {
@@ -583,9 +621,13 @@ if (fillArg) {
 
   fillResult = JSON.parse(r?.result?.value ?? '{"found":false}');
   if (!fillResult.found) {
-    process.stderr.write(`  Warning: input not found for placeholder="${placeholder}"\n`);
+    process.stderr.write(
+      `  Warning: input not found for placeholder="${placeholder}"\n`
+    );
   } else {
-    process.stderr.write(`  Filled: <${fillResult.tag}> placeholder="${fillResult.placeholder}"\n`);
+    process.stderr.write(
+      `  Filled: <${fillResult.tag}> placeholder="${fillResult.placeholder}"\n`
+    );
     await new Promise((r) => setTimeout(r, 200));
     await waitAfterAction(effectiveActionWait, actionWaitBudgetMs);
   }
@@ -602,7 +644,9 @@ if (selectArg) {
   const sep = selectArg.indexOf('::');
   const placeholder = sep !== -1 ? selectArg.slice(0, sep) : selectArg;
   const value = sep !== -1 ? selectArg.slice(sep + 2) : '';
-  process.stderr.write(`Selecting: placeholder="${placeholder}" value="${value}"\n`);
+  process.stderr.write(
+    `Selecting: placeholder="${placeholder}" value="${value}"\n`
+  );
 
   // Step 1: try native <select>, otherwise click the custom dropdown trigger
   const r1 = await session.send('Runtime.evaluate', {
@@ -638,7 +682,10 @@ if (selectArg) {
 
   selectResult = JSON.parse(r1?.result?.value ?? '{"found":false}');
 
-  if (selectResult.type === 'custom' && selectResult.step === 'trigger_clicked') {
+  if (
+    selectResult.type === 'custom' &&
+    selectResult.step === 'trigger_clicked'
+  ) {
     // Step 2: wait for dropdown to open, then click the matching option
     await new Promise((r) => setTimeout(r, 300));
     const r2 = await session.send('Runtime.evaluate', {
@@ -659,11 +706,11 @@ if (selectArg) {
 
   if (!selectResult.found) {
     process.stderr.write(
-      `  Warning: select target not found (${selectResult.reason ?? 'unknown'})\n`,
+      `  Warning: select target not found (${selectResult.reason ?? 'unknown'})\n`
     );
   } else {
     process.stderr.write(
-      `  Selected: [${selectResult.type}] "${selectResult.text ?? selectResult.value}"\n`,
+      `  Selected: [${selectResult.type}] "${selectResult.text ?? selectResult.value}"\n`
     );
     await new Promise((r) => setTimeout(r, 200));
     await waitAfterAction(effectiveActionWait, actionWaitBudgetMs);
@@ -794,7 +841,7 @@ if (varNames.length) {
       variables[varName] = { exists: false, error: String(e.message) };
     }
     process.stderr.write(
-      `  ${varName}: ${variables[varName].exists ? 'found' : 'not found'}${variables[varName].skippedPaths?.length ? ` (${variables[varName].skippedPaths.length} paths skipped)` : ''}\n`,
+      `  ${varName}: ${variables[varName].exists ? 'found' : 'not found'}${variables[varName].skippedPaths?.length ? ` (${variables[varName].skippedPaths.length} paths skipped)` : ''}\n`
     );
   }
 
@@ -840,11 +887,13 @@ const result = {
   ...(noEntries
     ? {}
     : {
-        entries: entriesLimit ? logs.slice(Math.max(0, logs.length - entriesLimit)) : logs,
+        entries: entriesLimit
+          ? logs.slice(Math.max(0, logs.length - entriesLimit))
+          : logs,
       }),
 };
 
 process.stderr.write(
-  `Done: ${result.errors} errors, ${result.warns} warns, ${result.total} total\n`,
+  `Done: ${result.errors} errors, ${result.warns} warns, ${result.total} total\n`
 );
 process.stdout.write(JSON.stringify(result, null, 2) + '\n');

@@ -22,7 +22,9 @@ function parseArgs(argv) {
 
 function extractRemoteUrl(remoteValue) {
   const raw =
-    typeof remoteValue === 'string' ? remoteValue : (remoteValue && remoteValue.external) || null;
+    typeof remoteValue === 'string'
+      ? remoteValue
+      : (remoteValue && remoteValue.external) || null;
   if (!raw) return null;
   const atIndex = raw.indexOf('@');
   return atIndex >= 0 ? raw.slice(atIndex + 1) : raw;
@@ -30,7 +32,9 @@ function extractRemoteUrl(remoteValue) {
 
 function getPublicPath(remoteEntry) {
   const lastSlash = remoteEntry.lastIndexOf('/');
-  return lastSlash >= 0 ? remoteEntry.slice(0, lastSlash + 1) : `${remoteEntry}/`;
+  return lastSlash >= 0
+    ? remoteEntry.slice(0, lastSlash + 1)
+    : `${remoteEntry}/`;
 }
 
 function fetchJson(url) {
@@ -77,8 +81,8 @@ async function main(ctx, moduleName, explicitUrl) {
             availableRemotes: Object.keys(remotes),
           },
           null,
-          2,
-        ) + '\n',
+          2
+        ) + '\n'
       );
       return;
     }
@@ -87,8 +91,11 @@ async function main(ctx, moduleName, explicitUrl) {
 
   if (!remoteEntry) {
     process.stdout.write(
-      JSON.stringify({ error: `Cannot resolve remoteEntry URL for "${moduleName}"` }, null, 2) +
-        '\n',
+      JSON.stringify(
+        { error: `Cannot resolve remoteEntry URL for "${moduleName}"` },
+        null,
+        2
+      ) + '\n'
     );
     return;
   }
@@ -98,7 +105,9 @@ async function main(ctx, moduleName, explicitUrl) {
 
   const manifestUrl = `${publicPath}mf-manifest.json`;
   const manifestRes = await fetchJson(manifestUrl);
-  const manifest = manifestRes.ok ? extractManifestInfo(manifestRes.data) : null;
+  const manifest = manifestRes.ok
+    ? extractManifestInfo(manifestRes.data)
+    : null;
 
   const hasSsr = manifestRes.ssrRemoteEntry;
 
@@ -123,7 +132,9 @@ if (!args.module) {
   process.exit(1);
 }
 
-main(JSON.parse(args.context || '{}'), args.module, args.url || null).catch((err) => {
-  process.stderr.write(`Error: ${err.message}\n`);
-  process.exit(1);
-});
+main(JSON.parse(args.context || '{}'), args.module, args.url || null).catch(
+  (err) => {
+    process.stderr.write(`Error: ${err.message}\n`);
+    process.exit(1);
+  }
+);

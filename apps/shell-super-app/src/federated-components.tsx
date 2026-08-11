@@ -1,19 +1,19 @@
+import { createDistributedSsrComponent } from '@modern-js/runtime/module-federation';
 import { createLazyComponent } from '@module-federation/modern-js-v3/react';
 import { getInstance } from '@module-federation/modern-js-v3/runtime';
-import { createDistributedSsrComponent } from '@modern-js/runtime/module-federation';
-import type { ComponentType, FunctionComponent, ReactNode } from 'react';
 import type AddToCartComponent from '@tractor-store-vertical-demo/checkout/AddToCart';
 import type CartPageComponent from '@tractor-store-vertical-demo/checkout/CartPage';
 import type CheckoutPageComponent from '@tractor-store-vertical-demo/checkout/CheckoutPage';
+import type MiniCartComponent from '@tractor-store-vertical-demo/checkout/MiniCart';
+import type ThanksPageComponent from '@tractor-store-vertical-demo/checkout/ThanksPage';
+import type ProductPageComponent from '@tractor-store-vertical-demo/decide/ProductPage';
 import type FooterComponent from '@tractor-store-vertical-demo/explore/Footer';
 import type HeaderComponent from '@tractor-store-vertical-demo/explore/Header';
 import type HomePageComponent from '@tractor-store-vertical-demo/explore/HomePage';
-import type MiniCartComponent from '@tractor-store-vertical-demo/checkout/MiniCart';
 import type ProductGridComponent from '@tractor-store-vertical-demo/explore/ProductGrid';
-import type ProductPageComponent from '@tractor-store-vertical-demo/decide/ProductPage';
 import type RecommendationsComponent from '@tractor-store-vertical-demo/explore/Recommendations';
 import type StorePickerComponent from '@tractor-store-vertical-demo/explore/StorePicker';
-import type ThanksPageComponent from '@tractor-store-vertical-demo/checkout/ThanksPage';
+import type { ComponentType, FunctionComponent, ReactNode } from 'react';
 
 type AddToCartProps = RemoteComponentProps<typeof AddToCartComponent>;
 type CartPageProps = RemoteComponentProps<typeof CartPageComponent>;
@@ -24,7 +24,9 @@ type HomePageProps = RemoteComponentProps<typeof HomePageComponent>;
 type MiniCartProps = RemoteComponentProps<typeof MiniCartComponent>;
 type ProductGridProps = RemoteComponentProps<typeof ProductGridComponent>;
 type ProductPageProps = RemoteComponentProps<typeof ProductPageComponent>;
-type RecommendationsProps = RemoteComponentProps<typeof RecommendationsComponent>;
+type RecommendationsProps = RemoteComponentProps<
+  typeof RecommendationsComponent
+>;
 type StorePickerProps = RemoteComponentProps<typeof StorePickerComponent>;
 type ThanksPageProps = RemoteComponentProps<typeof ThanksPageComponent>;
 
@@ -46,7 +48,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('checkout/AddToCart') as Promise<RemoteComponentModule<AddToCartProps>>,
+          import('checkout/AddToCart') as Promise<
+            RemoteComponentModule<AddToCartProps>
+          >,
         loading: null,
       }),
     expose: './AddToCart',
@@ -59,7 +63,10 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         export: 'default',
         fallback,
         instance: getInstance(),
-        loader: () => import('checkout/CartPage') as Promise<RemoteComponentModule<CartPageProps>>,
+        loader: () =>
+          import('checkout/CartPage') as Promise<
+            RemoteComponentModule<CartPageProps>
+          >,
         loading: null,
       }),
     expose: './CartPage',
@@ -73,7 +80,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('checkout/CheckoutPage') as Promise<RemoteComponentModule<CheckoutPageProps>>,
+          import('checkout/CheckoutPage') as Promise<
+            RemoteComponentModule<CheckoutPageProps>
+          >,
         loading: null,
       }),
     expose: './CheckoutPage',
@@ -86,7 +95,10 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         export: 'default',
         fallback,
         instance: getInstance(),
-        loader: () => import('explore/Footer') as Promise<RemoteComponentModule<FooterProps>>,
+        loader: () =>
+          import('explore/Footer') as Promise<
+            RemoteComponentModule<FooterProps>
+          >,
         loading: null,
       }),
     expose: './Footer',
@@ -99,7 +111,10 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         export: 'default',
         fallback,
         instance: getInstance(),
-        loader: () => import('explore/Header') as Promise<RemoteComponentModule<HeaderProps>>,
+        loader: () =>
+          import('explore/Header') as Promise<
+            RemoteComponentModule<HeaderProps>
+          >,
         loading: null,
       }),
     expose: './Header',
@@ -112,7 +127,10 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         export: 'default',
         fallback,
         instance: getInstance(),
-        loader: () => import('explore/HomePage') as Promise<RemoteComponentModule<HomePageProps>>,
+        loader: () =>
+          import('explore/HomePage') as Promise<
+            RemoteComponentModule<HomePageProps>
+          >,
         loading: null,
       }),
     expose: './HomePage',
@@ -125,7 +143,10 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         export: 'default',
         fallback,
         instance: getInstance(),
-        loader: () => import('checkout/MiniCart') as Promise<RemoteComponentModule<MiniCartProps>>,
+        loader: () =>
+          import('checkout/MiniCart') as Promise<
+            RemoteComponentModule<MiniCartProps>
+          >,
         loading: null,
       }),
     expose: './MiniCart',
@@ -139,7 +160,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('explore/ProductGrid') as Promise<RemoteComponentModule<ProductGridProps>>,
+          import('explore/ProductGrid') as Promise<
+            RemoteComponentModule<ProductGridProps>
+          >,
         loading: null,
       }),
     expose: './ProductGrid',
@@ -153,7 +176,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('decide/ProductPage') as Promise<RemoteComponentModule<ProductPageProps>>,
+          import('decide/ProductPage') as Promise<
+            RemoteComponentModule<ProductPageProps>
+          >,
         loading: null,
       }),
     expose: './ProductPage',
@@ -162,12 +187,17 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
   }),
   Recommendations: createDistributedSsrComponent<RecommendationsProps>({
     createComponent: () =>
-      createLazyComponent<RemoteComponentModule<RecommendationsProps>, 'default'>({
+      createLazyComponent<
+        RemoteComponentModule<RecommendationsProps>,
+        'default'
+      >({
         export: 'default',
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('explore/Recommendations') as Promise<RemoteComponentModule<RecommendationsProps>>,
+          import('explore/Recommendations') as Promise<
+            RemoteComponentModule<RecommendationsProps>
+          >,
         loading: null,
       }),
     expose: './Recommendations',
@@ -181,7 +211,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('explore/StorePicker') as Promise<RemoteComponentModule<StorePickerProps>>,
+          import('explore/StorePicker') as Promise<
+            RemoteComponentModule<StorePickerProps>
+          >,
         loading: null,
       }),
     expose: './StorePicker',
@@ -195,7 +227,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         fallback,
         instance: getInstance(),
         loader: () =>
-          import('checkout/ThanksPage') as Promise<RemoteComponentModule<ThanksPageProps>>,
+          import('checkout/ThanksPage') as Promise<
+            RemoteComponentModule<ThanksPageProps>
+          >,
         loading: null,
       }),
     expose: './ThanksPage',

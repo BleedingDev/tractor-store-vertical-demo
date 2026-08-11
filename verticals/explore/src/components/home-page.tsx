@@ -1,4 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
 import { responsiveImage, sizedImage, teasers } from '../tractor-data';
 import Recommendations from './recommendations';
 

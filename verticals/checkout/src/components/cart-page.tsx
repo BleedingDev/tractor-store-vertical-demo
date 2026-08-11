@@ -1,12 +1,17 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
 import { useCartLines } from '../cart-store';
 
-const formatPrice = (price: number) => `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
+const formatPrice = (price: number) =>
+  `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
 export default function CheckoutCartPage() {
   const { language, t } = useModernI18n();
   const { lines, remove } = useCartLines();
-  const total = lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
+  const total = lines.reduce(
+    (sum, line) => sum + line.price * line.quantity,
+    0
+  );
 
   return (
     <main
@@ -37,7 +42,9 @@ export default function CheckoutCartPage() {
                     className="checkout:min-w-[300px] checkout:flex-grow checkout:pr-8 checkout:text-stone-950 checkout:no-underline checkout:max-[760px]:min-w-0 checkout:max-[760px]:basis-full checkout:max-[760px]:pr-0"
                     href={`/${language}/tractors/${line.slug}?sku=${line.id}`}
                   >
-                    <strong className="checkout:block checkout:font-normal">{line.name}</strong>
+                    <strong className="checkout:block checkout:font-normal">
+                      {line.name}
+                    </strong>
                     <span className="checkout:block">{line.id}</span>
                   </a>
                   <span className="checkout:flex checkout:items-center checkout:gap-4">
@@ -79,7 +86,9 @@ export default function CheckoutCartPage() {
         </>
       ) : (
         <div className="checkout:mt-8 checkout:rounded-lg checkout:border checkout:border-stone-200 checkout:bg-white checkout:p-6">
-          <p className="checkout:m-0 checkout:text-stone-700">{t('checkout.cart.empty')}</p>
+          <p className="checkout:m-0 checkout:text-stone-700">
+            {t('checkout.cart.empty')}
+          </p>
           <a
             className="checkout:mt-6 checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
             href={`/${language}/tractors`}

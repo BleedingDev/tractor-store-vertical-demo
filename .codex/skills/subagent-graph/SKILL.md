@@ -19,8 +19,7 @@ Use this skill to design and launch the graph:
 - sequence waves
 - identify merge points and conflict hotspots
 
-If the orchestration source of truth is a set of `.plan.md` files, derive the launch graph from those plans with `dag` when you mainly need the current frontier, or with `plan-graph` when you need the full DAG or validation. Preserve downstream targeting by either rerunning a selection that resolves to the same plan files, or by carrying an explicit `GRAPH_ID` when another tool or agent must hit one exact saved slot.
-Do not launch from a multi-plan selection until `plan-graph validate` passes without orphaned selected plans. If a wrapper or documentation plan is part of the selection, either link it explicitly or exclude it from the runnable graph.
+If the orchestration source of truth is a set of `.plan.md` files, derive the launch graph from those plans with `dag` when you mainly need the current frontier, or with `plan-graph` when you need the full DAG or validation. Preserve downstream targeting by either rerunning a selection that resolves to the same plan files, or by carrying an explicit `GRAPH_ID` when another tool or agent must hit one exact saved slot. Do not launch from a multi-plan selection until `plan-graph validate` passes without orphaned selected plans. If a wrapper or documentation plan is part of the selection, either link it explicitly or exclude it from the runnable graph.
 
 If the graph is already active and the main problem is now steering it, switch to `helm`:
 
@@ -85,8 +84,7 @@ Before spawning any agent, write a short orchestration plan for yourself.
 
 If the task is already represented as one or more Cursor plan files, derive that orchestration plan from `dag` or `plan-graph` output instead of paraphrasing the plan from scratch.
 
-If the work is plan-backed, write the handoff bundle into that orchestration plan before the node list. The next operator should be able to reattach to the same slot without rediscovering which plan selection or dependency overlay you used.
-The launch graph should also name any intentionally non-runnable plans that were excluded from selection so later operators do not accidentally reintroduce them as orphaned nodes.
+If the work is plan-backed, write the handoff bundle into that orchestration plan before the node list. The next operator should be able to reattach to the same slot without rediscovering which plan selection or dependency overlay you used. The launch graph should also name any intentionally non-runnable plans that were excluded from selection so later operators do not accidentally reintroduce them as orphaned nodes.
 
 That plan should name:
 
@@ -103,8 +101,7 @@ That plan should name:
 
 Do this even when the graph is small. The plan can be brief, but it should exist before the first spawn.
 
-If the likely second wave is too fuzzy to describe, the first wave is probably still too broad.
-If the best plan has no subagents yet, that is a valid outcome.
+If the likely second wave is too fuzzy to describe, the first wave is probably still too broad. If the best plan has no subagents yet, that is a valid outcome.
 
 ## Core Rules
 
@@ -146,8 +143,7 @@ Before spawning anything, define:
 7. Next waves: what additional nodes will likely be launched after the current wave completes.
 8. Conflict hotspots: files, symbols, or interfaces where concurrent edits are disallowed.
 
-Keep the graph minimal. Most tasks need only 1 to 4 nodes.
-If a node description starts turning into a paragraph of unrelated asks, split it or keep it local. A short paragraph of tightly related work can still be a valid node.
+Keep the graph minimal. Most tasks need only 1 to 4 nodes. If a node description starts turning into a paragraph of unrelated asks, split it or keep it local. A short paragraph of tightly related work can still be a valid node.
 
 When possible, sketch the graph in launch waves:
 

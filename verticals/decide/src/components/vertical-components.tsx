@@ -9,4 +9,6 @@ const RemoteUnavailable = () => (
   </div>
 );
 
-export const { AddToCart, Recommendations } = createFederatedComponents(<RemoteUnavailable />);
+export const { AddToCart, Recommendations } = createFederatedComponents(
+  <RemoteUnavailable />
+);

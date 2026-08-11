@@ -12,15 +12,20 @@ const truthy = (value) => /^(1|true|yes|on)$/i.test(String(value ?? ''));
 const falsy = (value) => /^(0|false|no|off)$/i.test(String(value ?? ''));
 
 const skipRequested =
-  truthy(process.env.ULTRAMODERN_SKIP_AGENT_REPOS) || falsy(process.env.ULTRAMODERN_AGENT_REPOS);
+  truthy(process.env.ULTRAMODERN_SKIP_AGENT_REPOS) ||
+  falsy(process.env.ULTRAMODERN_AGENT_REPOS);
 const required = truthy(process.env.ULTRAMODERN_AGENT_REPOS_REQUIRED);
 const refresh = truthy(process.env.ULTRAMODERN_AGENT_REPOS_REFRESH);
 
 const gitIdentityEnv = {
-  GIT_AUTHOR_NAME: process.env.GIT_AUTHOR_NAME || 'UltraModern Agent Reference Setup',
-  GIT_AUTHOR_EMAIL: process.env.GIT_AUTHOR_EMAIL || 'ultramodern-agent-refs@local',
-  GIT_COMMITTER_NAME: process.env.GIT_COMMITTER_NAME || 'UltraModern Agent Reference Setup',
-  GIT_COMMITTER_EMAIL: process.env.GIT_COMMITTER_EMAIL || 'ultramodern-agent-refs@local',
+  GIT_AUTHOR_NAME:
+    process.env.GIT_AUTHOR_NAME || 'UltraModern Agent Reference Setup',
+  GIT_AUTHOR_EMAIL:
+    process.env.GIT_AUTHOR_EMAIL || 'ultramodern-agent-refs@local',
+  GIT_COMMITTER_NAME:
+    process.env.GIT_COMMITTER_NAME || 'UltraModern Agent Reference Setup',
+  GIT_COMMITTER_EMAIL:
+    process.env.GIT_COMMITTER_EMAIL || 'ultramodern-agent-refs@local',
 };
 
 const log = (message) => console.log(`[agent-reference-repos] ${message}`);
@@ -55,7 +60,9 @@ function run(command, commandArgs, options = {}) {
   }
   if (result.status !== 0) {
     const stderr = result.stderr?.trim();
-    throw new Error(`${command} ${commandArgs.join(' ')} failed${stderr ? `: ${stderr}` : ''}`);
+    throw new Error(
+      `${command} ${commandArgs.join(' ')} failed${stderr ? `: ${stderr}` : ''}`
+    );
   }
   return result.stdout?.trim() ?? '';
 }
@@ -86,7 +93,8 @@ function hasGitSubtree() {
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   return (
-    (result.status === 0 || result.status === 129) && result.stdout.includes('usage: git subtree')
+    (result.status === 0 || result.status === 129) &&
+    result.stdout.includes('usage: git subtree')
   );
 }
 
@@ -142,7 +150,7 @@ function ensureGitRepository() {
   const status = porcelainStatus();
   if (status) {
     fail(
-      'workspace has uncommitted changes; commit or stash them before installing reference subtrees',
+      'workspace has uncommitted changes; commit or stash them before installing reference subtrees'
     );
     return false;
   }
@@ -169,12 +177,19 @@ function remoteCommit(repo) {
 function subtreeCommitExists(repo) {
   const result = spawnSync(
     'git',
-    ['log', '--grep', `git-subtree-dir: ${repo.path}`, '--format=%H', '-n', '1'],
+    [
+      'log',
+      '--grep',
+      `git-subtree-dir: ${repo.path}`,
+      '--format=%H',
+      '-n',
+      '1',
+    ],
     {
       cwd: root,
       encoding: 'utf-8',
       stdio: ['ignore', 'pipe', 'pipe'],
-    },
+    }
   );
   return result.status === 0 && result.stdout.trim().length > 0;
 }
@@ -226,7 +241,9 @@ function addSubtree(repo) {
   }
 
   if (existing && refresh) {
-    fail(`${repo.path} already exists; refresh for subtree references is intentionally manual`);
+    fail(
+      `${repo.path} already exists; refresh for subtree references is intentionally manual`
+    );
     return undefined;
   }
 
@@ -252,7 +269,7 @@ function addSubtree(repo) {
       '-m',
       `Add ${repo.name} agent reference repo`,
     ],
-    { timeout: 600000 },
+    { timeout: 600000 }
   );
 
   return {
@@ -283,8 +300,8 @@ function writeManifest(entries) {
         repositories: entries,
       },
       null,
-      2,
-    )}\n`,
+      2
+    )}\n`
   );
 }
 

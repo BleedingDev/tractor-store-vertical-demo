@@ -3,13 +3,14 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+
 import { Log, LogLevel, Miniflare } from 'miniflare';
 
 const workspaceRoot = process.cwd();
 const defaultProofRoutes = ['/en'];
 const reportPath = path.join(
   workspaceRoot,
-  '.codex/reports/cloudflare-workerd-ssr/composition-proof.json',
+  '.codex/reports/cloudflare-workerd-ssr/composition-proof.json'
 );
 
 const assert = (condition, message) => {
@@ -17,8 +18,10 @@ const assert = (condition, message) => {
     throw new Error(message);
   }
 };
-const readJson = (absolutePath) => JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
-const sha256 = (bytes) => crypto.createHash('sha256').update(bytes).digest('hex');
+const readJson = (absolutePath) =>
+  JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
+const sha256 = (bytes) =>
+  crypto.createHash('sha256').update(bytes).digest('hex');
 const count = (source, value) => source.split(value).length - 1;
 const normalizePath = (value) => String(value).replace(/\\/gu, '/');
 const DISTRIBUTED_SSR_FRAGMENT_REQUEST_HEADER = 'x-modern-js-fragment-request';
@@ -42,7 +45,9 @@ const collectJavaScriptFiles = (absoluteDirectory) => {
       if (entry.isDirectory()) {
         return collectJavaScriptFiles(absolutePath);
       }
-      return entry.isFile() && /\.(?:c|m)?js$/u.test(entry.name) ? [absolutePath] : [];
+      return entry.isFile() && /\.(?:c|m)?js$/u.test(entry.name)
+        ? [absolutePath]
+        : [];
     })
     .sort();
 };
@@ -62,24 +67,37 @@ const createWorkerModules = (outputRoot, main) => {
 };
 
 const readExecutionEnvelope = (appId, outputRoot, expectedUnitId) => {
-  const envelopePath = path.join(outputRoot, 'release/microvertical-release-envelope.json');
-  assert(fs.existsSync(envelopePath), `${appId} executed .output release envelope is missing`);
+  const envelopePath = path.join(
+    outputRoot,
+    'release/microvertical-release-envelope.json'
+  );
+  assert(
+    fs.existsSync(envelopePath),
+    `${appId} executed .output release envelope is missing`
+  );
   const envelope = readJson(envelopePath);
-  assert(envelope.schemaVersion === 3, `${appId} executed envelope schema must be 3`);
-  assert(envelope.target === 'cloudflare', `${appId} executed envelope must target cloudflare`);
+  assert(
+    envelope.schemaVersion === 3,
+    `${appId} executed envelope schema must be 3`
+  );
+  assert(
+    envelope.target === 'cloudflare',
+    `${appId} executed envelope must target cloudflare`
+  );
   assert(
     typeof expectedUnitId === 'string' &&
       expectedUnitId.length > 0 &&
       envelope.identity?.unitId === expectedUnitId,
-    `${appId} executed envelope unit identity is invalid`,
+    `${appId} executed envelope unit identity is invalid`
   );
   assert(
-    typeof envelope.envelopeDigest === 'string' && /^[a-f\d]{64}$/u.test(envelope.envelopeDigest),
-    `${appId} executed envelope digest is invalid`,
+    typeof envelope.envelopeDigest === 'string' &&
+      /^[a-f\d]{64}$/u.test(envelope.envelopeDigest),
+    `${appId} executed envelope digest is invalid`
   );
   assert(
     Array.isArray(envelope.artifacts) && envelope.artifacts.length > 0,
-    `${appId} executed envelope has no artifacts`,
+    `${appId} executed envelope has no artifacts`
   );
   return { envelope, envelopePath };
 };
@@ -87,20 +105,27 @@ const readExecutionEnvelope = (appId, outputRoot, expectedUnitId) => {
 const bindExecutedModule = (app, envelope, module) => {
   const logicalPath = normalizePath(path.relative(app.outputRoot, module.path));
   assert(
-    logicalPath.length > 0 && !logicalPath.startsWith('../') && !path.posix.isAbsolute(logicalPath),
-    `${app.id} selected module escapes .output: ${logicalPath}`,
+    logicalPath.length > 0 &&
+      !logicalPath.startsWith('../') &&
+      !path.posix.isAbsolute(logicalPath),
+    `${app.id} selected module escapes .output: ${logicalPath}`
   );
-  const artifact = envelope.artifacts.find((candidate) => candidate.logicalPath === logicalPath);
-  assert(artifact, `${app.id} selected module ${logicalPath} is not envelope-bound`);
+  const artifact = envelope.artifacts.find(
+    (candidate) => candidate.logicalPath === logicalPath
+  );
+  assert(
+    artifact,
+    `${app.id} selected module ${logicalPath} is not envelope-bound`
+  );
   assert(
     artifact.kind === 'file',
-    `${app.id} selected module ${logicalPath} is bound to a non-file artifact`,
+    `${app.id} selected module ${logicalPath} is bound to a non-file artifact`
   );
   const bytes = fs.readFileSync(module.path);
   const digest = sha256(bytes);
   assert(
     artifact.byteLength === bytes.byteLength && artifact.sha256 === digest,
-    `${app.id} selected module ${logicalPath} differs from its envelope artifact`,
+    `${app.id} selected module ${logicalPath} differs from its envelope artifact`
   );
   return {
     byteLength: bytes.byteLength,
@@ -111,7 +136,9 @@ const bindExecutedModule = (app, envelope, module) => {
   };
 };
 
-const compactConfig = readJson(path.join(workspaceRoot, '.modernjs/ultramodern.json'));
+const compactConfig = readJson(
+  path.join(workspaceRoot, '.modernjs/ultramodern.json')
+);
 const apps = (compactConfig.topology?.apps ?? []).map((rawApp) => {
   const kind = rawApp.kind === 'vertical' ? 'vertical' : 'shell';
   const appPath =
@@ -124,13 +151,14 @@ const apps = (compactConfig.topology?.apps ?? []).map((rawApp) => {
     rawApp.moduleFederation && typeof rawApp.moduleFederation === 'object'
       ? rawApp.moduleFederation
       : {};
-  const configuredProofRoutes = rawApp.deploy?.cloudflare?.distributedSsrProofRoutes;
+  const configuredProofRoutes =
+    rawApp.deploy?.cloudflare?.distributedSsrProofRoutes;
   const proofRoutes = Array.isArray(configuredProofRoutes)
     ? [
         ...new Set(
           configuredProofRoutes.filter(
-            (route) => typeof route === 'string' && route.startsWith('/'),
-          ),
+            (route) => typeof route === 'string' && route.startsWith('/')
+          )
         ),
       ]
     : [];
@@ -138,24 +166,33 @@ const apps = (compactConfig.topology?.apps ?? []).map((rawApp) => {
   const wranglerPath = path.join(outputRoot, 'wrangler.json');
   assert(
     fs.existsSync(wranglerPath),
-    `${rawApp.id} Cloudflare output is missing; run pnpm cloudflare:build first`,
+    `${rawApp.id} Cloudflare output is missing; run pnpm cloudflare:build first`
   );
   const wrangler = readJson(wranglerPath);
   const executedEnvelope =
     kind === 'vertical'
-      ? readExecutionEnvelope(String(rawApp.id), outputRoot, rawApp.deliveryUnit?.unitId)
+      ? readExecutionEnvelope(
+          String(rawApp.id),
+          outputRoot,
+          rawApp.deliveryUnit?.unitId
+        )
       : {};
 
   return {
     id: String(rawApp.id),
     kind,
     path: appPath,
-    mfName: typeof moduleFederation.name === 'string' ? moduleFederation.name : String(rawApp.id),
+    mfName:
+      typeof moduleFederation.name === 'string'
+        ? moduleFederation.name
+        : String(rawApp.id),
     verticalRefs: Array.isArray(moduleFederation.verticalRefs)
       ? moduleFederation.verticalRefs.filter((ref) => typeof ref === 'string')
       : [],
     apiPrefix:
-      typeof rawApp.api?.prefix === 'string' ? rawApp.api.prefix.replace(/\/+$/u, '') : undefined,
+      typeof rawApp.api?.prefix === 'string'
+        ? rawApp.api.prefix.replace(/\/+$/u, '')
+        : undefined,
     proofRoutes: proofRoutes.length > 0 ? proofRoutes : defaultProofRoutes,
     jsonSmokeChecks: Array.isArray(rawApp.deploy?.cloudflare?.jsonSmokeChecks)
       ? rawApp.deploy.cloudflare.jsonSmokeChecks
@@ -170,22 +207,31 @@ const apps = (compactConfig.topology?.apps ?? []).map((rawApp) => {
 const shells = apps.filter((app) => app.kind === 'shell');
 assert(shells.length > 0, 'Workerd SSR proof requires at least one shell');
 if (process.env.ULTRAMODERN_KEEP_WORKERD === '1') {
-  assert(shells.length === 1, 'Browser workerd proof requires exactly one shell');
+  assert(
+    shells.length === 1,
+    'Browser workerd proof requires exactly one shell'
+  );
 }
 
 const workerName = (app) => {
   assert(
     typeof app.wrangler.name === 'string' && app.wrangler.name.length > 0,
-    `${app.id} wrangler output must define a worker name`,
+    `${app.id} wrangler output must define a worker name`
   );
   return app.wrangler.name;
 };
 
 const createWorkerOptions = (app, extra = {}) => {
-  const main = typeof app.wrangler.main === 'string' ? app.wrangler.main : 'server/index.mjs';
+  const main =
+    typeof app.wrangler.main === 'string'
+      ? app.wrangler.main
+      : 'server/index.mjs';
   const assets =
-    app.wrangler.assets && typeof app.wrangler.assets === 'object' ? app.wrangler.assets : {};
-  const directory = typeof assets.directory === 'string' ? assets.directory : './public';
+    app.wrangler.assets && typeof app.wrangler.assets === 'object'
+      ? app.wrangler.assets
+      : {};
+  const directory =
+    typeof assets.directory === 'string' ? assets.directory : './public';
 
   const modules = createWorkerModules(app.outputRoot, main);
   const boundModules = modules.map((module) => {
@@ -202,11 +248,11 @@ const createWorkerOptions = (app, extra = {}) => {
     };
   });
   const mainLogicalPath = normalizePath(
-    path.relative(app.outputRoot, path.resolve(app.outputRoot, main)),
+    path.relative(app.outputRoot, path.resolve(app.outputRoot, main))
   );
   assert(
     boundModules.some((module) => module.logicalPath === mainLogicalPath),
-    `${app.id} Miniflare main ${mainLogicalPath} is not in the selected module set`,
+    `${app.id} Miniflare main ${mainLogicalPath} is not in the selected module set`
   );
   const apiBackend = app.envelope?.surfaces?.apiBackend;
   const ssr = app.envelope?.surfaces?.ssr;
@@ -215,18 +261,18 @@ const createWorkerOptions = (app, extra = {}) => {
       (Array.isArray(apiBackend) &&
         apiBackend.length > 0 &&
         apiBackend.every((logicalPath) =>
-          boundModules.some((module) => module.logicalPath === logicalPath),
+          boundModules.some((module) => module.logicalPath === logicalPath)
         )),
-    `${app.id} BFF worker surface is not selected by Miniflare`,
+    `${app.id} BFF worker surface is not selected by Miniflare`
   );
   assert(
     app.kind !== 'vertical' ||
       (Array.isArray(ssr) &&
         ssr.includes(mainLogicalPath) &&
         boundModules.every((module) =>
-          [...ssr, ...(apiBackend ?? [])].includes(module.logicalPath),
+          [...ssr, ...(apiBackend ?? [])].includes(module.logicalPath)
         )),
-    `${app.id} Miniflare main/SSR modules are not envelope-bound SSR surfaces`,
+    `${app.id} Miniflare main/SSR modules are not envelope-bound SSR surfaces`
   );
 
   return {
@@ -271,7 +317,11 @@ const findReleaseMarkers = (value, markers = []) => {
   if (!value || typeof value !== 'object') {
     return markers;
   }
-  if (value.marker && typeof value.marker === 'object' && typeof value.marker.build === 'string') {
+  if (
+    value.marker &&
+    typeof value.marker === 'object' &&
+    typeof value.marker.build === 'string'
+  ) {
     markers.push(value.marker);
   }
   for (const nested of Object.values(value)) {
@@ -293,10 +343,16 @@ const responseEvidence = async (app, response) => {
     (candidate) =>
       candidate.appId === app.id &&
       candidate.build === app.envelope.identity.buildMarker &&
-      candidate.version === app.envelope.identity.releaseVersion,
+      candidate.version === app.envelope.identity.releaseVersion
   );
-  assert(marker, `${app.id} API response is not tied to its executed release identity`);
-  assert(response.ok, `${app.id} API response returned HTTP ${response.status}`);
+  assert(
+    marker,
+    `${app.id} API response is not tied to its executed release identity`
+  );
+  assert(
+    response.ok,
+    `${app.id} API response returned HTTP ${response.status}`
+  );
   return {
     bodyBase64: bytes.toString('base64'),
     byteLength: bytes.byteLength,
@@ -312,7 +368,8 @@ const resolveApiSmokeChecks = (app, shell) => {
       ? shell.jsonSmokeChecks.filter(
           (check) =>
             typeof check?.route === 'string' &&
-            (check.route === app.apiPrefix || check.route.startsWith(`${app.apiPrefix}/`)),
+            (check.route === app.apiPrefix ||
+              check.route.startsWith(`${app.apiPrefix}/`))
         )
       : [];
   const checks = [...app.jsonSmokeChecks, ...shellChecks];
@@ -336,9 +393,12 @@ const runApiProofs = async (miniflare, shell, executionByAppId) => {
   const results = [];
   for (const app of apps.filter((candidate) => candidate.kind === 'vertical')) {
     const jsonSmokeChecks = resolveApiSmokeChecks(app, shell);
-    assert(jsonSmokeChecks.length > 0, `${app.id} has no real Cloudflare API smoke check`);
+    assert(
+      jsonSmokeChecks.length > 0,
+      `${app.id} has no real Cloudflare API smoke check`
+    );
     const binding = (shell.wrangler.services ?? []).find(
-      (candidate) => candidate.service === workerName(app),
+      (candidate) => candidate.service === workerName(app)
     );
     assert(binding, `${shell.id} has no service binding for ${app.id}`);
     for (const check of jsonSmokeChecks) {
@@ -353,16 +413,19 @@ const runApiProofs = async (miniflare, shell, executionByAppId) => {
         app,
         await (await miniflare.getWorker(workerName(app))).fetch(
           `https://${workerName(app)}.invalid${check.route}`,
-          init,
-        ),
+          init
+        )
       );
       const throughShell = await responseEvidence(
         app,
-        await miniflare.dispatchFetch(`https://${workerName(shell)}.invalid${check.route}`, init),
+        await miniflare.dispatchFetch(
+          `https://${workerName(shell)}.invalid${check.route}`,
+          init
+        )
       );
       assert(
         direct.sha256 === throughShell.sha256,
-        `${app.id} direct and service-binding API responses differ`,
+        `${app.id} direct and service-binding API responses differ`
       );
       results.push({
         appId: app.id,
@@ -405,7 +468,11 @@ const closeServer = (server) =>
     server.close((error) => (error ? reject(error) : resolve()));
   });
 
-const startWorkerdTargetServers = async (miniflare, failedServices, workerConfigurations) => {
+const startWorkerdTargetServers = async (
+  miniflare,
+  failedServices,
+  workerConfigurations
+) => {
   const servers = [];
   const isolatedVerticalRuntimes = [];
   const targetUrls = {};
@@ -413,7 +480,7 @@ const startWorkerdTargetServers = async (miniflare, failedServices, workerConfig
     for (const [index, app] of apps.entries()) {
       assert(
         Number.isInteger(app.port) && app.port > 0,
-        `${app.id} requires a configured local port for all-workerd browser proof`,
+        `${app.id} requires a configured local port for all-workerd browser proof`
       );
       // Miniflare 4 currently assigns one shared assets storage service inside
       // a multi-worker instance. Keep the shell composition runtime intact,
@@ -437,8 +504,13 @@ const startWorkerdTargetServers = async (miniflare, failedServices, workerConfig
             incoming.url === '/_ultramodern-proof/service-binding-fault'
           ) {
             const command = JSON.parse(body?.toString('utf8') ?? '{}');
-            const targetApp = apps.find((candidate) => candidate.id === command.appId);
-            assert(targetApp, `Unknown service-binding fault target ${String(command.appId)}`);
+            const targetApp = apps.find(
+              (candidate) => candidate.id === command.appId
+            );
+            assert(
+              targetApp,
+              `Unknown service-binding fault target ${String(command.appId)}`
+            );
             const service = workerName(targetApp);
             if (command.failed === true) {
               failedServices.add(service);
@@ -446,7 +518,9 @@ const startWorkerdTargetServers = async (miniflare, failedServices, workerConfig
               failedServices.delete(service);
             }
             outgoing.writeHead(200, { 'content-type': 'application/json' });
-            outgoing.end(JSON.stringify({ failed: failedServices.has(service), service }));
+            outgoing.end(
+              JSON.stringify({ failed: failedServices.has(service), service })
+            );
             return;
           }
           // Miniflare's WorkerFetcher owns its own Request implementation.
@@ -460,13 +534,22 @@ const startWorkerdTargetServers = async (miniflare, failedServices, workerConfig
               ...(body === undefined ? {} : { body }),
               headers: incoming.headers,
               method: incoming.method,
-            },
+            }
           );
-          outgoing.writeHead(response.status, Object.fromEntries(response.headers.entries()));
+          outgoing.writeHead(
+            response.status,
+            Object.fromEntries(response.headers.entries())
+          );
           outgoing.end(Buffer.from(await response.arrayBuffer()));
         } catch (error) {
-          outgoing.writeHead(500, { 'content-type': 'text/plain; charset=utf-8' });
-          outgoing.end(error instanceof Error ? (error.stack ?? error.message) : String(error));
+          outgoing.writeHead(500, {
+            'content-type': 'text/plain; charset=utf-8',
+          });
+          outgoing.end(
+            error instanceof Error
+              ? (error.stack ?? error.message)
+              : String(error)
+          );
         }
       });
       await listen(server, app.port);
@@ -477,26 +560,33 @@ const startWorkerdTargetServers = async (miniflare, failedServices, workerConfig
       targetUrls,
       async stop() {
         await Promise.allSettled(servers.map(closeServer));
-        await Promise.allSettled(isolatedVerticalRuntimes.map((runtime) => runtime.dispose()));
+        await Promise.allSettled(
+          isolatedVerticalRuntimes.map((runtime) => runtime.dispose())
+        );
       },
     };
   } catch (error) {
     await Promise.allSettled(servers.map(closeServer));
-    await Promise.allSettled(isolatedVerticalRuntimes.map((runtime) => runtime.dispose()));
+    await Promise.allSettled(
+      isolatedVerticalRuntimes.map((runtime) => runtime.dispose())
+    );
     throw error;
   }
 };
 
 const readAttribute = (tag, name) => {
   const escapedName = name.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
-  const match = new RegExp(`\\s${escapedName}=(?:"([^"]*)"|'([^']*)')`, 'u').exec(tag);
+  const match = new RegExp(
+    `\\s${escapedName}=(?:"([^"]*)"|'([^']*)')`,
+    'u'
+  ).exec(tag);
   return match?.[1] ?? match?.[2];
 };
 
 const collectDistributedBoundaries = (html) =>
   [
     ...html.matchAll(
-      /<[a-z][^>]*data-modern-distributed-ssr-boundary=(?:"[^"]+"|'[^']+')[^>]*>/giu,
+      /<[a-z][^>]*data-modern-distributed-ssr-boundary=(?:"[^"]+"|'[^']+')[^>]*>/giu
     ),
   ].map((match) => {
     const tag = match[0];
@@ -515,7 +605,9 @@ const collectDistributedBoundaries = (html) =>
 
 const collectStylesheetHrefs = (html) =>
   [...html.matchAll(/<link\b[^>]*>/giu)]
-    .filter((match) => readAttribute(match[0], 'rel')?.split(/\s+/u).includes('stylesheet'))
+    .filter((match) =>
+      readAttribute(match[0], 'rel')?.split(/\s+/u).includes('stylesheet')
+    )
     .map((match) => readAttribute(match[0], 'href'))
     .filter(Boolean);
 
@@ -526,7 +618,7 @@ const readRequiredFragmentHeader = (request, header) => {
   const value = request.headers.get(header);
   assert(
     typeof value === 'string' && value.length > 0,
-    `Distributed SSR fragment request is missing ${header}`,
+    `Distributed SSR fragment request is missing ${header}`
   );
   return value;
 };
@@ -534,23 +626,25 @@ const readRequiredFragmentHeader = (request, header) => {
 const decodeDistributedSsrFragmentRequest = (request) => {
   assert(
     isDistributedSsrFragmentRequest(request),
-    'Distributed SSR fragment request is missing its request marker',
+    'Distributed SSR fragment request is missing its request marker'
   );
   assert(
     request.method === 'GET',
-    `Distributed SSR fragment request must use GET, received ${request.method}`,
+    `Distributed SSR fragment request must use GET, received ${request.method}`
   );
 
   const headers = Object.fromEntries(
     DISTRIBUTED_SSR_REQUIRED_HEADERS.map((header) => [
       header,
       readRequiredFragmentHeader(request, header),
-    ]),
+    ])
   );
-  const props = JSON.parse(decodeURIComponent(headers['x-modern-distributed-ssr-props']));
+  const props = JSON.parse(
+    decodeURIComponent(headers['x-modern-distributed-ssr-props'])
+  );
   assert(
     props && typeof props === 'object' && !Array.isArray(props),
-    'Fragment props must be an object',
+    'Fragment props must be an object'
   );
   const sourceUrl = headers['x-modern-distributed-ssr-source-url'];
   try {
@@ -570,21 +664,24 @@ const decodeDistributedSsrFragmentRequest = (request) => {
 
 const createServiceBindings = (
   caller,
-  { apiBindingRequests, failedServices, fragmentBindingRequests },
+  { apiBindingRequests, failedServices, fragmentBindingRequests }
 ) => {
-  const services = Array.isArray(caller.wrangler.services) ? caller.wrangler.services : [];
+  const services = Array.isArray(caller.wrangler.services)
+    ? caller.wrangler.services
+    : [];
   return Object.fromEntries(
     services.map((service) => {
       assert(
-        typeof service.binding === 'string' && typeof service.service === 'string',
-        `${caller.id} has an invalid service binding`,
+        typeof service.binding === 'string' &&
+          typeof service.service === 'string',
+        `${caller.id} has an invalid service binding`
       );
       return [
         service.binding,
         async (request, miniflare) => {
           if (failedServices.has(service.service)) {
             throw new Error(
-              `Injected unavailable service binding ${service.binding} -> ${service.service}`,
+              `Injected unavailable service binding ${service.binding} -> ${service.service}`
             );
           }
           const requestUrl = new URL(request.url);
@@ -629,7 +726,7 @@ const createServiceBindings = (
           return response;
         },
       ];
-    }),
+    })
   );
 };
 
@@ -651,8 +748,8 @@ const writeReport = () => {
         proofs,
       },
       null,
-      2,
-    )}\n`,
+      2
+    )}\n`
   );
 };
 
@@ -662,7 +759,10 @@ for (const shell of shells) {
     assert(remote, `${shell.id} references missing MicroVertical ${ref}`);
     return remote;
   });
-  assert(expectedRemotes.length > 0, `${shell.id} has no MicroVerticals to prove`);
+  assert(
+    expectedRemotes.length > 0,
+    `${shell.id} has no MicroVerticals to prove`
+  );
 
   const apiBindingRequests = [];
   const failedServices = new Set();
@@ -682,12 +782,17 @@ for (const shell of shells) {
           status: 502,
         });
       },
-    }),
+    })
   );
-  executions = workerConfigurations.map((configuration) => configuration.executionEvidence);
-  const executionByAppId = new Map(apps.map((app, index) => [app.id, executions[index]]));
+  executions = workerConfigurations.map(
+    (configuration) => configuration.executionEvidence
+  );
+  const executionByAppId = new Map(
+    apps.map((app, index) => [app.id, executions[index]])
+  );
   const workers = workerConfigurations.map(
-    ({ executionEvidence: _executionEvidence, ...configuration }) => configuration,
+    ({ executionEvidence: _executionEvidence, ...configuration }) =>
+      configuration
   );
   const miniflare = new Miniflare({
     log: new Log(LogLevel.ERROR),
@@ -702,68 +807,79 @@ for (const shell of shells) {
       const outboundRequestStart = outboundRequests.length;
       const response = await miniflare.dispatchFetch(
         `https://${workerName(shell)}.invalid${route}`,
-        { headers: { accept: 'text/html' } },
+        { headers: { accept: 'text/html' } }
       );
       const html = await response.text();
       assert(
         response.status === 200,
-        `${shell.id} returned HTTP ${response.status} for ${route} in workerd`,
+        `${shell.id} returned HTTP ${response.status} for ${route} in workerd`
       );
       assert(
         !html.includes('data-modern-distributed-ssr-status="degraded"'),
-        `${shell.id} rendered a degraded MicroVertical fallback for ${route} in workerd`,
+        `${shell.id} rendered a degraded MicroVertical fallback for ${route} in workerd`
       );
 
       const boundaries = collectDistributedBoundaries(html);
       assert(
         boundaries.length > 0,
-        `${shell.id} rendered no distributed SSR boundaries for ${route}`,
+        `${shell.id} rendered no distributed SSR boundaries for ${route}`
       );
-      const routeApiBindingRequests = apiBindingRequests.slice(apiBindingRequestStart);
+      const routeApiBindingRequests = apiBindingRequests.slice(
+        apiBindingRequestStart
+      );
       const routeFragmentBindingRequests = fragmentBindingRequests.slice(
-        fragmentBindingRequestStart,
+        fragmentBindingRequestStart
       );
-      const routeOutboundRequests = outboundRequests.slice(outboundRequestStart);
+      const routeOutboundRequests =
+        outboundRequests.slice(outboundRequestStart);
       for (const boundary of boundaries) {
         renderedRemoteIds.add(boundary.remote);
         assert(
           boundary.status === 'ready',
-          `${shell.id} did not mark ${boundary.key} as ready for ${route}`,
+          `${shell.id} did not mark ${boundary.key} as ready for ${route}`
         );
         assert(
-          typeof boundary.buildMarker === 'string' && boundary.buildMarker.length > 0,
-          `${shell.id} ${boundary.key} is missing immutable build provenance`,
+          typeof boundary.buildMarker === 'string' &&
+            boundary.buildMarker.length > 0,
+          `${shell.id} ${boundary.key} is missing immutable build provenance`
         );
         assert(
           /^[a-f\d]{64}$/u.test(boundary.digest ?? ''),
-          `${shell.id} ${boundary.key} is missing a verified SHA-256 digest`,
+          `${shell.id} ${boundary.key} is missing a verified SHA-256 digest`
         );
         const remote = apps.find((app) => app.id === boundary.remote);
-        assert(remote, `${shell.id} rendered unknown remote ${boundary.remote}`);
+        assert(
+          remote,
+          `${shell.id} rendered unknown remote ${boundary.remote}`
+        );
         const requests = routeFragmentBindingRequests.filter(
           (request) =>
             request.service === workerName(remote) &&
             request.remote === boundary.remote &&
-            request.expose === boundary.expose,
+            request.expose === boundary.expose
         );
         const renderedCount = boundaries.filter(
-          (candidate) => candidate.key === boundary.key,
+          (candidate) => candidate.key === boundary.key
         ).length;
         assert(
           requests.length === renderedCount &&
-            requests.every((request) => request.pathname.includes('/_mf/fragment/')),
-          `${shell.id} must compose each ${boundary.key} occurrence through its remote service binding`,
+            requests.every((request) =>
+              request.pathname.includes('/_mf/fragment/')
+            ),
+          `${shell.id} must compose each ${boundary.key} occurrence through its remote service binding`
         );
       }
 
       const stylesheetHrefs = collectStylesheetHrefs(html);
       assert(
         new Set(stylesheetHrefs).size === stylesheetHrefs.length,
-        `${shell.id} rendered duplicate distributed SSR stylesheets for ${route}`,
+        `${shell.id} rendered duplicate distributed SSR stylesheets for ${route}`
       );
       assert(
-        !routeOutboundRequests.some(({ url }) => /(?:remoteEntry|\.m?js(?:\?|$))/u.test(url)),
-        `${shell.id} attempted to fetch remote JavaScript during ${route} server composition`,
+        !routeOutboundRequests.some(({ url }) =>
+          /(?:remoteEntry|\.m?js(?:\?|$))/u.test(url)
+        ),
+        `${shell.id} attempted to fetch remote JavaScript during ${route} server composition`
       );
 
       proofs.push({
@@ -776,21 +892,30 @@ for (const shell of shells) {
         apiBindingRequests: routeApiBindingRequests,
         outboundRequests: routeOutboundRequests,
         stylesheetHrefs,
-        degradedBoundaryCount: count(html, 'data-modern-distributed-ssr-status="degraded"'),
+        degradedBoundaryCount: count(
+          html,
+          'data-modern-distributed-ssr-status="degraded"'
+        ),
       });
     }
 
     for (const remote of expectedRemotes) {
       assert(
         renderedRemoteIds.has(remote.id),
-        `${shell.id} proof routes are missing independently rendered ${remote.id} content`,
+        `${shell.id} proof routes are missing independently rendered ${remote.id} content`
       );
     }
     apiProofs.push(...(await runApiProofs(miniflare, shell, executionByAppId)));
     if (process.env.ULTRAMODERN_KEEP_WORKERD === '1') {
       writeReport();
-      const targetServers = await startWorkerdTargetServers(miniflare, failedServices, workers);
-      console.log(`WORKERD_TARGET_URLS=${JSON.stringify(targetServers.targetUrls)}`);
+      const targetServers = await startWorkerdTargetServers(
+        miniflare,
+        failedServices,
+        workers
+      );
+      console.log(
+        `WORKERD_TARGET_URLS=${JSON.stringify(targetServers.targetUrls)}`
+      );
       console.log(`WORKERD_URL=${targetServers.targetUrls[shell.id]}`);
       try {
         await new Promise((resolve) => {
@@ -807,4 +932,6 @@ for (const shell of shells) {
 }
 
 writeReport();
-console.log(`Workerd SSR composition proof passed for ${shells.length} shell(s): ${reportPath}`);
+console.log(
+  `Workerd SSR composition proof passed for ${shells.length} shell(s): ${reportPath}`
+);

@@ -1,9 +1,12 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import ThanksPage from '../../../../../components/thanks-page';
 
 export default function ThanksPageFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof ThanksPage>>({
+  const props = useDistributedSsrFragmentProps<
+    ComponentProps<typeof ThanksPage>
+  >({
     boundaryId: 'verticalCheckout',
     expose: './ThanksPage',
   });

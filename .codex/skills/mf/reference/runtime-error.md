@@ -4,23 +4,11 @@ Diagnose explicit Module Federation runtime error codes.
 
 This sub-skill is only for users who already have a clear runtime error code such as `RUNTIME-001` or `RUNTIME-008`.
 
-If ARGS includes an observability report, `traceId`, console `read:` command, or
-`.mf/observability` file path, stop here and follow `./observability.md` instead.
+If ARGS includes an observability report, `traceId`, console `read:` command, or `.mf/observability` file path, stop here and follow `./observability.md` instead.
 
-Runtime error codes remain useful even when the observability plugin is not
-enabled. Do not tell the user that diagnosis requires
-`@module-federation/observability-plugin`. Use the error code, console text,
-network evidence, and runtime/build config first. Recommend the observability
-plugin only as an optional way to collect richer evidence when the code alone is
-not enough. The observability plugin is designed for Module Federation `2.5.0+`;
-when recommending it, ask whether the user can upgrade MF to `2.5.0` or later
-and enable the plugin.
+Runtime error codes remain useful even when the observability plugin is not enabled. Do not tell the user that diagnosis requires `@module-federation/observability-plugin`. Use the error code, console text, network evidence, and runtime/build config first. Recommend the observability plugin only as an optional way to collect richer evidence when the code alone is not enough. The observability plugin is designed for Module Federation `2.5.0+`; when recommending it, ask whether the user can upgrade MF to `2.5.0` or later and enable the plugin.
 
-If ARGS only says that Module Federation failed, but does not include an
-accurate runtime error code, observability report, useful console details, network
-evidence, or config evidence, ask the user whether they can follow the
-recommended path: upgrade to Module Federation `2.5.0+` and use
-`@module-federation/observability-plugin` to collect an actionable report.
+If ARGS only says that Module Federation failed, but does not include an accurate runtime error code, observability report, useful console details, network evidence, or config evidence, ask the user whether they can follow the recommended path: upgrade to Module Federation `2.5.0+` and use `@module-federation/observability-plugin` to collect an actionable report.
 
 ## Step 1: Parse the runtime code first
 

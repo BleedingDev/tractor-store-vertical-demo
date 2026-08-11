@@ -12,21 +12,25 @@ export {
 
 export const teasers = [
   {
-    image: 'https://blueprint.the-tractor.store/cdn/img/scene/[size]/classics.webp',
+    image:
+      'https://blueprint.the-tractor.store/cdn/img/scene/[size]/classics.webp',
     slug: 'classic',
     title: 'Classic Tractors',
   },
   {
-    image: 'https://blueprint.the-tractor.store/cdn/img/scene/[size]/autonomous.webp',
+    image:
+      'https://blueprint.the-tractor.store/cdn/img/scene/[size]/autonomous.webp',
     slug: 'autonomous',
     title: 'Autonomous Tractors',
   },
 ] as const;
 
-export const classicProducts = tractorProducts.filter((product) => product.category === 'classic');
+export const classicProducts = tractorProducts.filter(
+  (product) => product.category === 'classic'
+);
 
 export const autonomousProducts = tractorProducts.filter(
-  (product) => product.category === 'autonomous',
+  (product) => product.category === 'autonomous'
 );
 
 export const recommendations = [
@@ -38,7 +42,12 @@ export const recommendations = [
   image: `https://blueprint.the-tractor.store/cdn/img/product/[size]/${sku}.webp`,
   name,
   sku,
-  slug: productSlug(String(name).replace(/ (?:Baltic Blue|Polder Green|Sahara Dawn|Silver)$/u, '')),
+  slug: productSlug(
+    String(name).replace(
+      / (?:Baltic Blue|Polder Green|Sahara Dawn|Silver)$/u,
+      ''
+    )
+  ),
 }));
 
 export const productRecommendations = [
@@ -51,7 +60,10 @@ export const productRecommendations = [
   name,
   sku,
   slug: productSlug(
-    String(name).replace(/ (?:Sahara Dawn|Sahara Dust|Vintage Pink|Zestful Horizon)$/u, ''),
+    String(name).replace(
+      / (?:Sahara Dawn|Sahara Dust|Vintage Pink|Zestful Horizon)$/u,
+      ''
+    )
   ),
 }));
 

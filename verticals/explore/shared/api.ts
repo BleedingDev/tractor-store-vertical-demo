@@ -81,12 +81,12 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
         success: Schema.Struct({
           items: Schema.Array(exploreItemSchema),
         }),
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.get('readiness', '/explore/readiness', {
         success: exploreReadinessSchema,
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.get('get', '/explore/:id', {
@@ -95,7 +95,7 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
           id: Schema.String,
         },
         success: exploreItemSchema,
-      }),
+      })
     )
     .add(
       HttpApiEndpoint.post('create', '/explore', {
@@ -104,8 +104,8 @@ export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
         success: Schema.Struct({
           item: exploreItemSchema,
         }),
-      }),
-    ),
+      })
+    )
 );
 
 export const exploreOperationContexts = {

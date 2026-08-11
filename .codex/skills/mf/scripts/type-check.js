@@ -40,12 +40,14 @@ function main(ctx) {
   const projectRoot = ctx.project && ctx.project.root;
   const results = [];
 
-  const tsconfigPath = projectRoot ? path.join(projectRoot, 'tsconfig.json') : null;
+  const tsconfigPath = projectRoot
+    ? path.join(projectRoot, 'tsconfig.json')
+    : null;
 
   const hasTsconfig = tsconfigPath && fs.existsSync(tsconfigPath);
   const hasTypescript = Boolean(
     (ctx.dependencies && ctx.dependencies.typescript) ||
-    (ctx.devDependencies && ctx.devDependencies.typescript),
+    (ctx.devDependencies && ctx.devDependencies.typescript)
   );
 
   if (!hasTsconfig || !hasTypescript) {
@@ -70,7 +72,9 @@ function main(ctx) {
       });
     }
 
-    process.stdout.write(`${JSON.stringify({ context: ctx, results }, null, 2)}\n`);
+    process.stdout.write(
+      `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+    );
     return;
   }
 
@@ -78,7 +82,12 @@ function main(ctx) {
   const mfTypesExists = fs.existsSync(mfTypesDir);
 
   if (!mfTypesExists) {
-    const diagnosticsPath = path.join(projectRoot, '.mf', 'diagnostics', 'latest.json');
+    const diagnosticsPath = path.join(
+      projectRoot,
+      '.mf',
+      'diagnostics',
+      'latest.json'
+    );
     const diagnosticsExists = fs.existsSync(diagnosticsPath);
     let canReadDiagnostics = false;
 
@@ -91,7 +100,8 @@ function main(ctx) {
       }
     }
 
-    const rawEnhancedVersion = ctx.dependencies && ctx.dependencies['@module-federation/enhanced'];
+    const rawEnhancedVersion =
+      ctx.dependencies && ctx.dependencies['@module-federation/enhanced'];
     const enhancedVersion = stripVersionPrefix(rawEnhancedVersion);
 
     if (enhancedVersion && semverGt(enhancedVersion, '2.0.1')) {
@@ -139,15 +149,19 @@ function main(ctx) {
         context: { tsconfigPath },
       });
 
-      process.stdout.write(`${JSON.stringify({ context: ctx, results }, null, 2)}\n`);
+      process.stdout.write(
+        `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+      );
       return;
     }
 
-    const paths = tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths;
+    const paths =
+      tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths;
 
     const wildcardPaths = paths && paths['*'];
     const hasMfTypesPath =
-      Array.isArray(wildcardPaths) && wildcardPaths.some((p) => p === './@mf-types/*');
+      Array.isArray(wildcardPaths) &&
+      wildcardPaths.some((p) => p === './@mf-types/*');
 
     if (!hasMfTypesPath) {
       results.push({
@@ -163,13 +177,16 @@ function main(ctx) {
         code: 'TYPE-001',
         severity: 'info',
         scenario: 'ENV_OK',
-        message: 'TypeScript environment and remote type configuration look correct.',
+        message:
+          'TypeScript environment and remote type configuration look correct.',
         context: {},
       });
     }
   }
 
-  process.stdout.write(`${JSON.stringify({ context: ctx, results }, null, 2)}\n`);
+  process.stdout.write(
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+  );
 }
 
 const args = parseArgs(process.argv);

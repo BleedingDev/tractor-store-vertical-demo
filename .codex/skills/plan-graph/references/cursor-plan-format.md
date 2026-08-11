@@ -110,8 +110,7 @@ By default, snapshots are written under:
 - `./.codex/plan-graphs/<GRAPH_ID>/snapshot.json`
 - Override with `--state-dir`, `CODEX_PLAN_GRAPHS_ROOT`, or `CODEX_HOME`
 
-If `GRAPH_ID` is omitted, the script reuses the latest managed slot for the same resolved plan selection and refreshes `snapshot.json` from the current plan files.
-If no prior match exists, it creates a managed graph id automatically and writes a new snapshot.
+If `GRAPH_ID` is omitted, the script reuses the latest managed slot for the same resolved plan selection and refreshes `snapshot.json` from the current plan files. If no prior match exists, it creates a managed graph id automatically and writes a new snapshot.
 
 The saved `selected_plan_paths` field stores the resolved absolute plan paths, and the saved `edges` field stores the explicit dependency overlay, so auto-managed reuse works only when both the plan files and the explicit `--depends` edges match.
 

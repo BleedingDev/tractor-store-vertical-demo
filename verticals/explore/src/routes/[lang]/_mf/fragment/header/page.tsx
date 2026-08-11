@@ -1,5 +1,6 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import Header from '../../../../../components/header';
 
 export default function HeaderFragmentPage() {

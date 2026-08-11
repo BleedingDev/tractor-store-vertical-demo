@@ -1,5 +1,11 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { autonomousProducts, classicProducts, responsiveImage, sizedImage } from '../tractor-data';
+
+import {
+  autonomousProducts,
+  classicProducts,
+  responsiveImage,
+  sizedImage,
+} from '../tractor-data';
 
 const formatPrice = (price: number) =>
   `${price.toLocaleString('de-DE', {
@@ -10,7 +16,7 @@ const formatPrice = (price: number) =>
 export default function ProductGrid() {
   const { language, t } = useModernI18n();
   const products = [...autonomousProducts, ...classicProducts].toSorted(
-    (left, right) => right.startPrice - left.startPrice,
+    (left, right) => right.startPrice - left.startPrice
   );
 
   return (

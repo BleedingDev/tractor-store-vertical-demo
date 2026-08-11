@@ -11,8 +11,7 @@ For plan-backed graphs, keep the handoff bundle nearby:
 - `snapshot_path`
 - `state_dir`
 
-If the run is long-lived, update `<state_dir>/operator-log.md` as lanes change owners or status.
-For plan-backed runs, each worker lane should also update the `.plan.md` todo ids it owns before reporting completion or a durable blocker unless the primary lane explicitly retained plan-file ownership.
+If the run is long-lived, update `<state_dir>/operator-log.md` as lanes change owners or status. For plan-backed runs, each worker lane should also update the `.plan.md` todo ids it owns before reporting completion or a durable blocker unless the primary lane explicitly retained plan-file ownership.
 
 ## Monitoring Loop
 

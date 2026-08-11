@@ -1,16 +1,16 @@
 import { DistributedSsrBoundary } from '@modern-js/runtime/module-federation';
-import type { ComponentType, ReactNode } from 'react';
 import type AddToCartComponent from '@tractor-store-vertical-demo/checkout/AddToCart';
 import type CartPageComponent from '@tractor-store-vertical-demo/checkout/CartPage';
 import type CheckoutPageComponent from '@tractor-store-vertical-demo/checkout/CheckoutPage';
+import type MiniCartComponent from '@tractor-store-vertical-demo/checkout/MiniCart';
+import type ThanksPageComponent from '@tractor-store-vertical-demo/checkout/ThanksPage';
 import type FooterComponent from '@tractor-store-vertical-demo/explore/Footer';
 import type HeaderComponent from '@tractor-store-vertical-demo/explore/Header';
 import type HomePageComponent from '@tractor-store-vertical-demo/explore/HomePage';
-import type MiniCartComponent from '@tractor-store-vertical-demo/checkout/MiniCart';
 import type ProductGridComponent from '@tractor-store-vertical-demo/explore/ProductGrid';
 import type RecommendationsComponent from '@tractor-store-vertical-demo/explore/Recommendations';
 import type StorePickerComponent from '@tractor-store-vertical-demo/explore/StorePicker';
-import type ThanksPageComponent from '@tractor-store-vertical-demo/checkout/ThanksPage';
+import type { ComponentType, ReactNode } from 'react';
 
 type AddToCartProps = RemoteComponentProps<typeof AddToCartComponent>;
 type CartPageProps = RemoteComponentProps<typeof CartPageComponent>;
@@ -20,7 +20,9 @@ type HeaderProps = RemoteComponentProps<typeof HeaderComponent>;
 type HomePageProps = RemoteComponentProps<typeof HomePageComponent>;
 type MiniCartProps = RemoteComponentProps<typeof MiniCartComponent>;
 type ProductGridProps = RemoteComponentProps<typeof ProductGridComponent>;
-type RecommendationsProps = RemoteComponentProps<typeof RecommendationsComponent>;
+type RecommendationsProps = RemoteComponentProps<
+  typeof RecommendationsComponent
+>;
 type StorePickerProps = RemoteComponentProps<typeof StorePickerComponent>;
 type ThanksPageProps = RemoteComponentProps<typeof ThanksPageComponent>;
 

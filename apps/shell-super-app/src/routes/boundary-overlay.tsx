@@ -19,7 +19,9 @@ type BoundaryBox = BoundaryConfig & {
 
 declare global {
   interface Window {
-    __ULTRAMODERN_BOUNDARIES__?: Partial<Record<string, Partial<BoundaryConfig>>>;
+    __ULTRAMODERN_BOUNDARIES__?: Partial<
+      Record<string, Partial<BoundaryConfig>>
+    >;
   }
 }
 
@@ -32,7 +34,8 @@ const defaultBoundaryColors = {
 const boundaryIds = ['explore', 'decide', 'checkout'] as const;
 const boundaryStorageKey = 'tractor-store.show-team-boundaries';
 const boundaryStorageEvent = 'tractor-store-boundary-visibility-change';
-const readBoundaryVisibility = () => window.localStorage.getItem(boundaryStorageKey) === 'true';
+const readBoundaryVisibility = () =>
+  window.localStorage.getItem(boundaryStorageKey) === 'true';
 const readServerBoundaryVisibility = () => false;
 const subscribeToBoundaryVisibility = (onStoreChange: () => void) => {
   window.addEventListener('storage', onStoreChange);
@@ -42,7 +45,10 @@ const subscribeToBoundaryVisibility = (onStoreChange: () => void) => {
     window.removeEventListener(boundaryStorageEvent, onStoreChange);
   };
 };
-const moduleLabel = (boundaryId: string | undefined, expose: string | undefined) => {
+const moduleLabel = (
+  boundaryId: string | undefined,
+  expose: string | undefined
+) => {
   if (boundaryId === undefined || boundaryId.length === 0) {
     return;
   }
@@ -57,12 +63,14 @@ export default function BoundaryOverlay() {
   const enabled = useSyncExternalStore(
     subscribeToBoundaryVisibility,
     readBoundaryVisibility,
-    readServerBoundaryVisibility,
+    readServerBoundaryVisibility
   );
   const [boxes, setBoxes] = useState<BoundaryBox[]>([]);
   const boundaryConfig = useMemo(() => {
     const runtimeOverrides =
-      typeof window === 'undefined' ? {} : (window.__ULTRAMODERN_BOUNDARIES__ ?? {});
+      typeof window === 'undefined'
+        ? {}
+        : (window.__ULTRAMODERN_BOUNDARIES__ ?? {});
 
     return Object.fromEntries(
       boundaryIds.map((id) => [
@@ -71,7 +79,7 @@ export default function BoundaryOverlay() {
           color: runtimeOverrides[id]?.color ?? defaultBoundaryColors[id],
           label: runtimeOverrides[id]?.label ?? t(`shell.boundaries.${id}`),
         },
-      ]),
+      ])
     ) as Record<string, BoundaryConfig>;
   }, [t]);
   const toggleLabel = t('shell.boundaries.toggle');
@@ -116,7 +124,9 @@ export default function BoundaryOverlay() {
     readBoxes();
 
     const resizeObserver = new ResizeObserver(readBoxes);
-    for (const element of document.querySelectorAll<HTMLElement>('[data-modern-boundary-id]')) {
+    for (const element of document.querySelectorAll<HTMLElement>(
+      '[data-modern-boundary-id]'
+    )) {
       resizeObserver.observe(element);
     }
 
@@ -146,7 +156,10 @@ export default function BoundaryOverlay() {
           checked={enabled}
           onChange={(event) => {
             const nextEnabled = event.currentTarget.checked;
-            window.localStorage.setItem(boundaryStorageKey, String(nextEnabled));
+            window.localStorage.setItem(
+              boundaryStorageKey,
+              String(nextEnabled)
+            );
             window.dispatchEvent(new CustomEvent(boundaryStorageEvent));
           }}
           type="checkbox"

@@ -1,14 +1,21 @@
-import { useLocalizedLocation, useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import {
+  useLocalizedLocation,
+  useModernI18n,
+} from '@modern-js/plugin-i18n/runtime';
 import { Helmet } from '@modern-js/runtime/head';
-import { ultramodernRouteMetadata } from './ultramodern-route-metadata';
+
 import type { RouteJsonLd } from './ultramodern-jsonld';
+import { ultramodernRouteMetadata } from './ultramodern-route-metadata';
 
 const appName = 'decide Vertical';
 const fallbackLanguage = 'en';
 const supportedLanguages = ['en', 'cs'] as const;
 type SupportedLanguage = (typeof supportedLanguages)[number];
 type GeneratedRouteMetadata = (typeof ultramodernRouteMetadata)[number];
-type RouteMetadata = Omit<GeneratedRouteMetadata, 'indexable' | 'jsonLd' | 'public'> & {
+type RouteMetadata = Omit<
+  GeneratedRouteMetadata,
+  'indexable' | 'jsonLd' | 'public'
+> & {
   readonly indexable: boolean;
   readonly jsonLd?: RouteJsonLd;
   readonly public: boolean;
@@ -32,7 +39,8 @@ const stripLanguagePrefix = (pathname: string) => {
   return `/${segments.join('/')}`;
 };
 
-const escapeRegExp = (value: string) => value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+const escapeRegExp = (value: string) =>
+  value.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&');
 
 const paramName = (segment: string) => segment.slice(1).replace(/\?$/u, '');
 
@@ -49,7 +57,9 @@ const matchPattern = (pathname: string, pattern: string) => {
       return `/${escapeRegExp(segment)}`;
     })
     .join('');
-  const match = new RegExp(`^${source || '/'}$`, 'u').exec(normalisePath(pathname));
+  const match = new RegExp(`^${source || '/'}$`, 'u').exec(
+    normalisePath(pathname)
+  );
 
   if (match === null) {
     return;
@@ -66,13 +76,19 @@ const resolveRouteMetadata = (pathname: string) => {
   const pathWithoutLanguage = stripLanguagePrefix(pathname);
 
   for (const route of routeMetadata) {
-    const canonicalParams = matchPattern(pathWithoutLanguage, route.canonicalPath);
+    const canonicalParams = matchPattern(
+      pathWithoutLanguage,
+      route.canonicalPath
+    );
     if (canonicalParams !== undefined) {
       return route;
     }
 
     for (const language of supportedLanguages) {
-      const params = matchPattern(pathWithoutLanguage, route.localisedPaths[language]);
+      const params = matchPattern(
+        pathWithoutLanguage,
+        route.localisedPaths[language]
+      );
       if (params !== undefined) {
         return route;
       }
@@ -82,7 +98,9 @@ const resolveRouteMetadata = (pathname: string) => {
   return routeMetadata[0];
 };
 
-const isPublicIndexableRoute = (route: RouteMetadata | undefined): route is RouteMetadata =>
+const isPublicIndexableRoute = (
+  route: RouteMetadata | undefined
+): route is RouteMetadata =>
   route !== undefined && route.public && route.indexable;
 
 const absoluteUrl = (pathname: string) => {
@@ -90,7 +108,8 @@ const absoluteUrl = (pathname: string) => {
   return `${origin}${pathname}`;
 };
 
-const sanitiseJsonLd = (value: RouteJsonLd) => JSON.stringify(value).replaceAll('<', '\\u003c');
+const sanitiseJsonLd = (value: RouteJsonLd) =>
+  JSON.stringify(value).replaceAll('<', '\\u003c');
 
 export const UltramodernRouteHead = () => {
   const { language, t } = useModernI18n();
@@ -98,7 +117,9 @@ export const UltramodernRouteHead = () => {
   const route = resolveRouteMetadata(canonical);
   const title = route === undefined ? appName : t(route.titleKey);
   const description = route === undefined ? appName : t(route.descriptionKey);
-  const canonicalUrl = absoluteUrl(alternates[fallbackLanguage] ?? `/${fallbackLanguage}`);
+  const canonicalUrl = absoluteUrl(
+    alternates[fallbackLanguage] ?? `/${fallbackLanguage}`
+  );
   const indexable = isPublicIndexableRoute(route);
   const jsonLd = route?.jsonLd;
 
@@ -106,7 +127,10 @@ export const UltramodernRouteHead = () => {
     <Helmet htmlAttributes={{ lang: language ?? fallbackLanguage }}>
       <title>{title}</title>
       <meta content={description} name="description" />
-      <meta content={indexable ? 'index, follow' : 'noindex, nofollow'} name="robots" />
+      <meta
+        content={indexable ? 'index, follow' : 'noindex, nofollow'}
+        name="robots"
+      />
       {indexable && (
         <>
           <link rel="canonical" href={canonicalUrl} />
@@ -119,7 +143,9 @@ export const UltramodernRouteHead = () => {
             />
           ))}
           <link
-            href={absoluteUrl(alternates[fallbackLanguage] ?? `/${fallbackLanguage}`)}
+            href={absoluteUrl(
+              alternates[fallbackLanguage] ?? `/${fallbackLanguage}`
+            )}
             hrefLang="x-default"
             rel="alternate"
           />

@@ -28,7 +28,10 @@ export default function Footer() {
             </a>
             <br />
             {t('explore.footer.projectPrefix')}{' '}
-            <a className="explore:text-[#ff5a55]" href="https://www.neuland-bfi.de/">
+            <a
+              className="explore:text-[#ff5a55]"
+              href="https://www.neuland-bfi.de/"
+            >
               neuland
             </a>{' '}
             {t('explore.footer.projectSuffix')}

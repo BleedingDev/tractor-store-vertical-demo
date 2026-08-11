@@ -1,9 +1,12 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import StorePicker from '../../../../../components/store-picker';
 
 export default function StorePickerFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof StorePicker>>({
+  const props = useDistributedSsrFragmentProps<
+    ComponentProps<typeof StorePicker>
+  >({
     boundaryId: 'verticalExplore',
     expose: './StorePicker',
   });

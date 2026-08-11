@@ -1,12 +1,15 @@
-import type { ComponentProps } from 'react';
 import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import type { ComponentProps } from 'react';
+
 import HomePage from '../../../../../components/home-page';
 
 export default function HomePageFragmentPage() {
-  const props = useDistributedSsrFragmentProps<ComponentProps<typeof HomePage>>({
-    boundaryId: 'verticalExplore',
-    expose: './HomePage',
-  });
+  const props = useDistributedSsrFragmentProps<ComponentProps<typeof HomePage>>(
+    {
+      boundaryId: 'verticalExplore',
+      expose: './HomePage',
+    }
+  );
 
   return (
     <>

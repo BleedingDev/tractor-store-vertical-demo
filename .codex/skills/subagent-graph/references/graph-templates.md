@@ -66,8 +66,7 @@ Graph:
 - Explorer or verifier A: answer one blocking question or run one validation lane.
 - Explorer or verifier B: optional second sidecar for a second independent question or check.
 
-This is the default GPT-5.4-era shape. Start here before considering larger fan-out.
-If the uncertainty can be reduced with a quick local parallel read/search pass, do that before launching multiple explorers.
+This is the default GPT-5.4-era shape. Start here before considering larger fan-out. If the uncertainty can be reduced with a quick local parallel read/search pass, do that before launching multiple explorers.
 
 ## Template 1: Sidecars Plus Local Critical Path
 

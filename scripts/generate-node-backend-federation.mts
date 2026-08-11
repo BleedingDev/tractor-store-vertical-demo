@@ -8,7 +8,12 @@ const forwardedArgs = process.argv.slice(2);
 const workspaceRoot =
   process.env.ULTRAMODERN_WORKSPACE_ROOT ??
   path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ultramodernArgs = ['ultramodern', 'backend-federation-generate', ...[], ...forwardedArgs];
+const ultramodernArgs = [
+  'ultramodern',
+  'backend-federation-generate',
+  ...[],
+  ...forwardedArgs,
+];
 const result = createBin
   ? spawnSync(process.execPath, [createBin, ...ultramodernArgs], {
       env: { ...process.env, ULTRAMODERN_WORKSPACE_ROOT: workspaceRoot },
@@ -30,7 +35,7 @@ if (result.error) {
       ' for UltraModern command "' +
       ultramodernArgs.slice(1).join(' ') +
       '": ' +
-      result.error.message,
+      result.error.message
   );
   process.exit(1);
 }

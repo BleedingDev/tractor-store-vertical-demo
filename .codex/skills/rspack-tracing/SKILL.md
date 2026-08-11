@@ -57,8 +57,7 @@ node ${CLAUDE_PLUGIN_ROOT}/skills/tracing/scripts/analyze_trace.js trace.json
 
 ### 4. Interpret Results
 
-Use the output from the script to identify bottlenecks.
-Consult [references/bottlenecks.md](references/bottlenecks.md) to map span names to actionable fixes.
+Use the output from the script to identify bottlenecks. Consult [references/bottlenecks.md](references/bottlenecks.md) to map span names to actionable fixes.
 
 ### 5. Locate Slow Plugins
 

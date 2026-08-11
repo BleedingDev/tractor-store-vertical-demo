@@ -10,8 +10,15 @@ import { fileURLToPath } from 'node:url';
 const DEFAULT_PORT = 9222;
 const DEFAULT_WAIT_MS = 8000;
 const INJECTION_GLOBAL = '__MF_OBSERVABILITY_INJECTION__';
-const SKILL_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const DEFAULT_IIFE_PATH = path.join(SKILL_DIR, 'assets', 'observability-chrome-devtool.iife.js');
+const SKILL_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '..'
+);
+const DEFAULT_IIFE_PATH = path.join(
+  SKILL_DIR,
+  'assets',
+  'observability-chrome-devtool.iife.js'
+);
 
 function readArg(name, fallback) {
   const prefix = `--${name}=`;
@@ -229,14 +236,14 @@ async function readIifeSource(iifePath, extraOptions) {
     await access(resolvedPath);
   } catch {
     throw new Error(
-      `Observability IIFE not found: ${resolvedPath}. Copy the chrome-devtool IIFE to that path or pass --iife <file>.`,
+      `Observability IIFE not found: ${resolvedPath}. Copy the chrome-devtool IIFE to that path or pass --iife <file>.`
     );
   }
 
   return {
     source: buildInitSourceFromIife(
       await readFile(resolvedPath, 'utf8'),
-      defaultObservabilityOptions(extraOptions),
+      defaultObservabilityOptions(extraOptions)
     ),
     sourceKind: 'iife',
     iifePath: resolvedPath,
@@ -268,9 +275,13 @@ function httpRequest(method, port, requestPath) {
             }
             return;
           }
-          reject(new Error(`${method} ${requestPath} failed with ${res.statusCode}: ${body}`));
+          reject(
+            new Error(
+              `${method} ${requestPath} failed with ${res.statusCode}: ${body}`
+            )
+          );
         });
-      },
+      }
     );
     req.on('timeout', () => {
       req.destroy(new Error(`${method} ${requestPath} timed out`));
@@ -436,8 +447,8 @@ class CdpConnection {
       if (message.error) {
         pending.reject(
           new Error(
-            `${pending.method} failed: ${message.error.message || JSON.stringify(message.error)}`,
-          ),
+            `${pending.method} failed: ${message.error.message || JSON.stringify(message.error)}`
+          )
         );
       } else {
         pending.resolve(message.result);
@@ -483,7 +494,7 @@ function connectWebSocket(wsUrl) {
           'Sec-WebSocket-Version: 13',
           '',
           '',
-        ].join('\r\n'),
+        ].join('\r\n')
       );
     });
 
@@ -570,7 +581,10 @@ async function main() {
   const waitMs = Number(readArg('wait-ms', String(DEFAULT_WAIT_MS)));
   const readLimit = Number(readArg('read-limit', '10'));
   const readAfterOpen = !hasFlag('no-read');
-  const iifePath = readArg('iife', process.env.MF_OBSERVABILITY_IIFE || DEFAULT_IIFE_PATH);
+  const iifePath = readArg(
+    'iife',
+    process.env.MF_OBSERVABILITY_IIFE || DEFAULT_IIFE_PATH
+  );
   const initSourcePath = readArg('init-source');
   const outputPath = readArg('output');
   const extraOptions = parseJsonArg('options-json');
@@ -630,18 +644,21 @@ async function main() {
       {
         ...baseResult,
         status: 'dry-run',
-        message: 'Dry run finished. Init source was read, but Chrome was not opened.',
+        message:
+          'Dry run finished. Init source was read, but Chrome was not opened.',
       },
-      asJson,
+      asJson
     );
     return;
   }
 
-  const version = await httpRequest('GET', port, '/json/version').catch((error) => {
-    throw new Error(
-      `Chrome debug port ${port} is not available: ${error.message}. Run scripts/open-chrome-debug.mjs first.`,
-    );
-  });
+  const version = await httpRequest('GET', port, '/json/version').catch(
+    (error) => {
+      throw new Error(
+        `Chrome debug port ${port} is not available: ${error.message}. Run scripts/open-chrome-debug.mjs first.`
+      );
+    }
+  );
   const page = await createPage(port);
   const webSocketDebuggerUrl = page.webSocketDebuggerUrl;
   if (!webSocketDebuggerUrl) {
@@ -653,11 +670,17 @@ async function main() {
 
   await cdp.send('Page.enable');
   await cdp.send('Runtime.enable');
-  const addScriptResult = await cdp.send('Page.addScriptToEvaluateOnNewDocument', {
-    source: init.source,
-  });
+  const addScriptResult = await cdp.send(
+    'Page.addScriptToEvaluateOnNewDocument',
+    {
+      source: init.source,
+    }
+  );
   await cdp.send('Page.navigate', { url: targetUrl });
-  await Promise.race([loadEvent, new Promise((resolve) => setTimeout(resolve, waitMs))]);
+  await Promise.race([
+    loadEvent,
+    new Promise((resolve) => setTimeout(resolve, waitMs)),
+  ]);
 
   if (waitMs > 0) {
     await new Promise((resolve) => setTimeout(resolve, Math.min(waitMs, 2000)));
@@ -675,7 +698,7 @@ async function main() {
         hasVmok: Boolean(window.__VMOK__),
         scopes: observability ? Object.keys(observability) : [],
       };
-    })()`,
+    })()`
   ).catch((error) => ({
     exceptionDetails: {
       text: error.message,
@@ -683,24 +706,27 @@ async function main() {
   }));
 
   const reportReadResult = readAfterOpen
-    ? await evaluateExpression(cdp, buildReportReadExpression('chrome_extension', readLimit)).catch(
-        (error) => ({
-          exceptionDetails: {
-            text: error.message,
-          },
-        }),
-      )
+    ? await evaluateExpression(
+        cdp,
+        buildReportReadExpression('chrome_extension', readLimit)
+      ).catch((error) => ({
+        exceptionDetails: {
+          text: error.message,
+        },
+      }))
     : undefined;
 
   cdp.close();
 
   const pageState = pageStateResult?.result?.value;
   const initialRead = reportReadResult?.result?.value;
-  const initialReadReports = Array.isArray(initialRead?.reports) ? initialRead.reports : [];
+  const initialReadReports = Array.isArray(initialRead?.reports)
+    ? initialRead.reports
+    : [];
   const initialReadAvailable = Boolean(
     initialRead &&
     !initialRead.readError &&
-    (initialRead.latestReport || initialReadReports.length > 0),
+    (initialRead.latestReport || initialReadReports.length > 0)
   );
   const readCommand = `node skills/mf/scripts/read-observability-report.mjs --port ${port} --page-id ${page.id} --scope chrome_extension --output /tmp/mf-observability-report.json --json`;
   const result = {
@@ -724,7 +750,8 @@ async function main() {
     initialReadLatestTraceId: initialRead?.latestReport?.traceId,
     initialRead,
     initialReadExceptionDetails: reportReadResult?.exceptionDetails,
-    readExpression: "window.__FEDERATION__.__OBSERVABILITY__['chrome_extension'].getLatestReport()",
+    readExpression:
+      "window.__FEDERATION__.__OBSERVABILITY__['chrome_extension'].getLatestReport()",
     readCommand,
     nextReadCommand: readCommand,
     message:
@@ -747,7 +774,7 @@ main().catch((error) => {
       status: 'failed',
       message: error.message,
     },
-    asJson,
+    asJson
   );
   process.exit(1);
 });

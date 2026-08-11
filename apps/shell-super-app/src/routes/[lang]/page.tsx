@@ -1,8 +1,9 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+
+import { ultramodernUiMarker } from '../../ultramodern-build';
 import ShellFrame from '../shell-frame';
 import { UltramodernRouteHead } from '../ultramodern-route-head';
 import { HomePage } from '../vertical-components';
-import { ultramodernUiMarker } from '../../ultramodern-build';
 
 export default function ShellHome() {
   useModernI18n();

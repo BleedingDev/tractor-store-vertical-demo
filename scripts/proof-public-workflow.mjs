@@ -2,20 +2,26 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
 import { chromium, expect } from '@playwright/test';
 
-const workspaceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const defaultShellUrl = 'https://tractor-store-vertical-demo-shell-super-app.edution.workers.dev';
+const workspaceRoot = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '..'
+);
+const defaultShellUrl =
+  'https://tractor-store-vertical-demo-shell-super-app.edution.workers.dev';
 const defaultOut = path.join(
   workspaceRoot,
-  '.codex/reports/workflow-proof/public-shell-workflow-proof.json',
+  '.codex/reports/workflow-proof/public-shell-workflow-proof.json'
 );
 const cartStorageKey = 'ultramodern-tractor-cart';
 const orderStorageKey = 'ultramodern-tractor-last-order';
 const product = {
   detailName: 'Sapphire Sunworker 460R',
   gridName: 'Sapphire Sunworker 460R',
-  image: 'https://blueprint.the-tractor.store/cdn/img/product/200/AU-04-RD.webp',
+  image:
+    'https://blueprint.the-tractor.store/cdn/img/product/200/AU-04-RD.webp',
   price: 8500,
   sku: 'AU-04-RD',
   slug: 'sapphire-sunworker-460r',
@@ -56,7 +62,10 @@ Environment:
 }
 
 function joinUrl(baseUrl, routePath) {
-  return new URL(routePath, baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`).toString();
+  return new URL(
+    routePath,
+    baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`
+  ).toString();
 }
 
 async function writeEvidence(out, evidence) {
@@ -121,7 +130,8 @@ async function main() {
     return;
   }
 
-  const shellUrl = process.env.ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP ?? defaultShellUrl;
+  const shellUrl =
+    process.env.ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP ?? defaultShellUrl;
   const evidence = {
     assertions: [],
     product,
@@ -140,60 +150,86 @@ async function main() {
     executablePath: await findSystemChrome(),
     headless: !args.headed,
   });
-  const context = await browser.newContext({ viewport: { height: 900, width: 1280 } });
+  const context = await browser.newContext({
+    viewport: { height: 900, width: 1280 },
+  });
   const page = await context.newPage();
   page.setDefaultTimeout(30_000);
 
   try {
-    await page.goto(joinUrl(shellUrl, '/en/tractors'), { waitUntil: 'domcontentloaded' });
+    await page.goto(joinUrl(shellUrl, '/en/tractors'), {
+      waitUntil: 'domcontentloaded',
+    });
     await page.evaluate(
       ([cartKey, orderKey]) => {
         window.localStorage.removeItem(cartKey);
         window.localStorage.removeItem(orderKey);
       },
-      [cartStorageKey, orderStorageKey],
+      [cartStorageKey, orderStorageKey]
     );
 
     const productGrid = page.locator(
-      '[data-modern-boundary-id="explore"][data-modern-mf-expose="./ProductGrid"]',
+      '[data-modern-boundary-id="explore"][data-modern-mf-expose="./ProductGrid"]'
     );
     await expect(productGrid).toBeVisible();
     evidence.ui.computedStyles.samples.push(
-      await captureComputedStyle(productGrid, 'product-grid', '/en/tractors'),
+      await captureComputedStyle(productGrid, 'product-grid', '/en/tractors')
     );
-    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(productGrid, '/en/tractors'));
-    await expect(page.getByRole('heading', { name: 'All Machines' })).toBeVisible();
+    evidence.ui.dom.boundaries.push(
+      await captureVisibleBoundary(productGrid, '/en/tractors')
+    );
+    await expect(
+      page.getByRole('heading', { name: 'All Machines' })
+    ).toBeVisible();
     await expect(page.getByText('23 products')).toBeVisible();
-    await expect(page.locator('[data-modern-mf-expose="./CheckoutPage"]')).toHaveCount(0);
-    await expect(page.getByText('Checkout Vertical CheckoutPage')).toHaveCount(0);
+    await expect(
+      page.locator('[data-modern-mf-expose="./CheckoutPage"]')
+    ).toHaveCount(0);
+    await expect(page.getByText('Checkout Vertical CheckoutPage')).toHaveCount(
+      0
+    );
     evidence.assertions.push({
       route: '/en/tractors',
       status: 'pass',
       type: 'product-grid-not-checkout',
     });
 
-    await page.getByRole('link', { name: new RegExp(product.gridName, 'u') }).click();
+    await page
+      .getByRole('link', { name: new RegExp(product.gridName, 'u') })
+      .click();
     await expect(page).toHaveURL(
-      new RegExp(`/en/tractors/${product.slug}\\?sku=${product.sku}$`, 'u'),
+      new RegExp(`/en/tractors/${product.slug}\\?sku=${product.sku}$`, 'u')
     );
     await expect(
-      page.locator('[data-modern-boundary-id="decide"][data-modern-mf-expose="./ProductPage"]'),
+      page.locator(
+        '[data-modern-boundary-id="decide"][data-modern-mf-expose="./ProductPage"]'
+      )
     ).toBeVisible();
     const productPage = page.locator(
-      '[data-modern-boundary-id="decide"][data-modern-mf-expose="./ProductPage"]',
+      '[data-modern-boundary-id="decide"][data-modern-mf-expose="./ProductPage"]'
     );
     const productRoute = `/en/tractors/${product.slug}?sku=${product.sku}`;
     evidence.ui.computedStyles.samples.push(
-      await captureComputedStyle(productPage, 'product-page', productRoute),
+      await captureComputedStyle(productPage, 'product-page', productRoute)
     );
-    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(productPage, productRoute));
+    evidence.ui.dom.boundaries.push(
+      await captureVisibleBoundary(productPage, productRoute)
+    );
     evidence.ui.runtime.interactions.push(passingInteraction('open-product'));
-    await expect(page.getByRole('heading', { name: product.gridName })).toBeVisible();
-    await expect(page.getByRole('link', { exact: true, name: product.variant })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: product.gridName })
+    ).toBeVisible();
+    await expect(
+      page.getByRole('link', { exact: true, name: product.variant })
+    ).toBeVisible();
     const addToBasket = page.getByRole('link', { name: 'Add to basket' });
     await expect(addToBasket).toBeVisible();
-    evidence.ui.accessibility.controls.push(passingControl('link', 'Add to basket', productRoute));
-    await page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => undefined);
+    evidence.ui.accessibility.controls.push(
+      passingControl('link', 'Add to basket', productRoute)
+    );
+    await page
+      .waitForLoadState('networkidle', { timeout: 10_000 })
+      .catch(() => undefined);
     evidence.assertions.push({
       route: `/en/tractors/${product.slug}?sku=${product.sku}`,
       status: 'pass',
@@ -201,16 +237,20 @@ async function main() {
     });
 
     await addToBasket.click();
-    await expect(page).toHaveURL(new RegExp(`/en/cart\\?sku=${product.sku}$`, 'u'));
+    await expect(page).toHaveURL(
+      new RegExp(`/en/cart\\?sku=${product.sku}$`, 'u')
+    );
     const cartPage = page.locator(
-      '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./CartPage"]',
+      '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./CartPage"]'
     );
     await expect(cartPage).toBeVisible();
     const cartRoute = `/en/cart?sku=${product.sku}`;
     evidence.ui.computedStyles.samples.push(
-      await captureComputedStyle(cartPage, 'cart-page', cartRoute),
+      await captureComputedStyle(cartPage, 'cart-page', cartRoute)
     );
-    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(cartPage, cartRoute));
+    evidence.ui.dom.boundaries.push(
+      await captureVisibleBoundary(cartPage, cartRoute)
+    );
     evidence.ui.runtime.interactions.push(passingInteraction('add-to-basket'));
     await expect(page.getByRole('heading', { name: 'Basket' })).toBeVisible();
     await expect(cartPage.getByText(product.detailName)).toBeVisible();
@@ -223,7 +263,7 @@ async function main() {
     const cartLine = cartLines.find((line) => line.id === product.sku);
     if (cartLine === undefined) {
       throw new Error(
-        `Cart storage is missing ${product.sku}; expected ${cartStorageKey} to contain ${product.detailName}`,
+        `Cart storage is missing ${product.sku}; expected ${cartStorageKey} to contain ${product.detailName}`
       );
     }
     expect(cartLine).toMatchObject({
@@ -244,17 +284,21 @@ async function main() {
 
     const checkoutLink = page.getByRole('link', { name: 'Checkout' });
     await expect(checkoutLink).toBeVisible();
-    evidence.ui.accessibility.controls.push(passingControl('link', 'Checkout', cartRoute));
+    evidence.ui.accessibility.controls.push(
+      passingControl('link', 'Checkout', cartRoute)
+    );
     await checkoutLink.click();
     await expect(page).toHaveURL(new RegExp('/en/checkout$', 'u'));
     const checkoutPage = page.locator(
-      '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./CheckoutPage"]',
+      '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./CheckoutPage"]'
     );
     await expect(checkoutPage).toBeVisible();
     evidence.ui.computedStyles.samples.push(
-      await captureComputedStyle(checkoutPage, 'checkout-page', '/en/checkout'),
+      await captureComputedStyle(checkoutPage, 'checkout-page', '/en/checkout')
     );
-    evidence.ui.dom.boundaries.push(await captureVisibleBoundary(checkoutPage, '/en/checkout'));
+    evidence.ui.dom.boundaries.push(
+      await captureVisibleBoundary(checkoutPage, '/en/checkout')
+    );
     evidence.ui.runtime.interactions.push(passingInteraction('begin-checkout'));
     const checkoutForm = page.getByRole('button', { name: 'Place order' });
     await expect(page.getByRole('heading', { name: 'Checkout' })).toBeVisible();
@@ -273,7 +317,7 @@ async function main() {
       passingControl('textbox', 'Name', '/en/checkout'),
       passingControl('textbox', 'Email', '/en/checkout'),
       passingControl('textbox', 'Delivery address', '/en/checkout'),
-      passingControl('button', 'Place order', '/en/checkout'),
+      passingControl('button', 'Place order', '/en/checkout')
     );
     evidence.assertions.push({
       route: '/en/checkout',
@@ -285,16 +329,22 @@ async function main() {
     await emailField.fill('workflow-proof@example.com');
     await deliveryAddressField.fill('100 Tractor Test Lane');
     await checkoutForm.click();
-    await expect(page).toHaveURL(new RegExp('/en/checkout/thank-you/tractor-[a-z0-9]+$', 'u'));
+    await expect(page).toHaveURL(
+      new RegExp('/en/checkout/thank-you/tractor-[a-z0-9]+$', 'u')
+    );
     const thanksPage = page.locator(
-      '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./ThanksPage"]',
+      '[data-modern-boundary-id="checkout"][data-modern-mf-expose="./ThanksPage"]'
     );
     await expect(thanksPage).toBeVisible();
     evidence.ui.computedStyles.samples.push(
-      await captureComputedStyle(thanksPage, 'thanks-page', '/en/checkout/thank-you'),
+      await captureComputedStyle(
+        thanksPage,
+        'thanks-page',
+        '/en/checkout/thank-you'
+      )
     );
     evidence.ui.dom.boundaries.push(
-      await captureVisibleBoundary(thanksPage, '/en/checkout/thank-you'),
+      await captureVisibleBoundary(thanksPage, '/en/checkout/thank-you')
     );
     evidence.ui.runtime.interactions.push(passingInteraction('place-order'));
     const thankYouHeading = page.getByRole('heading', {
@@ -302,10 +352,16 @@ async function main() {
     });
     await expect(thankYouHeading).toBeVisible();
     evidence.ui.accessibility.controls.push(
-      passingControl('heading', 'Thank you for your order', '/en/checkout/thank-you'),
+      passingControl(
+        'heading',
+        'Thank you for your order',
+        '/en/checkout/thank-you'
+      )
     );
     await expect(thanksPage.getByText(product.detailName)).toBeVisible();
-    await expect(thanksPage.getByText(new RegExp(`${product.sku} × \\d+`, 'u'))).toBeVisible();
+    await expect(
+      thanksPage.getByText(new RegExp(`${product.sku} × \\d+`, 'u'))
+    ).toBeVisible();
     await expect(page.getByLabel('Basket (0)')).toBeVisible();
 
     const lastOrder = await page.evaluate((key) => {
@@ -339,7 +395,9 @@ async function main() {
     process.stdout.write(`Workflow proof passed: ${args.out}\n`);
   } catch (error) {
     const screenshot = args.out.replace(/\.json$/u, '.failure.png');
-    await page.screenshot({ fullPage: true, path: screenshot }).catch(() => undefined);
+    await page
+      .screenshot({ fullPage: true, path: screenshot })
+      .catch(() => undefined);
     evidence.error = error instanceof Error ? error.message : String(error);
     evidence.finishedAt = new Date().toISOString();
     evidence.screenshot = screenshot;
@@ -353,6 +411,8 @@ async function main() {
 }
 
 main().catch((error) => {
-  process.stderr.write(`${error instanceof Error ? error.stack : String(error)}\n`);
+  process.stderr.write(
+    `${error instanceof Error ? error.stack : String(error)}\n`
+  );
   process.exit(1);
 });

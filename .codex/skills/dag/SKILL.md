@@ -39,8 +39,7 @@ It can also read the persisted snapshot written by `dag` or `plan-graph` for the
 Use an explicit `GRAPH_ID` only when you need to pin `dag` to one exact saved graph snapshot.
 
 - If you omit `GRAPH_ID`, rerun a selection that resolves to the same absolute plan files plus the same explicit `--depends` edges and `dag` can reuse the matched managed slot or create one automatically if none exists yet.
-- Preserve the exact selection when you want that auto-managed slot again:
-  the same `--plan` list, or any `--plans-root` plus `--glob` combination that resolves to the same plan files, plus the same `--depends` overlay.
+- Preserve the exact selection when you want that auto-managed slot again: the same `--plan` list, or any `--plans-root` plus `--glob` combination that resolves to the same plan files, plus the same `--depends` overlay.
 - Pass `--graph-id <id>` or set `GRAPH_ID` when multiple agents or later resumptions must target one exact saved slot regardless of selection context.
 - When you rerun `dag.py` with `--graph-id` plus a matching explicit plan selection, the wrapper now reuses the saved snapshot edges automatically if you omitted `--depends`.
 - If the explicit selection does not match the saved snapshot for that `--graph-id`, `dag.py` warns and leaves the explicit selection untouched instead of silently applying stale edges.
