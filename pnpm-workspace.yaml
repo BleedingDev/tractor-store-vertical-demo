@@ -72,4 +72,5 @@ allowBuilds:
 patchedDependencies:
   '@module-federation/bridge-react@2.8.2': patches/@module-federation__bridge-react@2.8.2.patch
   '@module-federation/modern-js-v3@2.8.2': patches/@module-federation__modern-js-v3@2.8.2.patch
+  '@tanstack/router-core@1.171.21': patches/@tanstack__router-core@1.171.21.patch
   effect@4.0.0-beta.107: patches/effect-schema-error-type-id.patch
