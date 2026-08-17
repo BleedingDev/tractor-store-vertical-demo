@@ -195,9 +195,7 @@ class Session {
       this.#ws.addEventListener(
         'error',
         (e) => reject(new Error(String(e.message ?? e))),
-        {
-          once: true,
-        }
+        { once: true }
       );
     });
   }

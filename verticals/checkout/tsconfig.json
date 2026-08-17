@@ -15,6 +15,7 @@
     "locales/**/*.json",
     "package.json",
     "shared",
+    "server",
     "api"
   ],
   "references": [

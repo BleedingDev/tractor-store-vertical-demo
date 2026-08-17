@@ -14,7 +14,8 @@
     "src",
     "locales/**/*.json",
     "package.json",
-    "shared"
+    "shared",
+    "server"
   ],
   "references": [
     {

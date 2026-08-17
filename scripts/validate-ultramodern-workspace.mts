@@ -83,172 +83,172 @@ const workspaceValidationContract = {
         {
           sourceName: '@modern-js/adapter-rstest',
           targetName: '@bleedingdev/modern-js-adapter-rstest',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/app-tools',
           targetName: '@bleedingdev/modern-js-app-tools',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/bff-core',
           targetName: '@bleedingdev/modern-js-bff-core',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/bff-runtime',
           targetName: '@bleedingdev/modern-js-bff-runtime',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/builder',
           targetName: '@bleedingdev/modern-js-builder',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/code-tools',
           targetName: '@bleedingdev/modern-js-code-tools',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/create',
           targetName: '@bleedingdev/modern-js-create',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/create-request',
           targetName: '@bleedingdev/modern-js-create-request',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/i18n-utils',
           targetName: '@bleedingdev/modern-js-i18n-utils',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/image',
           targetName: '@bleedingdev/modern-js-image',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/main-doc',
           targetName: '@bleedingdev/modern-js-main-doc',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin',
           targetName: '@bleedingdev/modern-js-plugin',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-bff',
           targetName: '@bleedingdev/modern-js-plugin-bff',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-data-loader',
           targetName: '@bleedingdev/modern-js-plugin-data-loader',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-i18n',
           targetName: '@bleedingdev/modern-js-plugin-i18n',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-polyfill',
           targetName: '@bleedingdev/modern-js-plugin-polyfill',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-ssg',
           targetName: '@bleedingdev/modern-js-plugin-ssg',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-styled-components',
           targetName: '@bleedingdev/modern-js-plugin-styled-components',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/plugin-tanstack',
           targetName: '@bleedingdev/modern-js-plugin-tanstack',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/prod-server',
           targetName: '@bleedingdev/modern-js-prod-server',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/render',
           targetName: '@bleedingdev/modern-js-render',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/runtime',
           targetName: '@bleedingdev/modern-js-runtime',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/runtime-utils',
           targetName: '@bleedingdev/modern-js-runtime-utils',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/sandpack-react',
           targetName: '@bleedingdev/modern-js-sandpack-react',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/server',
           targetName: '@bleedingdev/modern-js-server',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/server-core',
           targetName: '@bleedingdev/modern-js-server-core',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/server-runtime',
           targetName: '@bleedingdev/modern-js-server-runtime',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/server-runtime-extensions',
           targetName: '@bleedingdev/modern-js-server-runtime-extensions',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/server-utils',
           targetName: '@bleedingdev/modern-js-server-utils',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/tsconfig',
           targetName: '@bleedingdev/modern-js-tsconfig',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/types',
           targetName: '@bleedingdev/modern-js-types',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
         {
           sourceName: '@modern-js/utils',
           targetName: '@bleedingdev/modern-js-utils',
-          version: '3.5.0-ultramodern.103',
+          version: '3.8.2-ultramodern.3',
         },
       ],
       release: {
         tag: 'latest',
-        version: '3.5.0-ultramodern.103',
+        version: '3.8.2-ultramodern.3',
       },
       schema: 'bleedingdev.ultramodern.release-cohort',
       schemaVersion: 1,
       source: {
-        commit: '3a2399f8509163653033729b0223b4f8a22d6406',
+        commit: 'a6fd746a7814a70c8866adf0d34f2b5a1fcfcd13',
         repository: 'BleedingDev/ultramodern.js',
       },
     },
@@ -5716,7 +5716,7 @@ const assertTsConfigReferenceGraph = () => {
   );
   assertSameJson(
     shellTsConfig.include ?? [],
-    ['src', 'locales/**/*.json', 'package.json', 'shared'],
+    ['src', 'locales/**/*.json', 'package.json', 'shared', 'server'],
     'apps/shell-super-app/tsconfig.json include',
     'restore the generated shell typecheck boundary'
   );
@@ -5764,6 +5764,7 @@ const assertTsConfigReferenceGraph = () => {
         'locales/**/*.json',
         'package.json',
         'shared',
+        'server',
         ...(vertical.emitsApi ? ['api'] : []),
       ],
       `${vertical.path}/tsconfig.json include`,
@@ -5813,7 +5814,7 @@ const assertTsConfigReferenceGraph = () => {
     );
     assertSameJson(
       shellTsConfig.include ?? [],
-      ['src', 'locales/**/*.json', 'package.json', 'shared'],
+      ['src', 'locales/**/*.json', 'package.json', 'shared', 'server'],
       `${shell.path}/tsconfig.json include`,
       'restore the generated additional-shell typecheck boundary'
     );
@@ -6291,9 +6292,20 @@ const readPnpmWorkspaceConfig = (key) =>
   );
 const pnpmOverrides = readPnpmWorkspaceConfig('overrides');
 const pnpmPatches = readPnpmWorkspaceConfig('patchedDependencies');
+// pnpm reports patch paths realpathed against the workspace dir; on Windows
+// that can be the long-name form while `root` (process.cwd()) is the 8.3
+// short form, so compare realpaths instead of raw string equality.
+const canonicalFsPath = (target) => {
+  try {
+    return fs.realpathSync.native(target);
+  } catch {
+    return path.resolve(target);
+  }
+};
 const patchPathMatches = (key, expectedRelativePath) =>
   typeof pnpmPatches[key] === 'string' &&
-  path.resolve(pnpmPatches[key]) === path.join(root, expectedRelativePath);
+  canonicalFsPath(pnpmPatches[key]) ===
+    canonicalFsPath(path.join(root, expectedRelativePath));
 assert(
   pnpmOverrides['@effect/opentelemetry'] === expectedEffectVersion,
   'pnpm-workspace.yaml must override @effect/opentelemetry to the generated Effect cohort'

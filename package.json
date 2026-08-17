@@ -61,9 +61,9 @@
   },
   "devDependencies": {
     "@effect/tsgo": "0.36.2",
-    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.5.0-ultramodern.103",
-    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.5.0-ultramodern.103",
-    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.5.0-ultramodern.103",
+    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.8.2-ultramodern.3",
+    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.8.2-ultramodern.3",
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.8.2-ultramodern.3",
     "@playwright/test": "^1.60.0",
     "lefthook": "^2.1.10",
     "oxfmt": "0.63.0",
