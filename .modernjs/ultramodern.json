@@ -19,6 +19,7 @@
   "packageSource": {
     "strategy": "install",
     "modernPackageVersion": "3.8.2-ultramodern.3",
+    "registry": "https://registry.npmjs.org/",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
   },
