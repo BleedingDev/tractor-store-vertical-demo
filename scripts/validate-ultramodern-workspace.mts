@@ -83,172 +83,172 @@ const workspaceValidationContract = {
         {
           sourceName: '@modern-js/adapter-rstest',
           targetName: '@bleedingdev/modern-js-adapter-rstest',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/app-tools',
           targetName: '@bleedingdev/modern-js-app-tools',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/bff-core',
           targetName: '@bleedingdev/modern-js-bff-core',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/bff-runtime',
           targetName: '@bleedingdev/modern-js-bff-runtime',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/builder',
           targetName: '@bleedingdev/modern-js-builder',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/code-tools',
           targetName: '@bleedingdev/modern-js-code-tools',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/create',
           targetName: '@bleedingdev/modern-js-create',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/create-request',
           targetName: '@bleedingdev/modern-js-create-request',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/i18n-utils',
           targetName: '@bleedingdev/modern-js-i18n-utils',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/image',
           targetName: '@bleedingdev/modern-js-image',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/main-doc',
           targetName: '@bleedingdev/modern-js-main-doc',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin',
           targetName: '@bleedingdev/modern-js-plugin',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-bff',
           targetName: '@bleedingdev/modern-js-plugin-bff',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-data-loader',
           targetName: '@bleedingdev/modern-js-plugin-data-loader',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-i18n',
           targetName: '@bleedingdev/modern-js-plugin-i18n',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-polyfill',
           targetName: '@bleedingdev/modern-js-plugin-polyfill',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-ssg',
           targetName: '@bleedingdev/modern-js-plugin-ssg',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-styled-components',
           targetName: '@bleedingdev/modern-js-plugin-styled-components',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/plugin-tanstack',
           targetName: '@bleedingdev/modern-js-plugin-tanstack',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/prod-server',
           targetName: '@bleedingdev/modern-js-prod-server',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/render',
           targetName: '@bleedingdev/modern-js-render',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/runtime',
           targetName: '@bleedingdev/modern-js-runtime',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/runtime-utils',
           targetName: '@bleedingdev/modern-js-runtime-utils',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/sandpack-react',
           targetName: '@bleedingdev/modern-js-sandpack-react',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/server',
           targetName: '@bleedingdev/modern-js-server',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/server-core',
           targetName: '@bleedingdev/modern-js-server-core',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/server-runtime',
           targetName: '@bleedingdev/modern-js-server-runtime',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/server-runtime-extensions',
           targetName: '@bleedingdev/modern-js-server-runtime-extensions',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/server-utils',
           targetName: '@bleedingdev/modern-js-server-utils',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/tsconfig',
           targetName: '@bleedingdev/modern-js-tsconfig',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/types',
           targetName: '@bleedingdev/modern-js-types',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
         {
           sourceName: '@modern-js/utils',
           targetName: '@bleedingdev/modern-js-utils',
-          version: '3.8.2-ultramodern.9',
+          version: '3.8.2-ultramodern.10',
         },
       ],
       release: {
         tag: 'latest',
-        version: '3.8.2-ultramodern.9',
+        version: '3.8.2-ultramodern.10',
       },
       schema: 'bleedingdev.ultramodern.release-cohort',
       schemaVersion: 1,
       source: {
-        commit: '3c494671c62ec9040190ae3250a81d8c8088648a',
+        commit: '321846e68fcf04009464d3e028da28437fbfcd31',
         repository: 'BleedingDev/ultramodern.js',
       },
     },
@@ -3716,6 +3716,101 @@ const isCallNamed = (node, names) => {
   const accessPath = propertyAccessPath(node.expression);
   return accessPath !== undefined && names.has(accessPath.at(-1));
 };
+const objectLiteralProperty = (objectLiteral, name) =>
+  objectLiteral.properties.find(
+    (property) =>
+      typescript.isPropertyAssignment(property) &&
+      nodeName(property.name) === name
+  );
+const moduleFederationConfigArgument = (sourceFile) => {
+  let argument;
+  const visit = (node) => {
+    if (argument !== undefined) {
+      return;
+    }
+    if (
+      typescript.isCallExpression(node) &&
+      typescript.isIdentifier(node.expression) &&
+      node.expression.text === 'createModuleFederationConfig' &&
+      node.arguments.length === 1 &&
+      typescript.isObjectLiteralExpression(node.arguments[0])
+    ) {
+      argument = node.arguments[0];
+      return;
+    }
+    node.forEachChild(visit);
+  };
+  visit(sourceFile);
+  return argument;
+};
+const appDeclaresReactRouter = (appPath) => {
+  const relativePath = `${appPath}/package.json`;
+  if (!fs.existsSync(path.join(root, relativePath))) {
+    return false;
+  }
+  const packageJson = readJson(relativePath);
+  return ['react-router', 'react-router-dom'].some((dependency) =>
+    ['dependencies', 'devDependencies'].some((field) =>
+      Object.hasOwn(packageJson[field] ?? {}, dependency)
+    )
+  );
+};
+// TanStack Router is the frontend router of every generated workspace, and
+// `@module-federation/rspack` decides the bridge router purely from this flag
+// and `@module-federation/bridge-react` — it never inspects react-router. The
+// flag therefore has to mirror the app's own manifest: `false` (the router-free
+// bridge-react base entry) unless the app declares React Router itself.
+const bridgeRouterFixArea =
+  'declare bridge.enableBridgeRouter: false, or true only in an app that declares react-router or react-router-dom';
+const assertBridgeRouterCapability = (sourceFile, appPath) => {
+  const contract = 'module federation bridge capability';
+  const configArgument = moduleFederationConfigArgument(sourceFile);
+  if (configArgument === undefined) {
+    compilerFailure(
+      sourceFile,
+      sourceFile,
+      contract,
+      'Generated Module Federation must pass a literal config object to createModuleFederationConfig.',
+      bridgeRouterFixArea
+    );
+  }
+  const bridge = objectLiteralProperty(configArgument, 'bridge');
+  const declaration =
+    bridge !== undefined &&
+    typescript.isObjectLiteralExpression(bridge.initializer)
+      ? objectLiteralProperty(bridge.initializer, 'enableBridgeRouter')
+      : undefined;
+  if (declaration === undefined) {
+    compilerFailure(
+      sourceFile,
+      bridge ?? configArgument,
+      contract,
+      'Generated Module Federation must declare bridge.enableBridgeRouter in its config object.',
+      bridgeRouterFixArea
+    );
+  }
+  if (isBooleanLiteral(declaration.initializer, false)) {
+    return;
+  }
+  if (!isBooleanLiteral(declaration.initializer, true)) {
+    compilerFailure(
+      sourceFile,
+      declaration,
+      contract,
+      'Generated Module Federation must declare bridge.enableBridgeRouter as a boolean literal.',
+      bridgeRouterFixArea
+    );
+  }
+  if (!appDeclaresReactRouter(appPath)) {
+    compilerFailure(
+      sourceFile,
+      declaration,
+      contract,
+      `Generated Module Federation enables the React bridge router while ${appPath}/package.json declares neither react-router nor react-router-dom.`,
+      bridgeRouterFixArea
+    );
+  }
+};
 const assertCompilerArchitecture = () => {
   const structuralPolicy = workspaceValidationContract.structuralShellPolicy;
   assert(
@@ -3935,6 +4030,14 @@ const assertCompilerArchitecture = () => {
     `${appPath}/modern.config.ts`,
     `${appPath}/module-federation.config.ts`,
   ]);
+  const moduleFederationConfigAppPaths = new Map(
+    appPaths
+      .map((appPath) => [
+        path.join(root, `${appPath}/module-federation.config.ts`),
+        appPath,
+      ])
+      .filter((entry) => fs.existsSync(entry[0]))
+  );
   const checkedFiles = new Set([
     ...shellRouteDirectories.flatMap(collectCompilerInputs),
     ...configFiles
@@ -3947,6 +4050,8 @@ const assertCompilerArchitecture = () => {
       const absoluteDirectory = path.join(root, relativeDirectory);
       return absolutePath.startsWith(absoluteDirectory + path.sep);
     });
+    const moduleFederationAppPath =
+      moduleFederationConfigAppPaths.get(absolutePath);
     const visit = (node) => {
       if (
         typescript.isImportDeclaration(node) &&
@@ -3983,8 +4088,11 @@ const assertCompilerArchitecture = () => {
       if (typescript.isPropertyAssignment(node)) {
         const property = nodeName(node.name);
         if (
+          // Inside a Module Federation config the flag is required evidence
+          // checked positionally after this walk; anywhere else it is a
+          // deviation, whatever it is set to.
           (property === 'enableBridgeRouter' &&
-            isBooleanLiteral(node.initializer, false)) ||
+            moduleFederationAppPath === undefined) ||
           (property === 'disableDynamicRemoteTypeHints' &&
             isBooleanLiteral(node.initializer, true)) ||
           property === 'treeShakingSharedExcludePlugins'
@@ -4044,6 +4152,9 @@ const assertCompilerArchitecture = () => {
       node.forEachChild(visit);
     };
     visit(sourceFile);
+    if (moduleFederationAppPath !== undefined) {
+      assertBridgeRouterCapability(sourceFile, moduleFederationAppPath);
+    }
   }
 };
 const compactConfigPolicyView = (config) => ({

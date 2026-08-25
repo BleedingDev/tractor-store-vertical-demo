@@ -78,6 +78,9 @@ const tsgoCompilerInstance = resolveEffectTsgoCompiler({
 const moduleFederationConfig: Parameters<
   typeof createModuleFederationConfig
 >[0] = createModuleFederationConfig({
+  bridge: {
+    enableBridgeRouter: true,
+  },
   dts: {
     displayErrorInTerminal: true,
     generateTypes: {
