@@ -282,9 +282,6 @@ export default defineConfig(
         },
         mainEntryName: 'index',
       },
-      splitChunks: {
-        chunks: 'async',
-      },
       tools: {
         autoprefixer: {
           overrideBrowserslist: ['defaults'],
