@@ -4,7 +4,7 @@ This is an UltraModern.js SuperApp: a composition shell plus independently owned
 
 ## Work Here
 
-- Use Node `>=26` and pnpm `11.10.0`. Run `mise install` before `pnpm install` when the active toolchain differs.
+- Use Node `>=26` and pnpm `11.24.0`. Run `mise install` before `pnpm install` when the active toolchain differs.
 - Keep business features out of the shell. Follow [README.md](./README.md) to add a MicroVertical.
 - Run checks relevant to the change. Before finishing code changes, run `pnpm check`; also run `pnpm build` for runtime, build, routing, or deployment changes.
 

@@ -83,172 +83,172 @@ const workspaceValidationContract = {
         {
           sourceName: '@modern-js/adapter-rstest',
           targetName: '@bleedingdev/modern-js-adapter-rstest',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/app-tools',
           targetName: '@bleedingdev/modern-js-app-tools',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/bff-core',
           targetName: '@bleedingdev/modern-js-bff-core',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/bff-runtime',
           targetName: '@bleedingdev/modern-js-bff-runtime',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/builder',
           targetName: '@bleedingdev/modern-js-builder',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/code-tools',
           targetName: '@bleedingdev/modern-js-code-tools',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/create',
           targetName: '@bleedingdev/modern-js-create',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/create-request',
           targetName: '@bleedingdev/modern-js-create-request',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/i18n-utils',
           targetName: '@bleedingdev/modern-js-i18n-utils',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/image',
           targetName: '@bleedingdev/modern-js-image',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/main-doc',
           targetName: '@bleedingdev/modern-js-main-doc',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin',
           targetName: '@bleedingdev/modern-js-plugin',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-bff',
           targetName: '@bleedingdev/modern-js-plugin-bff',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-data-loader',
           targetName: '@bleedingdev/modern-js-plugin-data-loader',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-i18n',
           targetName: '@bleedingdev/modern-js-plugin-i18n',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-polyfill',
           targetName: '@bleedingdev/modern-js-plugin-polyfill',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-ssg',
           targetName: '@bleedingdev/modern-js-plugin-ssg',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-styled-components',
           targetName: '@bleedingdev/modern-js-plugin-styled-components',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/plugin-tanstack',
           targetName: '@bleedingdev/modern-js-plugin-tanstack',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/prod-server',
           targetName: '@bleedingdev/modern-js-prod-server',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/render',
           targetName: '@bleedingdev/modern-js-render',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/runtime',
           targetName: '@bleedingdev/modern-js-runtime',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/runtime-utils',
           targetName: '@bleedingdev/modern-js-runtime-utils',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/sandpack-react',
           targetName: '@bleedingdev/modern-js-sandpack-react',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/server',
           targetName: '@bleedingdev/modern-js-server',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/server-core',
           targetName: '@bleedingdev/modern-js-server-core',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/server-runtime',
           targetName: '@bleedingdev/modern-js-server-runtime',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/server-runtime-extensions',
           targetName: '@bleedingdev/modern-js-server-runtime-extensions',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/server-utils',
           targetName: '@bleedingdev/modern-js-server-utils',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/tsconfig',
           targetName: '@bleedingdev/modern-js-tsconfig',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/types',
           targetName: '@bleedingdev/modern-js-types',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
         {
           sourceName: '@modern-js/utils',
           targetName: '@bleedingdev/modern-js-utils',
-          version: '3.8.2-ultramodern.12',
+          version: '3.8.2-ultramodern.16',
         },
       ],
       release: {
         tag: 'latest',
-        version: '3.8.2-ultramodern.12',
+        version: '3.8.2-ultramodern.16',
       },
       schema: 'bleedingdev.ultramodern.release-cohort',
       schemaVersion: 1,
       source: {
-        commit: '69f2b5648e13a057261f22bb36cb2d8ca2d5962f',
+        commit: 'fd9e5885e51e96e9b51f7f27438594bb06e8daf0',
         repository: 'BleedingDev/ultramodern.js',
       },
     },
@@ -529,8 +529,8 @@ const workspaceValidationContract = {
             compatibility: {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/explore',
-              effectVersion: '4.0.0-beta.107',
-              moduleFederationVersion: '2.8.2',
+              effectVersion: '4.0.0-rc.112',
+              moduleFederationVersion: '2.9.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -685,8 +685,8 @@ const workspaceValidationContract = {
             compatibility: {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/decide',
-              effectVersion: '4.0.0-beta.107',
-              moduleFederationVersion: '2.8.2',
+              effectVersion: '4.0.0-rc.112',
+              moduleFederationVersion: '2.9.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -831,8 +831,8 @@ const workspaceValidationContract = {
             compatibility: {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/checkout',
-              effectVersion: '4.0.0-beta.107',
-              moduleFederationVersion: '2.8.2',
+              effectVersion: '4.0.0-rc.112',
+              moduleFederationVersion: '2.9.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -1118,8 +1118,8 @@ const workspaceValidationContract = {
             compatibility: {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/explore',
-              effectVersion: '4.0.0-beta.107',
-              moduleFederationVersion: '2.8.2',
+              effectVersion: '4.0.0-rc.112',
+              moduleFederationVersion: '2.9.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -1438,8 +1438,8 @@ const workspaceValidationContract = {
             compatibility: {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/decide',
-              effectVersion: '4.0.0-beta.107',
-              moduleFederationVersion: '2.8.2',
+              effectVersion: '4.0.0-rc.112',
+              moduleFederationVersion: '2.9.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -1752,8 +1752,8 @@ const workspaceValidationContract = {
             compatibility: {
               contractVersion: 'microvertical-server-effect-v1',
               packageName: '@tractor-store-vertical-demo/checkout',
-              effectVersion: '4.0.0-beta.107',
-              moduleFederationVersion: '2.8.2',
+              effectVersion: '4.0.0-rc.112',
+              moduleFederationVersion: '2.9.0',
             },
             cache: {
               cloudflareSnapshot: 'immutable',
@@ -2319,7 +2319,7 @@ const workspaceValidationContract = {
         packageScope: 'tractor-store-vertical-demo',
         packageManager: {
           name: 'pnpm',
-          version: '11.21.0',
+          version: '11.24.0',
         },
         node: {
           version: '26.7.0',
@@ -2684,11 +2684,11 @@ const workspaceValidationContract = {
   },
   versions: {
     cloudflareCompatibilityDate: '2026-06-02',
-    effect: '4.0.0-beta.107',
-    effectVitest: '4.0.0-beta.107',
-    moduleFederation: '2.8.2',
+    effect: '4.0.0-rc.112',
+    effectVitest: '4.0.0-rc.112',
+    moduleFederation: '2.9.0',
     node: '26.7.0',
-    pnpm: '11.21.0',
+    pnpm: '11.24.0',
     tanstackHistory: '1.162.1',
   },
   tailwindEnabled: true,
@@ -6270,7 +6270,7 @@ const requiredPaths = [
   'pnpm-workspace.yaml',
   `patches/@module-federation__modern-js-v3@${expectedModuleFederationVersion}.patch`,
   `patches/@module-federation__bridge-react@${expectedModuleFederationVersion}.patch`,
-  'patches/effect-schema-error-type-id.patch',
+  `patches/@module-federation__runtime-core@${expectedModuleFederationVersion}.patch`,
   'tsconfig.json',
   'tsconfig.base.json',
   'oxlint.config.ts',
@@ -6449,10 +6449,10 @@ assert(
 );
 assert(
   patchPathMatches(
-    `effect@${expectedEffectVersion}`,
-    'patches/effect-schema-error-type-id.patch'
+    `@module-federation/runtime-core@${expectedModuleFederationVersion}`,
+    `patches/@module-federation__runtime-core@${expectedModuleFederationVersion}.patch`
   ),
-  'pnpm-workspace.yaml must patch the generated Effect declaration cohort'
+  'pnpm-workspace.yaml must patch the generated Module Federation runtime-core cohort'
 );
 assertWorkspaceValidationContract(workspaceValidationContract);
 assertAdditionalShellContractShape();

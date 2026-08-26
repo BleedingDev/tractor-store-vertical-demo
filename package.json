@@ -3,7 +3,7 @@
   "name": "tractor-store-vertical-demo",
   "version": "0.1.0",
   "type": "module",
-  "packageManager": "pnpm@11.21.0",
+  "packageManager": "pnpm@11.24.0",
   "scripts": {
     "dev": "pnpm --parallel --filter @tractor-store-vertical-demo/shell-super-app --filter @tractor-store-vertical-demo/explore --filter @tractor-store-vertical-demo/decide --filter @tractor-store-vertical-demo/checkout dev",
     "dev:shell": "pnpm --filter @tractor-store-vertical-demo/shell-super-app dev",
@@ -60,20 +60,20 @@
     }
   },
   "devDependencies": {
-    "@effect/tsgo": "0.36.2",
-    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.8.2-ultramodern.12",
-    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.8.2-ultramodern.12",
-    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.8.2-ultramodern.12",
+    "@effect/tsgo": "0.37.0",
+    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.8.2-ultramodern.16",
+    "@modern-js/create": "npm:@bleedingdev/modern-js-create@3.8.2-ultramodern.16",
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.8.2-ultramodern.16",
     "@playwright/test": "^1.60.0",
     "lefthook": "^2.1.10",
-    "oxfmt": "0.63.0",
-    "oxlint": "1.78.0",
-    "ultracite": "7.10.2",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0",
+    "ultracite": "7.10.6",
     "wrangler": "4.116.0",
     "zephyr-agent": "1.2.1",
     "@typescript/native": "npm:typescript@7.0.2",
     "miniflare": "4.20260730.0",
-    "@effect/opentelemetry": "4.0.0-beta.107",
-    "effect": "4.0.0-beta.107"
+    "@effect/opentelemetry": "4.0.0-rc.112",
+    "effect": "4.0.0-rc.112"
   }
 }

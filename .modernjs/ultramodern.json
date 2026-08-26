@@ -3,13 +3,13 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.8.2-ultramodern.12"
+    "version": "3.8.2-ultramodern.16"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
     "packageManager": {
       "name": "pnpm",
-      "version": "11.21.0"
+      "version": "11.24.0"
     },
     "node": {
       "version": "26.7.0",
@@ -18,7 +18,7 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.8.2-ultramodern.12",
+    "modernPackageVersion": "3.8.2-ultramodern.16",
     "registry": "https://registry.npmjs.org/",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
@@ -254,8 +254,8 @@
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/explore",
-            "effectVersion": "4.0.0-beta.107",
-            "moduleFederationVersion": "2.8.2"
+            "effectVersion": "4.0.0-rc.112",
+            "moduleFederationVersion": "2.9.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -418,8 +418,8 @@
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/decide",
-            "effectVersion": "4.0.0-beta.107",
-            "moduleFederationVersion": "2.8.2"
+            "effectVersion": "4.0.0-rc.112",
+            "moduleFederationVersion": "2.9.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
@@ -566,8 +566,8 @@
           "compatibility": {
             "contractVersion": "microvertical-server-effect-v1",
             "packageName": "@tractor-store-vertical-demo/checkout",
-            "effectVersion": "4.0.0-beta.107",
-            "moduleFederationVersion": "2.8.2"
+            "effectVersion": "4.0.0-rc.112",
+            "moduleFederationVersion": "2.9.0"
           },
           "cache": {
             "cloudflareSnapshot": "immutable",
