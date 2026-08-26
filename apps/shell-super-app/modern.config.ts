@@ -348,10 +348,6 @@ export default defineConfig(
       server: {
         port,
         publicDir: ['./locales', './assets'],
-        ssr: {
-          mode: 'stream',
-          moduleFederationAppSSR: true,
-        },
       },
       source: {
         alias: {
@@ -391,10 +387,6 @@ export default defineConfig(
         unitId: 'tractor-store-vertical-demo/shell-super-app',
         version: '0.1.0',
       },
-      enableBffRequestId: true,
-      enableModuleFederationSSR: true,
-      enableTelemetryExporters: true,
-      telemetryFailLoudStartup: false,
     }
   )
 );
