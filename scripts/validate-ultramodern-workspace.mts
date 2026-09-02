@@ -33,7 +33,7 @@ const workspaceValidationContract = {
   },
   cohort: {
     modernPackages: [
-      '@modern-js/create',
+      '@modern-js/ultramodern-create',
       '@modern-js/code-tools',
       '@modern-js/app-tools',
       '@modern-js/plugin-bff',
@@ -45,17 +45,23 @@ const workspaceValidationContract = {
       aliases: {
         '@modern-js/adapter-rstest': '@bleedingdev/modern-js-adapter-rstest',
         '@modern-js/app-tools': '@bleedingdev/modern-js-app-tools',
+        '@modern-js/app-tools-extensions':
+          '@bleedingdev/modern-js-app-tools-extensions',
         '@modern-js/bff-core': '@bleedingdev/modern-js-bff-core',
+        '@modern-js/bff-effect': '@bleedingdev/modern-js-bff-effect',
         '@modern-js/bff-runtime': '@bleedingdev/modern-js-bff-runtime',
         '@modern-js/builder': '@bleedingdev/modern-js-builder',
         '@modern-js/code-tools': '@bleedingdev/modern-js-code-tools',
-        '@modern-js/create': '@bleedingdev/modern-js-create',
         '@modern-js/create-request': '@bleedingdev/modern-js-create-request',
+        '@modern-js/i18n-runtime-extensions':
+          '@bleedingdev/modern-js-i18n-runtime-extensions',
         '@modern-js/i18n-utils': '@bleedingdev/modern-js-i18n-utils',
         '@modern-js/image': '@bleedingdev/modern-js-image',
         '@modern-js/main-doc': '@bleedingdev/modern-js-main-doc',
         '@modern-js/plugin': '@bleedingdev/modern-js-plugin',
         '@modern-js/plugin-bff': '@bleedingdev/modern-js-plugin-bff',
+        '@modern-js/plugin-bff-extensions':
+          '@bleedingdev/modern-js-plugin-bff-extensions',
         '@modern-js/plugin-data-loader':
           '@bleedingdev/modern-js-plugin-data-loader',
         '@modern-js/plugin-i18n': '@bleedingdev/modern-js-plugin-i18n',
@@ -67,6 +73,8 @@ const workspaceValidationContract = {
         '@modern-js/prod-server': '@bleedingdev/modern-js-prod-server',
         '@modern-js/render': '@bleedingdev/modern-js-render',
         '@modern-js/runtime': '@bleedingdev/modern-js-runtime',
+        '@modern-js/runtime-extensions':
+          '@bleedingdev/modern-js-runtime-extensions',
         '@modern-js/runtime-utils': '@bleedingdev/modern-js-runtime-utils',
         '@modern-js/sandpack-react': '@bleedingdev/modern-js-sandpack-react',
         '@modern-js/server': '@bleedingdev/modern-js-server',
@@ -77,178 +85,212 @@ const workspaceValidationContract = {
         '@modern-js/server-utils': '@bleedingdev/modern-js-server-utils',
         '@modern-js/tsconfig': '@bleedingdev/modern-js-tsconfig',
         '@modern-js/types': '@bleedingdev/modern-js-types',
+        '@modern-js/ultramodern-create':
+          '@bleedingdev/modern-js-ultramodern-create',
+        '@modern-js/ultramodern-sandpack-profile':
+          '@bleedingdev/modern-js-ultramodern-sandpack-profile',
         '@modern-js/utils': '@bleedingdev/modern-js-utils',
       },
       packages: [
         {
           sourceName: '@modern-js/adapter-rstest',
           targetName: '@bleedingdev/modern-js-adapter-rstest',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/app-tools',
           targetName: '@bleedingdev/modern-js-app-tools',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/app-tools-extensions',
+          targetName: '@bleedingdev/modern-js-app-tools-extensions',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/bff-core',
           targetName: '@bleedingdev/modern-js-bff-core',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/bff-effect',
+          targetName: '@bleedingdev/modern-js-bff-effect',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/bff-runtime',
           targetName: '@bleedingdev/modern-js-bff-runtime',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/builder',
           targetName: '@bleedingdev/modern-js-builder',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/code-tools',
           targetName: '@bleedingdev/modern-js-code-tools',
-          version: '3.8.2-ultramodern.16',
-        },
-        {
-          sourceName: '@modern-js/create',
-          targetName: '@bleedingdev/modern-js-create',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/create-request',
           targetName: '@bleedingdev/modern-js-create-request',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/i18n-runtime-extensions',
+          targetName: '@bleedingdev/modern-js-i18n-runtime-extensions',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/i18n-utils',
           targetName: '@bleedingdev/modern-js-i18n-utils',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/image',
           targetName: '@bleedingdev/modern-js-image',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/main-doc',
           targetName: '@bleedingdev/modern-js-main-doc',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin',
           targetName: '@bleedingdev/modern-js-plugin',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-bff',
           targetName: '@bleedingdev/modern-js-plugin-bff',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/plugin-bff-extensions',
+          targetName: '@bleedingdev/modern-js-plugin-bff-extensions',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-data-loader',
           targetName: '@bleedingdev/modern-js-plugin-data-loader',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-i18n',
           targetName: '@bleedingdev/modern-js-plugin-i18n',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-polyfill',
           targetName: '@bleedingdev/modern-js-plugin-polyfill',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-ssg',
           targetName: '@bleedingdev/modern-js-plugin-ssg',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-styled-components',
           targetName: '@bleedingdev/modern-js-plugin-styled-components',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/plugin-tanstack',
           targetName: '@bleedingdev/modern-js-plugin-tanstack',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/prod-server',
           targetName: '@bleedingdev/modern-js-prod-server',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/render',
           targetName: '@bleedingdev/modern-js-render',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/runtime',
           targetName: '@bleedingdev/modern-js-runtime',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/runtime-extensions',
+          targetName: '@bleedingdev/modern-js-runtime-extensions',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/runtime-utils',
           targetName: '@bleedingdev/modern-js-runtime-utils',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/sandpack-react',
           targetName: '@bleedingdev/modern-js-sandpack-react',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/server',
           targetName: '@bleedingdev/modern-js-server',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/server-core',
           targetName: '@bleedingdev/modern-js-server-core',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/server-runtime',
           targetName: '@bleedingdev/modern-js-server-runtime',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/server-runtime-extensions',
           targetName: '@bleedingdev/modern-js-server-runtime-extensions',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/server-utils',
           targetName: '@bleedingdev/modern-js-server-utils',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/tsconfig',
           targetName: '@bleedingdev/modern-js-tsconfig',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/types',
           targetName: '@bleedingdev/modern-js-types',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/ultramodern-create',
+          targetName: '@bleedingdev/modern-js-ultramodern-create',
+          version: '3.8.3-ultramodern.2',
+        },
+        {
+          sourceName: '@modern-js/ultramodern-sandpack-profile',
+          targetName: '@bleedingdev/modern-js-ultramodern-sandpack-profile',
+          version: '3.8.3-ultramodern.2',
         },
         {
           sourceName: '@modern-js/utils',
           targetName: '@bleedingdev/modern-js-utils',
-          version: '3.8.2-ultramodern.16',
+          version: '3.8.3-ultramodern.2',
         },
       ],
       release: {
         tag: 'latest',
-        version: '3.8.2-ultramodern.16',
+        version: '3.8.3-ultramodern.2',
       },
       schema: 'bleedingdev.ultramodern.release-cohort',
       schemaVersion: 1,
       source: {
-        commit: 'fd9e5885e51e96e9b51f7f27438594bb06e8daf0',
+        commit: '147a7fd0cb902f33e014faf72cc1742dbda3752f',
         repository: 'BleedingDev/ultramodern.js',
       },
     },
@@ -489,9 +531,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -645,9 +687,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -791,9 +833,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -1078,9 +1120,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -1398,9 +1440,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -1712,9 +1754,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -2164,9 +2206,9 @@ const workspaceValidationContract = {
             ssr: {
               workerEntry: '.output/server/index.mjs',
               workerManifest: '.output/server/modern-worker-manifest.json',
+              effectBffBundle: '.output/worker/__modern_bff_effect.js',
               routeManifest: '.output/server/route.json',
               ssrBundle: '.output/worker/index.js',
-              effectBffBundle: '.output/worker/__modern_bff_effect.js',
               assetsBinding: 'ASSETS',
             },
             zephyr: {
@@ -2215,9 +2257,9 @@ const workspaceValidationContract = {
             ssr: {
               workerEntry: '.output/server/index.mjs',
               workerManifest: '.output/server/modern-worker-manifest.json',
+              effectBffBundle: '.output/worker/__modern_bff_effect.js',
               routeManifest: '.output/server/route.json',
               ssrBundle: '.output/worker/index.js',
-              effectBffBundle: '.output/worker/__modern_bff_effect.js',
               assetsBinding: 'ASSETS',
             },
             zephyr: {
@@ -2266,9 +2308,9 @@ const workspaceValidationContract = {
             ssr: {
               workerEntry: '.output/server/index.mjs',
               workerManifest: '.output/server/modern-worker-manifest.json',
+              effectBffBundle: '.output/worker/__modern_bff_effect.js',
               routeManifest: '.output/server/route.json',
               ssrBundle: '.output/worker/index.js',
-              effectBffBundle: '.output/worker/__modern_bff_effect.js',
               assetsBinding: 'ASSETS',
             },
             zephyr: {
@@ -2420,9 +2462,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -2483,9 +2525,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -2546,9 +2588,9 @@ const workspaceValidationContract = {
                 ssr: {
                   workerEntry: '.output/server/index.mjs',
                   workerManifest: '.output/server/modern-worker-manifest.json',
+                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   routeManifest: '.output/server/route.json',
                   ssrBundle: '.output/worker/index.js',
-                  effectBffBundle: '.output/worker/__modern_bff_effect.js',
                   assetsBinding: 'ASSETS',
                 },
                 zephyr: {
@@ -2598,7 +2640,7 @@ const workspaceValidationContract = {
         ],
       },
       tooling: {
-        command: 'modern-js-create ultramodern',
+        command: 'ultramodern-create ultramodern',
         wrappers: {
           validate: 'scripts/validate-ultramodern-workspace.mts',
           typecheck: 'scripts/ultramodern-typecheck.mts',
@@ -2684,6 +2726,7 @@ const workspaceValidationContract = {
   },
   versions: {
     cloudflareCompatibilityDate: '2026-06-02',
+    crossEnv: '10.1.0',
     effect: '4.0.0-rc.112',
     effectVitest: '4.0.0-rc.112',
     moduleFederation: '2.9.0',
@@ -3075,6 +3118,7 @@ const workspaceValidationContract = {
 };
 const packageScope = workspaceValidationContract.packageScope;
 const expectedNodeVersion = workspaceValidationContract.versions.node;
+const expectedCrossEnvVersion = workspaceValidationContract.versions.crossEnv;
 const expectedEffectVersion = workspaceValidationContract.versions.effect;
 const expectedEffectVitestVersion =
   workspaceValidationContract.versions.effectVitest;
@@ -3145,6 +3189,10 @@ const dependencyRequireCandidates = [
   ...(typeof process.env.INIT_CWD === 'string'
     ? [
         path.join(process.env.INIT_CWD, 'package.json'),
+        path.join(
+          process.env.INIT_CWD,
+          'packages/toolkit/ultramodern-create/package.json'
+        ),
         path.join(process.env.INIT_CWD, 'packages/toolkit/create/package.json'),
       ]
     : []),
@@ -3196,6 +3244,34 @@ const assert = (condition, message) => {
   if (!condition) {
     throw new Error(message);
   }
+};
+const assertPortableGeneratedEnvironmentScripts = (packageJson, label) => {
+  const build = packageJson.scripts?.build ?? '';
+  const cloudflareBuild = packageJson.scripts?.['cloudflare:build'] ?? '';
+  assert(
+    build.includes('cross-env MODERNJS_DEPLOY=node modern deploy --skip-build'),
+    `${label} build must use cross-env for its Node deploy`
+  );
+  assert(
+    cloudflareBuild.includes(
+      'cross-env MODERNJS_DEPLOY=cloudflare modern build'
+    ),
+    `${label} cloudflare:build must use cross-env for Modern build`
+  );
+  assert(
+    cloudflareBuild.includes(
+      'cross-env MODERNJS_DEPLOY=cloudflare modern deploy --skip-build'
+    ),
+    `${label} cloudflare:build must use cross-env for Modern deploy`
+  );
+  assert(
+    !/(?:^|\s+&&\s+)MODERNJS_DEPLOY=/u.test(build),
+    `${label} build must not use a POSIX-only environment prefix`
+  );
+  assert(
+    !/(?:^|\s+&&\s+)MODERNJS_DEPLOY=/u.test(cloudflareBuild),
+    `${label} cloudflare:build must not use a POSIX-only environment prefix`
+  );
 };
 const assertExists = (relativePath) => {
   assert(
@@ -4802,6 +4878,7 @@ const createAppConfigContract = (app) => ({
   preset: 'presetUltramodern',
   plugins: [
     'appTools',
+    'ultramodernReleaseEnvelopePlugin',
     'tanstackRouterPlugin',
     'i18nPlugin',
     ...(app.api ? ['bffPlugin'] : []),
@@ -5151,11 +5228,20 @@ const backendFederationSubset = (backendFederation) => ({
   exposeReadiness: backendFederation?.exposes?.['./effect-api']?.readiness,
   versionBoundary: {
     invariant: backendFederation?.versionBoundary?.invariant,
+    hasUi: Object.hasOwn(backendFederation?.versionBoundary ?? {}, 'ui'),
     uiManifestUrl: backendFederation?.versionBoundary?.ui?.manifestUrl,
     apiReadiness: backendFederation?.versionBoundary?.api?.readiness,
   },
   cloudflare: {
     kind: backendFederation?.executionSurfaces?.cloudflare?.kind,
+    hasApi: Object.hasOwn(
+      backendFederation?.executionSurfaces?.cloudflare ?? {},
+      'api'
+    ),
+    hasSsr: Object.hasOwn(
+      backendFederation?.executionSurfaces?.cloudflare ?? {},
+      'ssr'
+    ),
     workerName: backendFederation?.executionSurfaces?.cloudflare?.workerName,
     publicUrlEnv:
       backendFederation?.executionSurfaces?.cloudflare?.publicUrlEnv,
@@ -5191,7 +5277,8 @@ const expectedBackendFederationSubset = (vertical) => ({
       : `${vertical.apiPrefix}/${vertical.stem}/readiness`,
   versionBoundary: {
     invariant: 'web-and-api-same-build',
-    uiManifestUrl: expectedManifestUrl(vertical),
+    hasUi: vertical.emitsUi,
+    uiManifestUrl: vertical.emitsUi ? expectedManifestUrl(vertical) : undefined,
     apiReadiness:
       vertical.apiProtocol === 'rpc'
         ? undefined
@@ -5199,9 +5286,11 @@ const expectedBackendFederationSubset = (vertical) => ({
   },
   cloudflare: {
     kind: 'cloudflare-worker-snapshot',
+    hasApi: !vertical.emitsUi,
+    hasSsr: vertical.emitsUi,
     workerName: expectedCloudflareWorkerName(vertical),
     publicUrlEnv: expectedPublicUrlEnv(vertical),
-    zephyrRuntime: 'ssr-worker',
+    zephyrRuntime: vertical.emitsUi ? 'ssr-worker' : 'api-worker',
   },
   node: {
     kind: 'node-mf-runtime',
@@ -5788,18 +5877,7 @@ const assertTsConfigReferenceGraph = () => {
     ...fullStackVerticals.map((vertical) => vertical.path),
     ...additionalShellPaths,
   ].map((referencePath) => ({ path: referencePath }));
-  const expectedShellReferences = [
-    ...sharedPackagePaths,
-    ...(topology.shell?.verticalRefs ?? [])
-      .map((verticalRef) =>
-        fullStackVerticals.find((candidate) => candidate.id === verticalRef)
-      )
-      .filter(Boolean)
-      // The shell only project-references verticals whose API client types it
-      // imports; UI-only remotes are federated at runtime, not type-referenced.
-      .filter((vertical) => vertical.emitsApi)
-      .map((vertical) => vertical.path),
-  ].map((referencePath) =>
+  const expectedShellReferences = sharedPackagePaths.map((referencePath) =>
     referenceFrom('apps/shell-super-app', referencePath)
   );
 
@@ -5908,15 +5986,9 @@ const assertTsConfigReferenceGraph = () => {
     const shellMfTypesTsConfig = readJson(
       `${shell.path}/tsconfig.mf-types.json`
     );
-    const expectedShellReferences = [
-      ...sharedPackagePaths,
-      ...(shell.verticalRefs ?? [])
-        .map((verticalRef) =>
-          fullStackVerticals.find((candidate) => candidate.id === verticalRef)
-        )
-        .filter(Boolean)
-        .map((referencedVertical) => referencedVertical.path),
-    ].map((referencePath) => referenceFrom(shell.path, referencePath));
+    const expectedShellReferences = sharedPackagePaths.map((referencePath) =>
+      referenceFrom(shell.path, referencePath)
+    );
     assertSameJson(
       shellTsConfig.references ?? [],
       expectedShellReferences,
@@ -6263,8 +6335,17 @@ assert(
   `Generated workspace requires Node >=26; active Node is ${activeNodeVersion}. Run mise install, then rerun node from the activated shell.`
 );
 
+const agentInstructionPaths = ['AGENTS.md', 'CLAUDE.md'];
+const presentAgentInstructionPaths = agentInstructionPaths.filter(
+  (relativePath) => fs.existsSync(path.join(root, relativePath))
+);
+assert(
+  presentAgentInstructionPaths.length === 0 ||
+    presentAgentInstructionPaths.length === agentInstructionPaths.length,
+  'Agent instruction files must be either fully enabled (AGENTS.md and CLAUDE.md) or fully disabled'
+);
+
 const requiredPaths = [
-  'AGENTS.md',
   '.gitignore',
   'package.json',
   'pnpm-workspace.yaml',
@@ -6722,9 +6803,14 @@ const assertAdditionalShellCohort = () => {
     );
     assert(
       packageJson.scripts?.['cloudflare:deploy'] ===
-        'ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
-      `${shell.id} must expose cloudflare:deploy`
+        'cross-env ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
+      `${shell.id} must expose a portable cloudflare:deploy`
     );
+    assert(
+      packageJson.devDependencies?.['cross-env'] === expectedCrossEnvVersion,
+      `${shell.id} cross-env dependency must match the portable generated-script cohort`
+    );
+    assertPortableGeneratedEnvironmentScripts(packageJson, shell.id);
 
     const buildArtifact = readJson(
       `${shell.path}/shared/ultramodern-build.json`
@@ -6798,9 +6884,9 @@ const assertAdditionalShellCohort = () => {
 };
 assertAdditionalShellCohort();
 assert(
-  rootPackage.devDependencies?.['@modern-js/create'] ===
-    expectedModernPackageSpecifier('@modern-js/create'),
-  'Root must depend on @modern-js/create through package source metadata'
+  rootPackage.devDependencies?.['@modern-js/ultramodern-create'] ===
+    expectedModernPackageSpecifier('@modern-js/ultramodern-create'),
+  'Root must depend on @modern-js/ultramodern-create through package source metadata'
 );
 assert(
   rootPackage.devDependencies?.['@modern-js/code-tools'] ===
@@ -6811,6 +6897,18 @@ assert(
   rootPackage.devDependencies?.['@modern-js/plugin-bff'] ===
     expectedModernPackageSpecifier('@modern-js/plugin-bff'),
   'Root must depend on @modern-js/plugin-bff for Node backend federation proof'
+);
+assert(
+  rootPackage.devDependencies?.['cross-env'] === expectedCrossEnvVersion,
+  'Root cross-env dependency must match the portable generated-script cohort'
+);
+assert(
+  rootPackage.scripts?.format === 'oxfmt .',
+  'Root format script must rely on the cross-platform Oxfmt ignore configuration'
+);
+assert(
+  rootPackage.scripts?.['format:check'] === 'oxfmt --check .',
+  'Root format:check script must rely on the cross-platform Oxfmt ignore configuration'
 );
 if (packageSource.strategy === 'install') {
   const installSpecifier = packageSource.modernPackages?.specifier;
@@ -6831,7 +6929,7 @@ if (packageSource.strategy === 'install') {
       '@modern-js/plugin-i18n',
       '@modern-js/plugin-tanstack',
       '@modern-js/runtime',
-      '@modern-js/create',
+      '@modern-js/ultramodern-create',
     ]) {
       assert(
         /^@[^/]+\/.+/.test(modernAliases[modernPackageName] ?? ''),
@@ -7053,8 +7151,8 @@ assert(
 );
 assert(
   rootPackage.scripts?.postinstall ===
-    "node ./scripts/bootstrap-agent-skills.mts --postinstall && oxfmt . '!repos/**'",
-  'Root postinstall must run the default-on Codex skills bootstrap, format installed skills, and leave reference repository installs explicit'
+    'node ./scripts/bootstrap-agent-skills.mts --postinstall && oxfmt .',
+  'Root postinstall must run the default-on Codex skills bootstrap, format installed skills through the cross-platform ignore configuration, and leave reference repository installs explicit'
 );
 assert(
   rootPackage.scripts?.['agents:refs:install'] ===
@@ -7201,9 +7299,14 @@ assert(
 );
 assert(
   shellPackage.scripts?.['cloudflare:deploy'] ===
-    'ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
-  'Shell must expose cloudflare:deploy'
+    'cross-env ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
+  'Shell must expose a portable cloudflare:deploy'
 );
+assert(
+  shellPackage.devDependencies?.['cross-env'] === expectedCrossEnvVersion,
+  'Shell cross-env dependency must match the portable generated-script cohort'
+);
+assertPortableGeneratedEnvironmentScripts(shellPackage, 'Shell');
 const shellContract = generatedContract.apps?.find(
   (app) => app.id === 'shell-super-app'
 );
@@ -7465,9 +7568,14 @@ for (const vertical of fullStackVerticals) {
   );
   assert(
     packageJson.scripts?.['cloudflare:deploy'] ===
-      'ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
-    `${vertical.id} must expose cloudflare:deploy`
+      'cross-env ULTRAMODERN_CLOUDFLARE_REQUIRE_PUBLIC_URLS=true pnpm run cloudflare:build && wrangler deploy --config .output/wrangler.json',
+    `${vertical.id} must expose a portable cloudflare:deploy`
   );
+  assert(
+    packageJson.devDependencies?.['cross-env'] === expectedCrossEnvVersion,
+    `${vertical.id} cross-env dependency must match the portable generated-script cohort`
+  );
+  assertPortableGeneratedEnvironmentScripts(packageJson, vertical.id);
   assert(
     packageJson.devDependencies?.['@modern-js/app-tools'] ===
       expectedModernPackageSpecifier('@modern-js/app-tools'),

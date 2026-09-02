@@ -136,9 +136,9 @@ const layer = HttpApiBuilder.layer(checkoutEffectApi).pipe(
   Layer.provide(checkoutLayer)
 );
 
-const bff: unknown = defineEffectBff({
+const apiRuntime: unknown = defineEffectBff({
   api: checkoutEffectApi,
   layer,
 });
 
-export default bff;
+export default apiRuntime;

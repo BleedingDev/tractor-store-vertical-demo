@@ -18,7 +18,7 @@ const result = createBin
       env: { ...process.env, ULTRAMODERN_WORKSPACE_ROOT: workspaceRoot },
       stdio: 'inherit',
     })
-  : spawnSync('modern-js-create', ultramodernArgs, {
+  : spawnSync('ultramodern-create', ultramodernArgs, {
       env: { ...process.env, ULTRAMODERN_WORKSPACE_ROOT: workspaceRoot },
       shell: process.platform === 'win32',
       stdio: 'inherit',
@@ -27,7 +27,7 @@ const result = createBin
 if (result.error) {
   const launchTarget = createBin
     ? process.execPath + ' with ULTRAMODERN_CREATE_BIN=' + createBin
-    : 'modern-js-create from PATH';
+    : 'ultramodern-create from PATH';
   console.error(
     'Failed to launch ' +
       launchTarget +

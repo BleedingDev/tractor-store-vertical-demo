@@ -14,6 +14,7 @@ export default defineConfig({
     '.output',
     '**/modern-tanstack/**',
     '**/routeTree.gen.*',
+    'repos/**',
   ],
   singleQuote: true,
 });

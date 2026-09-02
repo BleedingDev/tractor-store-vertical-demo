@@ -114,9 +114,9 @@ const layer = HttpApiBuilder.layer(decideEffectApi).pipe(
   Layer.provide(decideLayer)
 );
 
-const bff: unknown = defineEffectBff({
+const apiRuntime: unknown = defineEffectBff({
   api: decideEffectApi,
   layer,
 });
 
-export default bff;
+export default apiRuntime;
