@@ -6,7 +6,7 @@ import { ProductPage } from '../../../vertical-components';
 
 export default function ShellProductPage() {
   const slug = useParams({ select: (params) => params.slug, strict: false });
-  const sku = useSearch({ select: (search) => search.sku, strict: false });
+  const sku = useSearch({ select: (search) => search['sku'], strict: false });
 
   return (
     <ShellFrame boundary="decide">

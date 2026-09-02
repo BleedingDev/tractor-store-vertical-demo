@@ -5,7 +5,7 @@ import { UltramodernRouteHead } from '../../../ultramodern-route-head';
 
 export default function DecideProductRoute() {
   const slug = useParams({ select: (params) => params.slug, strict: false });
-  const sku = useSearch({ select: (search) => search.sku, strict: false });
+  const sku = useSearch({ select: (search) => search['sku'], strict: false });
 
   return (
     <>

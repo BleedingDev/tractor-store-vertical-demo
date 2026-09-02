@@ -7,9 +7,9 @@
     "emitDeclarationOnly": true,
     "incremental": true,
     "noEmit": false,
-    "skipLibCheck": true,
     "outDir": "../../node_modules/.cache/tsgo/declarations/verticals__decide",
-    "tsBuildInfoFile": "../../node_modules/.cache/tsgo/verticals__decide.tsbuildinfo"
+    "tsBuildInfoFile": "../../node_modules/.cache/tsgo/verticals__decide.tsbuildinfo",
+    "skipLibCheck": true
   },
   "include": [
     "src",
