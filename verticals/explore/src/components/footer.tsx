@@ -1,6 +1,8 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import type { JSX } from 'react';
 
-export default function Footer() {
+export default function Footer(props: Record<string, never>): JSX.Element {
+  void props;
   const { t } = useModernI18n();
 
   return (

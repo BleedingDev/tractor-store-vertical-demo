@@ -1,13 +1,16 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
-import { Form, Link, useNavigate } from '@modern-js/plugin-tanstack/runtime';
-import type { FormEvent } from 'react';
+import { Form, useNavigate } from '@modern-js/plugin-tanstack/runtime';
+import type { FormEvent, JSX } from 'react';
 
 import { useCartLines } from '../cart-store';
 
 const formatPrice = (price: number) =>
   `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
-export default function CheckoutCheckoutPage() {
+export default function CheckoutCheckoutPage(
+  props: Record<string, never>
+): JSX.Element {
+  void props;
   const navigate = useNavigate();
   const { language, t } = useModernI18n();
   const cart = useCartLines();
@@ -81,12 +84,12 @@ export default function CheckoutCheckoutPage() {
             <p className="checkout:m-0 checkout:text-stone-700">
               {t('checkout.cart.empty')}
             </p>
-            <Link
+            <a
               className="checkout:mt-6 checkout:inline-flex checkout:min-h-12 checkout:items-center checkout:justify-center checkout:rounded-full checkout:border checkout:border-stone-300 checkout:bg-white checkout:px-9 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-stone-900 checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.08)]"
-              to={`/${language}/tractors`}
+              href={`/${language}/tractors`}
             >
               {t('checkout.actions.continueShopping')}
-            </Link>
+            </a>
           </div>
         )}
       </section>

@@ -120,26 +120,6 @@ export const ultramodernLocalisedUrls = {
     cs: '/pokladna/dekujeme/:orderId?',
     en: '/checkout/thank-you/:orderId?',
   },
-  '/kosik': {
-    cs: '/kosik',
-    en: '/cart',
-  },
-  '/nedostupne': {
-    cs: '/nedostupne',
-    en: '/unavailable',
-  },
-  '/pokladna': {
-    cs: '/pokladna',
-    en: '/checkout',
-  },
-  '/pokladna/dekujeme': {
-    cs: '/pokladna/dekujeme',
-    en: '/checkout/thank-you',
-  },
-  '/pokladna/dekujeme/:orderId?': {
-    cs: '/pokladna/dekujeme/:orderId?',
-    en: '/checkout/thank-you/:orderId?',
-  },
   '/unavailable': {
     cs: '/nedostupne',
     en: '/unavailable',

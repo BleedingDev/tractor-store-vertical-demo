@@ -3021,9 +3021,9 @@ const workspaceValidationContract = {
   oldRemotePaths: ['apps/remotes'],
   scripts: {
     build:
-      'pnpm -r --filter "./verticals/*" run build && pnpm --filter "./apps/shell-super-app" run build && pnpm mf:types && pnpm performance:readiness',
+      'node ./scripts/ultramodern-typecheck.mts --build packages/shared-contracts/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --build packages/shared-design-tokens/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --project verticals/checkout/tsconfig.json --skipLibCheck && node ./scripts/ultramodern-typecheck.mts --project verticals/explore/tsconfig.json --skipLibCheck && pnpm -r --filter "./verticals/*" run build && pnpm --filter "./apps/shell-super-app" run build && pnpm mf:types && pnpm performance:readiness',
     cloudflareBuild:
-      'pnpm -r --filter "./verticals/*" run cloudflare:build && pnpm --filter "./apps/shell-super-app" run cloudflare:build && pnpm mf:types && pnpm cloudflare-output:verify && pnpm cloudflare:ssr-proof',
+      'node ./scripts/ultramodern-typecheck.mts --build packages/shared-contracts/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --build packages/shared-design-tokens/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --project verticals/checkout/tsconfig.json --skipLibCheck && node ./scripts/ultramodern-typecheck.mts --project verticals/explore/tsconfig.json --skipLibCheck && pnpm -r --filter "./verticals/*" run cloudflare:build && pnpm --filter "./apps/shell-super-app" run cloudflare:build && pnpm mf:types --target cloudflare && pnpm cloudflare-output:verify && pnpm cloudflare:ssr-proof',
     cloudflareDeploy:
       'pnpm -r --filter "./verticals/*" run cloudflare:deploy && pnpm --filter "./apps/shell-super-app" run cloudflare:deploy',
     cloudflareProof:
@@ -3046,9 +3046,9 @@ const workspaceValidationContract = {
   },
   packageScripts: {
     build:
-      'pnpm -r --filter "./verticals/*" run build && pnpm --filter "./apps/shell-super-app" run build && pnpm mf:types && pnpm performance:readiness',
+      'node ./scripts/ultramodern-typecheck.mts --build packages/shared-contracts/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --build packages/shared-design-tokens/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --project verticals/checkout/tsconfig.json --skipLibCheck && node ./scripts/ultramodern-typecheck.mts --project verticals/explore/tsconfig.json --skipLibCheck && pnpm -r --filter "./verticals/*" run build && pnpm --filter "./apps/shell-super-app" run build && pnpm mf:types && pnpm performance:readiness',
     'cloudflare:build':
-      'pnpm -r --filter "./verticals/*" run cloudflare:build && pnpm --filter "./apps/shell-super-app" run cloudflare:build && pnpm mf:types && pnpm cloudflare-output:verify && pnpm cloudflare:ssr-proof',
+      'node ./scripts/ultramodern-typecheck.mts --build packages/shared-contracts/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --build packages/shared-design-tokens/tsconfig.json && node ./scripts/ultramodern-typecheck.mts --project verticals/checkout/tsconfig.json --skipLibCheck && node ./scripts/ultramodern-typecheck.mts --project verticals/explore/tsconfig.json --skipLibCheck && pnpm -r --filter "./verticals/*" run cloudflare:build && pnpm --filter "./apps/shell-super-app" run cloudflare:build && pnpm mf:types --target cloudflare && pnpm cloudflare-output:verify && pnpm cloudflare:ssr-proof',
     'cloudflare:deploy':
       'pnpm -r --filter "./verticals/*" run cloudflare:deploy && pnpm --filter "./apps/shell-super-app" run cloudflare:deploy',
     'cloudflare:proof':
@@ -5915,6 +5915,9 @@ const assertTsConfigReferenceGraph = () => {
     {
       extends: '../../tsconfig.base.json',
       include: ['src/modern-app-env.d.ts'],
+      compilerOptions: {
+        skipLibCheck: true,
+      },
     },
     'apps/shell-super-app/tsconfig.mf-types.json',
     'restore the generated shell Module Federation DTS boundary'
@@ -5960,6 +5963,12 @@ const assertTsConfigReferenceGraph = () => {
       'restore the generated MicroVertical typecheck boundary'
     );
     assertProjectReferenceEmitConfig(verticalTsConfig, vertical.path);
+    assert(
+      (vertical.verticalRefs ?? []).length > 0
+        ? verticalTsConfig.compilerOptions?.skipLibCheck === true
+        : verticalTsConfig.compilerOptions?.skipLibCheck !== true,
+      `${vertical.path}/tsconfig.json must scope skipLibCheck to composed remotes`
+    );
     assertSameJson(
       verticalMfTypesTsConfig,
       {
@@ -5975,6 +5984,9 @@ const assertTsConfigReferenceGraph = () => {
               'src/modern-app-env.d.ts',
             ]
           : ['src/modern-app-env.d.ts'],
+        compilerOptions: {
+          skipLibCheck: true,
+        },
       },
       `${vertical.path}/tsconfig.mf-types.json`,
       'restore the generated MicroVertical Module Federation DTS boundary'
@@ -6007,6 +6019,9 @@ const assertTsConfigReferenceGraph = () => {
       {
         extends: '../../tsconfig.base.json',
         include: ['src/modern-app-env.d.ts'],
+        compilerOptions: {
+          skipLibCheck: true,
+        },
       },
       `${shell.path}/tsconfig.mf-types.json`,
       'restore the generated additional-shell Module Federation DTS boundary'

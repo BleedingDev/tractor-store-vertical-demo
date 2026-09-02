@@ -2,6 +2,7 @@ import {
   appTools,
   defineConfig,
   presetUltramodern,
+  ultramodernReleaseEnvelopePlugin,
 } from '@modern-js/app-tools';
 import {
   getBuildConfigEnvironment,
@@ -228,6 +229,7 @@ export default defineConfig(
       },
       plugins: [
         appTools(),
+        ultramodernReleaseEnvelopePlugin(),
         tanstackRouterPlugin(),
         i18nPlugin({
           backend: {
@@ -295,6 +297,11 @@ export default defineConfig(
               'Accept, Authorization, Content-Type, X-Requested-With',
             'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
             'Access-Control-Allow-Origin': moduleFederationDevServerOrigin,
+          },
+        },
+        tsChecker: {
+          typescript: {
+            build: false,
           },
         },
       },

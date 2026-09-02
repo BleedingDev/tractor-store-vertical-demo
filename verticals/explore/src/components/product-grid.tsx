@@ -1,4 +1,5 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import type { JSX } from 'react';
 
 import {
   autonomousProducts,
@@ -13,7 +14,8 @@ const formatPrice = (price: number) =>
     useGrouping: false,
   })} Ø`;
 
-export default function ProductGrid() {
+export default function ProductGrid(props: Record<string, never>): JSX.Element {
+  void props;
   const { language, t } = useModernI18n();
   const products = [...autonomousProducts, ...classicProducts].toSorted(
     (left, right) => right.startPrice - left.startPrice

@@ -1,8 +1,10 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import type { JSX } from 'react';
 
 import { responsiveImage, sizedImage, stores } from '../tractor-data';
 
-export default function StorePicker() {
+export default function StorePicker(props: Record<string, never>): JSX.Element {
+  void props;
   const { t } = useModernI18n();
 
   return (

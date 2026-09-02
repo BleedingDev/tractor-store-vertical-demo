@@ -152,26 +152,6 @@ export const ultramodernLocalisedUrls = {
     cs: '/pokladna/dekujeme/:orderId?',
     en: '/checkout/thank-you/:orderId?',
   },
-  '/kosik': {
-    cs: '/kosik',
-    en: '/cart',
-  },
-  '/pokladna': {
-    cs: '/pokladna',
-    en: '/checkout',
-  },
-  '/pokladna/dekujeme': {
-    cs: '/pokladna/dekujeme',
-    en: '/checkout/thank-you',
-  },
-  '/pokladna/dekujeme/:orderId?': {
-    cs: '/pokladna/dekujeme/:orderId?',
-    en: '/checkout/thank-you/:orderId?',
-  },
-  '/prodejci': {
-    cs: '/prodejci',
-    en: '/stores',
-  },
   '/stores': {
     cs: '/prodejci',
     en: '/stores',
@@ -181,14 +161,6 @@ export const ultramodernLocalisedUrls = {
     en: '/tractors',
   },
   '/tractors/:slug': {
-    cs: '/traktory/:slug',
-    en: '/tractors/:slug',
-  },
-  '/traktory': {
-    cs: '/traktory',
-    en: '/tractors',
-  },
-  '/traktory/:slug': {
     cs: '/traktory/:slug',
     en: '/tractors/:slug',
   },

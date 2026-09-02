@@ -1,8 +1,12 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import type { JSX } from 'react';
 
 import { useCartLines } from '../cart-store';
 
-export default function CheckoutMiniCart() {
+export default function CheckoutMiniCart(
+  props: Record<string, never>
+): JSX.Element {
+  void props;
   const { language, t } = useModernI18n();
   const cart = useCartLines();
   const count = cart.lines.reduce((sum, line) => sum + line.quantity, 0);

@@ -1,9 +1,11 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import type { JSX } from 'react';
 
 import { responsiveImage, sizedImage, teasers } from '../tractor-data';
 import Recommendations from './recommendations';
 
-export default function HomePage() {
+export default function HomePage(props: Record<string, never>): JSX.Element {
+  void props;
   const { language, t } = useModernI18n();
 
   return (

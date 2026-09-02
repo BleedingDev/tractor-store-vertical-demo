@@ -1,11 +1,15 @@
 import { useModernI18n } from '@modern-js/plugin-i18n/runtime';
+import type { JSX } from 'react';
 
 import { useLastOrder } from '../cart-store';
 
 const formatPrice = (price: number) =>
   `${price.toLocaleString('de-DE', { useGrouping: false })} Ø`;
 
-export default function CheckoutThanksPage() {
+export default function CheckoutThanksPage(
+  props: Record<string, never>
+): JSX.Element {
+  void props;
   const { t } = useModernI18n();
   const order = useLastOrder();
 

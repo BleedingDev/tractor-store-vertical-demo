@@ -11,7 +11,10 @@ export default function ShellProductPage() {
   return (
     <ShellFrame boundary="decide">
       <UltramodernRouteHead />
-      <ProductPage sku={sku} slug={slug} />
+      <ProductPage
+        {...(sku === undefined ? {} : { sku })}
+        {...(slug === undefined ? {} : { slug })}
+      />
     </ShellFrame>
   );
 }

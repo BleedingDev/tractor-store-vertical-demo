@@ -1,3 +1,4 @@
+import type { I18nInstance } from '@modern-js/plugin-i18n/runtime';
 import { defineRuntimeConfig } from '@modern-js/runtime';
 import { ultramodernBoundaryDebuggerPlugin } from '@modern-js/runtime/boundary-debugger';
 import { createInstance } from 'i18next';
@@ -34,7 +35,7 @@ const resources = {
 
 export default defineRuntimeConfig({
   i18n: {
-    i18nInstance,
+    i18nInstance: i18nInstance as I18nInstance,
     initOptions: {
       defaultNS: ultramodernRouteNamespace,
       fallbackLng: 'en',

@@ -35,7 +35,9 @@ export default function CheckoutAddToCart({
       </div>
       <Link
         className="checkout:mt-8 checkout:flex checkout:min-h-12 checkout:w-full checkout:items-center checkout:justify-center checkout:rounded-full checkout:bg-stone-800 checkout:px-5 checkout:text-[0.9rem] checkout:font-bold checkout:uppercase checkout:tracking-[0.42em] checkout:text-white checkout:no-underline checkout:shadow-[0_0_14px_rgba(0,0,0,0.18)] checkout:focus-visible:outline checkout:focus-visible:outline-2 checkout:focus-visible:outline-offset-4 checkout:focus-visible:outline-[#f6cf45]"
-        to={`/${language}/cart?sku=${sku}`}
+        params={{ lang: language }}
+        search={{ sku }}
+        to="/$lang/cart"
         onClick={() =>
           cart.addProduct({ id: sku, image, name: productName, price, slug })
         }

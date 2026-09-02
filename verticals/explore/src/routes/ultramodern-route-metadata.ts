@@ -72,23 +72,11 @@ export const ultramodernRouteMetadata = [
 ] as const;
 
 export const ultramodernLocalisedUrls = {
-  '/nedostupne': {
-    cs: '/nedostupne',
-    en: '/unavailable',
-  },
-  '/prodejci': {
-    cs: '/prodejci',
-    en: '/stores',
-  },
   '/stores': {
     cs: '/prodejci',
     en: '/stores',
   },
   '/tractors': {
-    cs: '/traktory',
-    en: '/tractors',
-  },
-  '/traktory': {
     cs: '/traktory',
     en: '/tractors',
   },

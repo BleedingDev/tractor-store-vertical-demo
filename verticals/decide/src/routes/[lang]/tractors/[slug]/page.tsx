@@ -10,7 +10,10 @@ export default function DecideProductRoute() {
   return (
     <>
       <UltramodernRouteHead />
-      <DecideProductPage sku={sku} slug={slug} />
+      <DecideProductPage
+        {...(sku === undefined ? {} : { sku })}
+        {...(slug === undefined ? {} : { slug })}
+      />
     </>
   );
 }
