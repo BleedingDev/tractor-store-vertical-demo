@@ -3,7 +3,7 @@
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
     "package": "@modern-js/create",
-    "version": "3.8.3-ultramodern.5"
+    "version": "3.8.3-ultramodern.6"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
@@ -18,7 +18,7 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.8.3-ultramodern.5",
+    "modernPackageVersion": "3.8.3-ultramodern.6",
     "registry": "https://registry.npmjs.org/",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
