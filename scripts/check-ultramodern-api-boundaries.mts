@@ -2,6 +2,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import {
+  createEffectApiImportResolver,
+  strictEffectRuntimeTopologyViolation,
+} from '@modern-js/code-tools/strict-effect-runtime';
+
+import { microVerticalApiBaselineViolation } from './microvertical-api-baseline-boundary.mts';
+
 const workspaceRoot = process.env.ULTRAMODERN_WORKSPACE_ROOT ?? process.cwd();
 const failures = [];
 
@@ -56,6 +63,14 @@ function listFiles(startDirectory) {
 
       const absoluteEntry = path.join(directory, entry.name);
       if (entry.isDirectory()) {
+        // Only the registered app's build output is generated. A directory
+        // named dist-cloudflare inside authored source is still source.
+        if (
+          entry.name === 'dist-cloudflare' &&
+          configuredApp(relative(directory)) !== undefined
+        ) {
+          continue;
+        }
         visit(absoluteEntry);
         continue;
       }
@@ -621,34 +636,42 @@ function assertApiSurface(appPath, app) {
     `${appPath} REST unit must not emit the RPC API client.`
   );
 
-  assertModuleShape(apiEntry, {
-    imports: [
-      [
-        '@modern-js/plugin-bff/effect-edge',
-        ['defineEffectBff', 'Effect', 'HttpApiBuilder', 'Layer'],
-      ],
-      ['../shared/api.ts', []],
-    ],
-    calls: [
-      [
-        'defineEffectBff',
-        'must create the strict Effect runtime through defineEffectBff(...).',
-      ],
-      [
-        'HttpApiBuilder.group',
-        'must implement handlers through HttpApiBuilder.group(...).',
-      ],
-      [
-        'HttpApiBuilder.layer',
-        'must assemble the HttpApi runtime through HttpApiBuilder.layer(...).',
-      ],
-      [
-        'Layer.provide',
-        'must compose the handler group through Effect Layer.provide(...).',
-      ],
-    ],
-    defaultExport: 'apiRuntime',
-  });
+  if (exists(apiEntry)) {
+    const runtimeViolation = strictEffectRuntimeTopologyViolation(
+      readText(apiEntry),
+      createEffectApiImportResolver(path.resolve(workspaceRoot, apiEntry))
+    );
+    assert(runtimeViolation === undefined, `${apiEntry}: ${runtimeViolation}`);
+  }
+  const sharedPackagePath = 'packages/shared-contracts/package.json';
+  assert(exists(sharedPackagePath), `${sharedPackagePath} is required.`);
+  if (exists(sharedApi) && exists(sharedPackagePath)) {
+    const sharedPackage = JSON.parse(readText(sharedPackagePath));
+    const apiPrefix = app?.api?.prefix ?? `/${stem}-api`;
+    const basePath = `${apiPrefix}/${stem}`;
+    const baselineViolation = microVerticalApiBaselineViolation(
+      stem,
+      path.resolve(workspaceRoot, sharedApi),
+      {
+        additionalPaths:
+          stem === 'checkout' ? { checkoutCartPath: `${basePath}/cart` } : {},
+        apiPrefix,
+        basePath,
+        effectClientPackage: '@modern-js/plugin-bff/effect-client',
+        ownerId: app?.id ?? path.posix.basename(appPath),
+        readinessPath: `${basePath}/readiness`,
+        sharedContractsPackage: sharedPackage.name,
+        sharedContractsDirectory: path.resolve(
+          workspaceRoot,
+          'packages/shared-contracts'
+        ),
+      }
+    );
+    assert(
+      baselineViolation === undefined,
+      `${sharedApi}: ${baselineViolation}`
+    );
+  }
   assertBackendEffectSurface(appPath);
 
   assertModuleShape(sharedApi, {

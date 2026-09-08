@@ -6,6 +6,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./microvertical-api-baseline": "./src/microvertical-api-baseline.ts",
+    "./server/effect-bff-runtime": "./src/effect-bff-runtime.ts",
     "./tractor-catalog": "./src/tractor-catalog.ts"
   },
   "scripts": {
@@ -14,5 +16,10 @@
   "devDependencies": {
     "@effect/tsgo": "0.41.0",
     "@typescript/native-preview": "7.0.0-dev.20260707.2"
+  },
+  "dependencies": {
+    "@effect/opentelemetry": "4.0.0-rc.112",
+    "effect": "4.0.0-rc.112",
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.9.0-ultramodern.3"
   }
 }
