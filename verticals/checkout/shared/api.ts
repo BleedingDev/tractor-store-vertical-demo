@@ -5,18 +5,14 @@ import {
   HttpApiSchema,
   Schema,
 } from '@modern-js/plugin-bff/effect-client';
+import {
+  MicroVerticalBuildMarkerSchema,
+  MicroVerticalReadinessSchema,
+  createMicroVerticalOperationContext,
+} from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
+import type { MicroVerticalOperationContext } from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
 
-export const checkoutMarkerSchema = Schema.Struct({
-  appId: Schema.String,
-  build: Schema.String,
-  buildMarker: Schema.String,
-  deployProfile: Schema.String,
-  packageName: Schema.String,
-  sourceRevision: Schema.String,
-  surface: Schema.String,
-  unitId: Schema.String,
-  version: Schema.String,
-});
+export const checkoutMarkerSchema = MicroVerticalBuildMarkerSchema;
 
 export const checkoutItemSchema = Schema.Struct({
   id: Schema.String,
@@ -33,17 +29,7 @@ export const checkoutItemSchema = Schema.Struct({
 
 export { ultramodernApiMarker } from './ultramodern-build.ts';
 
-export const checkoutReadinessSchema = Schema.Struct({
-  checks: Schema.Struct({
-    effectBff: Schema.Literal('ready'),
-    moduleFederation: Schema.Literal('ready'),
-    ssr: Schema.Literal('ready'),
-    translations: Schema.Literal('ready'),
-  }),
-  marker: checkoutMarkerSchema,
-  status: Schema.Literal('ready'),
-  versionSkew: Schema.Literal('none'),
-});
+export const checkoutReadinessSchema = MicroVerticalReadinessSchema;
 
 export const checkoutCreatePayloadSchema = Schema.Struct({
   quantity: Schema.optional(Schema.Finite),
@@ -64,83 +50,76 @@ export const makeCheckoutNotFound = (id: string): CheckoutNotFound => ({
   id,
 });
 
-export interface OperationContext {
-  operationId: string;
-  routePath: string;
-  method: string;
-  source: string;
-  traceId?: string;
-}
+export type OperationContext = MicroVerticalOperationContext;
 
-export const checkoutEffectApi = HttpApi.make('CheckoutEffectApi').add(
-  HttpApiGroup.make('checkout')
-    .add(
-      HttpApiEndpoint.get('list', '/checkout', {
-        query: {
-          limit: Schema.optional(Schema.FiniteFromString),
-        },
-        success: Schema.Struct({
-          items: Schema.Array(checkoutItemSchema),
-        }),
-      })
-    )
-    .add(
-      HttpApiEndpoint.get('readiness', '/checkout/readiness', {
-        success: checkoutReadinessSchema,
-      })
-    )
-    .add(
-      HttpApiEndpoint.get('get', '/checkout/:id', {
-        error: checkoutNotFoundSchema,
-        params: {
-          id: Schema.String,
-        },
-        success: checkoutItemSchema,
-      })
-    )
-    .add(
-      HttpApiEndpoint.post('create', '/checkout', {
-        error: checkoutNotFoundSchema,
-        payload: checkoutCreatePayloadSchema,
-        success: Schema.Struct({
-          item: checkoutItemSchema,
-        }),
-      })
-    )
+export const checkoutFoundationApi = HttpApi.make('CheckoutApiFoundation').add(
+  HttpApiGroup.make('foundation').add(
+    HttpApiEndpoint.get('readiness', '/checkout/readiness', {
+      success: checkoutReadinessSchema,
+    })
+  )
 );
 
+export const checkoutApi = HttpApi.make('CheckoutApi')
+  .addHttpApi(checkoutFoundationApi)
+  .add(
+    HttpApiGroup.make('checkout')
+      .add(
+        HttpApiEndpoint.get('list', '/checkout', {
+          query: {
+            limit: Schema.optional(Schema.FiniteFromString),
+          },
+          success: Schema.Struct({
+            items: Schema.Array(checkoutItemSchema),
+          }),
+        })
+      )
+      .add(
+        HttpApiEndpoint.get('get', '/checkout/:id', {
+          error: checkoutNotFoundSchema,
+          params: {
+            id: Schema.String,
+          },
+          success: checkoutItemSchema,
+        })
+      )
+      .add(
+        HttpApiEndpoint.post('create', '/checkout', {
+          error: checkoutNotFoundSchema,
+          payload: checkoutCreatePayloadSchema,
+          success: Schema.Struct({
+            item: checkoutItemSchema,
+          }),
+        })
+      )
+  );
+
 export const checkoutOperationContexts = {
-  create: {
+  create: createMicroVerticalOperationContext({
     method: 'POST',
-    operationId: 'CheckoutEffectApi:checkout:create',
+    operationId: 'CheckoutApi:checkout:create',
     routePath: '/checkout',
-    source: 'generated-client',
-  },
-  get: {
+  }),
+  get: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'CheckoutEffectApi:checkout:get',
+    operationId: 'CheckoutApi:checkout:get',
     routePath: '/checkout/:id',
-    source: 'generated-client',
-  },
-  list: {
+  }),
+  list: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'CheckoutEffectApi:checkout:list',
+    operationId: 'CheckoutApi:checkout:list',
     routePath: '/checkout',
-    source: 'generated-client',
-  },
-  readiness: {
+  }),
+  readiness: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'CheckoutEffectApi:checkout:readiness',
+    operationId: 'CheckoutApi:/checkout/readiness',
     routePath: '/checkout/readiness',
-    source: 'generated-client',
-  },
+  }),
 } satisfies Record<string, OperationContext>;
 
 export const checkoutApiContract = {
+  apiPrefix: '/checkout-api',
   basePath: '/checkout-api/checkout',
   ownerId: 'checkout',
   readinessPath: '/checkout-api/checkout/readiness',
-  servicePrefix: '/checkout-api',
 } as const;
-
-export const checkoutApi = checkoutEffectApi;

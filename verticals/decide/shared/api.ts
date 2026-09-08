@@ -5,18 +5,14 @@ import {
   HttpApiSchema,
   Schema,
 } from '@modern-js/plugin-bff/effect-client';
+import {
+  MicroVerticalBuildMarkerSchema,
+  MicroVerticalReadinessSchema,
+  createMicroVerticalOperationContext,
+} from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
+import type { MicroVerticalOperationContext } from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
 
-export const decideMarkerSchema = Schema.Struct({
-  appId: Schema.String,
-  build: Schema.String,
-  buildMarker: Schema.String,
-  deployProfile: Schema.String,
-  packageName: Schema.String,
-  sourceRevision: Schema.String,
-  surface: Schema.String,
-  unitId: Schema.String,
-  version: Schema.String,
-});
+export const decideMarkerSchema = MicroVerticalBuildMarkerSchema;
 
 export const decideItemSchema = Schema.Struct({
   color: Schema.String,
@@ -34,17 +30,7 @@ export const decideItemSchema = Schema.Struct({
 
 export { ultramodernApiMarker } from './ultramodern-build.ts';
 
-export const decideReadinessSchema = Schema.Struct({
-  checks: Schema.Struct({
-    effectBff: Schema.Literal('ready'),
-    moduleFederation: Schema.Literal('ready'),
-    ssr: Schema.Literal('ready'),
-    translations: Schema.Literal('ready'),
-  }),
-  marker: decideMarkerSchema,
-  status: Schema.Literal('ready'),
-  versionSkew: Schema.Literal('none'),
-});
+export const decideReadinessSchema = MicroVerticalReadinessSchema;
 
 export const decideCreatePayloadSchema = Schema.Struct({
   title: Schema.String,
@@ -64,83 +50,76 @@ export const makeDecideNotFound = (id: string): DecideNotFound => ({
   id,
 });
 
-export interface OperationContext {
-  operationId: string;
-  routePath: string;
-  method: string;
-  source: string;
-  traceId?: string;
-}
+export type OperationContext = MicroVerticalOperationContext;
 
-export const decideEffectApi = HttpApi.make('DecideEffectApi').add(
-  HttpApiGroup.make('decide')
-    .add(
-      HttpApiEndpoint.get('list', '/decide', {
-        query: {
-          limit: Schema.optional(Schema.FiniteFromString),
-        },
-        success: Schema.Struct({
-          items: Schema.Array(decideItemSchema),
-        }),
-      })
-    )
-    .add(
-      HttpApiEndpoint.get('readiness', '/decide/readiness', {
-        success: decideReadinessSchema,
-      })
-    )
-    .add(
-      HttpApiEndpoint.get('get', '/decide/:id', {
-        error: decideNotFoundSchema,
-        params: {
-          id: Schema.String,
-        },
-        success: decideItemSchema,
-      })
-    )
-    .add(
-      HttpApiEndpoint.post('create', '/decide', {
-        error: decideNotFoundSchema,
-        payload: decideCreatePayloadSchema,
-        success: Schema.Struct({
-          item: decideItemSchema,
-        }),
-      })
-    )
+export const decideFoundationApi = HttpApi.make('DecideApiFoundation').add(
+  HttpApiGroup.make('foundation').add(
+    HttpApiEndpoint.get('readiness', '/decide/readiness', {
+      success: decideReadinessSchema,
+    })
+  )
 );
 
+export const decideApi = HttpApi.make('DecideApi')
+  .addHttpApi(decideFoundationApi)
+  .add(
+    HttpApiGroup.make('decide')
+      .add(
+        HttpApiEndpoint.get('list', '/decide', {
+          query: {
+            limit: Schema.optional(Schema.FiniteFromString),
+          },
+          success: Schema.Struct({
+            items: Schema.Array(decideItemSchema),
+          }),
+        })
+      )
+      .add(
+        HttpApiEndpoint.get('get', '/decide/:id', {
+          error: decideNotFoundSchema,
+          params: {
+            id: Schema.String,
+          },
+          success: decideItemSchema,
+        })
+      )
+      .add(
+        HttpApiEndpoint.post('create', '/decide', {
+          error: decideNotFoundSchema,
+          payload: decideCreatePayloadSchema,
+          success: Schema.Struct({
+            item: decideItemSchema,
+          }),
+        })
+      )
+  );
+
 export const decideOperationContexts = {
-  create: {
+  create: createMicroVerticalOperationContext({
     method: 'POST',
-    operationId: 'DecideEffectApi:decide:create',
+    operationId: 'DecideApi:decide:create',
     routePath: '/decide',
-    source: 'generated-client',
-  },
-  get: {
+  }),
+  get: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'DecideEffectApi:decide:get',
+    operationId: 'DecideApi:decide:get',
     routePath: '/decide/:id',
-    source: 'generated-client',
-  },
-  list: {
+  }),
+  list: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'DecideEffectApi:decide:list',
+    operationId: 'DecideApi:decide:list',
     routePath: '/decide',
-    source: 'generated-client',
-  },
-  readiness: {
+  }),
+  readiness: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'DecideEffectApi:decide:readiness',
+    operationId: 'DecideApi:/decide/readiness',
     routePath: '/decide/readiness',
-    source: 'generated-client',
-  },
+  }),
 } satisfies Record<string, OperationContext>;
 
 export const decideApiContract = {
+  apiPrefix: '/decide-api',
   basePath: '/decide-api/decide',
   ownerId: 'decide',
   readinessPath: '/decide-api/decide/readiness',
-  servicePrefix: '/decide-api',
 } as const;
-
-export const decideApi = decideEffectApi;

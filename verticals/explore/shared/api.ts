@@ -5,18 +5,14 @@ import {
   HttpApiSchema,
   Schema,
 } from '@modern-js/plugin-bff/effect-client';
+import {
+  MicroVerticalBuildMarkerSchema,
+  MicroVerticalReadinessSchema,
+  createMicroVerticalOperationContext,
+} from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
+import type { MicroVerticalOperationContext } from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
 
-export const exploreMarkerSchema = Schema.Struct({
-  appId: Schema.String,
-  build: Schema.String,
-  buildMarker: Schema.String,
-  deployProfile: Schema.String,
-  packageName: Schema.String,
-  sourceRevision: Schema.String,
-  surface: Schema.String,
-  unitId: Schema.String,
-  version: Schema.String,
-});
+export const exploreMarkerSchema = MicroVerticalBuildMarkerSchema;
 
 export const exploreItemSchema = Schema.Struct({
   category: Schema.String,
@@ -33,17 +29,7 @@ export const exploreItemSchema = Schema.Struct({
 
 export { ultramodernApiMarker } from './ultramodern-build.ts';
 
-export const exploreReadinessSchema = Schema.Struct({
-  checks: Schema.Struct({
-    effectBff: Schema.Literal('ready'),
-    moduleFederation: Schema.Literal('ready'),
-    ssr: Schema.Literal('ready'),
-    translations: Schema.Literal('ready'),
-  }),
-  marker: exploreMarkerSchema,
-  status: Schema.Literal('ready'),
-  versionSkew: Schema.Literal('none'),
-});
+export const exploreReadinessSchema = MicroVerticalReadinessSchema;
 
 export const exploreCreatePayloadSchema = Schema.Struct({
   title: Schema.String,
@@ -63,83 +49,76 @@ export const makeExploreNotFound = (id: string): ExploreNotFound => ({
   id,
 });
 
-export interface OperationContext {
-  operationId: string;
-  routePath: string;
-  method: string;
-  source: string;
-  traceId?: string;
-}
+export type OperationContext = MicroVerticalOperationContext;
 
-export const exploreEffectApi = HttpApi.make('ExploreEffectApi').add(
-  HttpApiGroup.make('explore')
-    .add(
-      HttpApiEndpoint.get('list', '/explore', {
-        query: {
-          limit: Schema.optional(Schema.FiniteFromString),
-        },
-        success: Schema.Struct({
-          items: Schema.Array(exploreItemSchema),
-        }),
-      })
-    )
-    .add(
-      HttpApiEndpoint.get('readiness', '/explore/readiness', {
-        success: exploreReadinessSchema,
-      })
-    )
-    .add(
-      HttpApiEndpoint.get('get', '/explore/:id', {
-        error: exploreNotFoundSchema,
-        params: {
-          id: Schema.String,
-        },
-        success: exploreItemSchema,
-      })
-    )
-    .add(
-      HttpApiEndpoint.post('create', '/explore', {
-        error: exploreNotFoundSchema,
-        payload: exploreCreatePayloadSchema,
-        success: Schema.Struct({
-          item: exploreItemSchema,
-        }),
-      })
-    )
+export const exploreFoundationApi = HttpApi.make('ExploreApiFoundation').add(
+  HttpApiGroup.make('foundation').add(
+    HttpApiEndpoint.get('readiness', '/explore/readiness', {
+      success: exploreReadinessSchema,
+    })
+  )
 );
 
+export const exploreApi = HttpApi.make('ExploreApi')
+  .addHttpApi(exploreFoundationApi)
+  .add(
+    HttpApiGroup.make('explore')
+      .add(
+        HttpApiEndpoint.get('list', '/explore', {
+          query: {
+            limit: Schema.optional(Schema.FiniteFromString),
+          },
+          success: Schema.Struct({
+            items: Schema.Array(exploreItemSchema),
+          }),
+        })
+      )
+      .add(
+        HttpApiEndpoint.get('get', '/explore/:id', {
+          error: exploreNotFoundSchema,
+          params: {
+            id: Schema.String,
+          },
+          success: exploreItemSchema,
+        })
+      )
+      .add(
+        HttpApiEndpoint.post('create', '/explore', {
+          error: exploreNotFoundSchema,
+          payload: exploreCreatePayloadSchema,
+          success: Schema.Struct({
+            item: exploreItemSchema,
+          }),
+        })
+      )
+  );
+
 export const exploreOperationContexts = {
-  create: {
+  create: createMicroVerticalOperationContext({
     method: 'POST',
-    operationId: 'ExploreEffectApi:explore:create',
+    operationId: 'ExploreApi:explore:create',
     routePath: '/explore',
-    source: 'generated-client',
-  },
-  get: {
+  }),
+  get: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'ExploreEffectApi:explore:get',
+    operationId: 'ExploreApi:explore:get',
     routePath: '/explore/:id',
-    source: 'generated-client',
-  },
-  list: {
+  }),
+  list: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'ExploreEffectApi:explore:list',
+    operationId: 'ExploreApi:explore:list',
     routePath: '/explore',
-    source: 'generated-client',
-  },
-  readiness: {
+  }),
+  readiness: createMicroVerticalOperationContext({
     method: 'GET',
-    operationId: 'ExploreEffectApi:explore:readiness',
+    operationId: 'ExploreApi:/explore/readiness',
     routePath: '/explore/readiness',
-    source: 'generated-client',
-  },
+  }),
 } satisfies Record<string, OperationContext>;
 
 export const exploreApiContract = {
+  apiPrefix: '/explore-api',
   basePath: '/explore-api/explore',
   ownerId: 'explore',
   readinessPath: '/explore-api/explore/readiness',
-  servicePrefix: '/explore-api',
 } as const;
-
-export const exploreApi = exploreEffectApi;

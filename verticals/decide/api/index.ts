@@ -7,7 +7,7 @@ import {
 import { tractorProductVariants } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
 import {
-  decideEffectApi,
+  decideApi,
   decideOperationContexts,
   makeDecideNotFound,
   ultramodernApiMarker,
@@ -43,79 +43,82 @@ const operationAttributes = (operationContext: OperationContext) => ({
     : {}),
 });
 
-const decideLayer = HttpApiBuilder.group(
-  decideEffectApi,
-  'decide',
+const decideReadinessLayer = HttpApiBuilder.group(
+  decideApi,
+  'foundation',
   (handlers) =>
-    handlers
-      .handle('list', ({ query }) =>
-        Effect.succeed({
-          items:
-            typeof query.limit === 'number'
-              ? decideItems.slice(0, query.limit)
-              : decideItems,
-        }).pipe(
-          Effect.withSpan('ultramodern.effect.decide.list', {
-            attributes: operationAttributes(decideOperationContexts.list),
-            kind: 'server',
-          })
-        )
+    handlers.handle('readiness', () =>
+      Effect.succeed({
+        checks: {
+          api: 'ready' as const,
+          moduleFederation: 'ready' as const,
+          ssr: 'ready' as const,
+          translations: 'ready' as const,
+        },
+        marker: ultramodernApiMarker,
+        status: 'ready' as const,
+        versionSkew: 'none' as const,
+      }).pipe(
+        Effect.withSpan('ultramodern.effect.decide.readiness', {
+          attributes: operationAttributes(decideOperationContexts.readiness),
+          kind: 'server',
+        })
       )
-      .handle('readiness', () =>
-        Effect.succeed({
-          checks: {
-            effectBff: 'ready' as const,
-            moduleFederation: 'ready' as const,
-            ssr: 'ready' as const,
-            translations: 'ready' as const,
-          },
-          marker: ultramodernApiMarker,
-          status: 'ready' as const,
-          versionSkew: 'none' as const,
-        }).pipe(
-          Effect.withSpan('ultramodern.effect.decide.readiness', {
-            attributes: operationAttributes(decideOperationContexts.readiness),
-            kind: 'server',
-          })
-        )
-      )
-      .handle('get', ({ params }) => {
-        const match = findDecideItem(params.id);
-        const result =
-          match === undefined
-            ? Effect.fail(makeDecideNotFound(params.id))
-            : Effect.succeed(match);
-        return result.pipe(
-          Effect.withSpan('ultramodern.effect.decide.get', {
-            attributes: operationAttributes(decideOperationContexts.get),
-            kind: 'server',
-          })
-        );
-      })
-      .handle('create', ({ payload }) => {
-        const item =
-          findDecideItem(payload.title) ??
-          decideItems.find((candidate) => candidate.name === payload.title);
-        const result =
-          item === undefined
-            ? Effect.fail(makeDecideNotFound(payload.title))
-            : Effect.succeed({ item });
-
-        return result.pipe(
-          Effect.withSpan('ultramodern.effect.decide.create', {
-            attributes: operationAttributes(decideOperationContexts.create),
-            kind: 'server',
-          })
-        );
-      })
+    )
 );
 
-const layer = HttpApiBuilder.layer(decideEffectApi).pipe(
-  Layer.provide(decideLayer)
+const decideLayer = HttpApiBuilder.group(decideApi, 'decide', (handlers) =>
+  handlers
+    .handle('list', ({ query }) =>
+      Effect.succeed({
+        items:
+          typeof query.limit === 'number'
+            ? decideItems.slice(0, query.limit)
+            : decideItems,
+      }).pipe(
+        Effect.withSpan('ultramodern.effect.decide.list', {
+          attributes: operationAttributes(decideOperationContexts.list),
+          kind: 'server',
+        })
+      )
+    )
+    .handle('get', ({ params }) => {
+      const match = findDecideItem(params.id);
+      const result =
+        match === undefined
+          ? Effect.fail(makeDecideNotFound(params.id))
+          : Effect.succeed(match);
+      return result.pipe(
+        Effect.withSpan('ultramodern.effect.decide.get', {
+          attributes: operationAttributes(decideOperationContexts.get),
+          kind: 'server',
+        })
+      );
+    })
+    .handle('create', ({ payload }) => {
+      const item =
+        findDecideItem(payload.title) ??
+        decideItems.find((candidate) => candidate.name === payload.title);
+      const result =
+        item === undefined
+          ? Effect.fail(makeDecideNotFound(payload.title))
+          : Effect.succeed({ item });
+
+      return result.pipe(
+        Effect.withSpan('ultramodern.effect.decide.create', {
+          attributes: operationAttributes(decideOperationContexts.create),
+          kind: 'server',
+        })
+      );
+    })
 );
 
-const apiRuntime: unknown = defineEffectBff({
-  api: decideEffectApi,
+const layer = HttpApiBuilder.layer(decideApi).pipe(
+  Layer.provide(Layer.mergeAll(decideLayer, decideReadinessLayer))
+);
+
+const apiRuntime = defineEffectBff({
+  api: decideApi,
   layer,
 });
 

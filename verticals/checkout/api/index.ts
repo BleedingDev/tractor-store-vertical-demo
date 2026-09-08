@@ -10,7 +10,7 @@ import {
 } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
 import {
-  checkoutEffectApi,
+  checkoutApi,
   checkoutOperationContexts,
   makeCheckoutNotFound,
   ultramodernApiMarker,
@@ -65,8 +65,32 @@ const operationAttributes = (operationContext: OperationContext) => ({
     : {}),
 });
 
+const checkoutReadinessLayer = HttpApiBuilder.group(
+  checkoutApi,
+  'foundation',
+  (handlers) =>
+    handlers.handle('readiness', () =>
+      Effect.succeed({
+        checks: {
+          api: 'ready' as const,
+          moduleFederation: 'ready' as const,
+          ssr: 'ready' as const,
+          translations: 'ready' as const,
+        },
+        marker: ultramodernApiMarker,
+        status: 'ready' as const,
+        versionSkew: 'none' as const,
+      }).pipe(
+        Effect.withSpan('ultramodern.effect.checkout.readiness', {
+          attributes: operationAttributes(checkoutOperationContexts.readiness),
+          kind: 'server',
+        })
+      )
+    )
+);
+
 const checkoutLayer = HttpApiBuilder.group(
-  checkoutEffectApi,
+  checkoutApi,
   'checkout',
   (handlers) =>
     handlers
@@ -79,26 +103,6 @@ const checkoutLayer = HttpApiBuilder.group(
         }).pipe(
           Effect.withSpan('ultramodern.effect.checkout.list', {
             attributes: operationAttributes(checkoutOperationContexts.list),
-            kind: 'server',
-          })
-        )
-      )
-      .handle('readiness', () =>
-        Effect.succeed({
-          checks: {
-            effectBff: 'ready' as const,
-            moduleFederation: 'ready' as const,
-            ssr: 'ready' as const,
-            translations: 'ready' as const,
-          },
-          marker: ultramodernApiMarker,
-          status: 'ready' as const,
-          versionSkew: 'none' as const,
-        }).pipe(
-          Effect.withSpan('ultramodern.effect.checkout.readiness', {
-            attributes: operationAttributes(
-              checkoutOperationContexts.readiness
-            ),
             kind: 'server',
           })
         )
@@ -132,12 +136,12 @@ const checkoutLayer = HttpApiBuilder.group(
       })
 );
 
-const layer = HttpApiBuilder.layer(checkoutEffectApi).pipe(
-  Layer.provide(checkoutLayer)
+const layer = HttpApiBuilder.layer(checkoutApi).pipe(
+  Layer.provide(Layer.mergeAll(checkoutLayer, checkoutReadinessLayer))
 );
 
-const apiRuntime: unknown = defineEffectBff({
-  api: checkoutEffectApi,
+const apiRuntime = defineEffectBff({
+  api: checkoutApi,
   layer,
 });
 

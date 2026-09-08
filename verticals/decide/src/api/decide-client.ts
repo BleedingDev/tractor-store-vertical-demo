@@ -6,7 +6,7 @@ import {
 
 import {
   decideApiContract,
-  decideEffectApi,
+  decideApi,
   decideOperationContexts,
 } from '../../shared/api';
 import type { OperationContext } from '../../shared/api';
@@ -19,8 +19,8 @@ export interface DecideClientOptions {
 }
 
 const makeDecideClient = (options: DecideClientOptions = {}) =>
-  makeEffectHttpApiClient(decideEffectApi, {
-    baseUrl: options.baseUrl ?? decideApiContract.servicePrefix,
+  makeEffectHttpApiClient(decideApi, {
+    baseUrl: options.baseUrl ?? decideApiContract.apiPrefix,
   });
 
 export const createDecideClient = (
@@ -51,7 +51,7 @@ export const getDecideReadiness = (
         operationContext:
           options.operationContext ?? decideOperationContexts.readiness,
       }),
-      (client) => client.decide.readiness({})
+      (client) => client.foundation.readiness({})
     )
   );
 
