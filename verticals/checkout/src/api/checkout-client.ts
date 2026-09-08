@@ -6,7 +6,7 @@ import {
 
 import {
   checkoutApiContract,
-  checkoutEffectApi,
+  checkoutApi,
   checkoutOperationContexts,
 } from '../../shared/api';
 import type { OperationContext } from '../../shared/api';
@@ -19,8 +19,8 @@ export interface CheckoutClientOptions {
 }
 
 const makeCheckoutClient = (options: CheckoutClientOptions = {}) =>
-  makeEffectHttpApiClient(checkoutEffectApi, {
-    baseUrl: options.baseUrl ?? checkoutApiContract.servicePrefix,
+  makeEffectHttpApiClient(checkoutApi, {
+    baseUrl: options.baseUrl ?? checkoutApiContract.apiPrefix,
   });
 
 export const createCheckoutClient = (
@@ -51,7 +51,7 @@ export const getCheckoutReadiness = (
         operationContext:
           options.operationContext ?? checkoutOperationContexts.readiness,
       }),
-      (client) => client.checkout.readiness({})
+      (client) => client.foundation.readiness({})
     )
   );
 

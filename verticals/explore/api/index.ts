@@ -7,7 +7,7 @@ import {
 import { tractorProducts } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
 import {
-  exploreEffectApi,
+  exploreApi,
   exploreOperationContexts,
   makeExploreNotFound,
   ultramodernApiMarker,
@@ -40,79 +40,82 @@ const operationAttributes = (operationContext: OperationContext) => ({
     : {}),
 });
 
-const exploreLayer = HttpApiBuilder.group(
-  exploreEffectApi,
-  'explore',
+const exploreReadinessLayer = HttpApiBuilder.group(
+  exploreApi,
+  'foundation',
   (handlers) =>
-    handlers
-      .handle('list', ({ query }) =>
-        Effect.succeed({
-          items:
-            typeof query.limit === 'number'
-              ? exploreItems.slice(0, query.limit)
-              : exploreItems,
-        }).pipe(
-          Effect.withSpan('ultramodern.effect.explore.list', {
-            attributes: operationAttributes(exploreOperationContexts.list),
-            kind: 'server',
-          })
-        )
+    handlers.handle('readiness', () =>
+      Effect.succeed({
+        checks: {
+          api: 'ready' as const,
+          moduleFederation: 'ready' as const,
+          ssr: 'ready' as const,
+          translations: 'ready' as const,
+        },
+        marker: ultramodernApiMarker,
+        status: 'ready' as const,
+        versionSkew: 'none' as const,
+      }).pipe(
+        Effect.withSpan('ultramodern.effect.explore.readiness', {
+          attributes: operationAttributes(exploreOperationContexts.readiness),
+          kind: 'server',
+        })
       )
-      .handle('readiness', () =>
-        Effect.succeed({
-          checks: {
-            effectBff: 'ready' as const,
-            moduleFederation: 'ready' as const,
-            ssr: 'ready' as const,
-            translations: 'ready' as const,
-          },
-          marker: ultramodernApiMarker,
-          status: 'ready' as const,
-          versionSkew: 'none' as const,
-        }).pipe(
-          Effect.withSpan('ultramodern.effect.explore.readiness', {
-            attributes: operationAttributes(exploreOperationContexts.readiness),
-            kind: 'server',
-          })
-        )
-      )
-      .handle('get', ({ params }) => {
-        const match = findExploreItem(params.id);
-        const result =
-          match === undefined
-            ? Effect.fail(makeExploreNotFound(params.id))
-            : Effect.succeed(match);
-        return result.pipe(
-          Effect.withSpan('ultramodern.effect.explore.get', {
-            attributes: operationAttributes(exploreOperationContexts.get),
-            kind: 'server',
-          })
-        );
-      })
-      .handle('create', ({ payload }) => {
-        const item =
-          findExploreItem(payload.title) ??
-          exploreItems.find((candidate) => candidate.name === payload.title);
-        const result =
-          item === undefined
-            ? Effect.fail(makeExploreNotFound(payload.title))
-            : Effect.succeed({ item });
-
-        return result.pipe(
-          Effect.withSpan('ultramodern.effect.explore.create', {
-            attributes: operationAttributes(exploreOperationContexts.create),
-            kind: 'server',
-          })
-        );
-      })
+    )
 );
 
-const layer = HttpApiBuilder.layer(exploreEffectApi).pipe(
-  Layer.provide(exploreLayer)
+const exploreLayer = HttpApiBuilder.group(exploreApi, 'explore', (handlers) =>
+  handlers
+    .handle('list', ({ query }) =>
+      Effect.succeed({
+        items:
+          typeof query.limit === 'number'
+            ? exploreItems.slice(0, query.limit)
+            : exploreItems,
+      }).pipe(
+        Effect.withSpan('ultramodern.effect.explore.list', {
+          attributes: operationAttributes(exploreOperationContexts.list),
+          kind: 'server',
+        })
+      )
+    )
+    .handle('get', ({ params }) => {
+      const match = findExploreItem(params.id);
+      const result =
+        match === undefined
+          ? Effect.fail(makeExploreNotFound(params.id))
+          : Effect.succeed(match);
+      return result.pipe(
+        Effect.withSpan('ultramodern.effect.explore.get', {
+          attributes: operationAttributes(exploreOperationContexts.get),
+          kind: 'server',
+        })
+      );
+    })
+    .handle('create', ({ payload }) => {
+      const item =
+        findExploreItem(payload.title) ??
+        exploreItems.find((candidate) => candidate.name === payload.title);
+      const result =
+        item === undefined
+          ? Effect.fail(makeExploreNotFound(payload.title))
+          : Effect.succeed({ item });
+
+      return result.pipe(
+        Effect.withSpan('ultramodern.effect.explore.create', {
+          attributes: operationAttributes(exploreOperationContexts.create),
+          kind: 'server',
+        })
+      );
+    })
 );
 
-const apiRuntime: unknown = defineEffectBff({
-  api: exploreEffectApi,
+const layer = HttpApiBuilder.layer(exploreApi).pipe(
+  Layer.provide(Layer.mergeAll(exploreLayer, exploreReadinessLayer))
+);
+
+const apiRuntime = defineEffectBff({
+  api: exploreApi,
   layer,
 });
 

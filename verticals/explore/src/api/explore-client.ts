@@ -6,7 +6,7 @@ import {
 
 import {
   exploreApiContract,
-  exploreEffectApi,
+  exploreApi,
   exploreOperationContexts,
 } from '../../shared/api';
 import type { OperationContext } from '../../shared/api';
@@ -19,8 +19,8 @@ export interface ExploreClientOptions {
 }
 
 const makeExploreClient = (options: ExploreClientOptions = {}) =>
-  makeEffectHttpApiClient(exploreEffectApi, {
-    baseUrl: options.baseUrl ?? exploreApiContract.servicePrefix,
+  makeEffectHttpApiClient(exploreApi, {
+    baseUrl: options.baseUrl ?? exploreApiContract.apiPrefix,
   });
 
 export const createExploreClient = (
@@ -51,7 +51,7 @@ export const getExploreReadiness = (
         operationContext:
           options.operationContext ?? exploreOperationContexts.readiness,
       }),
-      (client) => client.explore.readiness({})
+      (client) => client.foundation.readiness({})
     )
   );
 
