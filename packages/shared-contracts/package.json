@@ -20,6 +20,6 @@
   "dependencies": {
     "@effect/opentelemetry": "4.0.0-rc.112",
     "effect": "4.0.0-rc.112",
-    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.9.0-ultramodern.3"
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.9.0-ultramodern.4"
   }
 }
