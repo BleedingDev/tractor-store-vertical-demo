@@ -3,7 +3,7 @@ import {
   Effect,
   HttpApiBuilder,
   Layer,
-} from '@modern-js/plugin-bff/effect-edge';
+} from '@modern-js/bff-effect/effect-edge';
 import { tractorProducts } from '@tractor-store-vertical-demo/shared-contracts/tractor-catalog';
 
 import {

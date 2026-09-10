@@ -3,12 +3,12 @@ import {
   defineEffectBff,
   HttpApiBuilder,
   Layer,
-} from '@modern-js/plugin-bff/effect-edge';
+} from '@modern-js/bff-effect/effect-edge';
 import type {
   EffectRuntimeRequirements,
   HttpApi,
   HttpApiGroup,
-} from '@modern-js/plugin-bff/effect-edge';
+} from '@modern-js/bff-effect/effect-edge';
 
 export interface EffectBffRuntimeAssembly<
   ApiId extends string,

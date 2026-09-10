@@ -2,7 +2,7 @@ import {
   Effect,
   makeEffectHttpApiClient,
   runEffectRequest,
-} from '@modern-js/plugin-bff/effect-client';
+} from '@modern-js/bff-effect/effect-client';
 
 import {
   exploreApiContract,
@@ -23,13 +23,12 @@ const makeExploreClient = (options: ExploreClientOptions = {}) =>
     baseUrl: options.baseUrl ?? exploreApiContract.apiPrefix,
   });
 
-export const createExploreClient = (
-  options: ExploreClientOptions = {}
-): unknown => makeExploreClient(options);
+export const createExploreClient = (options: ExploreClientOptions = {}) =>
+  makeExploreClient(options);
 
 export const listExplore = (
   options: ExploreClientOptions & { limit?: number } = {}
-): Promise<unknown> =>
+) =>
   runEffectRequest(
     Effect.flatMap(
       makeExploreClient({
@@ -41,9 +40,7 @@ export const listExplore = (
     )
   );
 
-export const getExploreReadiness = (
-  options: ExploreClientOptions = {}
-): Promise<unknown> =>
+export const getExploreReadiness = (options: ExploreClientOptions = {}) =>
   runEffectRequest(
     Effect.flatMap(
       makeExploreClient({
@@ -55,10 +52,7 @@ export const getExploreReadiness = (
     )
   );
 
-export const getExplore = (
-  id: string,
-  options: ExploreClientOptions = {}
-): Promise<unknown> =>
+export const getExplore = (id: string, options: ExploreClientOptions = {}) =>
   runEffectRequest(
     Effect.flatMap(
       makeExploreClient({
@@ -73,7 +67,7 @@ export const getExplore = (
 export const createExplore = (
   title: string,
   options: ExploreClientOptions = {}
-): Promise<unknown> =>
+) =>
   runEffectRequest(
     Effect.flatMap(
       makeExploreClient({

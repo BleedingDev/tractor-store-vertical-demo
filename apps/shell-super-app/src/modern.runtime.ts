@@ -1,6 +1,6 @@
+import { ultramodernBoundaryDebuggerPlugin } from '@modern-js/boundary-debugger';
 import type { I18nInstance } from '@modern-js/plugin-i18n/runtime';
 import { defineRuntimeConfig } from '@modern-js/runtime';
-import { ultramodernBoundaryDebuggerPlugin } from '@modern-js/runtime/boundary-debugger';
 import { createInstance } from 'i18next';
 
 import csResource from '../locales/cs/shell.json';

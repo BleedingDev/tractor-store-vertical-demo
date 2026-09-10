@@ -58,7 +58,7 @@
         "containerEntry": "http://localhost:3021/backendRemoteEntry.cjs",
         "remoteType": "commonjs-module",
         "expose": "./effect-api",
-        "runtimePackage": "@modern-js/plugin-bff/effect",
+        "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
         "expected": {
           "unitId": "tractor-store-vertical-demo/explore",
           "buildMarker": "51f94b2832563336"
@@ -109,7 +109,7 @@
         "containerEntry": "http://localhost:3022/backendRemoteEntry.cjs",
         "remoteType": "commonjs-module",
         "expose": "./effect-api",
-        "runtimePackage": "@modern-js/plugin-bff/effect",
+        "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
         "expected": {
           "unitId": "tractor-store-vertical-demo/decide",
           "buildMarker": "36fc602031c23930"
@@ -160,7 +160,7 @@
         "containerEntry": "http://localhost:3023/backendRemoteEntry.cjs",
         "remoteType": "commonjs-module",
         "expose": "./effect-api",
-        "runtimePackage": "@modern-js/plugin-bff/effect",
+        "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
         "expected": {
           "unitId": "tractor-store-vertical-demo/checkout",
           "buildMarker": "7d5413e907d393e5"

@@ -17,16 +17,10 @@ The demo is intentionally close to the original Tractor Store v2 visual design, 
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.8.2-ultramodern.16
+3.9.0-ultramodern.5
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.8.2-ultramodern.16` aliases for the Modern.js packages published under the UltraModern `latest` dist-tag.
-
-To migrate an older generated app onto the strict Effect/HttpApi topology and package cohort:
-
-```bash
-pnpm migrate:strict-effect -- --version 3.8.2-ultramodern.16
-```
+Generated apps and verticals use `npm:@bleedingdev/...@3.9.0-ultramodern.5` aliases for the Modern.js packages published under the UltraModern `latest` dist-tag.
 
 ## Commands
 

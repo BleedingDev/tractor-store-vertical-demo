@@ -1,16 +1,15 @@
-import {
-  appTools,
-  defineConfig,
-  presetUltramodern,
-  ultramodernReleaseEnvelopePlugin,
-} from '@modern-js/app-tools';
+import { defineConfig } from '@modern-js/app-tools';
 import {
   getBuildConfigEnvironment,
   withBuildConfigEnvironment,
-} from '@modern-js/app-tools/config';
-import { bffPlugin } from '@modern-js/plugin-bff';
+} from '@modern-js/app-tools-extensions/config';
+import { bffPlugin } from '@modern-js/plugin-bff-build-extensions';
 import { i18nPlugin } from '@modern-js/plugin-i18n';
 import { tanstackRouterPlugin } from '@modern-js/plugin-tanstack';
+import {
+  presetUltramodern,
+  ultramodernAppTools,
+} from '@modern-js/ultramodern-app-tools';
 import { moduleFederationPlugin } from '@module-federation/modern-js-v3';
 import { pluginTailwindcss } from '@rsbuild/plugin-tailwindcss';
 import { withZephyr as withZephyrRspack } from 'zephyr-rspack-plugin';
@@ -226,8 +225,7 @@ export default defineConfig(
         },
       },
       plugins: [
-        appTools(),
-        ultramodernReleaseEnvelopePlugin(),
+        ultramodernAppTools(),
         tanstackRouterPlugin(),
         i18nPlugin({
           backend: {

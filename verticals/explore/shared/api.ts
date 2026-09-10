@@ -4,13 +4,13 @@ import {
   HttpApiGroup,
   HttpApiSchema,
   Schema,
-} from '@modern-js/plugin-bff/effect-client';
+} from '@modern-js/bff-effect/effect-client';
 import {
   MicroVerticalBuildMarkerSchema,
   MicroVerticalReadinessSchema,
   createMicroVerticalOperationContext,
-} from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
-import type { MicroVerticalOperationContext } from '@tractor-store-vertical-demo/shared-contracts/microvertical-api-baseline';
+} from '@modern-js/bff-effect/microvertical-api';
+import type { MicroVerticalOperationContext } from '@modern-js/bff-effect/microvertical-api';
 
 export const exploreMarkerSchema = MicroVerticalBuildMarkerSchema;
 

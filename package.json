@@ -27,18 +27,18 @@
     "skills:check": "node ./scripts/bootstrap-agent-skills.mts --check",
     "agents:refs:install": "node ./scripts/setup-agent-reference-repos.mts",
     "agents:refs:check": "node ./scripts/setup-agent-reference-repos.mts --check",
-    "postinstall": "node ./scripts/bootstrap-agent-skills.mts --postinstall && oxfmt .",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check && pnpm contract:check && pnpm performance:readiness",
+    "postinstall": "node ./scripts/bootstrap-agent-skills.mts --postinstall",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm skills:check && pnpm i18n:boundaries && pnpm api:check:files && pnpm contract:check && pnpm performance:readiness",
     "mf:types": "node ./scripts/assert-mf-types.mts",
     "performance:readiness": "node ./scripts/ultramodern-performance-readiness.mts",
-    "migrate:strict-effect": "node ./scripts/migrate-strict-effect.mts",
     "contract:check": "node ./scripts/validate-ultramodern-workspace.mts",
     "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mts",
-    "api:check": "node ./scripts/check-ultramodern-api-boundaries.mts",
+    "api:check": "modern-api-check",
     "zerops:materialize": "node ./scripts/materialize-zerops-runtime.mjs",
     "cloudflare-output:verify": "node ./scripts/verify-cloudflare-output.mts",
     "node:backend-federation:generate": "node ./scripts/generate-node-backend-federation.mts",
-    "cloudflare:ssr-proof": "node ./scripts/proof-workerd-ssr.mts"
+    "cloudflare:ssr-proof": "node ./scripts/proof-workerd-ssr.mts",
+    "api:check:files": "modern-api-check-files"
   },
   "engines": {
     "node": ">=26",
@@ -62,9 +62,6 @@
   "devDependencies": {
     "@effect/opentelemetry": "4.0.0-rc.112",
     "@effect/tsgo": "0.41.0",
-    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.9.0-ultramodern.4",
-    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.9.0-ultramodern.4",
-    "@modern-js/ultramodern-create": "npm:@bleedingdev/modern-js-ultramodern-create@3.9.0-ultramodern.4",
     "@playwright/test": "^1.60.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "effect": "4.0.0-rc.112",
@@ -76,6 +73,17 @@
     "wrangler": "4.116.0",
     "zephyr-agent": "1.2.4",
     "cross-env": "10.1.0",
-    "@types/node": "^26.4.1"
-  }
+    "@types/node": "^26.4.1",
+    "@modern-js/app-tools": "npm:@bleedingdev/modern-js-app-tools@3.9.0-ultramodern.5",
+    "@modern-js/plugin-bff-extensions": "npm:@bleedingdev/modern-js-plugin-bff-extensions@3.9.0-ultramodern.5",
+    "@modern-js/plugin-bff-build-extensions": "npm:@bleedingdev/modern-js-plugin-bff-build-extensions@3.9.0-ultramodern.5",
+    "@modern-js/runtime-renderer-extensions": "npm:@bleedingdev/modern-js-runtime-renderer-extensions@3.9.0-ultramodern.5",
+    "@modern-js/ultramodern-app-tools": "npm:@bleedingdev/modern-js-ultramodern-app-tools@3.9.0-ultramodern.5",
+    "@modern-js/app-tools-extensions": "npm:@bleedingdev/modern-js-app-tools-extensions@3.9.0-ultramodern.5",
+    "@modern-js/bff-effect": "npm:@bleedingdev/modern-js-bff-effect@3.9.0-ultramodern.5",
+    "@modern-js/code-tools": "npm:@bleedingdev/modern-js-code-tools@3.9.0-ultramodern.5",
+    "@modern-js/ultramodern-create": "npm:@bleedingdev/modern-js-ultramodern-create@3.9.0-ultramodern.5",
+    "@modern-js/plugin-bff": "npm:@bleedingdev/modern-js-plugin-bff@3.9.0-ultramodern.5"
+  },
+  "dependencies": {}
 }
