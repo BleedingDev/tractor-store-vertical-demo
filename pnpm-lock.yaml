@@ -18,7 +18,7 @@ overrides:
 patchedDependencies:
   '@module-federation/bridge-react@2.9.0': 8c084f41790295af8fd015b897c6298bbc13d927b796c624ac96cb2bdb4bc87c
   '@module-federation/dts-plugin@2.9.0': b4c8e1b74e7eea711fb133800780765eaae2b10e6ab34daeeda18b882558fd9b
-  '@module-federation/modern-js-v3@2.9.0': ba5049c43645a4337e1a74857b2dcef5f5330692cc5d2186bcef236dc122dae8
+  '@module-federation/modern-js-v3@2.9.0': 3fb0015257028b2b6a465c44f1d7d2fc966235e643f74828743099533becd584
   '@module-federation/runtime-core@2.9.0': b241be221397f0e07dbe6c515725e12eaf3b418469bb7dd21750e6e4b215dd8d
   msgpackr@2.1.0: de5c91fa6cfd894d171ed06673af40046ba97c7eb604409caf5f510e1a8a5b7a
   zod@4.5.4: 30612645af6a21cba7258bc2be3b51d9bfc0841b78dc581a56a4283c3bb142b6
@@ -140,7 +140,7 @@ importers:
         version: 2.9.0(patch_hash=8c084f41790295af8fd015b897c6298bbc13d927b796c624ac96cb2bdb4bc87c)(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@module-federation/modern-js-v3':
         specifier: 2.9.0
-        version: 2.9.0(patch_hash=ba5049c43645a4337e1a74857b2dcef5f5330692cc5d2186bcef236dc122dae8)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
+        version: 2.9.0(patch_hash=3fb0015257028b2b6a465c44f1d7d2fc966235e643f74828743099533becd584)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
       '@module-federation/runtime':
         specifier: 2.9.0
         version: 2.9.0
@@ -295,7 +295,7 @@ importers:
         version: 2.9.0(patch_hash=8c084f41790295af8fd015b897c6298bbc13d927b796c624ac96cb2bdb4bc87c)(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@module-federation/modern-js-v3':
         specifier: 2.9.0
-        version: 2.9.0(patch_hash=ba5049c43645a4337e1a74857b2dcef5f5330692cc5d2186bcef236dc122dae8)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
+        version: 2.9.0(patch_hash=3fb0015257028b2b6a465c44f1d7d2fc966235e643f74828743099533becd584)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
       '@module-federation/runtime':
         specifier: 2.9.0
         version: 2.9.0
@@ -407,7 +407,7 @@ importers:
         version: 2.9.0(patch_hash=8c084f41790295af8fd015b897c6298bbc13d927b796c624ac96cb2bdb4bc87c)(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@module-federation/modern-js-v3':
         specifier: 2.9.0
-        version: 2.9.0(patch_hash=ba5049c43645a4337e1a74857b2dcef5f5330692cc5d2186bcef236dc122dae8)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
+        version: 2.9.0(patch_hash=3fb0015257028b2b6a465c44f1d7d2fc966235e643f74828743099533becd584)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
       '@module-federation/runtime':
         specifier: 2.9.0
         version: 2.9.0
@@ -525,7 +525,7 @@ importers:
         version: 2.9.0(patch_hash=8c084f41790295af8fd015b897c6298bbc13d927b796c624ac96cb2bdb4bc87c)(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@module-federation/modern-js-v3':
         specifier: 2.9.0
-        version: 2.9.0(patch_hash=ba5049c43645a4337e1a74857b2dcef5f5330692cc5d2186bcef236dc122dae8)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
+        version: 2.9.0(patch_hash=3fb0015257028b2b6a465c44f1d7d2fc966235e643f74828743099533becd584)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))
       '@module-federation/runtime':
         specifier: 2.9.0
         version: 2.9.0
@@ -7752,7 +7752,7 @@ snapshots:
       - utf-8-validate
       - vue-tsc
 
-  '@module-federation/modern-js-v3@2.9.0(patch_hash=ba5049c43645a4337e1a74857b2dcef5f5330692cc5d2186bcef236dc122dae8)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))':
+  '@module-federation/modern-js-v3@2.9.0(patch_hash=3fb0015257028b2b6a465c44f1d7d2fc966235e643f74828743099533becd584)(@rsbuild/core@2.2.3(@module-federation/runtime-tools@2.9.0)(core-js@3.50.0))(@rspack/core@2.2.3(@module-federation/runtime-tools@2.9.0)(@swc/helpers@0.5.23))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(typescript@7.0.2)(webpack@5.110.3(@swc/core@1.16.2(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@9.0.3(postcss@8.5.28))(csso@5.0.5)(esbuild@0.28.2)(html-minifier-terser@7.2.0)(lightningcss@1.32.0)(postcss@8.5.28)(sharp@0.35.2)(svgo@4.1.0))':
     dependencies:
       '@module-federation/bridge-react': 2.9.0(patch_hash=8c084f41790295af8fd015b897c6298bbc13d927b796c624ac96cb2bdb4bc87c)(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@module-federation/cli': 2.9.0(typescript@7.0.2)
