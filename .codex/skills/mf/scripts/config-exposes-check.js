@@ -170,7 +170,7 @@ function main(ctx) {
   checkAsyncEntry(ctx, results);
   checkExposes(ctx, results);
   process.stdout.write(
-    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
   );
 }
 

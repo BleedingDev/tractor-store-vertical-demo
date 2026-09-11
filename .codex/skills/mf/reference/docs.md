@@ -24,7 +24,7 @@ Read the page descriptions in the index and select the 1–3 pages most relevant
 **Quick topic map:**
 
 | User asks about | Look in section |
-| --- | --- |
+|---|---|
 | What is MF / concepts / glossary / getting started | `Guide` → `start/` |
 | CLI, CSS isolation, type hints, data fetching, prefetch | `Guide` → `basic/` |
 | Runtime API, `loadRemote`, MF instance, runtime hooks | `Guide` → `runtime/` |
@@ -48,7 +48,6 @@ https://module-federation.io{path_without_md_extension}
 ```
 
 **Examples:**
-
 - `/guide/start/index.md` → `https://module-federation.io/guide/start/index`
 - `/configure/shared.md` → `https://module-federation.io/configure/shared`
 - `/guide/runtime/runtime-api.md` → `https://module-federation.io/guide/runtime/runtime-api`

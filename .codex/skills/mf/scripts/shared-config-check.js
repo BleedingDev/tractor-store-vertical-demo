@@ -45,7 +45,7 @@ function checkTransformImport(ctx, results) {
   const bundler = (ctx.bundler && ctx.bundler.name) || '';
 
   const sharedUiLibs = Object.keys(shared).filter((name) =>
-    UI_LIBS.some((lib) => name === lib || name.startsWith(lib + '/'))
+    UI_LIBS.some((lib) => name === lib || name.startsWith(lib + '/')),
   );
   if (sharedUiLibs.length === 0) return;
 
@@ -99,7 +99,7 @@ function main(ctx) {
   checkTransformImport(ctx, results);
   checkMultiVersion(ctx, results);
   process.stdout.write(
-    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
   );
 }
 

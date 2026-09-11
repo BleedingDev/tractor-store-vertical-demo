@@ -21,7 +21,7 @@ function main(ctx) {
   const results = [];
   const bundlerName = (ctx.bundler && ctx.bundler.name) || 'unknown';
   const hasTypescript = Boolean(
-    ctx.dependencies && ctx.dependencies.typescript
+    ctx.dependencies && ctx.dependencies.typescript,
   );
 
   results.push({
@@ -53,7 +53,7 @@ function main(ctx) {
   }
 
   process.stdout.write(
-    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
   );
 }
 
