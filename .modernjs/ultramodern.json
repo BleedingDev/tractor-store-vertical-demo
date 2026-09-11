@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "profile": "cloudflare-ssr-mf-effect-v1",
   "generator": {
-    "package": "@modern-js/create",
-    "version": "3.9.0-ultramodern.4"
+    "package": "@modern-js/ultramodern-create",
+    "version": "3.9.0-ultramodern.8"
   },
   "workspace": {
     "packageScope": "tractor-store-vertical-demo",
@@ -18,7 +18,7 @@
   },
   "packageSource": {
     "strategy": "install",
-    "modernPackageVersion": "3.9.0-ultramodern.4",
+    "modernPackageVersion": "3.9.0-ultramodern.8",
     "registry": "https://registry.npmjs.org/",
     "aliasScope": "bleedingdev",
     "aliasPackageNamePrefix": "modern-js-"
@@ -38,50 +38,6 @@
         "path": "apps/shell-super-app",
         "port": 3020,
         "portEnv": "SHELL_SUPER_APP_PORT",
-        "deploy": {
-          "cloudflare": {
-            "distributedSsrProofRoutes": [
-              "/en",
-              "/en/tractors/CL-08-GR"
-            ],
-            "jsonSmokeChecks": [
-              {
-                "id": "tractor-domain-explore-cl-08-gr",
-                "route": "/explore-api/explore/CL-08-GR",
-                "expect": {
-                  "sku": "CL-08-GR",
-                  "name": "Holland Hamster",
-                  "price": 7750
-                }
-              },
-              {
-                "id": "tractor-domain-decide-cl-08-gr",
-                "route": "/decide-api/decide/CL-08-GR",
-                "expect": {
-                  "sku": "CL-08-GR",
-                  "name": "Holland Hamster Polder Green",
-                  "price": 7750
-                }
-              },
-              {
-                "id": "tractor-domain-checkout-cl-08-gr",
-                "method": "POST",
-                "route": "/checkout-api/checkout",
-                "body": {
-                  "quantity": 2,
-                  "sku": "CL-08-GR"
-                },
-                "expect": {
-                  "item.sku": "CL-08-GR",
-                  "item.name": "Holland Hamster Polder Green",
-                  "item.price": 7750,
-                  "item.quantity": 2,
-                  "item.lineTotal": 15500
-                }
-              }
-            ]
-          }
-        },
         "moduleFederation": {
           "role": "host",
           "name": "shellSuperApp",
@@ -128,6 +84,177 @@
           "version": "0.1.0",
           "buildMarker": "052f175d1feea977",
           "sourceRevision": "workspace"
+        },
+        "deploy": {
+          "cloudflare": {
+            "target": "cloudflare",
+            "workerName": "tractor-store-vertical-demo-shell-super-app",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_SHELL_SUPER_APP",
+            "compatibilityDate": "2026-06-02",
+            "compatibilityFlags": [
+              "nodejs_compat",
+              "global_fetch_strictly_public"
+            ],
+            "assetsBinding": "ASSETS",
+            "routes": {
+              "ssr": "/en",
+              "mfManifest": "/mf-manifest.json",
+              "locale": "/locales/en/shell.json"
+            },
+            "security": {
+              "enabled": true,
+              "headers": {
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "contentTypeOptions": "nosniff",
+                "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+              },
+              "contentSecurityPolicy": {
+                "mode": "report-only",
+                "directives": {
+                  "base-uri": [
+                    "'self'"
+                  ],
+                  "connect-src": [
+                    "'self'",
+                    "https:",
+                    "http:",
+                    "wss:",
+                    "ws:"
+                  ],
+                  "default-src": [
+                    "'self'"
+                  ],
+                  "font-src": [
+                    "'self'",
+                    "data:",
+                    "https:",
+                    "http:"
+                  ],
+                  "form-action": [
+                    "'self'"
+                  ],
+                  "frame-ancestors": [
+                    "'self'"
+                  ],
+                  "img-src": [
+                    "'self'",
+                    "data:",
+                    "blob:",
+                    "https:",
+                    "http:"
+                  ],
+                  "manifest-src": [
+                    "'self'",
+                    "https:",
+                    "http:"
+                  ],
+                  "object-src": [
+                    "'none'"
+                  ],
+                  "script-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "'unsafe-eval'",
+                    "https:",
+                    "http:",
+                    "blob:"
+                  ],
+                  "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https:",
+                    "http:"
+                  ],
+                  "worker-src": [
+                    "'self'",
+                    "blob:"
+                  ]
+                },
+                "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+              },
+              "noindex": {
+                "workersDev": true,
+                "localhost": true,
+                "previewHostnames": []
+              }
+            },
+            "qualityGates": {
+              "publicRoutes": {
+                "requireSitemapWhenPresent": true,
+                "requireRobotsSitemapConsistency": true,
+                "requireWebManifestWhenPresent": true
+              },
+              "statusCodes": {
+                "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+                "unknownRouteStatus": 404
+              },
+              "indexing": {
+                "previewNoindex": true,
+                "productionPublicRoutesIndexable": true
+              },
+              "assets": {
+                "cssPreloadRequired": true,
+                "cssResponseRequired": true,
+                "cacheControlRequiredForCss": true,
+                "sourcemapsPubliclyReferenced": false
+              },
+              "budgets": {
+                "ssrHtmlMaxBytes": 250000,
+                "mfManifestMaxBytes": 500000,
+                "localeJsonMaxBytes": 100000,
+                "sitemapXmlMaxBytes": 500000,
+                "cssAssetMaxBytes": 750000
+              },
+              "csp": {
+                "finalMode": "report-only-dogfood",
+                "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+              }
+            },
+            "evidence": {
+              "proofScript": "scripts/proof-cloudflare-version.mts",
+              "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            },
+            "distributedSsrProofRoutes": [
+              "/en",
+              "/en/tractors/CL-08-GR"
+            ],
+            "jsonSmokeChecks": [
+              {
+                "id": "tractor-domain-explore-cl-08-gr",
+                "route": "/explore-api/explore/CL-08-GR",
+                "expect": {
+                  "sku": "CL-08-GR",
+                  "name": "Holland Hamster",
+                  "price": 7750
+                }
+              },
+              {
+                "id": "tractor-domain-decide-cl-08-gr",
+                "route": "/decide-api/decide/CL-08-GR",
+                "expect": {
+                  "sku": "CL-08-GR",
+                  "name": "Holland Hamster Polder Green",
+                  "price": 7750
+                }
+              },
+              {
+                "id": "tractor-domain-checkout-cl-08-gr",
+                "method": "POST",
+                "route": "/checkout-api/checkout",
+                "body": {
+                  "quantity": 2,
+                  "sku": "CL-08-GR"
+                },
+                "expect": {
+                  "item.sku": "CL-08-GR",
+                  "item.name": "Holland Hamster Polder Green",
+                  "item.price": 7750,
+                  "item.quantity": 2,
+                  "item.lineTotal": 15500
+                }
+              }
+            ]
+          }
         }
       },
       {
@@ -157,16 +284,6 @@
             "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
-        },
-        "api": {
-          "runtime": "effect",
-          "stem": "explore",
-          "prefix": "/explore-api",
-          "consumedBy": [
-            "shell-super-app",
-            "explore"
-          ],
-          "serverEntry": "verticals/explore/api/index.ts"
         },
         "backendFederation": {
           "role": "microvertical-server",
@@ -244,7 +361,7 @@
               "containerEntry": "http://localhost:3021/backendRemoteEntry.cjs",
               "remoteType": "commonjs-module",
               "expose": "./effect-api",
-              "runtimePackage": "@modern-js/plugin-bff/effect",
+              "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
               "expected": {
                 "unitId": "tractor-store-vertical-demo/explore",
                 "buildMarker": "51f94b2832563336"
@@ -277,6 +394,160 @@
           "version": "0.1.0",
           "buildMarker": "51f94b2832563336",
           "sourceRevision": "workspace"
+        },
+        "api": {
+          "runtime": "effect",
+          "stem": "explore",
+          "prefix": "/explore-api",
+          "consumedBy": [
+            "shell-super-app",
+            "explore"
+          ],
+          "serverEntry": "verticals/explore/api/index.ts"
+        },
+        "deploy": {
+          "cloudflare": {
+            "target": "cloudflare",
+            "workerName": "tractor-store-vertical-demo-explore",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_EXPLORE",
+            "compatibilityDate": "2026-06-02",
+            "compatibilityFlags": [
+              "nodejs_compat",
+              "global_fetch_strictly_public"
+            ],
+            "assetsBinding": "ASSETS",
+            "routes": {
+              "ssr": "/en",
+              "mfManifest": "/mf-manifest.json",
+              "locale": "/locales/en/explore.json",
+              "apiReadiness": "/explore-api/explore/readiness"
+            },
+            "security": {
+              "enabled": true,
+              "headers": {
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "contentTypeOptions": "nosniff",
+                "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+              },
+              "contentSecurityPolicy": {
+                "mode": "report-only",
+                "directives": {
+                  "base-uri": [
+                    "'self'"
+                  ],
+                  "connect-src": [
+                    "'self'",
+                    "https:",
+                    "http:",
+                    "wss:",
+                    "ws:"
+                  ],
+                  "default-src": [
+                    "'self'"
+                  ],
+                  "font-src": [
+                    "'self'",
+                    "data:",
+                    "https:",
+                    "http:"
+                  ],
+                  "form-action": [
+                    "'self'"
+                  ],
+                  "frame-ancestors": [
+                    "'self'"
+                  ],
+                  "img-src": [
+                    "'self'",
+                    "data:",
+                    "blob:",
+                    "https:",
+                    "http:"
+                  ],
+                  "manifest-src": [
+                    "'self'",
+                    "https:",
+                    "http:"
+                  ],
+                  "object-src": [
+                    "'none'"
+                  ],
+                  "script-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "'unsafe-eval'",
+                    "https:",
+                    "http:",
+                    "blob:"
+                  ],
+                  "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https:",
+                    "http:"
+                  ],
+                  "worker-src": [
+                    "'self'",
+                    "blob:"
+                  ]
+                },
+                "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+              },
+              "noindex": {
+                "workersDev": true,
+                "localhost": true,
+                "previewHostnames": []
+              }
+            },
+            "qualityGates": {
+              "publicRoutes": {
+                "requireSitemapWhenPresent": true,
+                "requireRobotsSitemapConsistency": true,
+                "requireWebManifestWhenPresent": true
+              },
+              "statusCodes": {
+                "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+                "unknownRouteStatus": 404
+              },
+              "indexing": {
+                "previewNoindex": true,
+                "productionPublicRoutesIndexable": true
+              },
+              "assets": {
+                "cssPreloadRequired": true,
+                "cssResponseRequired": true,
+                "cacheControlRequiredForCss": true,
+                "sourcemapsPubliclyReferenced": false
+              },
+              "budgets": {
+                "ssrHtmlMaxBytes": 250000,
+                "mfManifestMaxBytes": 500000,
+                "localeJsonMaxBytes": 100000,
+                "sitemapXmlMaxBytes": 500000,
+                "cssAssetMaxBytes": 750000
+              },
+              "csp": {
+                "finalMode": "report-only-dogfood",
+                "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+              }
+            },
+            "evidence": {
+              "proofScript": "scripts/proof-cloudflare-version.mts",
+              "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            },
+            "jsonSmokeChecks": [
+              {
+                "id": "explore-readiness-smoke",
+                "route": "/explore-api/explore/readiness",
+                "expect": {
+                  "status": "ready",
+                  "checks.api": "ready",
+                  "checks.moduleFederation": "ready",
+                  "checks.ssr": "ready"
+                }
+              }
+            ]
+          }
         }
       },
       {
@@ -321,16 +592,6 @@
             "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
-        },
-        "api": {
-          "runtime": "effect",
-          "stem": "decide",
-          "prefix": "/decide-api",
-          "consumedBy": [
-            "shell-super-app",
-            "decide"
-          ],
-          "serverEntry": "verticals/decide/api/index.ts"
         },
         "backendFederation": {
           "role": "microvertical-server",
@@ -408,7 +669,7 @@
               "containerEntry": "http://localhost:3022/backendRemoteEntry.cjs",
               "remoteType": "commonjs-module",
               "expose": "./effect-api",
-              "runtimePackage": "@modern-js/plugin-bff/effect",
+              "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
               "expected": {
                 "unitId": "tractor-store-vertical-demo/decide",
                 "buildMarker": "36fc602031c23930"
@@ -441,6 +702,160 @@
           "version": "0.1.0",
           "buildMarker": "36fc602031c23930",
           "sourceRevision": "workspace"
+        },
+        "api": {
+          "runtime": "effect",
+          "stem": "decide",
+          "prefix": "/decide-api",
+          "consumedBy": [
+            "shell-super-app",
+            "decide"
+          ],
+          "serverEntry": "verticals/decide/api/index.ts"
+        },
+        "deploy": {
+          "cloudflare": {
+            "target": "cloudflare",
+            "workerName": "tractor-store-vertical-demo-decide",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_DECIDE",
+            "compatibilityDate": "2026-06-02",
+            "compatibilityFlags": [
+              "nodejs_compat",
+              "global_fetch_strictly_public"
+            ],
+            "assetsBinding": "ASSETS",
+            "routes": {
+              "ssr": "/en",
+              "mfManifest": "/mf-manifest.json",
+              "locale": "/locales/en/decide.json",
+              "apiReadiness": "/decide-api/decide/readiness"
+            },
+            "security": {
+              "enabled": true,
+              "headers": {
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "contentTypeOptions": "nosniff",
+                "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+              },
+              "contentSecurityPolicy": {
+                "mode": "report-only",
+                "directives": {
+                  "base-uri": [
+                    "'self'"
+                  ],
+                  "connect-src": [
+                    "'self'",
+                    "https:",
+                    "http:",
+                    "wss:",
+                    "ws:"
+                  ],
+                  "default-src": [
+                    "'self'"
+                  ],
+                  "font-src": [
+                    "'self'",
+                    "data:",
+                    "https:",
+                    "http:"
+                  ],
+                  "form-action": [
+                    "'self'"
+                  ],
+                  "frame-ancestors": [
+                    "'self'"
+                  ],
+                  "img-src": [
+                    "'self'",
+                    "data:",
+                    "blob:",
+                    "https:",
+                    "http:"
+                  ],
+                  "manifest-src": [
+                    "'self'",
+                    "https:",
+                    "http:"
+                  ],
+                  "object-src": [
+                    "'none'"
+                  ],
+                  "script-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "'unsafe-eval'",
+                    "https:",
+                    "http:",
+                    "blob:"
+                  ],
+                  "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https:",
+                    "http:"
+                  ],
+                  "worker-src": [
+                    "'self'",
+                    "blob:"
+                  ]
+                },
+                "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+              },
+              "noindex": {
+                "workersDev": true,
+                "localhost": true,
+                "previewHostnames": []
+              }
+            },
+            "qualityGates": {
+              "publicRoutes": {
+                "requireSitemapWhenPresent": true,
+                "requireRobotsSitemapConsistency": true,
+                "requireWebManifestWhenPresent": true
+              },
+              "statusCodes": {
+                "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+                "unknownRouteStatus": 404
+              },
+              "indexing": {
+                "previewNoindex": true,
+                "productionPublicRoutesIndexable": true
+              },
+              "assets": {
+                "cssPreloadRequired": true,
+                "cssResponseRequired": true,
+                "cacheControlRequiredForCss": true,
+                "sourcemapsPubliclyReferenced": false
+              },
+              "budgets": {
+                "ssrHtmlMaxBytes": 250000,
+                "mfManifestMaxBytes": 500000,
+                "localeJsonMaxBytes": 100000,
+                "sitemapXmlMaxBytes": 500000,
+                "cssAssetMaxBytes": 750000
+              },
+              "csp": {
+                "finalMode": "report-only-dogfood",
+                "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+              }
+            },
+            "evidence": {
+              "proofScript": "scripts/proof-cloudflare-version.mts",
+              "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            },
+            "jsonSmokeChecks": [
+              {
+                "id": "decide-readiness-smoke",
+                "route": "/decide-api/decide/readiness",
+                "expect": {
+                  "status": "ready",
+                  "checks.api": "ready",
+                  "checks.moduleFederation": "ready",
+                  "checks.ssr": "ready"
+                }
+              }
+            ]
+          }
         }
       },
       {
@@ -469,16 +884,6 @@
             "compilerInstance": "effect-tsgo",
             "tsConfigPath": "./tsconfig.mf-types.json"
           }
-        },
-        "api": {
-          "runtime": "effect",
-          "stem": "checkout",
-          "prefix": "/checkout-api",
-          "consumedBy": [
-            "shell-super-app",
-            "checkout"
-          ],
-          "serverEntry": "verticals/checkout/api/index.ts"
         },
         "backendFederation": {
           "role": "microvertical-server",
@@ -556,7 +961,7 @@
               "containerEntry": "http://localhost:3023/backendRemoteEntry.cjs",
               "remoteType": "commonjs-module",
               "expose": "./effect-api",
-              "runtimePackage": "@modern-js/plugin-bff/effect",
+              "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
               "expected": {
                 "unitId": "tractor-store-vertical-demo/checkout",
                 "buildMarker": "7d5413e907d393e5"
@@ -589,6 +994,160 @@
           "version": "0.1.0",
           "buildMarker": "7d5413e907d393e5",
           "sourceRevision": "workspace"
+        },
+        "api": {
+          "runtime": "effect",
+          "stem": "checkout",
+          "prefix": "/checkout-api",
+          "consumedBy": [
+            "shell-super-app",
+            "checkout"
+          ],
+          "serverEntry": "verticals/checkout/api/index.ts"
+        },
+        "deploy": {
+          "cloudflare": {
+            "target": "cloudflare",
+            "workerName": "tractor-store-vertical-demo-checkout",
+            "publicUrlEnv": "ULTRAMODERN_PUBLIC_URL_CHECKOUT",
+            "compatibilityDate": "2026-06-02",
+            "compatibilityFlags": [
+              "nodejs_compat",
+              "global_fetch_strictly_public"
+            ],
+            "assetsBinding": "ASSETS",
+            "routes": {
+              "ssr": "/en",
+              "mfManifest": "/mf-manifest.json",
+              "locale": "/locales/en/checkout.json",
+              "apiReadiness": "/checkout-api/checkout/readiness"
+            },
+            "security": {
+              "enabled": true,
+              "headers": {
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "contentTypeOptions": "nosniff",
+                "permissionsPolicy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()"
+              },
+              "contentSecurityPolicy": {
+                "mode": "report-only",
+                "directives": {
+                  "base-uri": [
+                    "'self'"
+                  ],
+                  "connect-src": [
+                    "'self'",
+                    "https:",
+                    "http:",
+                    "wss:",
+                    "ws:"
+                  ],
+                  "default-src": [
+                    "'self'"
+                  ],
+                  "font-src": [
+                    "'self'",
+                    "data:",
+                    "https:",
+                    "http:"
+                  ],
+                  "form-action": [
+                    "'self'"
+                  ],
+                  "frame-ancestors": [
+                    "'self'"
+                  ],
+                  "img-src": [
+                    "'self'",
+                    "data:",
+                    "blob:",
+                    "https:",
+                    "http:"
+                  ],
+                  "manifest-src": [
+                    "'self'",
+                    "https:",
+                    "http:"
+                  ],
+                  "object-src": [
+                    "'none'"
+                  ],
+                  "script-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "'unsafe-eval'",
+                    "https:",
+                    "http:",
+                    "blob:"
+                  ],
+                  "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https:",
+                    "http:"
+                  ],
+                  "worker-src": [
+                    "'self'",
+                    "blob:"
+                  ]
+                },
+                "reason": "Report-only by default so Cloudflare Module Federation SSR can prove remote script, style, and connect compatibility before enforcement."
+              },
+              "noindex": {
+                "workersDev": true,
+                "localhost": true,
+                "previewHostnames": []
+              }
+            },
+            "qualityGates": {
+              "publicRoutes": {
+                "requireSitemapWhenPresent": true,
+                "requireRobotsSitemapConsistency": true,
+                "requireWebManifestWhenPresent": true
+              },
+              "statusCodes": {
+                "notFoundRoute": "/__ultramodern-smoke-missing/nope",
+                "unknownRouteStatus": 404
+              },
+              "indexing": {
+                "previewNoindex": true,
+                "productionPublicRoutesIndexable": true
+              },
+              "assets": {
+                "cssPreloadRequired": true,
+                "cssResponseRequired": true,
+                "cacheControlRequiredForCss": true,
+                "sourcemapsPubliclyReferenced": false
+              },
+              "budgets": {
+                "ssrHtmlMaxBytes": 250000,
+                "mfManifestMaxBytes": 500000,
+                "localeJsonMaxBytes": 100000,
+                "sitemapXmlMaxBytes": 500000,
+                "cssAssetMaxBytes": 750000
+              },
+              "csp": {
+                "finalMode": "report-only-dogfood",
+                "decision": "Report-only remains the generated final mode until public smoke proof records MF SSR script/style/connect compatibility for the deployed surface."
+              }
+            },
+            "evidence": {
+              "proofScript": "scripts/proof-cloudflare-version.mts",
+              "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            },
+            "jsonSmokeChecks": [
+              {
+                "id": "checkout-readiness-smoke",
+                "route": "/checkout-api/checkout/readiness",
+                "expect": {
+                  "status": "ready",
+                  "checks.api": "ready",
+                  "checks.moduleFederation": "ready",
+                  "checks.ssr": "ready"
+                }
+              }
+            ]
+          }
         }
       }
     ]
@@ -601,7 +1160,8 @@
     "gates": [],
     "reactSingletons": [
       "react",
-      "react-dom"
+      "react-dom",
+      "react-dom/client"
     ]
   },
   "deploy": {
@@ -671,35 +1231,6 @@
       }
     ]
   },
-  "agentSkills": {
-    "target": "codex",
-    "lockfile": "./.codex/skills-lock.json",
-    "installDir": "./.codex/skills",
-    "mode": "repo-owned-default-on",
-    "selfContainedVendoring": true,
-    "optOutEnv": [
-      "ULTRAMODERN_SKIP_CODEX_SKILLS=1",
-      "ULTRAMODERN_CODEX_SKILLS=0"
-    ]
-  },
-  "tooling": {
-    "command": "ultramodern-create ultramodern",
-    "wrappers": {
-      "validate": "scripts/validate-ultramodern-workspace.mts",
-      "typecheck": "scripts/ultramodern-typecheck.mts",
-      "mfTypes": "scripts/assert-mf-types.mts",
-      "publicSurface": "scripts/generate-public-surface-assets.mts",
-      "backendFederationGenerate": "scripts/generate-node-backend-federation.mts",
-      "backendFederationProof": "scripts/proof-node-backend-federation.mts",
-      "cloudflareProof": "scripts/proof-cloudflare-version.mts",
-      "cloudflareOutputVerify": "scripts/verify-cloudflare-output.mts",
-      "performanceReadiness": "scripts/ultramodern-performance-readiness.mts",
-      "migrateStrictEffect": "scripts/migrate-strict-effect.mts",
-      "routesGenerate": "scripts/generate-tanstack-routes.mts",
-      "apiBoundaries": "scripts/check-ultramodern-api-boundaries.mts",
-      "skills": "scripts/bootstrap-agent-skills.mts"
-    }
-  },
   "backendFederation": {
     "apps": [
       {
@@ -757,7 +1288,7 @@
             "containerEntry": "http://localhost:3021/backendRemoteEntry.cjs",
             "remoteType": "commonjs-module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
             "expected": {
               "unitId": "tractor-store-vertical-demo/explore",
               "buildMarker": "51f94b2832563336"
@@ -820,7 +1351,7 @@
             "containerEntry": "http://localhost:3022/backendRemoteEntry.cjs",
             "remoteType": "commonjs-module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
             "expected": {
               "unitId": "tractor-store-vertical-demo/decide",
               "buildMarker": "36fc602031c23930"
@@ -883,7 +1414,7 @@
             "containerEntry": "http://localhost:3023/backendRemoteEntry.cjs",
             "remoteType": "commonjs-module",
             "expose": "./effect-api",
-            "runtimePackage": "@modern-js/plugin-bff/effect",
+            "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
             "expected": {
               "unitId": "tractor-store-vertical-demo/checkout",
               "buildMarker": "7d5413e907d393e5"
@@ -892,5 +1423,35 @@
         }
       }
     ]
+  },
+  "agentSkills": {
+    "target": "codex",
+    "lockfile": "./.codex/skills-lock.json",
+    "installDir": "./.codex/skills",
+    "mode": "repo-owned-default-on",
+    "selfContainedVendoring": true,
+    "optOutEnv": [
+      "ULTRAMODERN_SKIP_CODEX_SKILLS=1",
+      "ULTRAMODERN_CODEX_SKILLS=0"
+    ]
+  },
+  "tooling": {
+    "command": "ultramodern-create ultramodern",
+    "wrappers": {
+      "validate": "scripts/validate-ultramodern-workspace.mts",
+      "typecheck": "scripts/ultramodern-typecheck.mts",
+      "mfTypes": "scripts/assert-mf-types.mts",
+      "publicSurface": "scripts/generate-public-surface-assets.mts",
+      "backendFederationGenerate": "scripts/generate-node-backend-federation.mts",
+      "backendFederationProof": "scripts/proof-node-backend-federation.mts",
+      "cloudflareProof": "scripts/proof-cloudflare-version.mts",
+      "cloudflareOutputVerify": "scripts/verify-cloudflare-output.mts",
+      "performanceReadiness": "scripts/ultramodern-performance-readiness.mts",
+      "routesGenerate": "scripts/generate-tanstack-routes.mts",
+      "zeropsMaterialize": "scripts/materialize-zerops-runtime.mjs",
+      "cloudflareSsrProof": "scripts/proof-workerd-ssr.mts",
+      "apiBoundaries": "modern-api-check",
+      "skills": "scripts/bootstrap-agent-skills.mts"
+    }
   }
 }

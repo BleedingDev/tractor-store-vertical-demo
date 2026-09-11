@@ -1,4 +1,4 @@
-import { DistributedSsrBoundary } from '@modern-js/runtime/module-federation';
+import { DistributedSsrBoundary } from '@modern-js/federation-runtime';
 import type AddToCartComponent from '@tractor-store-vertical-demo/checkout/AddToCart';
 import type CartPageComponent from '@tractor-store-vertical-demo/checkout/CartPage';
 import type CheckoutPageComponent from '@tractor-store-vertical-demo/checkout/CheckoutPage';

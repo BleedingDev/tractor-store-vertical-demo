@@ -2,7 +2,7 @@ import {
   Effect,
   makeEffectHttpApiClient,
   runEffectRequest,
-} from '@modern-js/plugin-bff/effect-client';
+} from '@modern-js/bff-effect/effect-client';
 
 import {
   checkoutApiContract,
@@ -23,13 +23,12 @@ const makeCheckoutClient = (options: CheckoutClientOptions = {}) =>
     baseUrl: options.baseUrl ?? checkoutApiContract.apiPrefix,
   });
 
-export const createCheckoutClient = (
-  options: CheckoutClientOptions = {}
-): unknown => makeCheckoutClient(options);
+export const createCheckoutClient = (options: CheckoutClientOptions = {}) =>
+  makeCheckoutClient(options);
 
 export const listCheckout = (
   options: CheckoutClientOptions & { limit?: number } = {}
-): Promise<unknown> =>
+) =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
@@ -41,9 +40,7 @@ export const listCheckout = (
     )
   );
 
-export const getCheckoutReadiness = (
-  options: CheckoutClientOptions = {}
-): Promise<unknown> =>
+export const getCheckoutReadiness = (options: CheckoutClientOptions = {}) =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
@@ -55,10 +52,7 @@ export const getCheckoutReadiness = (
     )
   );
 
-export const getCheckout = (
-  id: string,
-  options: CheckoutClientOptions = {}
-): Promise<unknown> =>
+export const getCheckout = (id: string, options: CheckoutClientOptions = {}) =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({
@@ -73,7 +67,7 @@ export const getCheckout = (
 export const createCheckout = (
   sku: string,
   options: CheckoutClientOptions & { quantity?: number } = {}
-): Promise<unknown> =>
+) =>
   runEffectRequest(
     Effect.flatMap(
       makeCheckoutClient({

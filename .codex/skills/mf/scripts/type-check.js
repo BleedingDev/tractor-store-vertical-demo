@@ -47,7 +47,7 @@ function main(ctx) {
   const hasTsconfig = tsconfigPath && fs.existsSync(tsconfigPath);
   const hasTypescript = Boolean(
     (ctx.dependencies && ctx.dependencies.typescript) ||
-    (ctx.devDependencies && ctx.devDependencies.typescript)
+    (ctx.devDependencies && ctx.devDependencies.typescript),
   );
 
   if (!hasTsconfig || !hasTypescript) {
@@ -73,7 +73,7 @@ function main(ctx) {
     }
 
     process.stdout.write(
-      `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+      `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
     );
     return;
   }
@@ -86,7 +86,7 @@ function main(ctx) {
       projectRoot,
       '.mf',
       'diagnostics',
-      'latest.json'
+      'latest.json',
     );
     const diagnosticsExists = fs.existsSync(diagnosticsPath);
     let canReadDiagnostics = false;
@@ -150,7 +150,7 @@ function main(ctx) {
       });
 
       process.stdout.write(
-        `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+        `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
       );
       return;
     }
@@ -185,7 +185,7 @@ function main(ctx) {
   }
 
   process.stdout.write(
-    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
   );
 }
 

@@ -1,7 +1,6 @@
 # Sub-skill: type-check
 
 Diagnose Module Federation type issues across three categories:
-
 1. Producer type file generation failures (TYPE-001)
 2. Consumer failing to pull remote types
 3. tsconfig not configured to consume remote types
@@ -27,14 +26,12 @@ Process each item in the output `results` array and follow the action plan based
 The producer failed to generate type files (TYPE-001 error).
 
 **If `enhancedVersion` > `2.0.1`** (result field `canReadDiagnostics: true`):
-
 1. Read `.mf/observability/latest.json` to get full error info and the temporary TS config path
 2. Use the temp TS config path with `npx tsc --project <tmp-tsconfig>` to reproduce errors
 3. Fix the TS errors revealed. Refer to FAQ: https://module-federation.io/guide/troubleshooting/type.md
 4. Offer `"skipLibCheck": true` as a temporary workaround if errors are complex
 
 **If `enhancedVersion` <= `2.0.1`** (result field `canReadDiagnostics: false`):
-
 1. Ask the user to run `npx mf dts` and paste the terminal output (which includes the temp TS config path)
 2. Or ask them to copy the error message that contains the temp TS config path
 3. Once the temp TS config path is known, run `npx tsc --project <tmp-tsconfig>` to reproduce and fix errors
@@ -78,12 +75,10 @@ The `@mf-types` folder exists but TypeScript cannot find the types because `tsco
 ### Scenario: `ENV_INCOMPLETE` (Missing tsconfig or TypeScript)
 
 **TYPE-001 · warning — `tsconfig.json` missing**
-
 - `tsconfig.json` not found in the project root
 - Advise the user to create `tsconfig.json` and configure producer type paths in `paths`
 
 **TYPE-001 · warning — `typescript` dependency missing**
-
 - `typescript` not installed in `dependencies` / `devDependencies`
 - Prompt the user to install: `pnpm add -D typescript`
 

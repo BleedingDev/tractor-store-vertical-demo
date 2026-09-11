@@ -1,4 +1,4 @@
-import { createDistributedSsrComponent } from '@modern-js/runtime/module-federation';
+import { createDistributedSsrComponent } from '@modern-js/federation-runtime';
 import { createLazyComponent } from '@module-federation/modern-js-v3/react';
 import { getInstance } from '@module-federation/modern-js-v3/runtime';
 import type AddToCartComponent from '@tractor-store-vertical-demo/checkout/AddToCart';

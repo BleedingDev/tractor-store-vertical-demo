@@ -81,8 +81,8 @@ async function main(ctx, moduleName, explicitUrl) {
             availableRemotes: Object.keys(remotes),
           },
           null,
-          2
-        ) + '\n'
+          2,
+        ) + '\n',
       );
       return;
     }
@@ -94,8 +94,8 @@ async function main(ctx, moduleName, explicitUrl) {
       JSON.stringify(
         { error: `Cannot resolve remoteEntry URL for "${moduleName}"` },
         null,
-        2
-      ) + '\n'
+        2,
+      ) + '\n',
     );
     return;
   }
@@ -136,5 +136,5 @@ main(JSON.parse(args.context || '{}'), args.module, args.url || null).catch(
   (err) => {
     process.stderr.write(`Error: ${err.message}\n`);
     process.exit(1);
-  }
+  },
 );

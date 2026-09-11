@@ -2,7 +2,7 @@ import {
   Effect,
   makeEffectHttpApiClient,
   runEffectRequest,
-} from '@modern-js/plugin-bff/effect-client';
+} from '@modern-js/bff-effect/effect-client';
 
 import {
   decideApiContract,
@@ -23,13 +23,12 @@ const makeDecideClient = (options: DecideClientOptions = {}) =>
     baseUrl: options.baseUrl ?? decideApiContract.apiPrefix,
   });
 
-export const createDecideClient = (
-  options: DecideClientOptions = {}
-): unknown => makeDecideClient(options);
+export const createDecideClient = (options: DecideClientOptions = {}) =>
+  makeDecideClient(options);
 
 export const listDecide = (
   options: DecideClientOptions & { limit?: number } = {}
-): Promise<unknown> =>
+) =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
@@ -41,9 +40,7 @@ export const listDecide = (
     )
   );
 
-export const getDecideReadiness = (
-  options: DecideClientOptions = {}
-): Promise<unknown> =>
+export const getDecideReadiness = (options: DecideClientOptions = {}) =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
@@ -55,10 +52,7 @@ export const getDecideReadiness = (
     )
   );
 
-export const getDecide = (
-  id: string,
-  options: DecideClientOptions = {}
-): Promise<unknown> =>
+export const getDecide = (id: string, options: DecideClientOptions = {}) =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({
@@ -73,7 +67,7 @@ export const getDecide = (
 export const createDecide = (
   title: string,
   options: DecideClientOptions = {}
-): Promise<unknown> =>
+) =>
   runEffectRequest(
     Effect.flatMap(
       makeDecideClient({

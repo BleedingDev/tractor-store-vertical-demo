@@ -45,7 +45,7 @@ try {
   const events = fileContent
     .trim()
     .split('\n')
-    .map((line) => {
+    .map(line => {
       try {
         return JSON.parse(line);
       } catch (err) {
@@ -66,7 +66,7 @@ try {
   const pluginStats = new Map();
   const loaderStats = new Map();
 
-  events.forEach((event) => {
+  events.forEach(event => {
     const target = event.target;
     const timeField = event.fields?.['time.busy'];
 
@@ -133,7 +133,7 @@ try {
     console.log('─'.repeat(80));
 
     const sortedPlugins = [...pluginStats.entries()].sort(
-      (a, b) => b[1].total - a[1].total
+      (a, b) => b[1].total - a[1].total,
     );
 
     sortedPlugins.forEach(([name, stat]) => {
@@ -141,14 +141,14 @@ try {
       console.log(`${name}`);
       console.log(
         `  Total: ${stat.total.toFixed(2)}ms | Count: ${stat.count} | ` +
-          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`
+          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`,
       );
       console.log('');
     });
 
     const totalPluginTime = [...pluginStats.values()].reduce(
       (sum, stat) => sum + stat.total,
-      0
+      0,
     );
     console.log(`Total Plugin Time: ${totalPluginTime.toFixed(2)}ms\n`);
   }
@@ -159,7 +159,7 @@ try {
     console.log('─'.repeat(80));
 
     const sortedLoaders = [...loaderStats.entries()].sort(
-      (a, b) => b[1].total - a[1].total
+      (a, b) => b[1].total - a[1].total,
     );
 
     sortedLoaders.forEach(([name, stat]) => {
@@ -167,14 +167,14 @@ try {
       console.log(`${name}`);
       console.log(
         `  Total: ${stat.total.toFixed(2)}ms | Count: ${stat.count} | ` +
-          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`
+          `Avg: ${avg.toFixed(2)}ms | Max: ${stat.max.toFixed(2)}ms | Min: ${stat.min.toFixed(2)}ms`,
       );
       console.log('');
     });
 
     const totalLoaderTime = [...loaderStats.values()].reduce(
       (sum, stat) => sum + stat.total,
-      0
+      0,
     );
     console.log(`Total Loader Time: ${totalLoaderTime.toFixed(2)}ms\n`);
   }

@@ -1,4 +1,4 @@
-import { useDistributedSsrFragmentProps } from '@modern-js/runtime/module-federation/distributed-ssr';
+import { useDistributedSsrFragmentProps } from '@modern-js/federation-runtime/distributed-ssr';
 import type { ComponentProps } from 'react';
 
 import ProductGrid from '../../../../../components/product-grid';
