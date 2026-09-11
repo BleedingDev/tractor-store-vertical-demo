@@ -1,6 +1,6 @@
 ---
 name: mf
-description: 'All-in-one Module Federation skill. Use when the user asks anything about MF — concepts, configuration, runtime API, shared dependencies, type errors, runtime error code troubleshooting, observability/obs, slow builds, Bridge integration, or adding MF to an existing project.'
+description: "All-in-one Module Federation skill. Use when the user asks anything about MF — concepts, configuration, runtime API, shared dependencies, type errors, runtime error code troubleshooting, observability/obs, slow builds, Bridge integration, or adding MF to an existing project."
 argument-hint: <sub-command | natural-language-query> [args...]
 allowed-tools: Read Glob Bash(node *) Bash(npx tsc*) Bash(npx mf dts*) Bash(curl *) WebFetch Write Edit AskUserQuestion
 ---
@@ -12,7 +12,7 @@ allowed-tools: Read Glob Bash(node *) Bash(npx tsc*) Bash(npx mf dts*) Bash(curl
 Parse `$ARGUMENTS` and map to a reference file in the `reference/` directory (same directory as this file):
 
 | Sub-command (case-insensitive) | Aliases | Reference file |
-| --- | --- | --- |
+|---|---|---|
 | `docs` | `doc`, `help`, `?` | `reference/docs.md` |
 | `context` | `ctx`, `info`, `status` | `reference/context.md` |
 | `module-info` | `module`, `remote`, `manifest` | `reference/module-info.md` |
@@ -27,10 +27,14 @@ Parse `$ARGUMENTS` and map to a reference file in the `reference/` directory (sa
 
 **If no explicit sub-command is found**, detect intent from the full input:
 
-If the input contains an observability report, `traceId`, console `read:` command, `.mf/observability` file path, or asks how to observe, debug, trace, inspect, or upload Module Federation loading data, or uses `obs` as shorthand for observability, choose `reference/observability.md` even when the same input also contains a `RUNTIME-xxx` code.
+If the input contains an observability report, `traceId`, console `read:` command,
+`.mf/observability` file path, or asks how to observe, debug, trace, inspect, or
+upload Module Federation loading data, or uses `obs` as shorthand for
+observability, choose `reference/observability.md` even
+when the same input also contains a `RUNTIME-xxx` code.
 
 | Signal in input | Reference file |
-| --- | --- |
+|---|---|
 | Question about MF concepts, API, configuration options | `reference/docs.md` |
 | "integrate", "add MF", "setup", "scaffold", "new project" | `reference/integrate.md` |
 | "type error", "TS error", "@mf-types", "dts", "typescript" | `reference/type-check.md` |

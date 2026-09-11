@@ -85,7 +85,7 @@ args.forEach((a, i) => {
   }
 });
 const positional = args.filter(
-  (a, i) => !a.startsWith('--') && !skipIdx.has(i)
+  (a, i) => !a.startsWith('--') && !skipIdx.has(i),
 );
 
 const targetUrl = positional[0] ?? null;
@@ -95,14 +95,14 @@ if (!targetUrl && !tabId) {
   process.stderr.write(
     'Usage:\n' +
       '  node capture.mjs <url> [timeout_ms] [--vars v1,v2] [--keep-tab] [--click "text"] [--dump-dom] [--eval "expr"] [--wait-until auto|domcontentloaded|networkidle|timeout] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-entries] [--entries-limit N]\n' +
-      '  node capture.mjs --tab-id <id> [--click "text"] [--vars v1,v2] [--dump-dom] [--close] [--eval "expr"] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-follow-new-tab]\n'
+      '  node capture.mjs --tab-id <id> [--click "text"] [--vars v1,v2] [--dump-dom] [--close] [--eval "expr"] [--action-wait auto|networkidle|domcontentloaded|timeout|none] [--no-follow-new-tab]\n',
   );
   process.exit(1);
 }
 
 if (!Number.isFinite(timeout) || timeout <= 0) {
   process.stderr.write(
-    `Invalid timeout: ${String(positional[1])}. timeout_ms must be a positive number.\n`
+    `Invalid timeout: ${String(positional[1])}. timeout_ms must be a positive number.\n`,
   );
   process.exit(1);
 }
@@ -112,21 +112,21 @@ if (
   (!Number.isInteger(entriesLimit) || entriesLimit <= 0)
 ) {
   process.stderr.write(
-    `Invalid --entries-limit: ${entriesLimitRaw}. It must be a positive integer.\n`
+    `Invalid --entries-limit: ${entriesLimitRaw}. It must be a positive integer.\n`,
   );
   process.exit(1);
 }
 
 if (waitUntilRaw != null && parsedWaitUntil == null) {
   process.stderr.write(
-    `Invalid --wait-until: ${waitUntilRaw}. Valid values: auto, domcontentloaded, networkidle, timeout.\n`
+    `Invalid --wait-until: ${waitUntilRaw}. Valid values: auto, domcontentloaded, networkidle, timeout.\n`,
   );
   process.exit(1);
 }
 
 if (actionWaitRaw != null && parsedActionWait == null) {
   process.stderr.write(
-    `Invalid --action-wait: ${actionWaitRaw}. Valid values: auto, networkidle, domcontentloaded, timeout, none.\n`
+    `Invalid --action-wait: ${actionWaitRaw}. Valid values: auto, networkidle, domcontentloaded, timeout, none.\n`,
   );
   process.exit(1);
 }
@@ -160,7 +160,7 @@ if (typeof WebSocket === 'undefined') {
   process.stderr.write(
     'Node.js 21+ required (built-in WebSocket). Current: ' +
       process.version +
-      '\n'
+      '\n',
   );
   process.exit(1);
 }
@@ -195,7 +195,7 @@ class Session {
       this.#ws.addEventListener(
         'error',
         (e) => reject(new Error(String(e.message ?? e))),
-        { once: true }
+        { once: true },
       );
     });
   }
@@ -204,7 +204,7 @@ class Session {
     const id = this.#nextId++;
     this.#ws.send(JSON.stringify({ id, method, params }));
     return new Promise((resolve, reject) =>
-      this.#pending.set(id, { resolve, reject })
+      this.#pending.set(id, { resolve, reject }),
     );
   }
 
@@ -229,7 +229,7 @@ try {
       '  CHROME=$(find /Applications ~/Applications -name "Google Chrome" -path "*/MacOS/Google Chrome" 2>/dev/null | head -1)\n' +
       '  killall "Google Chrome" 2>/dev/null; sleep 1\n' +
       '  "$CHROME" --remote-debugging-port=9222 --user-data-dir="$HOME/Library/Application Support/Google/Chrome" &\n\n' +
-      'This uses your REAL Chrome profile — all cookies and login sessions are preserved.\n'
+      'This uses your REAL Chrome profile — all cookies and login sessions are preserved.\n',
   );
   process.exit(1);
 }
@@ -249,7 +249,7 @@ if (tabId) {
   process.stderr.write(`Attaching to tab: ${tab.url}\n`);
 } else {
   process.stderr.write(
-    `Navigating to ${targetUrl} (timeout: ${timeout / 1000}s)...\n`
+    `Navigating to ${targetUrl} (timeout: ${timeout / 1000}s)...\n`,
   );
   tab = await (await fetch(`${CDP_BASE}/json/new`, { method: 'PUT' })).json();
 }
@@ -271,7 +271,7 @@ session.on('Runtime.consoleAPICalled', ({ type, args: a, stackTrace }) => {
           ? x.description
           : x.value != null
             ? String(x.value)
-            : x.type
+            : x.type,
     )
     .join(' ');
   const f = stackTrace?.callFrames?.[0];
@@ -306,7 +306,7 @@ session.on('Network.responseReceived', ({ response }) => {
 
 const pendingUrls = new Map();
 session.on('Network.requestWillBeSent', ({ requestId, request }) =>
-  pendingUrls.set(requestId, request.url)
+  pendingUrls.set(requestId, request.url),
 );
 session.on(
   'Network.loadingFailed',
@@ -319,7 +319,7 @@ session.on(
       stack: null,
     });
     pendingUrls.delete(requestId);
-  }
+  },
 );
 
 session.on('Log.entryAdded', ({ entry }) => {
@@ -530,11 +530,11 @@ if (clickTarget) {
 
   if (!clickResult.found) {
     process.stderr.write(
-      `  Warning: element not found for \"${clickTarget}\"\\n`
+      `  Warning: element not found for \"${clickTarget}\"\\n`,
     );
   } else {
     process.stderr.write(
-      `  Clicked: <${clickResult.tag}> \"${clickResult.text}\" (${clickResult.matchStrategy}/${clickResult.matchType})\\n`
+      `  Clicked: <${clickResult.tag}> \"${clickResult.text}\" (${clickResult.matchStrategy}/${clickResult.matchType})\\n`,
     );
     // wait briefly for click-triggered requests to start, then wait by action mode
     await new Promise((r) => setTimeout(r, 200));
@@ -548,7 +548,7 @@ if (clickTarget) {
       while (Date.now() < deadline && !newTarget) {
         const now = await (await fetch(`${CDP_BASE}/json/list`)).json();
         newTarget = now.find(
-          (t) => !beforeIds.has(t.id) && (t.type === 'page' || !t.type)
+          (t) => !beforeIds.has(t.id) && (t.type === 'page' || !t.type),
         );
         if (!newTarget) await new Promise((r) => setTimeout(r, 250));
       }
@@ -597,7 +597,7 @@ if (fillArg) {
   const placeholder = sep !== -1 ? fillArg.slice(0, sep) : fillArg;
   const text = sep !== -1 ? fillArg.slice(sep + 2) : '';
   process.stderr.write(
-    `Filling: placeholder="${placeholder}" text="${text}"\n`
+    `Filling: placeholder="${placeholder}" text="${text}"\n`,
   );
 
   const r = await session.send('Runtime.evaluate', {
@@ -620,11 +620,11 @@ if (fillArg) {
   fillResult = JSON.parse(r?.result?.value ?? '{"found":false}');
   if (!fillResult.found) {
     process.stderr.write(
-      `  Warning: input not found for placeholder="${placeholder}"\n`
+      `  Warning: input not found for placeholder="${placeholder}"\n`,
     );
   } else {
     process.stderr.write(
-      `  Filled: <${fillResult.tag}> placeholder="${fillResult.placeholder}"\n`
+      `  Filled: <${fillResult.tag}> placeholder="${fillResult.placeholder}"\n`,
     );
     await new Promise((r) => setTimeout(r, 200));
     await waitAfterAction(effectiveActionWait, actionWaitBudgetMs);
@@ -643,7 +643,7 @@ if (selectArg) {
   const placeholder = sep !== -1 ? selectArg.slice(0, sep) : selectArg;
   const value = sep !== -1 ? selectArg.slice(sep + 2) : '';
   process.stderr.write(
-    `Selecting: placeholder="${placeholder}" value="${value}"\n`
+    `Selecting: placeholder="${placeholder}" value="${value}"\n`,
   );
 
   // Step 1: try native <select>, otherwise click the custom dropdown trigger
@@ -704,11 +704,11 @@ if (selectArg) {
 
   if (!selectResult.found) {
     process.stderr.write(
-      `  Warning: select target not found (${selectResult.reason ?? 'unknown'})\n`
+      `  Warning: select target not found (${selectResult.reason ?? 'unknown'})\n`,
     );
   } else {
     process.stderr.write(
-      `  Selected: [${selectResult.type}] "${selectResult.text ?? selectResult.value}"\n`
+      `  Selected: [${selectResult.type}] "${selectResult.text ?? selectResult.value}"\n`,
     );
     await new Promise((r) => setTimeout(r, 200));
     await waitAfterAction(effectiveActionWait, actionWaitBudgetMs);
@@ -839,7 +839,7 @@ if (varNames.length) {
       variables[varName] = { exists: false, error: String(e.message) };
     }
     process.stderr.write(
-      `  ${varName}: ${variables[varName].exists ? 'found' : 'not found'}${variables[varName].skippedPaths?.length ? ` (${variables[varName].skippedPaths.length} paths skipped)` : ''}\n`
+      `  ${varName}: ${variables[varName].exists ? 'found' : 'not found'}${variables[varName].skippedPaths?.length ? ` (${variables[varName].skippedPaths.length} paths skipped)` : ''}\n`,
     );
   }
 
@@ -892,6 +892,6 @@ const result = {
 };
 
 process.stderr.write(
-  `Done: ${result.errors} errors, ${result.warns} warns, ${result.total} total\n`
+  `Done: ${result.errors} errors, ${result.warns} warns, ${result.total} total\n`,
 );
 process.stdout.write(JSON.stringify(result, null, 2) + '\n');

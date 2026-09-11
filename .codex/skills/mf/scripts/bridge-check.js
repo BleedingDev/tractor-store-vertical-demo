@@ -22,7 +22,7 @@ function main(ctx) {
 
   if (ctx.mfConfig && ctx.mfConfig.exposes) {
     const hasExportApp = Object.keys(ctx.mfConfig.exposes).some((k) =>
-      /export-app/i.test(k)
+      /export-app/i.test(k),
     );
     if (!hasExportApp) {
       results.push({
@@ -44,7 +44,7 @@ function main(ctx) {
   });
 
   process.stdout.write(
-    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`
+    `${JSON.stringify({ context: ctx, results }, null, 2)}\n`,
   );
 }
 

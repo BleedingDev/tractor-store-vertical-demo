@@ -12,12 +12,12 @@ const DEFAULT_WAIT_MS = 8000;
 const INJECTION_GLOBAL = '__MF_OBSERVABILITY_INJECTION__';
 const SKILL_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  '..'
+  '..',
 );
 const DEFAULT_IIFE_PATH = path.join(
   SKILL_DIR,
   'assets',
-  'observability-chrome-devtool.iife.js'
+  'observability-chrome-devtool.iife.js',
 );
 
 function readArg(name, fallback) {
@@ -236,14 +236,14 @@ async function readIifeSource(iifePath, extraOptions) {
     await access(resolvedPath);
   } catch {
     throw new Error(
-      `Observability IIFE not found: ${resolvedPath}. Copy the chrome-devtool IIFE to that path or pass --iife <file>.`
+      `Observability IIFE not found: ${resolvedPath}. Copy the chrome-devtool IIFE to that path or pass --iife <file>.`,
     );
   }
 
   return {
     source: buildInitSourceFromIife(
       await readFile(resolvedPath, 'utf8'),
-      defaultObservabilityOptions(extraOptions)
+      defaultObservabilityOptions(extraOptions),
     ),
     sourceKind: 'iife',
     iifePath: resolvedPath,
@@ -277,11 +277,11 @@ function httpRequest(method, port, requestPath) {
           }
           reject(
             new Error(
-              `${method} ${requestPath} failed with ${res.statusCode}: ${body}`
-            )
+              `${method} ${requestPath} failed with ${res.statusCode}: ${body}`,
+            ),
           );
         });
-      }
+      },
     );
     req.on('timeout', () => {
       req.destroy(new Error(`${method} ${requestPath} timed out`));
@@ -447,8 +447,8 @@ class CdpConnection {
       if (message.error) {
         pending.reject(
           new Error(
-            `${pending.method} failed: ${message.error.message || JSON.stringify(message.error)}`
-          )
+            `${pending.method} failed: ${message.error.message || JSON.stringify(message.error)}`,
+          ),
         );
       } else {
         pending.resolve(message.result);
@@ -494,7 +494,7 @@ function connectWebSocket(wsUrl) {
           'Sec-WebSocket-Version: 13',
           '',
           '',
-        ].join('\r\n')
+        ].join('\r\n'),
       );
     });
 
@@ -583,7 +583,7 @@ async function main() {
   const readAfterOpen = !hasFlag('no-read');
   const iifePath = readArg(
     'iife',
-    process.env.MF_OBSERVABILITY_IIFE || DEFAULT_IIFE_PATH
+    process.env.MF_OBSERVABILITY_IIFE || DEFAULT_IIFE_PATH,
   );
   const initSourcePath = readArg('init-source');
   const outputPath = readArg('output');
@@ -647,7 +647,7 @@ async function main() {
         message:
           'Dry run finished. Init source was read, but Chrome was not opened.',
       },
-      asJson
+      asJson,
     );
     return;
   }
@@ -655,9 +655,9 @@ async function main() {
   const version = await httpRequest('GET', port, '/json/version').catch(
     (error) => {
       throw new Error(
-        `Chrome debug port ${port} is not available: ${error.message}. Run scripts/open-chrome-debug.mjs first.`
+        `Chrome debug port ${port} is not available: ${error.message}. Run scripts/open-chrome-debug.mjs first.`,
       );
-    }
+    },
   );
   const page = await createPage(port);
   const webSocketDebuggerUrl = page.webSocketDebuggerUrl;
@@ -674,7 +674,7 @@ async function main() {
     'Page.addScriptToEvaluateOnNewDocument',
     {
       source: init.source,
-    }
+    },
   );
   await cdp.send('Page.navigate', { url: targetUrl });
   await Promise.race([
@@ -698,7 +698,7 @@ async function main() {
         hasVmok: Boolean(window.__VMOK__),
         scopes: observability ? Object.keys(observability) : [],
       };
-    })()`
+    })()`,
   ).catch((error) => ({
     exceptionDetails: {
       text: error.message,
@@ -708,7 +708,7 @@ async function main() {
   const reportReadResult = readAfterOpen
     ? await evaluateExpression(
         cdp,
-        buildReportReadExpression('chrome_extension', readLimit)
+        buildReportReadExpression('chrome_extension', readLimit),
       ).catch((error) => ({
         exceptionDetails: {
           text: error.message,
@@ -725,8 +725,8 @@ async function main() {
     : [];
   const initialReadAvailable = Boolean(
     initialRead &&
-    !initialRead.readError &&
-    (initialRead.latestReport || initialReadReports.length > 0)
+      !initialRead.readError &&
+      (initialRead.latestReport || initialReadReports.length > 0),
   );
   const readCommand = `node skills/mf/scripts/read-observability-report.mjs --port ${port} --page-id ${page.id} --scope chrome_extension --output /tmp/mf-observability-report.json --json`;
   const result = {
@@ -774,7 +774,7 @@ main().catch((error) => {
       status: 'failed',
       message: error.message,
     },
-    asJson
+    asJson,
   );
   process.exit(1);
 });

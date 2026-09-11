@@ -87,7 +87,7 @@ function start() {
   const port = normalizePort(args.port);
   const idleMs = Number(args['idle-ms'] || DEFAULT_IDLE_MS);
   const outputDir = path.resolve(
-    args.dir || path.join(process.cwd(), '.mf/observability/collector')
+    args.dir || path.join(process.cwd(), '.mf/observability/collector'),
   );
   const sessionId =
     args.session ||
@@ -235,8 +235,8 @@ function start() {
           files,
         },
         null,
-        2
-      )}\n`
+        2,
+      )}\n`,
     );
   });
 

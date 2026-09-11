@@ -25,6 +25,7 @@ export default defineConfig({
   },
   ignorePatterns: [
     '.agents',
+    '.codex/skills',
     'dist',
     'node_modules',
     '.modern',
