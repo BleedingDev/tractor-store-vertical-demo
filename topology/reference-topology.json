@@ -8,6 +8,7 @@
     "kind": "shell",
     "package": "@tractor-store-vertical-demo/shell-super-app",
     "path": "apps/shell-super-app",
+    "portEnv": "SHELL_SUPER_APP_PORT",
     "verticalRefs": [
       "explore",
       "decide",
