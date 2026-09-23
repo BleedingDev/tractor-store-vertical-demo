@@ -7,6 +7,7 @@
     "id": "shell-super-app",
     "kind": "shell",
     "package": "@tractor-store-vertical-demo/shell-super-app",
+    "path": "apps/shell-super-app",
     "verticalRefs": [
       "explore",
       "decide",
@@ -169,7 +170,6 @@
         }
       },
       "evidence": {
-        "proofScript": "scripts/proof-cloudflare-version.mts",
         "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
       }
     },
@@ -518,8 +518,7 @@
           }
         },
         "evidence": {
-          "proofScript": "scripts/proof-cloudflare-version.mts",
-          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
         },
         "jsonSmokeChecks": [
           {
@@ -888,8 +887,7 @@
           }
         },
         "evidence": {
-          "proofScript": "scripts/proof-cloudflare-version.mts",
-          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
         },
         "jsonSmokeChecks": [
           {
@@ -1274,8 +1272,7 @@
           }
         },
         "evidence": {
-          "proofScript": "scripts/proof-cloudflare-version.mts",
-          "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
+            "reportDefault": ".codex/reports/cloudflare-version-proof/public-url-proof.json"
         },
         "jsonSmokeChecks": [
           {
@@ -1320,7 +1317,6 @@
     }
   ],
   "validation": {
-    "script": "scripts/validate-ultramodern-workspace.mts",
     "commands": [
       "pnpm i18n:boundaries",
       "pnpm api:check",
