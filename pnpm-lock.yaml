@@ -1112,7 +1112,7 @@ packages:
     engines: {node: '>=26.7.0'}
 
   '@bleedingdev/modern-js-ultramodern-create@3.9.0-ultramodern.13':
-    resolution: {integrity: sha512-zMl/PeRWyGj3up+8+UMggSt1AjYivacEscea558GPDEnv8O7L4b2l9fHc2LRiLJROC7sfOsSJmKBSsadQqRa4A==}
+    resolution: {integrity: sha512-beSvvWejad97lUUUj4sqwpoDegKyGgKtc6yfxKS0d+oEEtWsl/ry+gY7tWen16nBLle9aGsQyk6JlPiJzOG6XQ==}
     engines: {node: '>=26.7.0'}
     hasBin: true
 
