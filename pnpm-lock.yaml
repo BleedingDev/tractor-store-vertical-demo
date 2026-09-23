@@ -916,7 +916,7 @@ packages:
         optional: true
 
   '@bleedingdev/modern-js-code-tools@3.9.0-ultramodern.13':
-    resolution: {integrity: sha512-VUmsA8nfXp8h7j5IDdEWKf8XAGp6znS9WDJhLHlC+cG5AiWKqTJ2rqSPpAO7SIq5ZFTf8N81lWtLgIosWOXvxg==}
+    resolution: {integrity: sha512-JxrKV7NBQHkpr3ZrMoxUUGw9bjAHxNpNrnMeClvIriECuo82byhSo5q30YM7pzy2+fh12fEOUOFMfBlwjyn0+Q==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -1112,7 +1112,7 @@ packages:
     engines: {node: '>=26.7.0'}
 
   '@bleedingdev/modern-js-ultramodern-create@3.9.0-ultramodern.13':
-    resolution: {integrity: sha512-beSvvWejad97lUUUj4sqwpoDegKyGgKtc6yfxKS0d+oEEtWsl/ry+gY7tWen16nBLle9aGsQyk6JlPiJzOG6XQ==}
+    resolution: {integrity: sha512-plnwnBysFeNHdBBvMkVtDU0UR9xpcr1OotbuK5qSgMDIfDt9cXYZrwQzjwpgiADWFOGwwauihM9Dxp/5sQVHHg==}
     engines: {node: '>=26.7.0'}
     hasBin: true
 
