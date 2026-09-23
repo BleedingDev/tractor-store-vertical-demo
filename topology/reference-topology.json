@@ -60,6 +60,10 @@
         "mfManifest": "/mf-manifest.json",
         "locale": "/locales/en/shell.json"
       },
+      "distributedSsrProofRoutes": [
+        "/en",
+        "/en/tractors/CL-08-GR"
+      ],
       "security": {
         "enabled": true,
         "headers": {
