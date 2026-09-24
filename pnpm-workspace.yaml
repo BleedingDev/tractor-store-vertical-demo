@@ -67,13 +67,13 @@ peerDependencyRules:
     react: '>=19.0.0'
     '@effect/vitest>effect': 4.0.0-rc.117
 overrides:
-  '@tanstack/react-router': 1.170.35
-  '@tanstack/router-core': 1.171.29
+  '@tanstack/react-router': 1.170.39
+  '@tanstack/router-core': 1.171.32
   '@effect/opentelemetry': 4.0.0-rc.117
   '@effect/vitest': 4.0.0-rc.117
   effect: npm:@bleedingdev/effect@4.0.0-rc.117
   node-fetch: ^3.3.2
-  '@tanstack/history': 1.162.3
+  '@tanstack/history': 1.162.4
   zod: npm:@bleedingdev/zod@4.6.5
 allowBuilds:
   '@parcel/watcher': true
