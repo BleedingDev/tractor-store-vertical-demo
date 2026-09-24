@@ -56,11 +56,11 @@
     "ownership": "./topology/ownership.json"
   },
   "devDependencies": {
-    "@effect/opentelemetry": "4.0.0-rc.112",
+    "@effect/opentelemetry": "4.0.0-rc.117",
     "@effect/tsgo": "0.41.0",
     "@playwright/test": "^1.60.0",
     "@typescript/native": "npm:typescript@7.0.2",
-    "effect": "4.0.0-rc.112",
+    "effect": "4.0.0-rc.117",
     "lefthook": "^2.1.10",
     "miniflare": "4.20260730.0",
     "oxfmt": "0.66.0",

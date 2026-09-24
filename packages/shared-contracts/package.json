@@ -16,8 +16,8 @@
     "@typescript/native-preview": "7.0.0-dev.20260707.2"
   },
   "dependencies": {
-    "@effect/opentelemetry": "4.0.0-rc.112",
-    "effect": "4.0.0-rc.112",
+    "@effect/opentelemetry": "4.0.0-rc.117",
+    "effect": "4.0.0-rc.117",
     "@modern-js/bff-effect": "catalog:ultramodern",
     "@modern-js/runtime-extensions": "catalog:ultramodern",
     "@modern-js/plugin-bff": "catalog:ultramodern"
