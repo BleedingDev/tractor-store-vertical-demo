@@ -56,8 +56,7 @@ minimumReleaseAgeIgnoreMissingTime: false
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 1440
 trustPolicyExclude:
-  - '@effect/opentelemetry@4.0.0-rc.112'
-  - effect@4.0.0-rc.112
+  - '@effect/opentelemetry@4.0.0-rc.117'
 blockExoticSubdeps: true
 engineStrict: true
 pmOnFail: error
@@ -66,23 +65,21 @@ strictDepBuilds: true
 peerDependencyRules:
   allowedVersions:
     react: '>=19.0.0'
-    '@effect/vitest>effect': 4.0.0-rc.112
+    '@effect/vitest>effect': 4.0.0-rc.117
 overrides:
-  '@tanstack/react-router': 1.170.33
-  '@tanstack/router-core': 1.171.28
-  '@effect/opentelemetry': 4.0.0-rc.112
-  '@effect/vitest': 4.0.0-rc.112
-  effect: 4.0.0-rc.112
+  '@tanstack/react-router': 1.170.35
+  '@tanstack/router-core': 1.171.29
+  '@effect/opentelemetry': 4.0.0-rc.117
+  '@effect/vitest': 4.0.0-rc.117
+  effect: npm:@bleedingdev/effect@4.0.0-rc.117
   node-fetch: ^3.3.2
-  '@tanstack/history': 1.162.2
-  msgpackr: 2.1.0
-  zod: 4.5.4
+  '@tanstack/history': 1.162.3
+  zod: npm:@bleedingdev/zod@4.6.5
 allowBuilds:
   '@parcel/watcher': true
   '@swc/core': true
   core-js: true
   esbuild: true
   lefthook: true
-  msgpackr-extract: true
   sharp: true
   workerd: true

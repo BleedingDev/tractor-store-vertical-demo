@@ -302,7 +302,7 @@
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/explore",
-          "effectVersion": "4.0.0-rc.112",
+          "effectVersion": "4.0.0-rc.117",
           "moduleFederationVersion": "2.9.0"
         },
         "cache": {
@@ -671,7 +671,7 @@
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/decide",
-          "effectVersion": "4.0.0-rc.112",
+          "effectVersion": "4.0.0-rc.117",
           "moduleFederationVersion": "2.9.0"
         },
         "cache": {
@@ -1028,7 +1028,7 @@
         "compatibility": {
           "contractVersion": "microvertical-server-effect-v1",
           "packageName": "@tractor-store-vertical-demo/checkout",
-          "effectVersion": "4.0.0-rc.112",
+          "effectVersion": "4.0.0-rc.117",
           "moduleFederationVersion": "2.9.0"
         },
         "cache": {
