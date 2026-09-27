@@ -17,10 +17,10 @@ The demo is intentionally close to the original Tractor Store v2 visual design, 
 This repository is pinned to BleedingDev UltraModern packages:
 
 ```text
-3.9.0-ultramodern.18
+3.9.0-ultramodern.19
 ```
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.9.0-ultramodern.18` aliases for the Modern.js packages published under the UltraModern `latest` dist-tag.
+Generated apps and verticals use `npm:@bleedingdev/...@3.9.0-ultramodern.19` aliases for the Modern.js packages published under the UltraModern `latest` dist-tag.
 
 ## Commands
 
