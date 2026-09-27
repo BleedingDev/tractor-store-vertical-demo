@@ -1,7 +1,0 @@
-{
-  "name": "test-browserlist-pkg",
-  "browserslist": [
-    "not IE 11",
-    "maintained node versions"
-  ]
-}

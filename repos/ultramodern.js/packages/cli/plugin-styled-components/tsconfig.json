@@ -1,9 +1,0 @@
-{
-  "extends": "@modern-js/tsconfig/base",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "esModuleInterop": true
-  },
-  "include": ["src"]
-}
