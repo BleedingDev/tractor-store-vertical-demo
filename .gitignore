@@ -15,7 +15,6 @@ build/
 !.agents/agent-reference-repos.json
 repos/
 .modernjs/cache/
-.modernjs/agent-reference-repos-tmp/
 .modern-js/
 **/.modern-js/
 src/modern-tanstack/
