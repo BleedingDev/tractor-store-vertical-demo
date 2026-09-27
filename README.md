@@ -26,10 +26,7 @@ Generated apps and verticals use `npm:@bleedingdev/...@3.9.0-ultramodern.17` ali
 
 ```bash
 pnpm install
-pnpm i18n:boundaries
-pnpm api:check
-pnpm contract:check
-pnpm typecheck
+pnpm check # every gate CI runs; also the pre-push hook
 pnpm build
 ```
 
