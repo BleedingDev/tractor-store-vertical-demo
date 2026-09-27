@@ -1,1 +1,0 @@
-export { getClientRoutes } from './getRoutes';

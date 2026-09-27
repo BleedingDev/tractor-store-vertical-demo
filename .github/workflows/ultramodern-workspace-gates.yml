@@ -24,6 +24,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - name: Repo Hygiene
+            command: pnpm repo:hygiene
           - name: Format
             command: pnpm format:check
           - name: Lint
