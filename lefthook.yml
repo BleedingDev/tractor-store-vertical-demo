@@ -1,13 +1,15 @@
+# lefthook's own postinstall installs these hooks (allowBuilds in
+# pnpm-workspace.yaml). pre-commit touches only staged files so a commit stays
+# fast; pre-push runs the same `pnpm check` CI runs.
 pre-commit:
   commands:
     format:
-      run: pnpm format
+      run: pnpm exec oxfmt --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
     lint:
-      run: pnpm lint:fix
+      glob: '*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}'
+      run: pnpm exec oxlint --fix --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
-    check:
-      run: pnpm check
 
 pre-push:
   commands:

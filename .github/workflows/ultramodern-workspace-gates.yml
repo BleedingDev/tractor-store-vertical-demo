@@ -23,23 +23,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # `pnpm check` is the single gate list: the pre-push hook and this
+        # job run the same script, so CI cannot drift from local checks.
         include:
-          - name: Repo Hygiene
-            command: pnpm repo:hygiene
-          - name: Format
-            command: pnpm format:check
-          - name: Lint
-            command: pnpm lint
-          - name: Typecheck
-            command: pnpm typecheck
-          - name: Skills
-            command: pnpm skills:check
-          - name: I18n Boundaries
-            command: pnpm i18n:boundaries
-          - name: API Boundaries
-            command: pnpm api:check
-          - name: Contract
-            command: pnpm contract:check
+          - name: Check
+            command: pnpm check
           - name: Build
             command: pnpm build
     steps:
