@@ -70,6 +70,12 @@ function verifyClone(repo: ReferenceRepo, target: string) {
       `${repo.path} clones ${origin.stdout}, expected ${repo.url}; delete it and run pnpm agents:refs:install.`
     );
   }
+  const branch = git(['symbolic-ref', '--short', 'HEAD'], target);
+  if (branch.stdout !== repo.ref) {
+    throw new Error(
+      `${repo.path} is on ${branch.stdout || 'a detached HEAD'}, expected ${repo.ref}; run git -C ${repo.path} switch ${repo.ref} or delete it and run pnpm agents:refs:install.`
+    );
+  }
 }
 
 function main() {
