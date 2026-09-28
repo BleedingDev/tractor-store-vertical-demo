@@ -42,195 +42,171 @@ type RemoteComponentProps<Component> =
 
 export const createFederatedComponents = (fallback: ReactNode) => ({
   AddToCart: createDistributedSsrComponent<AddToCartProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<AddToCartProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('checkout/AddToCart') as Promise<
             RemoteComponentModule<AddToCartProps>
           >,
-        loading: null,
       }),
     expose: './AddToCart',
     fallback,
     remote: 'checkout',
   }),
   CartPage: createDistributedSsrComponent<CartPageProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<CartPageProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('checkout/CartPage') as Promise<
             RemoteComponentModule<CartPageProps>
           >,
-        loading: null,
       }),
     expose: './CartPage',
     fallback,
     remote: 'checkout',
   }),
   CheckoutPage: createDistributedSsrComponent<CheckoutPageProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<CheckoutPageProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('checkout/CheckoutPage') as Promise<
             RemoteComponentModule<CheckoutPageProps>
           >,
-        loading: null,
       }),
     expose: './CheckoutPage',
     fallback,
     remote: 'checkout',
   }),
   Footer: createDistributedSsrComponent<FooterProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<FooterProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('explore/Footer') as Promise<
             RemoteComponentModule<FooterProps>
           >,
-        loading: null,
       }),
     expose: './Footer',
     fallback,
     remote: 'explore',
   }),
   Header: createDistributedSsrComponent<HeaderProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<HeaderProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('explore/Header') as Promise<
             RemoteComponentModule<HeaderProps>
           >,
-        loading: null,
       }),
     expose: './Header',
     fallback,
     remote: 'explore',
   }),
   HomePage: createDistributedSsrComponent<HomePageProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<HomePageProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('explore/HomePage') as Promise<
             RemoteComponentModule<HomePageProps>
           >,
-        loading: null,
       }),
     expose: './HomePage',
     fallback,
     remote: 'explore',
   }),
   MiniCart: createDistributedSsrComponent<MiniCartProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<MiniCartProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('checkout/MiniCart') as Promise<
             RemoteComponentModule<MiniCartProps>
           >,
-        loading: null,
       }),
     expose: './MiniCart',
     fallback,
     remote: 'checkout',
   }),
   ProductGrid: createDistributedSsrComponent<ProductGridProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<ProductGridProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('explore/ProductGrid') as Promise<
             RemoteComponentModule<ProductGridProps>
           >,
-        loading: null,
       }),
     expose: './ProductGrid',
     fallback,
     remote: 'explore',
   }),
   ProductPage: createDistributedSsrComponent<ProductPageProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<ProductPageProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('decide/ProductPage') as Promise<
             RemoteComponentModule<ProductPageProps>
           >,
-        loading: null,
       }),
     expose: './ProductPage',
     fallback,
     remote: 'decide',
   }),
   Recommendations: createDistributedSsrComponent<RecommendationsProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<
         RemoteComponentModule<RecommendationsProps>,
         'default'
       >({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('explore/Recommendations') as Promise<
             RemoteComponentModule<RecommendationsProps>
           >,
-        loading: null,
       }),
     expose: './Recommendations',
     fallback,
     remote: 'explore',
   }),
   StorePicker: createDistributedSsrComponent<StorePickerProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<StorePickerProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('explore/StorePicker') as Promise<
             RemoteComponentModule<StorePickerProps>
           >,
-        loading: null,
       }),
     expose: './StorePicker',
     fallback,
     remote: 'explore',
   }),
   ThanksPage: createDistributedSsrComponent<ThanksPageProps>({
-    createComponent: () =>
+    createComponent: (options) =>
       createLazyComponent<RemoteComponentModule<ThanksPageProps>, 'default'>({
-        export: 'default',
-        fallback,
+        ...options,
         instance: getInstance(),
         loader: () =>
           import('checkout/ThanksPage') as Promise<
             RemoteComponentModule<ThanksPageProps>
           >,
-        loading: null,
       }),
     expose: './ThanksPage',
     fallback,
