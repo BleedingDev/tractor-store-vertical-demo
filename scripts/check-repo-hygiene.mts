@@ -8,7 +8,7 @@ import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
 const run = (command: string, args: string[]) =>
-  execFileSync(command, args, { cwd: root, encoding: 'utf8' });
+  execFileSync(command, args, { cwd: root, encoding: 'utf-8' });
 const lines = (output: string) => output.split('\n').filter(Boolean);
 
 const errors: string[] = [];
@@ -34,8 +34,21 @@ const configured = run('pnpm', [
   'patchedDependencies',
   '--json',
 ]).trim();
-const patchedDependencies: Record<string, string> =
-  configured === '' || configured === 'undefined' ? {} : JSON.parse(configured);
+const parsed: unknown =
+  configured === '' || configured === 'undefined'
+    ? {}
+    : (JSON.parse(configured) ?? {});
+if (
+  typeof parsed !== 'object' ||
+  parsed === null ||
+  Array.isArray(parsed) ||
+  Object.values(parsed).some((value) => typeof value !== 'string')
+) {
+  throw new Error(
+    'patchedDependencies must be a map of dependency names to patch paths.'
+  );
+}
+const patchedDependencies = parsed as Record<string, string>;
 const referenced = new Set<string>();
 for (const [dependency, patchPath] of Object.entries(patchedDependencies)) {
   const absolute = path.resolve(root, patchPath);
