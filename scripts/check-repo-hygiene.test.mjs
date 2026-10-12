@@ -1,14 +1,24 @@
 import assert from 'node:assert/strict';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  mkdirSync,
+  mkdtempSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
-import test from 'node:test';
+import test, { after } from 'node:test';
 
-const tempRoot = process.env.OWNED_TEMP_DIR;
-assert.ok(
-  tempRoot,
-  'Run with owned-temp-dir so fixture cleanup is guaranteed.'
+const tempRoot = mkdtempSync(
+  path.join(process.env.OWNED_TEMP_DIR ?? tmpdir(), 'tractor-repo-hygiene-')
 );
+const cleanup = () => rmSync(tempRoot, { force: true, recursive: true });
+after(cleanup);
+process.once('exit', cleanup);
+process.once('SIGINT', () => process.exit(130));
+process.once('SIGTERM', () => process.exit(143));
 let fixtureId = 0;
 function check(
   configured,

@@ -32,7 +32,7 @@
     "mf:types": "ultramodern-create ultramodern mf-types",
     "performance:readiness": "ultramodern-create ultramodern performance-readiness",
     "contract:check": "ultramodern-create ultramodern validate",
-    "repo:hygiene": "node ./scripts/check-repo-hygiene.mts",
+    "repo:hygiene": "node --test ./scripts/check-repo-hygiene.test.mjs && node ./scripts/check-repo-hygiene.mts",
     "i18n:boundaries": "node ./scripts/check-ultramodern-i18n-boundaries.mts",
     "api:check": "modern-api-check",
     "zerops:materialize": "ultramodern-create ultramodern zerops-materialize",
