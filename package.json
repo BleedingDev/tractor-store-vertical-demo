@@ -3,7 +3,7 @@
   "name": "tractor-store-vertical-demo",
   "version": "0.1.0",
   "type": "module",
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@12.8.1",
   "scripts": {
     "dev": "pnpm --parallel --filter @tractor-store-vertical-demo/shell-super-app --filter @tractor-store-vertical-demo/explore --filter @tractor-store-vertical-demo/decide --filter @tractor-store-vertical-demo/checkout dev",
     "dev:shell": "pnpm --filter @tractor-store-vertical-demo/shell-super-app dev",
@@ -56,11 +56,11 @@
     "ownership": "./topology/ownership.json"
   },
   "devDependencies": {
-    "@effect/opentelemetry": "4.0.0-rc.117",
-    "@effect/tsgo": "0.41.0",
+    "@effect/opentelemetry": "4.0.0",
+    "@effect/tsgo": "0.47.2",
     "@playwright/test": "^1.60.0",
     "@typescript/native": "npm:typescript@7.0.2",
-    "effect": "4.0.0-rc.117",
+    "effect": "4.0.0",
     "lefthook": "^2.1.10",
     "miniflare": "5.20260921.0-alpha",
     "oxfmt": "0.66.0",
