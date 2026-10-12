@@ -19,6 +19,17 @@ after(cleanup);
 process.once('exit', cleanup);
 process.once('SIGINT', () => process.exit(130));
 process.once('SIGTERM', () => process.exit(143));
+// Hooks export Git context for the real worktree. Fixtures must use their own index.
+const gitContextKeys = new Set(
+  execFileSync('git', ['rev-parse', '--local-env-vars'], {
+    encoding: 'utf-8',
+  })
+    .trim()
+    .split('\n')
+);
+const fixtureEnv = Object.fromEntries(
+  Object.entries(process.env).filter(([name]) => !gitContextKeys.has(name))
+);
 let fixtureId = 0;
 function check(
   configured,
@@ -39,25 +50,31 @@ process.stdout.write(process.env.PATCH_CONFIG_STDOUT);
 `,
     { mode: 0o755 }
   );
-  execFileSync('git', ['init', '--quiet'], { cwd: root });
+  execFileSync('git', ['init', '--quiet'], { cwd: root, env: fixtureEnv });
   if (referenced || orphan) {
     mkdirSync(path.join(root, 'patches'));
     writeFileSync(
       path.join(root, 'patches/example.patch'),
       'existing patch bytes'
     );
-    execFileSync('git', ['add', 'patches/example.patch'], { cwd: root });
+    execFileSync('git', ['add', 'patches/example.patch'], {
+      cwd: root,
+      env: fixtureEnv,
+    });
   }
   if (ignored) {
     writeFileSync(path.join(root, '.gitignore'), 'ignored.txt\n');
     writeFileSync(path.join(root, 'ignored.txt'), 'tracked ignored file');
-    execFileSync('git', ['add', '--force', 'ignored.txt'], { cwd: root });
+    execFileSync('git', ['add', '--force', 'ignored.txt'], {
+      cwd: root,
+      env: fixtureEnv,
+    });
   }
   return spawnSync(process.execPath, ['scripts/check-repo-hygiene.mts'], {
     cwd: root,
     encoding: 'utf-8',
     env: {
-      ...process.env,
+      ...fixtureEnv,
       PATCH_CONFIG_STDOUT: configured,
       PATH: `${path.join(root, 'bin')}${path.delimiter}${process.env.PATH}`,
     },
