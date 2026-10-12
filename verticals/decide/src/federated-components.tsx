@@ -1,6 +1,9 @@
-import { createDistributedSsrComponent } from '@modern-js/federation-runtime';
+import { createDistributedSsrComponent } from '@modern-js/federation-runtime/distributed-ssr';
 import { createLazyComponent } from '@module-federation/modern-js-v3/react';
-import { getInstance } from '@module-federation/modern-js-v3/runtime';
+import {
+  getInstance,
+  loadRemote,
+} from '@module-federation/modern-js-v3/runtime';
 import type AddToCartComponent from '@tractor-store-vertical-demo/checkout/AddToCart';
 import type CartPageComponent from '@tractor-store-vertical-demo/checkout/CartPage';
 import type CheckoutPageComponent from '@tractor-store-vertical-demo/checkout/CheckoutPage';
@@ -45,9 +48,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('checkout/AddToCart') as Promise<
-            RemoteComponentModule<AddToCartProps>
-          >,
+          loadRemote<RemoteComponentModule<AddToCartProps>>(
+            'checkout/AddToCart'
+          ) as Promise<RemoteComponentModule<AddToCartProps>>,
       }),
     expose: './AddToCart',
     fallback,
@@ -59,9 +62,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('checkout/CartPage') as Promise<
-            RemoteComponentModule<CartPageProps>
-          >,
+          loadRemote<RemoteComponentModule<CartPageProps>>(
+            'checkout/CartPage'
+          ) as Promise<RemoteComponentModule<CartPageProps>>,
       }),
     expose: './CartPage',
     fallback,
@@ -73,9 +76,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('checkout/CheckoutPage') as Promise<
-            RemoteComponentModule<CheckoutPageProps>
-          >,
+          loadRemote<RemoteComponentModule<CheckoutPageProps>>(
+            'checkout/CheckoutPage'
+          ) as Promise<RemoteComponentModule<CheckoutPageProps>>,
       }),
     expose: './CheckoutPage',
     fallback,
@@ -87,9 +90,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('explore/Footer') as Promise<
-            RemoteComponentModule<FooterProps>
-          >,
+          loadRemote<RemoteComponentModule<FooterProps>>(
+            'explore/Footer'
+          ) as Promise<RemoteComponentModule<FooterProps>>,
       }),
     expose: './Footer',
     fallback,
@@ -101,9 +104,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('explore/Header') as Promise<
-            RemoteComponentModule<HeaderProps>
-          >,
+          loadRemote<RemoteComponentModule<HeaderProps>>(
+            'explore/Header'
+          ) as Promise<RemoteComponentModule<HeaderProps>>,
       }),
     expose: './Header',
     fallback,
@@ -115,9 +118,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('explore/HomePage') as Promise<
-            RemoteComponentModule<HomePageProps>
-          >,
+          loadRemote<RemoteComponentModule<HomePageProps>>(
+            'explore/HomePage'
+          ) as Promise<RemoteComponentModule<HomePageProps>>,
       }),
     expose: './HomePage',
     fallback,
@@ -129,9 +132,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('checkout/MiniCart') as Promise<
-            RemoteComponentModule<MiniCartProps>
-          >,
+          loadRemote<RemoteComponentModule<MiniCartProps>>(
+            'checkout/MiniCart'
+          ) as Promise<RemoteComponentModule<MiniCartProps>>,
       }),
     expose: './MiniCart',
     fallback,
@@ -143,9 +146,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('explore/ProductGrid') as Promise<
-            RemoteComponentModule<ProductGridProps>
-          >,
+          loadRemote<RemoteComponentModule<ProductGridProps>>(
+            'explore/ProductGrid'
+          ) as Promise<RemoteComponentModule<ProductGridProps>>,
       }),
     expose: './ProductGrid',
     fallback,
@@ -160,9 +163,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('explore/Recommendations') as Promise<
-            RemoteComponentModule<RecommendationsProps>
-          >,
+          loadRemote<RemoteComponentModule<RecommendationsProps>>(
+            'explore/Recommendations'
+          ) as Promise<RemoteComponentModule<RecommendationsProps>>,
       }),
     expose: './Recommendations',
     fallback,
@@ -174,9 +177,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('explore/StorePicker') as Promise<
-            RemoteComponentModule<StorePickerProps>
-          >,
+          loadRemote<RemoteComponentModule<StorePickerProps>>(
+            'explore/StorePicker'
+          ) as Promise<RemoteComponentModule<StorePickerProps>>,
       }),
     expose: './StorePicker',
     fallback,
@@ -188,9 +191,9 @@ export const createFederatedComponents = (fallback: ReactNode) => ({
         ...options,
         instance: getInstance(),
         loader: () =>
-          import('checkout/ThanksPage') as Promise<
-            RemoteComponentModule<ThanksPageProps>
-          >,
+          loadRemote<RemoteComponentModule<ThanksPageProps>>(
+            'checkout/ThanksPage'
+          ) as Promise<RemoteComponentModule<ThanksPageProps>>,
       }),
     expose: './ThanksPage',
     fallback,
