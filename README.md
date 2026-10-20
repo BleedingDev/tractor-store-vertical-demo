@@ -14,13 +14,11 @@ The demo is intentionally close to the original Tractor Store v2 visual design, 
 
 ## UltraModern Version
 
-This repository is pinned to BleedingDev UltraModern packages:
+The `ultramodern` catalog in `pnpm-workspace.yaml` pins the published BleedingDev framework cohort. App and vertical manifests use `catalog:ultramodern` to share those exact versions.
 
-```text
-3.9.0-ultramodern.25
-```
+Each app selects `renderer: 'react'` through `defineConfig` and `presetUltramodernWorkspace` from `@modern-js/ultramodern-app-tools`. The workspace preset reads topology and the development overlay for deployment, service bindings, CORS, build identity, and Zephyr policy. App configs keep their BFF, i18n, Tailwind, and Rsdoctor settings.
 
-Generated apps and verticals use `npm:@bleedingdev/...@3.9.0-ultramodern.25` aliases for the Modern.js packages published under the UltraModern `latest` dist-tag.
+Zephyr deployments require both `ZE_CI_TOKEN` and `ZE_FAIL_BUILD=true`. Ordinary builds need no Zephyr credentials.
 
 ## Commands
 

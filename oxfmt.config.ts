@@ -16,6 +16,7 @@ export default defineConfig({
     '**/modern-tanstack/**',
     '**/routeTree.gen.*',
     'repos/**',
+    '**/src/routes/ultramodern-route-metadata.ts',
   ],
   singleQuote: true,
 });

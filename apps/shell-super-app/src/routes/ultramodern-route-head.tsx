@@ -95,7 +95,10 @@ const resolveRouteMetadata = (pathname: string) => {
     }
   }
 
-  return routeMetadata[0];
+  return (
+    routeMetadata.find((route) => route.canonicalPath === '/') ??
+    routeMetadata[0]
+  );
 };
 
 const isPublicIndexableRoute = (
