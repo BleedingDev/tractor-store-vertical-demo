@@ -19,7 +19,7 @@
       "versionBoundary": "web-and-api-same-build",
       "deliveryUnit": {
         "unitId": "tractor-store-vertical-demo/explore",
-        "buildMarker": "fb63ccbd4093a093"
+        "buildMarker": "f15bf641d2a41222"
       },
       "cloudflare": {
         "kind": "cloudflare-worker-snapshot",
@@ -61,7 +61,7 @@
         "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
         "expected": {
           "unitId": "tractor-store-vertical-demo/explore",
-          "buildMarker": "fb63ccbd4093a093"
+          "buildMarker": "f15bf641d2a41222"
         }
       }
     },
@@ -70,7 +70,7 @@
       "versionBoundary": "web-and-api-same-build",
       "deliveryUnit": {
         "unitId": "tractor-store-vertical-demo/decide",
-        "buildMarker": "844f9d69040368ce"
+        "buildMarker": "234c8015051b0cbb"
       },
       "cloudflare": {
         "kind": "cloudflare-worker-snapshot",
@@ -112,7 +112,7 @@
         "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
         "expected": {
           "unitId": "tractor-store-vertical-demo/decide",
-          "buildMarker": "844f9d69040368ce"
+          "buildMarker": "234c8015051b0cbb"
         }
       }
     },
@@ -121,7 +121,7 @@
       "versionBoundary": "web-and-api-same-build",
       "deliveryUnit": {
         "unitId": "tractor-store-vertical-demo/checkout",
-        "buildMarker": "3923f950b103110b"
+        "buildMarker": "9359bb09ee04e072"
       },
       "cloudflare": {
         "kind": "cloudflare-worker-snapshot",
@@ -163,7 +163,7 @@
         "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
         "expected": {
           "unitId": "tractor-store-vertical-demo/checkout",
-          "buildMarker": "3923f950b103110b"
+          "buildMarker": "9359bb09ee04e072"
         }
       }
     }

@@ -9,10 +9,10 @@
     "./tokens.css": "./src/tokens.css"
   },
   "scripts": {
-    "typecheck": "node -e \"const fs = require('node:fs'); const { execFileSync, spawnSync } = require('node:child_process'); const bin = execFileSync('effect-tsgo', ['get-exe-path'], { encoding: 'utf8' }).trim(); if (process.platform !== 'win32') fs.chmodSync(bin, 0o755); const result = spawnSync(bin, ['--noEmit', '-p', 'tsconfig.json'], { stdio: 'inherit' }); process.exit(result.status ?? 1);\""
+    "typecheck": "ultramodern-create ultramodern typecheck --project tsconfig.json"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.47.2",
-    "@typescript/native-preview": "7.0.0-dev.20260707.2"
+    "@effect/tsgo": "0.53.1",
+    "@typescript/native": "npm:typescript@7.0.2"
   }
 }

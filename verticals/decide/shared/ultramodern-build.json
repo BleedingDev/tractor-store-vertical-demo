@@ -8,8 +8,8 @@
     "sourceRevision": "workspace",
     "unitId": "tractor-store-vertical-demo/decide",
     "version": "0.1.0",
-    "buildMarker": "844f9d69040368ce",
-    "build": "844f9d69040368ce"
+    "buildMarker": "234c8015051b0cbb",
+    "build": "234c8015051b0cbb"
   },
   "kind": "ultramodern-build-artifact",
   "schemaVersion": 2,
@@ -23,8 +23,8 @@
       "sourceRevision": "workspace",
       "unitId": "tractor-store-vertical-demo/decide",
       "version": "0.1.0",
-      "buildMarker": "844f9d69040368ce",
-      "build": "844f9d69040368ce",
+      "buildMarker": "234c8015051b0cbb",
+      "build": "234c8015051b0cbb",
       "surface": "api"
     },
     "ui": {
@@ -36,15 +36,15 @@
       "sourceRevision": "workspace",
       "unitId": "tractor-store-vertical-demo/decide",
       "version": "0.1.0",
-      "buildMarker": "844f9d69040368ce",
-      "build": "844f9d69040368ce",
+      "buildMarker": "234c8015051b0cbb",
+      "build": "234c8015051b0cbb",
       "surface": "ui",
       "rendererIdentity": {
         "renderer": "react",
         "appId": "decide",
         "entryName": "index",
         "protocolVersion": 1,
-        "buildId": "844f9d69040368ce"
+        "buildId": "234c8015051b0cbb"
       },
       "rendererProfile": {
         "renderer": "react",
@@ -55,7 +55,7 @@
         },
         "hydration": {
           "name": "react-dom",
-          "version": "19.3.0"
+          "version": "19.3.1"
         },
         "router": {
           "name": "react-router",
@@ -71,17 +71,17 @@
           "defaultProvider": {
             "framework": "tanstack",
             "name": "@tanstack/react-router",
-            "version": "1.170.39",
+            "version": "1.170.44",
             "coreName": "@tanstack/router-core",
-            "coreVersion": "1.171.32"
+            "coreVersion": "1.171.37"
           },
           "providers": [
             {
               "framework": "tanstack",
               "name": "@tanstack/react-router",
-              "version": "1.170.39",
+              "version": "1.170.44",
               "coreName": "@tanstack/router-core",
-              "coreVersion": "1.171.32"
+              "coreVersion": "1.171.37"
             }
           ]
         }

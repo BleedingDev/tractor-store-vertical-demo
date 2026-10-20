@@ -43,7 +43,7 @@
       "unitId": "tractor-store-vertical-demo/shell-super-app",
       "packageName": "@tractor-store-vertical-demo/shell-super-app",
       "version": "0.1.0",
-      "buildMarker": "c61342ce9c802494",
+      "buildMarker": "01353a551080d524",
       "sourceRevision": "workspace"
     },
     "cloudflare": {
@@ -198,7 +198,7 @@
       "appId": "shell-super-app",
       "entryName": "index",
       "protocolVersion": 1,
-      "buildId": "c61342ce9c802494"
+      "buildId": "01353a551080d524"
     },
     "rendererIdentities": {
       "index": {
@@ -206,7 +206,7 @@
         "appId": "shell-super-app",
         "entryName": "index",
         "protocolVersion": 1,
-        "buildId": "c61342ce9c802494"
+        "buildId": "01353a551080d524"
       }
     },
     "rendererProfile": {
@@ -218,7 +218,7 @@
       },
       "hydration": {
         "name": "react-dom",
-        "version": "19.3.0"
+        "version": "19.3.1"
       },
       "router": {
         "name": "react-router",
@@ -234,17 +234,17 @@
         "defaultProvider": {
           "framework": "tanstack",
           "name": "@tanstack/react-router",
-          "version": "1.170.39",
+          "version": "1.170.44",
           "coreName": "@tanstack/router-core",
-          "coreVersion": "1.171.32"
+          "coreVersion": "1.171.37"
         },
         "providers": [
           {
             "framework": "tanstack",
             "name": "@tanstack/react-router",
-            "version": "1.170.39",
+            "version": "1.170.44",
             "coreName": "@tanstack/router-core",
-            "coreVersion": "1.171.32"
+            "coreVersion": "1.171.37"
           }
         ]
       }
@@ -291,7 +291,7 @@
           "unitId": "tractor-store-vertical-demo/explore",
           "packageName": "@tractor-store-vertical-demo/explore",
           "version": "0.1.0",
-          "buildMarker": "fb63ccbd4093a093",
+          "buildMarker": "f15bf641d2a41222",
           "sourceRevision": "workspace"
         },
         "exposes": {
@@ -359,7 +359,7 @@
             "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
             "expected": {
               "unitId": "tractor-store-vertical-demo/explore",
-              "buildMarker": "fb63ccbd4093a093"
+              "buildMarker": "f15bf641d2a41222"
             }
           }
         },
@@ -387,7 +387,7 @@
         "unitId": "tractor-store-vertical-demo/explore",
         "packageName": "@tractor-store-vertical-demo/explore",
         "version": "0.1.0",
-        "buildMarker": "fb63ccbd4093a093",
+        "buildMarker": "f15bf641d2a41222",
         "sourceRevision": "workspace"
       },
       "api": {
@@ -621,7 +621,7 @@
         "appId": "explore",
         "entryName": "index",
         "protocolVersion": 1,
-        "buildId": "fb63ccbd4093a093"
+        "buildId": "f15bf641d2a41222"
       },
       "rendererIdentities": {
         "index": {
@@ -629,7 +629,7 @@
           "appId": "explore",
           "entryName": "index",
           "protocolVersion": 1,
-          "buildId": "fb63ccbd4093a093"
+          "buildId": "f15bf641d2a41222"
         }
       },
       "rendererProfile": {
@@ -641,7 +641,7 @@
         },
         "hydration": {
           "name": "react-dom",
-          "version": "19.3.0"
+          "version": "19.3.1"
         },
         "router": {
           "name": "react-router",
@@ -657,17 +657,17 @@
           "defaultProvider": {
             "framework": "tanstack",
             "name": "@tanstack/react-router",
-            "version": "1.170.39",
+            "version": "1.170.44",
             "coreName": "@tanstack/router-core",
-            "coreVersion": "1.171.32"
+            "coreVersion": "1.171.37"
           },
           "providers": [
             {
               "framework": "tanstack",
               "name": "@tanstack/react-router",
-              "version": "1.170.39",
+              "version": "1.170.44",
               "coreName": "@tanstack/router-core",
-              "coreVersion": "1.171.32"
+              "coreVersion": "1.171.37"
             }
           ]
         }
@@ -724,7 +724,7 @@
           "unitId": "tractor-store-vertical-demo/decide",
           "packageName": "@tractor-store-vertical-demo/decide",
           "version": "0.1.0",
-          "buildMarker": "844f9d69040368ce",
+          "buildMarker": "234c8015051b0cbb",
           "sourceRevision": "workspace"
         },
         "exposes": {
@@ -792,7 +792,7 @@
             "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
             "expected": {
               "unitId": "tractor-store-vertical-demo/decide",
-              "buildMarker": "844f9d69040368ce"
+              "buildMarker": "234c8015051b0cbb"
             }
           }
         },
@@ -820,7 +820,7 @@
         "unitId": "tractor-store-vertical-demo/decide",
         "packageName": "@tractor-store-vertical-demo/decide",
         "version": "0.1.0",
-        "buildMarker": "844f9d69040368ce",
+        "buildMarker": "234c8015051b0cbb",
         "sourceRevision": "workspace"
       },
       "api": {
@@ -1054,7 +1054,7 @@
         "appId": "decide",
         "entryName": "index",
         "protocolVersion": 1,
-        "buildId": "844f9d69040368ce"
+        "buildId": "234c8015051b0cbb"
       },
       "rendererIdentities": {
         "index": {
@@ -1062,7 +1062,7 @@
           "appId": "decide",
           "entryName": "index",
           "protocolVersion": 1,
-          "buildId": "844f9d69040368ce"
+          "buildId": "234c8015051b0cbb"
         }
       },
       "rendererProfile": {
@@ -1074,7 +1074,7 @@
         },
         "hydration": {
           "name": "react-dom",
-          "version": "19.3.0"
+          "version": "19.3.1"
         },
         "router": {
           "name": "react-router",
@@ -1090,17 +1090,17 @@
           "defaultProvider": {
             "framework": "tanstack",
             "name": "@tanstack/react-router",
-            "version": "1.170.39",
+            "version": "1.170.44",
             "coreName": "@tanstack/router-core",
-            "coreVersion": "1.171.32"
+            "coreVersion": "1.171.37"
           },
           "providers": [
             {
               "framework": "tanstack",
               "name": "@tanstack/react-router",
-              "version": "1.170.39",
+              "version": "1.170.44",
               "coreName": "@tanstack/router-core",
-              "coreVersion": "1.171.32"
+              "coreVersion": "1.171.37"
             }
           ]
         }
@@ -1145,7 +1145,7 @@
           "unitId": "tractor-store-vertical-demo/checkout",
           "packageName": "@tractor-store-vertical-demo/checkout",
           "version": "0.1.0",
-          "buildMarker": "3923f950b103110b",
+          "buildMarker": "9359bb09ee04e072",
           "sourceRevision": "workspace"
         },
         "exposes": {
@@ -1213,7 +1213,7 @@
             "runtimePackage": "@modern-js/plugin-bff-extensions/backend-federation-manifest/node",
             "expected": {
               "unitId": "tractor-store-vertical-demo/checkout",
-              "buildMarker": "3923f950b103110b"
+              "buildMarker": "9359bb09ee04e072"
             }
           }
         },
@@ -1241,7 +1241,7 @@
         "unitId": "tractor-store-vertical-demo/checkout",
         "packageName": "@tractor-store-vertical-demo/checkout",
         "version": "0.1.0",
-        "buildMarker": "3923f950b103110b",
+        "buildMarker": "9359bb09ee04e072",
         "sourceRevision": "workspace"
       },
       "api": {
@@ -1503,7 +1503,7 @@
         "appId": "checkout",
         "entryName": "index",
         "protocolVersion": 1,
-        "buildId": "3923f950b103110b"
+        "buildId": "9359bb09ee04e072"
       },
       "rendererIdentities": {
         "index": {
@@ -1511,7 +1511,7 @@
           "appId": "checkout",
           "entryName": "index",
           "protocolVersion": 1,
-          "buildId": "3923f950b103110b"
+          "buildId": "9359bb09ee04e072"
         }
       },
       "rendererProfile": {
@@ -1523,7 +1523,7 @@
         },
         "hydration": {
           "name": "react-dom",
-          "version": "19.3.0"
+          "version": "19.3.1"
         },
         "router": {
           "name": "react-router",
@@ -1539,17 +1539,17 @@
           "defaultProvider": {
             "framework": "tanstack",
             "name": "@tanstack/react-router",
-            "version": "1.170.39",
+            "version": "1.170.44",
             "coreName": "@tanstack/router-core",
-            "coreVersion": "1.171.32"
+            "coreVersion": "1.171.37"
           },
           "providers": [
             {
               "framework": "tanstack",
               "name": "@tanstack/react-router",
-              "version": "1.170.39",
+              "version": "1.170.44",
               "coreName": "@tanstack/router-core",
-              "coreVersion": "1.171.32"
+              "coreVersion": "1.171.37"
             }
           ]
         }

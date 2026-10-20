@@ -1,13 +1,15 @@
 // ultramodern-mf: host-only
 import { createRequire } from 'node:module';
 
-import { getBuildConfigEnvironment } from '@modern-js/app-tools-extensions/config';
+import {
+  getBuildConfigEnvironment,
+  resolveDeployTarget,
+} from '@modern-js/app-tools-extensions/config';
 import { createModuleFederationConfig } from '@module-federation/modern-js-v3';
 
 import { dependencies } from './package.json';
 
-const cloudflareDeployEnabled =
-  getBuildConfigEnvironment('MODERNJS_DEPLOY') === 'cloudflare';
+const cloudflareDeployEnabled = resolveDeployTarget().target === 'cloudflare';
 const cloudflareWorkersDevSubdomain = getBuildConfigEnvironment(
   'ULTRAMODERN_CLOUDFLARE_WORKERS_DEV_SUBDOMAIN'
 )?.trim();
