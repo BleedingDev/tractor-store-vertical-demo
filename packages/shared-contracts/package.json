@@ -12,12 +12,12 @@
     "typecheck": "ultramodern-create ultramodern typecheck --project tsconfig.json"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.53.1",
+    "@effect/tsgo": "0.63.0",
     "@typescript/native": "npm:typescript@7.0.2"
   },
   "dependencies": {
-    "@effect/opentelemetry": "4.0.5",
-    "effect": "4.0.5",
+    "@effect/opentelemetry": "4.0.7",
+    "effect": "4.0.7",
     "@modern-js/bff-effect": "catalog:ultramodern",
     "@modern-js/runtime-extensions": "catalog:ultramodern",
     "@modern-js/plugin-bff": "catalog:ultramodern"

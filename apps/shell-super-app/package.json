@@ -38,8 +38,8 @@
     "node-fetch": "3.3.2",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "@effect/opentelemetry": "4.0.5",
-    "effect": "4.0.5",
+    "@effect/opentelemetry": "4.0.7",
+    "effect": "4.0.7",
     "@modern-js/plugin-tanstack": "catalog:ultramodern",
     "@modern-js/i18n-integration": "catalog:ultramodern",
     "@modern-js/plugin-i18n": "catalog:ultramodern",
@@ -53,7 +53,7 @@
     "@modern-js/backend-federation-contracts": "catalog:ultramodern"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.53.1",
+    "@effect/tsgo": "0.63.0",
     "@rsbuild/plugin-tailwindcss": "^2.0.3",
     "@types/node": "26.6.5",
     "@types/react": "19.3.0",
