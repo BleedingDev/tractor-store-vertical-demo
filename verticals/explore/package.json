@@ -48,7 +48,7 @@
     "@tanstack/router-core": "https://github.com/ultramodernjs/ultramodern.js/releases/download/native-renderers-0b3f7ad610d8acc0b939402ba9a87d094c8576ff-44553146814-1/tanstack-router-core-1.171.39.tgz"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.70.0",
+    "@effect/tsgo": "0.73.2",
     "@rsbuild/plugin-tailwindcss": "^2.0.3",
     "@types/node": "26.6.5",
     "@types/react": "19.3.0",
