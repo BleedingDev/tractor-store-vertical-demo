@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@effect/opentelemetry": "https://github.com/ultramodernjs/ultramodern.js/releases/download/support-artifacts-bea0d22f405070b9beccba0cf6f1a7b3d5767784-44174451205-1/effect-opentelemetry-4.1.4.tgz",
-    "@effect/tsgo": "0.70.0",
+    "@effect/tsgo": "0.73.2",
     "@playwright/test": "^1.60.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "effect": "4.1.4",

@@ -12,7 +12,7 @@
     "typecheck": "ultramodern-create ultramodern typecheck --project tsconfig.json"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.70.0",
+    "@effect/tsgo": "0.73.2",
     "@typescript/native": "npm:typescript@7.0.2"
   }
 }
